@@ -57,7 +57,7 @@ This category is for directives related to general information for *Lord Botting
   - *Please note that your byname must follow Lord Bottington's ToS, otherwise action shall be taken to remove this from use.*
 ### `/eventhandler`
   - Configure the automaton's usage and directives. (Admin Only)
-  - If you have administrative privileges within your guild, you may update the functionality of the various automated capabilities of Lord Bottington within your guild for the directives within the [⚙️Configuratio](#configuration) category.
+  - If you have administrative privileges within your guild, you may update the functionality of the various automated capabilities of Lord Bottington within your guild for the directives within the [⚙️Configuration](#configuration) category.
     > - i.e. turn welcome messages on or off -- if configured, etc...
   - These settings will be stored in the database and used within your guild.
   - Please note that all automated functions of Lord Bottington are **enabled** by default. If this directive has not been used before and an automated function of Lord Bottington is configured, such as welcome messages, the automated function will still be used unless turned off using this directive or the configuration for the automated function has been deleted from the database.
