@@ -12,12 +12,6 @@ mongoDBpass = os.environ['mongoDBpass'] #load the mongoDB url (retreived from mo
 client = pymongo.MongoClient(mongoDBpass) # Create a new client and connect to the server
 games_db = client.games_db #Create the games database on mongoDB
 wallets_db = client.wallets_db #Create the wallets database on mongoDB
-# server_id_db = client.server_id_db #create the server ID database on MongoDB (this shows a list of all of the active servers the bot is a part of)
-
-
-# SERVER_ID = []
-# server_ids = server_id_db.server_ids.find_one()["server_ids"]
-# SERVER_ID = server_ids
 #########################MONGODB DATABASE##################################
 
 

@@ -9,9 +9,14 @@ from discord.ext import commands #used for slash commands
 # from discord.commands import Option #add options to slash commands
 
 
-
-#Important variables (tokens, codes, passwords, files, etc.)
-token = os.environ['token']
+#This checks if the person running the code has a token for discord API or not
+try:
+    #Important variables (tokens, codes, passwords, files, etc.)
+    token = os.environ['token']
+except KeyError:
+    print("Apologies good sir, but it appears that you require a Discord API key to access my features.\n\nPlease visit the following link to learn how to do such things:\n\nhttps://discord.com/developers/docs/getting-started")
+    exit()
+    
 
 #set up the bot's prefix command and intents
 bot = commands.Bot(command_prefix='!', intents=discord.Intents.all())

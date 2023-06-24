@@ -1,22 +1,14 @@
-import os
-import discord
-from discord.ext import commands
+import os #used to import secret keys and such
+import discord #needed to interact with discord API
+from discord.ext import commands #used for slash commands
 from discord.commands import Option  # add options to slash commands
-import pymongo
-
-token = os.environ['token']
+import pymongo #used for database management
 
 
 #########################MONGODB DATABASE##################################
 mongoDBpass = os.environ['mongoDBpass'] #load the mongoDB url (retreived from mongoDB upon account creation)
 client = pymongo.MongoClient(mongoDBpass) # Create a new client and connect to the server
 moderation_db = client.moderation_db #create the moderation_db on mongoDB
-# server_id_db = client.server_id_db #create the server ID database on MongoDB (this shows a list of all of the active servers the bot is a part of)
-
-
-# SERVER_ID = []
-# server_ids = server_id_db.server_ids.find_one()["server_ids"]
-# SERVER_ID = server_ids
 #########################MONGODB DATABASE##################################
 
 #this is an array of the server IDs where command testing is done
