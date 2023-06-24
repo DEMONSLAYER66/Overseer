@@ -45,7 +45,7 @@ This category is for directives related to general information for *Lord Botting
 
 ### `/automaton`
 
-  ![Lord Bottington](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/1fb341d4-4541-4cee-8130-37621742b4b0)
+  ![Lord Bottington](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/b0d19df2-9425-407f-92ee-7654186c797d)
 
   - Retrieve information regarding the automaton's creation.
   - This is general information regarding Lord Bottington, including, but not limited to: Current nickname, uptime, invite link for Lord Bottington and for the Support guild, etc...
@@ -95,7 +95,7 @@ You may toggle the use of each of the events within this category by utilizing m
 
 ### `/autopurge`
 
-  ![delete](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/58661f81-5a25-4ccb-b9bf-d52bd47b8cef)
+  ![delete](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/48e88a42-adc2-41a1-82d5-5cc15b954430)
 
   - Allow the automaton to automatically purge messages from a desired channel. (Admin Only)
   - You are limited to ***5*** configurations, otherwise unlimited configurations are a [`🎩 Patron Feature`](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/Patron%20(Premium)%20Features.md).
@@ -107,7 +107,7 @@ You may toggle the use of each of the events within this category by utilizing m
   - *Configuration Deletion:* In order to delete a configuration, simply input the desired channel into the *channel* parameter and set both the *frequency* and *messagecount* parameters to either ***0*** or leave them both blank. This will indicate that the configuration is *no longer needed* and remove it from use within your guild.
 ### `/autosatire`
 
-  ![laughing](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/76aca3d3-b144-4868-9889-014c3dedef36)
+  ![laughing](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/c3316f06-01fd-4540-89b1-221c42f6c757)
 
   - Configure the automated satirical image (meme) settings for the guild. (Admin Only)
   - When employed, this directive will ***automatically*** retrieve a satirical image (meme) and its respective data from a selected popular subreddit to a channel of your choice.
@@ -121,7 +121,7 @@ You may toggle the use of each of the events within this category by utilizing m
   - [Asyncpraw](https://asyncpraw.readthedocs.io/en/stable/index.html) used to retrieve the satirical images.
 ### `/birthday`
 
-  ![cake](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/d0405ed6-04a8-4ca6-b755-09943b9e4ce9)
+  ![cake](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/9e3ea4c8-fa89-4200-aa91-e35f034cfd8c)
 
   - Configure the settings for the automaton's birthday messages. (Admin Only)
   - Certain customization options are [`🎩 Patron Features`](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/Patron%20(Premium)%20Features.md).
@@ -144,7 +144,7 @@ You may toggle the use of each of the events within this category by utilizing m
   - If no channel is set or the channel is removed from the database, the messages will be sent to the same channel where the directive was used.
 ### `/starboard`
 
-  ![star_spin](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/f779d918-3fc5-4576-a468-5d9f006868ae)
+  ![star_spin](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/ec127386-601c-40f9-815b-7cf88868c33f)
 
   - Configure the settings for the starboard messages. (Admin Only)
   - Certain customization options are [`🎩 Patron Features`](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/Patron%20(Premium)%20Features.md).
@@ -154,7 +154,7 @@ You may toggle the use of each of the events within this category by utilizing m
   - *It is also important to note that messages by automatons will be not be ignored and automatic reactions will be added to their messages. So, be aware that this might cause spamming of reactions on automaton messages if many are sent within the channel that is specified.*
 ### `/streaming`
 
-  ![platform-icons](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/32d9c499-b348-4671-9201-6e42c9fad25c)
+  ![platform-icons](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/2552365b-4c97-4a03-8604-3f3f111fdda8)
 
   - Configure the settings for streaming statuses and notifications. (Admin Only)
   - Certain customization options are [`🎩 Patron Features`](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/Patron%20(Premium)%20Features.md).
@@ -175,7 +175,7 @@ You may toggle the use of each of the events within this category by utilizing m
     > + `{member.mention}` - Mention the streamer
 ### `/timedembeds`
 
-  ![timer](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/0b8c894e-d9fc-4a01-8d53-d9b7c66a996a)
+  ![timer](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/f2ac1969-9eb0-441c-9aeb-d038c2768e19)
 
   - Configure the settings for the timed embed messages (Admin Only)
   - Certain customization options as well as unlimited configurations are [`🎩 Patron Features`](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/Patron%20(Premium)%20Features.md).
@@ -196,7 +196,7 @@ You may toggle the use of each of the events within this category by utilizing m
     > - [General Markdown Syntax](https://support.discord.com/hc/en-us/articles/210298617-Markdown-Text-101-Chat-Formatting-Bold-Italic-Underline-)
 ### `/welcome`
 
-  ![welcome](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/aab71c36-2dae-4157-b308-69bb2884c3a0)
+  ![welcome](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/23122277-0e0e-43c1-be56-79476beaad47)
 
   - Configure the settings for the welcome messages. (Admin Only)
   - Certain customization options are [`🎩 Patron Features`](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/Patron%20(Premium)%20Features.md).
@@ -224,7 +224,7 @@ You may toggle the use of each of the events within this category by utilizing m
 
 This category is for directives related to updating your status or information within the guild in order to receive specific statuses or information related to this.
 
-  ![cake](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/39f2177d-bcc2-4297-b8ab-8acfa5f91901)
+  ![cake](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/dedb3705-9314-489e-9184-85f4715a3bae)
 
 ### `/birthdaylist`
   - Allow the automaton to provide you a list of all dates of birth for your guild. (Admin Only)
@@ -251,7 +251,7 @@ This category is for directives related to performing various utility actions fo
 
 ### `/autopurgelist`
 
-  ![delete](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/60647add-ba5a-4066-bb7f-ca26680b47ce)
+  ![delete](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/375bb29c-486e-4b00-805e-042f585b84cc)
 
   - Receive a list of currently autopurged channels for the guild. (Admin Only)
   - If you have administrative privileges within your guild, you may retrieve this list in order to help you determine the channel(s) that I am automatically purging for your guild.
@@ -278,7 +278,7 @@ This category is for directives related to performing various utility actions fo
   - If you have *administrative privileges* within your guild, you may retrieve this list in order to help you determine the information about the embeds that are currently being sent using my [`/timedembeds`](#timedembeds) directive within your guild.
 ### `/giftgiving`
 
-  ![gift](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/4f3f7b77-bf80-4ad2-a329-ec7730aff850)
+  ![gift](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/4ddfd1f5-4a88-4b2c-9b5a-9b48fdecf192)
 
   - Permit the automaton to arrange a prize drawing for an item of your preference. (Admin Only)
   - If you have administrative privileges within your guild, you may configure and send an interactive message for members of your guild to join a giveaway, with your own text and image configurations.
@@ -303,7 +303,7 @@ This category is for directives related to performing various utility actions fo
      > - Furthermore, a message will be sent above the embed mentioning the winner(s), if any were selected.
 ### `/iconography`
   
-  ![goodsir](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/e5d58a69-518a-4351-85d7-37bf9043b1dd)
+  ![goodsir](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/1a7bc378-8cda-4b83-b2dd-1755519e4df3)
 
   - Receive a list of the guild's iconography.
   - When employed, this directive will return an embed containing all of the static and animated iconography (emojis) for the guild in which it was used.
@@ -320,7 +320,7 @@ This category is for directives related to performing various utility actions fo
    - *I hope this serves you well in your endeavors, good sir.*
 ### `/play`
 
-  ![controller](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/d5a7dfbd-1d4c-46a9-8459-c5b029541dfd)
+  ![controller](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/6d5d4f49-cc13-4631-acb0-acb53a46e1ce)
 
   - The automaton will help you reach out to other like-minded players in search of game companions.
   - This directive will send an interactive message for members of your guild to interact with and join, think about, or deny playing with you, if they desire.
@@ -328,7 +328,7 @@ This category is for directives related to performing various utility actions fo
   - If the game is chosen from the pre-defined list, an image of the game will be sent in the embed.
 ### `/purge`
 
-  ![delete](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/1cbc442e-cd6e-4d26-9362-8e38bb42df5b)
+  ![delete](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/5c0b12ca-1662-4aba-b5ca-5ed4d3f0f4be)
 
   - Purge messages from a desired channel. (Manage Messages Privileges)
   - This directive allows users to remove a certain number of messages from a specified channel.
@@ -343,7 +343,7 @@ This category is for directives related to performing various utility actions fo
   - Take care to use this directive wisely and follow Lord Bottington's TOS, good sir.
 ### `/testwelcome`
 
-  ![welcome](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/18b44d4d-01b4-4f92-9833-60b1dd9ca02f)
+  ![welcome](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/ef0e0ebc-63bd-4a29-bf6c-6b1136e4a2fd)
 
   - Test how the automaton welcomes newcomers. (Admin Only)
   - If you have administrative privileges within your guild, you may test how the welcome message configuration that is set up using the `/welcome` directive looks.
@@ -351,7 +351,7 @@ This category is for directives related to performing various utility actions fo
   - This is useful when trying to configure the welcome messages to see a preview of how I will greet new members to the guild.
 ### `/weather`
 
-  ![weather](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/271a860d-28b1-46ac-96da-b94fd5253d5b)
+  ![weather](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/a6566707-61be-4492-a250-9d35ce00ae7d)
 
   - [`🎩 Patron Feature`](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/Patron%20(Premium)%20Features.md)
   - Allow the automaton to retrieve the weather data for your location of choice.
@@ -435,14 +435,14 @@ This category is for directives related to providing members of your guild with 
   - *I look forward to conversing with you, good sir!*
 ### `/crystalball`
 
-  ![crystalball](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/d9f621ec-7bf9-416c-a622-2aca85d513ea)
+  ![crystalball](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/8f07c6e8-e2ef-4e08-8847-f547d09d4807)
 
   - Seek guidance from the crystall ball and unveil the mysteries of the universe.
   - Using this directive will grant you access to answers previously unknown...🔮
   - *Please note that inquiries must end with a question mark `?` to ensure proper functionality.*
 ### `/glyph`
 
-  ![ascii-unclesam](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/91f27439-73e5-4843-bf69-f491a775606d)
+  ![ascii-unclesam](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/e5534743-b099-4b13-a035-e470c312548f)
 
   - The automaton will return a glyph (ascii art) of the desired selection.
   - When employed, this directive will return a glyph image (ascii art) of either an image (default selection or custom image file) *OR* a text string.
@@ -471,7 +471,7 @@ This category is for directives related to providing members of your guild with 
   - *I look forward to seeing your creativity, good sir!*
 ### `/minotar`
 
-  ![steve](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/9dd54bc7-fb02-483d-bdfe-aede50a116f0)
+  ![steve](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/e4ea79cd-adb3-47d1-9c09-a2bd92c124c5)
 
   - The automaton shall procure a Minecraft user's esteemed visage for you.
   - User avatar and skin images are retirieved using [Minotar](https://minotar.net/).
@@ -483,7 +483,7 @@ This category is for directives related to providing members of your guild with 
     > - [Download Default Skin](https://minotar.net/download/MHF_Steve)
 ### `/pictorialize`
 
-  ![goodsir](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/db9bb822-353c-4cce-be6a-3db0ec88764f)
+  ![goodsir](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/d9ffd112-b9a8-4d2f-a6a8-4c0df74f8071)
 
   - The automaton shall transform avatars, images, and text into iconography or apply image effects.
   - *Image Alteration 🖼*
@@ -525,7 +525,7 @@ This category is for directives related to providing members of your guild with 
       > - *Note:* If a punctuation or letter is not defined when trying to convert a plain text string to emoticons, it will simply remain a regular character.
 ### `/roll`
 
-  ![dice](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/0c5292d1-a185-4b7c-bf7b-a95430aba49b)
+  ![dice](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/c26f490a-a2ab-46a8-820e-615da2a4b6c2)
 
   - Roll dice with a chosen number of sides.
   - When employed, this directive allows you to roll a specified number of dice each with a set number of sides.
@@ -535,7 +535,7 @@ This category is for directives related to providing members of your guild with 
     > - Furthermore, each die can have up to ***999,999,999,999,999*** sides. Surely you will never need more...
 ### `/satireimage`
 
-  ![laughing](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/036b06ba-cbe0-4914-83e7-932bd03a77f6)
+  ![laughing](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/63f066b2-a922-44c8-8b65-f82436f39276)
 
   - When employed, this directive will return a randomly selected satirical image (meme) from a random or selected popular subreddit and provide information relating to the image.
   - The information and images are provided by [Reddit](https://www.reddit.com/) from its various meme subreddits.
@@ -569,7 +569,7 @@ I will also keep up with the top **10** winners and earners for each of the game
 
 ### `/battleship`
 
-  ![battleship](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/ffc7f1cf-11ef-4925-bf66-254fbdcc4da9)
+  ![battleship](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/d209335d-6aa1-432f-bd68-d424ac43328a)
 
   - Challenge the automaton or another member of the guild to a game of Battleship.
   - You may challenge another member *OR* the automaton to an exciting game of Battleship using this directive.
@@ -593,7 +593,7 @@ I will also keep up with the top **10** winners and earners for each of the game
   - *Choose wisely and have fun, good sir!*
 ### `/connectfour`
 
-  ![connectfour](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/8a67f990-2bc9-4c37-954d-220d6a90519e)
+  ![connectfour](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/d4a7d96d-345d-4197-ab9f-fc4dcea61178)
 
   - Challenge the automaton or another member of the guild to a game of Connect Four.
   - You may challenge another member *OR* the automaton to an exciting game of Connect FOur using this directive.
@@ -608,7 +608,7 @@ I will also keep up with the top **10** winners and earners for each of the game
   - *Choose wisely and have fun, good sir!*
 ### `/mastermind`
   
-  ![mastermind](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/eda1c438-13f9-490b-93dc-83488ae2fb92)
+  ![mastermind](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/8e062063-4070-42b6-a89d-30efb6629644)
 
   - Decipher the secret code of the automaton.
   - *Introduction*
@@ -638,7 +638,7 @@ I will also keep up with the top **10** winners and earners for each of the game
   - However, those without these privileges may still view their own game information within the guild.
 ### `/rps`
 
-  ![rps](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/498a3aac-f548-4ac4-ad73-699a29711ea7)
+  ![rps](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/4802c8d6-3931-4460-9674-e61eecdb4e5d)
 
   - Challenge the automaton or another member of the guild to a game of rock, paper, scissors.
   - You may challenge another member *OR* the automaton to an exciting game of rock, paper, scissors using this directive.
@@ -648,7 +648,7 @@ I will also keep up with the top **10** winners and earners for each of the game
   - *Choose wisely and have fun, good sir!*
 ### `/tictactoe`
 
-  ![tictactoe](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/8030491e-f332-4e00-8a3b-85076f4c4d73)
+  ![tictactoe](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/1d0ef6d0-9a0b-4584-950f-02f54b265c90)
 
   - Challenge the automaton or another member of the guild to a game of tic-tac-toe.
   - You may challenge another member *OR* the automaton to an exciting game of tic-tac-toe using this directive.
@@ -669,8 +669,8 @@ I will also keep up with the top **10** winners and earners for each of the game
   - *Have fun and challenge others in your guild to be the top winner and earner, good sir!*
 ### `/wumpus`
 
-  ![wumpus](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/4e01a7aa-af8a-45fa-a6e5-11b95a3b19e6)
-  
+  ![wumpus](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/f5efd449-e2a5-409a-8bb2-e0f048c211cd)
+
   - Go on a hunt to find and conquer the dreaded Wumpus👹.
   - Greetings, esteemed ladies and gentlemen! Allow me to present to you the thrilling diversion known as ***Hunt the Wumpus***.
   - In this parlour game of cunning and wit, you shall find yourself embarking upon a perilous quest within the depths of a treacherous cave system.
@@ -700,7 +700,7 @@ Members may use their `🪙 Shillings` earned from winning games to purchase and
 
 They may then trade with others or display their winnings using these directives.
 
-  ![money](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/501fe9f7-4d39-4a36-99e4-1bb57292de67)
+  ![money](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/4321c109-47f2-4291-9661-a37d9162db47)
 
 ### `/displaycase`
   - Display your collected items for all to view.
