@@ -1,0 +1,13 @@
+Prefix You have the countenance of
+Prefix I must say, thou art
+Prefix You are a true
+Prefix You possess the charm and poise of
+Prefix Thou art the epitome of
+Prefix Your presence is as refreshing as
+Prefix I am enchanted by your
+Prefix Thou art the very embodiment of
+Prefix One could search the world and never find a more
+Prefix May I say, thou art
+Prefix I must admit, you are the most
+Adjective charming,elegant,graceful,handsome,lovely,delightful,exquisite,magnificent,refined,splendid,fascinating,bewitching,enchanting,angelic,divine,radiant,resplendent,noble,majestic,distinguished,winsome,gallant,courteous,amiable,affable,genial,kind,benevolent,tender,gentle,chivalrous,polite,respectful,cultured,educated,refined,sophisticated,suave,debonair
+Noun gentleman,lady,person,soul,individual,companion,belle,beauty,goddess,treasure,marvel,jewel,wonder,gem,prize,charmer,angel,dream,delight,enchantress,queen,king,peer,flower,rose,lily,petal,blossom,sunbeam,star,moonbeam,jewel,gemstone
