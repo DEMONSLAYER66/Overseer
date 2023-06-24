@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <img src="https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/4d32c4aa-321e-4057-8dde-5e4b11743e85"></a>
+  <img src="https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/f934f0f7-2bdc-416a-b759-1b6eb2eeca5a"></a>
   <br>
   Lord Bottington
   <br>
