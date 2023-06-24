@@ -1,4 +1,4 @@
-Lord Bottington's Full Directive List
+# Lord Bottington's Full Directive List
 
 The following is a full register of directives (commands) for Lord Bottington. Directives are separated by functionality and usage.
 
