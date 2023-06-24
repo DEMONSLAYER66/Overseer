@@ -152,7 +152,7 @@ class Core(commands.Cog):
         embed.add_field(name="Guild Count", value=f"Currently present in `{len(bot_servers)}` guild{'' if len(bot_servers) == 1 else 's'}.", inline=False)
         embed.add_field(name="❗Invite to Guild", value=f"[Click Here]({invite_link})", inline=True)
         embed.add_field(name="🎩Join Support Guild", value="[Click Here](https://discord.gg/4P6ApdPAF7)", inline=True)
-        embed.add_field(name="❓General Information, Privacy Policy, and ToS", value="[Click Here](https://github.com/xxjsweezeyxx/Lord-Bottington.git)", inline=False)
+        embed.add_field(name="❓General Information, Privacy Policy, and ToS", value="[Click Here](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/README.md)", inline=False)
         
         embed.set_thumbnail(url=self.bot.user.avatar.url) #thumbnail as bot's avatar
     
