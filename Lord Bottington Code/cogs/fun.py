@@ -977,7 +977,7 @@ class Fun(commands.Cog):
 
 
   def save_as_text(self, ascii_art):
-      with open("text_files/ascii_art.txt", "w") as file:
+      with open("Lord Bottington Code/text_files/ascii_art.txt", "w") as file:
           for line in ascii_art:
               file.write(line)
               file.write('\n')
@@ -1058,7 +1058,7 @@ class Fun(commands.Cog):
                   self.save_as_text(ascii_art)
 
 
-                  with open("text_files/ascii_art.txt", "r") as file:
+                  with open("Lord Bottington Code/text_files/ascii_art.txt", "r") as file:
                       # Create a File object from the opened file
                       text_file = discord.File(file, filename="ascii_art.txt")
                     
@@ -1081,7 +1081,7 @@ class Fun(commands.Cog):
                   ascii_art = self.convert_to_ascii_art(resized_image)
                   self.save_as_text(ascii_art)
     
-                  with open("text_files/ascii_art.txt", "r") as file:
+                  with open("Lord Bottington Code/text_files/ascii_art.txt", "r") as file:
                       # Create a File object from the opened file
                       text_file = discord.File(file, filename="ascii_art.txt")
                     
@@ -1094,7 +1094,7 @@ class Fun(commands.Cog):
         
           elif image:
               #then do image stuff
-              with open("json_files/asciiart.json", "r") as f:
+              with open("Lord Bottington Code/json_files/asciiart.json", "r") as f:
                   self.asciiart = json.load(f)
         
               art = self.asciiart.get(image, {})
@@ -1118,7 +1118,7 @@ class Fun(commands.Cog):
                   ascii_art = self.convert_to_ascii_art(resized_image)
                   self.save_as_text(ascii_art)
     
-                  with open("text_files/ascii_art.txt", "r") as file:
+                  with open("Lord Bottington Code/text_files/ascii_art.txt", "r") as file:
                       # Create a File object from the opened file
                       text_file = discord.File(file, filename="ascii_art.txt")
                     
@@ -1141,7 +1141,7 @@ class Fun(commands.Cog):
                   ascii_art = self.convert_to_ascii_art(resized_image)
                   self.save_as_text(ascii_art)
     
-                  with open("text_files/ascii_art.txt", "r") as file:
+                  with open("Lord Bottington Code/text_files/ascii_art.txt", "r") as file:
                       # Create a File object from the opened file
                       text_file = discord.File(file, filename="ascii_art.txt")
                     
@@ -1151,7 +1151,7 @@ class Fun(commands.Cog):
                   return
             
           elif image:
-              with open("json_files/asciiart.json", "r") as f:
+              with open("Lord Bottington Code/json_files/asciiart.json", "r") as f:
                   self.asciiart = json.load(f)
         
               art = self.asciiart.get(image, {})
@@ -1980,7 +1980,7 @@ class Fun(commands.Cog):
             
           elif select.values[0] == "Deep Thought":
               # Open the file containing the deep thoughts
-              with open("text_files/showerthoughts.txt", "r") as f:
+              with open("Lord Bottington Code/text_files/showerthoughts.txt", "r") as f:
                   shower_thoughts_full = f.read().splitlines()
               
               # Select a random shower thought from the list
@@ -2066,7 +2066,7 @@ class Fun(commands.Cog):
   )
   async def compliment(self, ctx, user: Option(discord.Member, name="user", description="Choose a member to compliment. (Default: Self)", required=False)):
       # Read the prefixes, adjectives, and nouns from a text file
-      with open("text_files/compliments.txt", "r") as f:
+      with open("Lord Bottington Code/text_files/compliments.txt", "r") as f:
           lines = f.readlines()
           prefix_lines = [line.strip() for line in lines if line.startswith("Prefix")]
           adj_line = [line.strip() for line in lines if line.startswith("Adjective")][0]
@@ -2116,7 +2116,7 @@ class Fun(commands.Cog):
       byname = await self.get_byname(ctx.guild.id)
     
       # Respond with the tea service message and GIF
-      teatime_gifdir = glob.glob('pics/teatime/*.gif')
+      teatime_gifdir = glob.glob('Lord Bottington Code/pics/teatime/*.gif')
       teatime_gifs = random.choice(teatime_gifdir)
       await ctx.respond(f"Very good, {ctx.author.mention}. I shall prepare your tea immediately.", file=discord.File(teatime_gifs))
 
@@ -2124,7 +2124,7 @@ class Fun(commands.Cog):
       await asyncio.sleep(random.randint(180, 300))
 
       # Respond with the tea cup and saucer message and GIF
-      teaready_gifdir = glob.glob('pics/teaready/*.gif')
+      teaready_gifdir = glob.glob('Lord Bottington Code/pics/teaready/*.gif')
       teaready_gifs = random.choice(teaready_gifdir)
       await ctx.respond(f"Dearest {ctx.author.mention},\n\nApologies for the wait but *your tea is ready*.\n*I allowed the leaves to steep for a duration of **three to five minutes**, as haste is not a companion of great taste.\nIt is imperative that the tea is allowed the full time to release its entire flavor.*\n\nPlease enjoy,\n**{byname}**", file=discord.File(teaready_gifs))
 

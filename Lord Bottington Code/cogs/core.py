@@ -69,7 +69,7 @@ class Core(commands.Cog):
     async def updates(self, ctx):
         byname = await self.get_byname(ctx.guild.id)
 
-        with open("json_files/updates.json", "r") as f:
+        with open("Lord Bottington Code/json_files/updates.json", "r") as f:
             update = json.load(f)
 
         bot_version = update.get("Update", {}).get("Bot Version") #get the current bot version
@@ -1195,7 +1195,7 @@ class Core(commands.Cog):
     )
     async def help(self, ctx, directive: Option(str, name="directive", description="Directive to receive assistance with.", required=False, default=None)):
         #get command help longer descriptions
-        with open("json_files/command_help.json", "r") as f:
+        with open("Lord Bottington Code/json_files/command_help.json", "r") as f:
             self.command_help = json.load(f)
 
         #get the bot's nickname from mongoDB

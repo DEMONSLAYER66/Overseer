@@ -51,7 +51,7 @@ class Utility(commands.Cog):
       self.bot: commands.Bot = bot
       self.send_timed_embeds.start()
       # self.subscription_notifier.start()
-      with open("json_files/command_help.json", "r") as f:
+      with open("Lord Bottington Code/json_files/command_help.json", "r") as f:
         self.command_help = json.load(f)
 
       # autosatire event
@@ -310,7 +310,7 @@ class Utility(commands.Cog):
 
         # Censor the term, definition, author name, and example
         if censor is True:
-            with open("text_files/banned_words.txt", "r") as file:
+            with open("Lord Bottington Code/text_files/banned_words.txt", "r") as file:
                 banned_words = [word.strip().lower() for word in file.readlines()]
 
             for banned_word in banned_words:
@@ -368,7 +368,7 @@ class Utility(commands.Cog):
     async def search(self, ctx, search_terms: Option(str, name="search_terms", description="Search terms to find on the web.")):
 
         # Check for inappropriate searches
-        with open("text_files/banned_words.txt", "r") as file:
+        with open("Lord Bottington Code/text_files/banned_words.txt", "r") as file:
             banned_words = [word.strip().lower() for word in file.readlines()]
     
         # Convert search_terms to lowercase for case-insensitive comparison

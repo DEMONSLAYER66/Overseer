@@ -81,7 +81,7 @@ for cogfile in cogfiles:
 # Change bots custom status every 10 minutes
 @tasks.loop(minutes=10)
 async def change_activity():
-  with open("text_files/activities.txt", "r") as f:
+  with open("Lord Bottington Code/text_files/activities.txt", "r") as f:
       activities_full = f.read().splitlines()
     
   activity = random.choice(activities_full)
