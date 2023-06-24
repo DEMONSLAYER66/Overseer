@@ -372,7 +372,7 @@ This category is for directives related to providing you the ability to moderate
 
 *All directives within this category are for users who have administrative privileges within your guild, as they alter your guild or its members in some way.*
 
-Notifications for the following directives will be sent to the channel specified when using the `/moderation` directive.
+Notifications for the following directives will be sent to the channel specified when using the [`/moderate`](#moderate) directive.
 
 ### `/banish`
   - The automaton will banish (ban) a member from the guild. (Admin Only)
