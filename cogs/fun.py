@@ -38,6 +38,7 @@ patrons_db = client.patrons_db #create the patrons database on mongoDB
 # SERVER_ID = server_ids
 #########################MONGODB DATABASE##################################
 
+
 #this is an array of the server IDs where command testing is done
 SERVER_ID = [1088118252200276071, 1117859916749742140]
 

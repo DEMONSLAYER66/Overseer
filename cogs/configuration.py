@@ -19,6 +19,7 @@ import asyncpraw #used for reddit memes
 import asyncprawcore.exceptions
 
 
+
 #########################MONGODB DATABASE##################################
 mongoDBpass = os.environ['mongoDBpass'] #load the mongoDB url (retreived from mongoDB upon account creation)
 client = pymongo.MongoClient(mongoDBpass) # Create a new client and connect to the server
