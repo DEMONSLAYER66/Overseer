@@ -2,7 +2,7 @@
 
 The following is a full register of directives (commands) for Lord Bottington. Directives are separated by functionality and usage.
 
-As more directives are added or updated, changes will be reflected here or in the latest version of [Lord Bottington's Updates](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/Updates/Version%201.0.md). You may access this information by using my [`/updates`](updates) directive within your guild on Discord, if you desire.
+As more directives are added or updated, changes will be reflected here or in the latest version of [Lord Bottington's Updates](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/Updates/Version%201.0.md). You may access this information by using my [`/updates`](#updates) directive within your guild on Discord, if you desire.
 
 ***Last Updated:*** `June 24, 2023`
 
@@ -45,19 +45,19 @@ This category is for directives related to general information for *Lord Botting
 
 ### `/automaton`
 
-  ![Lord Bottington](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/b0d19df2-9425-407f-92ee-7654186c797d)
+  ![Lord Bottingtonhttps://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/b0d19df2-9425-407f-92ee-7654186c797d)
 
   - Retrieve information regarding the automaton's creation.
   - This is general information regarding Lord Bottington, including, but not limited to: Current nickname, uptime, invite link for Lord Bottington and for the Support guild, etc...
 ### `/byname`
-  - [`🎩 Patron Feature`](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/Patron%20(Premium)%20Features.md)
+  - [`🎩 Patron Feature`https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/Patron%20(Premium)%20Features.md)
   - Change the byname (nickname) of the automaton. (Admin only)
   - If you have administrative privileges within your guild, you may update the byname of Lord Bottington to whatever you desire.
   - This byname shall be stored in the database and used throughout *your guild only*. If no byname is set, the original name for the automaton shall be used (*Lord Bottington*).
   - *Please note that your byname must follow Lord Bottington's ToS, otherwise action shall be taken to remove this from use.*
 ### `/eventhandler`
   - Configure the automaton's usage and directives. (Admin Only)
-  - If you have administrative privileges within your guild, you may update the functionality of the various automated capabilities of Lord Bottington within your guild for the directives within the [⚙️Configuration](configuration) category.
+  - If you have administrative privileges within your guild, you may update the functionality of the various automated capabilities of Lord Bottington within your guild for the directives within the [⚙️Configuration](#configuration) category.
     > - i.e. turn welcome messages on or off -- if configured, etc...
   - These settings will be stored in the database and used within your guild.
   - Please note that all automated functions of Lord Bottington are **enabled** by default. If this directive has not been used before and an automated function of Lord Bottington is configured, such as welcome messages, the automated function will still be used unless turned off using this directive or the configuration for the automated function has been deleted from the database.
@@ -89,7 +89,7 @@ This category is for directives related to general information for *Lord Botting
 
 This category is for directives related to configuring the functionality of the various automated directives of Lord Bottington.
 
-You may toggle the use of each of the events within this category by utilizing my [`/eventhandler`](eventhandler) directive.
+You may toggle the use of each of the events within this category by utilizing my [`/eventhandler`](#eventhandler) directive.
 
 *All directives within this category are for users who have administrative privileges within your guild, as they alter your guild in some way.*
 
@@ -275,7 +275,7 @@ This category is for directives related to performing various utility actions fo
   - However, all image and text configurations must follow Lord Bottington's ToS, otherwise action will be taken to disable your usage of this directive within your guild.
 ### `/embedslist`
   - List all the timed embeds created so far. (Admin Only)
-  - If you have *administrative privileges* within your guild, you may retrieve this list in order to help you determine the information about the embeds that are currently being sent using my [`/timedembeds`](timedembeds) directive within your guild.
+  - If you have *administrative privileges* within your guild, you may retrieve this list in order to help you determine the information about the embeds that are currently being sent using my [`/timedembeds`](#timedembeds) directive within your guild.
 ### `/giftgiving`
 
   ![gift](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/4ddfd1f5-4a88-4b2c-9b5a-9b48fdecf192)
