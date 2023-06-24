@@ -15,7 +15,6 @@ from art import * #this is used for ascii art (glyph command)
 from discord.ui import Button, View #used to manually create LINK type buttons on views when sending embeds or messages
 
 
-
 #########################MONGODB DATABASE################################
 mongoDBpass = os.environ['mongoDBpass'] #load the mongoDB url (retreived from mongoDB upon account creation)
 client = pymongo.MongoClient(mongoDBpass) # Create a new client and connect to the server
