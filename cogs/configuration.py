@@ -168,13 +168,13 @@ class Configuration(commands.Cog):
 
 ############################MODERATION###################################
     @discord.slash_command(
-        name="moderation",
+        name="moderate",
         description="Configure the moderation message settings for the guild. (Admin Only)",
         # guild_ids=SERVER_ID
         global_command = True
     )
     @commands.has_permissions(administrator=True)
-    async def moderation(
+    async def moderate(
         self,
         ctx,
         channel: Option(discord.TextChannel, name="channel", description="Channel where moderation messages will be sent for the guild."),
@@ -1417,9 +1417,9 @@ class Configuration(commands.Cog):
     
         #define font files
         fonts = {
-          "Arial": "fonts/arial.ttf",
-          "Allura Regular": "fonts/Allura-Regular.ttf",
-          "Ariana Violeta": "fonts/ArianaVioleta.ttf"
+          "Arial": "Lord Bottington Code/fonts/arial.ttf",
+          "Allura Regular": "Lord Bottington Code/fonts/Allura-Regular.ttf",
+          "Ariana Violeta": "Lord Bottington Code/fonts/ArianaVioleta.ttf"
         }   
     
         if font is not None:
@@ -1428,7 +1428,7 @@ class Configuration(commands.Cog):
             else:
                 await ctx.respond(f"**Error**\n*{font}* is not a viable option, good sir.\n*Please try again.*", ephemeral=True)
         else: #default font to arial
-            font = "fonts/arial.ttf"
+            font = "Lord Bottington Code/fonts/arial.ttf"
     
 
 
