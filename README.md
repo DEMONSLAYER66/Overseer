@@ -83,7 +83,11 @@ You may use my [`/patron`](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/
 *I look forward to serving you and hope to see you in your guild, good sir!*
 ___
 + 🎩[Join the Support Guild](https://discord.gg/4P6ApdPAF7)
-
+  
 + ❗[Invite Lord Bottington to Your Guild](https://discord.com/api/oauth2/authorize?client_id=1092515783025889383&permissions=2416176214&scope=bot%20applications.commands)
 
 + 💰 [Become a Patron](https://www.patreon.com/LordBottington)
+  
++ [Privacy Policy](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/Privacy%20Policy.md)
+
++ [Terms of Service (TOS)](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/Terms%20of%20Service%20(ToS).md)
