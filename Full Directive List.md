@@ -57,7 +57,7 @@ This category is for directives related to general information for *Lord Botting
   - *Please note that your byname must follow Lord Bottington's ToS, otherwise action shall be taken to remove this from use.*
 ### `/eventhandler`
   - Configure the automaton's usage and directives. (Admin Only)
-  - If you have administrative privileges within your guild, you may update the functionality of the various automated capabilities of Lord Bottington within your guild for the directives within the [⚙️Configuration](#configuration) category.
+  - If you have administrative privileges within your guild, you may update the functionality of the various automated capabilities of Lord Bottington within your guild for the directives within the <a href=#configuration>⚙️Configuration</a> category.
     > - i.e. turn welcome messages on or off -- if configured, etc...
   - These settings will be stored in the database and used within your guild.
   - Please note that all automated functions of Lord Bottington are **enabled** by default. If this directive has not been used before and an automated function of Lord Bottington is configured, such as welcome messages, the automated function will still be used unless turned off using this directive or the configuration for the automated function has been deleted from the database.
@@ -89,7 +89,7 @@ This category is for directives related to general information for *Lord Botting
 
 This category is for directives related to configuring the functionality of the various automated directives of Lord Bottington.
 
-You may toggle the use of each of the events within this category by utilizing my [`/eventhandler`](#eventhandler) directive.
+You may toggle the use of each of the events within this category by utilizing my <a href=#eventhandler>`/eventhandler`</a>  directive.
 
 *All directives within this category are for users who have administrative privileges within your guild, as they alter your guild in some way.*
 
@@ -188,7 +188,7 @@ You may toggle the use of each of the events within this category by utilizing m
     > + You may use an image hosting site like IMGUR for this, if you desire.
     > + Any text box not filled in within the `Embeds Text Configuration` will be taken as not desired, and will *not* appear in the timed embed.
     > + **Note:** Each server is allowed a maximum of 5 timed embed messages for use. Use them wisely, good sir.
-    > + Please use `/embedslist` to view your timed embed configurations.
+    > + Please use <a href=#embedslist>`/embedslist`</a> to view your timed embed configurations.
   - *Configuration Removal*
     > - In order to remove a configuration from use, simply input the configuration name and set the *interval* parameter to ***0***. This will indicate that the configuration is no longer needed.
     > It is advisable to remove all embed configurations that have already past or are no longer needed to clear up space.
@@ -239,7 +239,7 @@ This category is for directives related to updating your status or information w
   - If you have administrative privileges within your guild, you may remove any user's birthday from the guild, otherwise you may only remove your own.
 ### `/setbirthday`
   - Manually input thy date of birth for the automaton to commit to memory.
-  - Set your birthday for the automaton to wish you the happiest of birthdays and receive a special status for the entire day, if configured using `/birthday`.
+  - Set your birthday for the automaton to wish you the happiest of birthdays and receive a special status for the entire day, if configured using <a href=#birthday>`/birthday`</a>.
 
 <p align="center">
   <a href=#--directive-categories>⬆ Back to Directive Categories</a>
@@ -275,7 +275,7 @@ This category is for directives related to performing various utility actions fo
   - However, all image and text configurations must follow Lord Bottington's ToS, otherwise action will be taken to disable your usage of this directive within your guild.
 ### `/embedslist`
   - List all the timed embeds created so far. (Admin Only)
-  - If you have *administrative privileges* within your guild, you may retrieve this list in order to help you determine the information about the embeds that are currently being sent using my [`/timedembeds`](#timedembeds) directive within your guild.
+  - If you have *administrative privileges* within your guild, you may retrieve this list in order to help you determine the information about the embeds that are currently being sent using my <a href=#timedembeds>`/timedembeds`</a> directive within your guild.
 ### `/giftgiving`
 
   ![gift](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/4ddfd1f5-4a88-4b2c-9b5a-9b48fdecf192)
@@ -346,7 +346,7 @@ This category is for directives related to performing various utility actions fo
   ![welcome](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/ef0e0ebc-63bd-4a29-bf6c-6b1136e4a2fd)
 
   - Test how the automaton welcomes newcomers. (Admin Only)
-  - If you have administrative privileges within your guild, you may test how the welcome message configuration that is set up using the `/welcome` directive looks.
+  - If you have administrative privileges within your guild, you may test how the welcome message configuration that is set up using the <a href=#welcome>`/welcome`</a> directive looks.
   - You may tag another member of the guild or yourself.
   - This is useful when trying to configure the welcome messages to see a preview of how I will greet new members to the guild.
 ### `/weather`
@@ -372,7 +372,7 @@ This category is for directives related to providing you the ability to moderate
 
 *All directives within this category are for users who have administrative privileges within your guild, as they alter your guild or its members in some way.*
 
-Notifications for the following directives will be sent to the channel specified when using the [`/moderate`](#moderate) directive.
+Notifications for the following directives will be sent to the channel specified when using the <a href=#moderate>`/moderate`</a> directive.
 
 ### `/banish`
   - The automaton will banish (ban) a member from the guild. (Admin Only)
@@ -390,7 +390,7 @@ Notifications for the following directives will be sent to the channel specified
 ### `/unsilence`
   - The automaton will unsilence (unmute) a member within the guild. (Admin Only)
   - If you have administrative privileges within your guild, you may use this directive to unmute a member from your guild and provide a reason, if desired.
-  - This directive works by removing the status (role) with the name **Silenced** that is created when using the `/silence` command, if it has been used in your guild before.
+  - This directive works by removing the status (role) with the name **Silenced** that is created when using the <a href=#silence>`/silence`</a> command, if it has been used in your guild before.
 ### `/warn`
   - The automaton will warn a member within the guild. (Admin Only)
   - If you have administrative privileges within your guild, you may add a singular warning to a specified user within your guild and store this information in the database.
@@ -401,7 +401,7 @@ Notifications for the following directives will be sent to the channel specified
 ### `/warnremove`
   - The automaton will remove a warning from a member within the guild. (Admin Only)
   - If you have administrative privileges within your guild, you may use this directive to remove a warning from a member within your guild by providing the index for the warning.
-  - You may see the index of the warning by using my `/warninglist` directive.
+  - You may see the index of the warning by using my <a href=#warninglist>`/warninglist`</a> directive.
 
 <p align="center">
   <a href=#--directive-categories>⬆ Back to Directive Categories</a>
@@ -428,7 +428,7 @@ This category is for directives related to providing members of your guild with 
     > - You may also choose an *identity* for the automaton to speak as.
     > - There is a wide range of characters the automaton can imitiate, ranging from video game and movie characters to other general characters.
     > - The default for this parameter (i.e. The Automaton) allows you to converse with Lord Bottington and his gentlemanly personality.
-    > - If you have [`🎩 Patron Features`](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/Patron%20(Premium)%20Features.md) for your guild, you may use the `/byname` directive to change the automaton's name to something else and converse with the automaton using your own custom byname (nickname).
+    > - If you have [`🎩 Patron Features`](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/Patron%20(Premium)%20Features.md) for your guild, you may use the <a href=#byname>`/byname`</a> directive to change the automaton's name to something else and converse with the automaton using your own custom byname (nickname).
   - *Free Tries*
     > - Each person receives ***5*** free tries for this directive in order to give the capability to test out the functionality.
     > - Past this, you will have to look into upgrading to patron (premium) features to allow full use of this directive!
@@ -565,7 +565,7 @@ This category is for directives related to providing members of your guild with 
 
 Members of your guild may face each other *OR* myself in the following games with varying degrees of difficulty. Each member has the chance to earn `🪙 Shillings` to spend on various items in the shop and show off to others in your guild!
 
-I will also keep up with the top **10** winners and earners for each of the games within your guild, which you may view using my `/toptalent` directive, if you desire.
+I will also keep up with the top **10** winners and earners for each of the games within your guild, which you may view using my <a href=#toptalent>`/toptalent`</a> directive, if you desire.
 
 ### `/battleship`
 
@@ -727,7 +727,7 @@ They may then trade with others or display their winnings using these directives
   - When employed, this directive will allow you to request an item in exchange for an item of your own collection.
   - This will help you grow your collection even further than before!
   - *Only common items are available to trade with others.*
-  - Those items that are part of the `🎩 Exclusive Gentleman Collection` and `💰 Automaton Patron Collection` must be bought directly from **The Aristocrat's Emporium** using my `/shop` directive.
+  - Those items that are part of the `🎩 Exclusive Gentleman Collection` and `💰 Automaton Patron Collection` must be bought directly from **The Aristocrat's Emporium** using my <a href=#shop>`/shop`</a> directive.
   - You must have the item to offer to be able to complete the exchange.
   - *Have fun trading and collecting, good sir!*
 ### `/shop`
@@ -744,7 +744,7 @@ They may then trade with others or display their winnings using these directives
   - *Items*
     > - The items sold and purchased here range from general proper items to exclusive and expensive items that will make you a more proper gentleman overall.
     > - Once purchased, certain items allow the member to be a part of the `🎩 Exclusive Gentleman Collection`, a highly esteemed and respectable community of individuals within your guild.
-    > - Members who have any of these exclusive items shall be distinguished when displaying their items using my `/displaycase` directive to show off their item collection!
+    > - Members who have any of these exclusive items shall be distinguished when displaying their items using my <a href=#displaycase>`/displaycase`</a> directive to show off their item collection!
   - *May your shopping experience at **The Aristocrat's Emporium** be pleasant and well, good sir.*
 
 <p align="center">
