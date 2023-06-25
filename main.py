@@ -1,12 +1,10 @@
 import os #used for loading secrets (tokens, codes, passwords, etc.)
-import discord
-import random
-from discord.ext import tasks
-
-import pymongo
-
+import discord #needed to interact with discord API
+import random #used for choosing random selections from lists
+from discord.ext import tasks #used to start various loop tasks
 from discord.ext import commands #used for slash commands
-# from discord.commands import Option #add options to slash commands
+import pymongo #used for database management
+
 
 #This checks if the person running the code has a token for discord API or not
 try:
@@ -20,8 +18,6 @@ except KeyError:
 #set up the bot's prefix command and intents
 bot = commands.Bot(command_prefix='!', intents=discord.Intents.all())
 bot.remove_command('help')
-
-
 
 
 #ON READY EVENT LISTENER
@@ -73,7 +69,7 @@ for cogfile in cogfiles:
     print(err)
 
 
-##Change Lord Bottington's activities##
+################## CHANGE BOT ACTIVITIES ON DISCORD ################
 # Change bots custom status every 10 minutes
 @tasks.loop(minutes=10)
 async def change_activity():
@@ -84,9 +80,8 @@ async def change_activity():
   current_activity = discord.Activity(type=discord.ActivityType.watching,
                    name = activity)
   await bot.change_presence(activity=current_activity)
-##END Change Lord Bottington's activities##
+################## CHANGE BOT ACTIVITIES ON DISCORD ################
 
 
-
-token = os.environ['token']
+# run the bot using the discord API key
 bot.run(token)
