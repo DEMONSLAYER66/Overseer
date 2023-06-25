@@ -40,12 +40,7 @@ async def on_ready():
   mongoDBpass = os.environ['mongoDBpass'] #load the mongoDB url (retreived from mongoDB upon account creation)
   client = pymongo.MongoClient(mongoDBpass) # Create a new client and connect to the server
   autopurge_db = client.autopurge_db #create the autpourge database on mongoDB
-  # server_id_db = client.server_id_db #create the server ID database on MongoDB (this shows a list of all of the active servers the bot is a part of)
-  
-  
-  # SERVER_ID = []
-  # server_ids = server_id_db.server_ids.find_one()["server_ids"] #find the current server list
-  # SERVER_ID = server_ids #save the server_ids as SERVER_ID (array)
+
 
   server_ids = []
   for guild in bot.guilds:
