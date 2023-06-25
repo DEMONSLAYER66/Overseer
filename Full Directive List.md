@@ -50,7 +50,7 @@ This category is for directives related to general information for *Lord Botting
   - Retrieve information regarding the automaton's creation.
   - This is general information regarding Lord Bottington, including, but not limited to: Current nickname, uptime, invite link for Lord Bottington and for the Support guild, etc...
 ### `/byname`
-  - [`🎩 Patron Feature`https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/Patron%20(Premium)%20Features.md)
+  - [`🎩 Patron Feature`](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/Patron%20(Premium)%20Features.md)
   - Change the byname (nickname) of the automaton. (Admin only)
   - If you have administrative privileges within your guild, you may update the byname of Lord Bottington to whatever you desire.
   - This byname shall be stored in the database and used throughout *your guild only*. If no byname is set, the original name for the automaton shall be used (*Lord Bottington*).
