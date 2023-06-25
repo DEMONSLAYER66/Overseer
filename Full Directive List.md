@@ -45,7 +45,7 @@ This category is for directives related to general information for *Lord Botting
 
 ### `/automaton`
 
-  ![Lord Bottingtonhttps://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/b0d19df2-9425-407f-92ee-7654186c797d)
+  ![Lord Bottington](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/b0d19df2-9425-407f-92ee-7654186c797d)
 
   - Retrieve information regarding the automaton's creation.
   - This is general information regarding Lord Bottington, including, but not limited to: Current nickname, uptime, invite link for Lord Bottington and for the Support guild, etc...
