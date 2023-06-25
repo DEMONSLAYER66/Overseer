@@ -14,7 +14,7 @@ try:
   
     #Important variables (tokens, codes, passwords, files, etc.)
     token = os.getenv('token')
-except KeyError:
+except:
     print("Apologies good sir, but it appears that you require a Discord API key to access my features.\n\nPlease visit the following link to learn how to do such things:\n\nhttps://discord.com/developers/docs/getting-started")
     exit()
     
@@ -63,7 +63,7 @@ async def on_ready():
 
 #get list of cogs
 cogfiles = [
-  f"{filename[:-3]}" for filename in os.listdir("./cogs/") if filename.endswith(".py")
+  f"cogs.{filename[:-3]}" for filename in os.listdir("./cogs/") if filename.endswith(".py")
 ]
 
 #load all cogs
@@ -89,4 +89,8 @@ async def change_activity():
 
 
 # run the bot using the discord API key
-bot.run(token)
+try:
+    bot.run(token)
+except TypeError:
+    print("Apologies good sir, but it appears that you require a Discord API key to access my features.\n\nPlease visit the following link to learn how to do such things:\n\nhttps://discord.com/developers/docs/getting-started")
+    exit()
