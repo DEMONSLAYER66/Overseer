@@ -2,7 +2,7 @@
 
 The following is a full register of directives (commands) for Lord Bottington. Directives are separated by functionality and usage.
 
-As more directives are added or updated, changes will be reflected here or in the latest version of [Lord Bottington's Updates](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/Updates/Version%201.0.md). You may access this information by using my [`/updates`](#updates) directive within your guild on Discord, if you desire.
+As more directives are added or updated, changes will be reflected here or in the latest version of [Lord Bottington's Updates](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/Updates/Version%201.0.md). You may access this information by using my [`/updates`](###updates) directive within your guild on Discord, if you desire.
 
 ***Last Updated:*** `June 24, 2023`
 
