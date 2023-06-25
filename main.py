@@ -4,12 +4,16 @@ import random #used for choosing random selections from lists
 from discord.ext import tasks #used to start various loop tasks
 from discord.ext import commands #used for slash commands
 import pymongo #used for database management
+from dotenv import load_dotenv
 
 
 #This checks if the person running the code has a token for discord API or not
 try:
+    # Load environment variables from .env
+    load_dotenv()
+  
     #Important variables (tokens, codes, passwords, files, etc.)
-    token = os.environ['token']
+    token = os.getenv('token')
 except KeyError:
     print("Apologies good sir, but it appears that you require a Discord API key to access my features.\n\nPlease visit the following link to learn how to do such things:\n\nhttps://discord.com/developers/docs/getting-started")
     exit()
@@ -33,7 +37,8 @@ async def on_ready():
 
 
   #initialize the mongoDB database and get the server IDs for the autopurge command to initiate
-  mongoDBpass = os.environ['mongoDBpass'] #load the mongoDB url (retreived from mongoDB upon account creation)
+  # mongoDBpass = os.environ['mongoDBpass'] #load the mongoDB url (retreived from mongoDB upon account creation)
+  mongoDBpass = os.getenv('mongoDBpass')
   client = pymongo.MongoClient(mongoDBpass) # Create a new client and connect to the server
   autopurge_db = client.autopurge_db #create the autpourge database on mongoDB
 

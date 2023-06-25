@@ -24,10 +24,15 @@ import openai #used for chatgpt and dalle image generation
 import asyncpraw #used for reddit memes
 import asyncprawcore.exceptions
 
+from dotenv import load_dotenv
+
+# Load environment variables from .env
+load_dotenv()
 
 
 #########################MONGODB DATABASE##################################
-mongoDBpass = os.environ['mongoDBpass'] #load the mongoDB url (retreived from mongoDB upon account creation)
+# mongoDBpass = os.environ['mongoDBpass'] #load the mongoDB url (retreived from mongoDB upon account creation)
+mongoDBpass = os.getenv('mongoDBpass')
 client = pymongo.MongoClient(mongoDBpass) # Create a new client and connect to the server
 patrons_db = client.patrons_db #create the patrons database on mongoDB
 #########################MONGODB DATABASE##################################
@@ -43,7 +48,8 @@ class Fun(commands.Cog):
   
   #This retrieves the current server's bot nickname from the mongoDB database
   async def get_byname(self, guild_id):
-      mongoDBpass = os.environ['mongoDBpass']
+      # mongoDBpass = os.environ['mongoDBpass']
+      mongoDBpass = os.getenv('mongoDBpass')
       client = pymongo.MongoClient(mongoDBpass)
       byname_db = client.byname_db
 
@@ -68,8 +74,10 @@ class Fun(commands.Cog):
   )
   async def satireimage(self, ctx, community: Option(str, name="community", description="Name of the community (subreddit) to retrieve satirical images from. (Default: Random)", required=False, default=None, choices=["memes", "dankmemes", "meme", "wholesomememes", "Random"])):
     
-      Reddit_API = os.environ['Reddit API']
-      Client_ID = os.environ['Reddit Client ID']
+      # Reddit_API = os.environ['Reddit API']
+      # Client_ID = os.environ['Reddit Client ID']
+      Reddit_API = os.getenv('Reddit API')
+      Client_ID = os.getenv('Reddit Client ID')
 
 
       ### By using async with asyncpraw.Reddit(...) as reddit, the client session will be automatically closed once the code execution leaves the with block, ensuring that the session and connector are properly closed.
@@ -436,7 +444,8 @@ class Fun(commands.Cog):
 
     
       #API key for openai
-      openai_key = os.environ['Open AI API Key']
+      # openai_key = os.environ['Open AI API Key']
+      openai_key = os.getenv('Open AI API Key')
       openai.api_key = openai_key
 
       identity_dict = {
@@ -608,7 +617,8 @@ class Fun(commands.Cog):
 
     
       #API key for openai
-      dalle_openai_key = os.environ['Dall-E Open AI API Key']
+      # dalle_openai_key = os.environ['Dall-E Open AI API Key']
+      dalle_openai_key = os.getenv('Dall-E Open AI API Key')
       openai.api_key = dalle_openai_key
 
       byname = await self.get_byname(ctx.guild.id)

@@ -6,9 +6,15 @@ from discord.commands import Option #add options to slash commands
 
 import os #used for 
 import pymongo #used for mongoDB database
+from dotenv import load_dotenv
+
+# Load environment variables from .env
+load_dotenv()
+
 
 #########################MONGODB DATABASE##################################
-mongoDBpass = os.environ['mongoDBpass'] #load the mongoDB url (retreived from mongoDB upon account creation)
+# mongoDBpass = os.environ['mongoDBpass'] #load the mongoDB url (retreived from mongoDB upon account creation)
+mongoDBpass = os.getenv('mongoDBpass')
 client = pymongo.MongoClient(mongoDBpass) # Create a new client and connect to the server
 games_db = client.games_db #Create the games database on mongoDB
 wallets_db = client.wallets_db #Create the wallets database on mongoDB
@@ -27,7 +33,8 @@ class Games(commands.Cog):
 
     #This retrieves the current server's bot nickname from the mongoDB database
     async def get_byname(self, guild_id):
-        mongoDBpass = os.environ['mongoDBpass']
+        # mongoDBpass = os.environ['mongoDBpass']
+        mongoDBpass = os.getenv('mongoDBpass')
         client = pymongo.MongoClient(mongoDBpass)
         byname_db = client.byname_db
   

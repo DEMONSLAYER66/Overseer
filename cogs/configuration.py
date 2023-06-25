@@ -18,10 +18,15 @@ import re #regular expression (used for determing string characters for autopurg
 import asyncpraw #used for reddit memes
 import asyncprawcore.exceptions
 
+from dotenv import load_dotenv
+
+# Load environment variables from .env
+load_dotenv()
 
 
 #########################MONGODB DATABASE##################################
-mongoDBpass = os.environ['mongoDBpass'] #load the mongoDB url (retreived from mongoDB upon account creation)
+# mongoDBpass = os.environ['mongoDBpass'] #load the mongoDB url (retreived from mongoDB upon account creation)
+mongoDBpass = os.getenv('mongoDBpass')
 client = pymongo.MongoClient(mongoDBpass) # Create a new client and connect to the server
 BD_db = client.BD_db #create the birthday database on MongoDB
 streaming_db = client.streaming_db #create the streaming database on MongoDB
@@ -47,7 +52,8 @@ class Configuration(commands.Cog):
   
     #This retrieves the current server's bot nickname from the mongoDB database
     async def get_byname(self, guild_id):
-        mongoDBpass = os.environ['mongoDBpass']
+        # mongoDBpass = os.environ['mongoDBpass']
+        mongoDBpass = os.getenv('mongoDBpass')
         client = pymongo.MongoClient(mongoDBpass)
         byname_db = client.byname_db
 
@@ -99,8 +105,10 @@ class Configuration(commands.Cog):
                 return
 
       
-        Reddit_API = os.environ['Reddit API']
-        Client_ID = os.environ['Reddit Client ID']
+        # Reddit_API = os.environ['Reddit API']
+        # Client_ID = os.environ['Reddit Client ID']
+        Reddit_API = os.getenv('Reddit API')
+        Client_ID = os.getenv('Reddit Client ID')
     
     
         ### By using async with asyncpraw.Reddit(...) as reddit, the client session will be automatically closed once the code execution leaves the with block, ensuring that the session and connector are properly closed.
@@ -391,7 +399,8 @@ class Configuration(commands.Cog):
 
     #This retrieves the current server's event status from the mongoDB database
     async def get_autopurge_event_status(self, guild_id):
-        mongoDBpass = os.environ['mongoDBpass']
+        # mongoDBpass = os.environ['mongoDBpass']
+        mongoDBpass = os.getenv('mongoDBpass')
         client = pymongo.MongoClient(mongoDBpass)
         event_handler_db = client.event_handler_db
 

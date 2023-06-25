@@ -14,9 +14,14 @@ from art import * #this is used for ascii art (glyph command)
 
 from discord.ui import Button, View #used to manually create LINK type buttons on views when sending embeds or messages
 
+from dotenv import load_dotenv
+
+# Load environment variables from .env
+load_dotenv()
 
 #########################MONGODB DATABASE################################
-mongoDBpass = os.environ['mongoDBpass'] #load the mongoDB url (retreived from mongoDB upon account creation)
+# mongoDBpass = os.environ['mongoDBpass'] #load the mongoDB url (retreived from mongoDB upon account creation)
+mongoDBpass = os.getenv('mongoDBpass')
 client = pymongo.MongoClient(mongoDBpass) # Create a new client and connect to the server
 byname_db = client.byname_db #create the byname (nickname) database on MongoDB
 appearance_db = client.appearance_db #create the appearance (avatar) database on MongoDB
@@ -39,7 +44,8 @@ class Core(commands.Cog):
   #############################GET BOT NICKNAME############################################
     #This retrieves the current server's bot nickname from the mongoDB database
     async def get_byname(self, guild_id):
-        mongoDBpass = os.environ['mongoDBpass']
+        # mongoDBpass = os.environ['mongoDBpass']
+        mongoDBpass = os.getenv('mongoDBpass')
         client = pymongo.MongoClient(mongoDBpass)
         byname_db = client.byname_db
 
@@ -719,7 +725,8 @@ class Core(commands.Cog):
             super().__init__(timeout=120) # specify the timeout here (give enough time to use help command if necessary)
             self.ctx = ctx
           
-            self.mongoDBpass = os.environ['mongoDBpass']
+            # self.mongoDBpass = os.environ['mongoDBpass']
+            self.mongoDBpass = os.getenv('mongoDBpass')
             self.client = pymongo.MongoClient(self.mongoDBpass)
             self.event_handler_db = self.client.event_handler_db
       

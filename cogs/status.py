@@ -9,10 +9,15 @@ from discord.commands import Option  # add options to slash commands
 import pymongo #used to access mongoDB
 from discord import Streaming #used for streaming
 
+from dotenv import load_dotenv
+
+# Load environment variables from .env
+load_dotenv()
 
 
 #########################MONGODB DATABASE##################################
-mongoDBpass = os.environ['mongoDBpass'] #load the mongoDB url (retreived from mongoDB upon account creation)
+# mongoDBpass = os.environ['mongoDBpass'] #load the mongoDB url (retreived from mongoDB upon account creation)
+mongoDBpass = os.getenv('mongoDBpass')
 client = pymongo.MongoClient(mongoDBpass) # Create a new client and connect to the server
 BD_db = client.BD_db #create the birthday database on MongoDB
 streaming_db = client.streaming_db #create the streaming database on MongoDB
@@ -38,7 +43,8 @@ class Status(commands.Cog):
   
     #This retrieves the current server's bot nickname from the mongoDB database
     async def get_byname(self, guild_id):
-        mongoDBpass = os.environ['mongoDBpass']
+        # mongoDBpass = os.environ['mongoDBpass']
+        mongoDBpass = os.getenv('mongoDBpass')
         client = pymongo.MongoClient(mongoDBpass)
         byname_db = client.byname_db
 
@@ -54,7 +60,8 @@ class Status(commands.Cog):
 ######################## SEND BD MESSAGE EVENT #####################
     #This retrieves the current server's birthday event status from the mongoDB database
     async def get_birthday_event_status(self, guild_id):
-        mongoDBpass = os.environ['mongoDBpass']
+        # mongoDBpass = os.environ['mongoDBpass']
+        mongoDBpass = os.getenv('mongoDBpass')
         client = pymongo.MongoClient(mongoDBpass)
         event_handler_db = client.event_handler_db
 
@@ -218,7 +225,8 @@ class Status(commands.Cog):
 #############################STREAMING##################################
     #This retrieves the current server's event status from the mongoDB database
     async def get_livestreams_event_status(self, guild_id):
-        mongoDBpass = os.environ['mongoDBpass']
+        # mongoDBpass = os.environ['mongoDBpass']
+        mongoDBpass = os.getenv('mongoDBpass')
         client = pymongo.MongoClient(mongoDBpass)
         event_handler_db = client.event_handler_db
     

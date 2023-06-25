@@ -3,10 +3,15 @@ import discord #needed to interact with discord API
 from discord.ext import commands #used for slash commands
 from discord.commands import Option  # add options to slash commands
 import pymongo #used for database management
+from dotenv import load_dotenv
+
+# Load environment variables from .env
+load_dotenv()
 
 
 #########################MONGODB DATABASE##################################
-mongoDBpass = os.environ['mongoDBpass'] #load the mongoDB url (retreived from mongoDB upon account creation)
+# mongoDBpass = os.environ['mongoDBpass'] #load the mongoDB url (retreived from mongoDB upon account creation)
+mongoDBpass = os.getenv('mongoDBpass')
 client = pymongo.MongoClient(mongoDBpass) # Create a new client and connect to the server
 moderation_db = client.moderation_db #create the moderation_db on mongoDB
 #########################MONGODB DATABASE##################################
