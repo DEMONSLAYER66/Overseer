@@ -63,7 +63,7 @@ async def on_ready():
 
 #get list of cogs
 cogfiles = [
-  f"cogs.{filename[:-3]}" for filename in os.listdir("./cogs/") if filename.endswith(".py")
+  f"{filename[:-3]}" for filename in os.listdir("./cogs/") if filename.endswith(".py")
 ]
 
 #load all cogs
