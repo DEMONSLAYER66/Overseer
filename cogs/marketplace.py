@@ -480,7 +480,7 @@ class Marketplace(commands.Cog):
 
                     #check if the item is exclusive or not
                     if i < 20:
-                        regular_items_obtained += 1 #increase the amount of regular items obatined by 1
+                        regular_items_obtained += 1 #increase the amount of regular items obtained by 1
                         
                         items_str = f"`{item_name}` - `x{item_count:,}`"
                       
