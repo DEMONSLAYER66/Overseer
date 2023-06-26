@@ -75,8 +75,11 @@ class Moderation(commands.Cog):
                 moderation_config = moderation_db.moderation_configs.find_one(moderation_key)
                 if moderation_config:
                     channel = await self.bot.fetch_channel(moderation_config["channel_id"])
-                  
-                    await channel.send(embed=embed)
+
+                    try:
+                        await channel.send(embed=embed)
+                    except: #if the bot does not have access or any other errors occur
+                        pass
                 else:
                     pass
 
@@ -139,7 +142,10 @@ class Moderation(commands.Cog):
         if moderation_config:
             channel = await self.bot.fetch_channel(moderation_config["channel_id"])
           
-            await channel.send(embed=embed)
+            try:
+                await channel.send(embed=embed)
+            except: #if the bot does not have access or any other errors occur
+                pass
         else:
             pass
 
@@ -215,7 +221,10 @@ class Moderation(commands.Cog):
         if moderation_config:
             channel = await self.bot.fetch_channel(moderation_config["channel_id"])
           
-            await channel.send(embed=embed)
+            try:
+                await channel.send(embed=embed)
+            except: #if the bot does not have access or any other errors occur
+                pass
         else:
             pass
 ###############################UNBAN###################################
@@ -258,7 +267,10 @@ class Moderation(commands.Cog):
           
             await ctx.respond(f"{ctx.author.mention}\nI have dispatched the moderation information to {channel.mention}.", ephemeral=True)
           
-            await channel.send(embed=embed)
+            try:
+                await channel.send(embed=embed)
+            except: #if the bot does not have access or any other errors occur
+                pass
         else:
             await ctx.respond(embed=embed)
   
@@ -305,7 +317,10 @@ class Moderation(commands.Cog):
           
             await ctx.respond(f"{ctx.author.mention}\nI have dispatched the moderation information to {channel.mention}.", ephemeral=True)
           
-            await channel.send(embed=embed)
+            try:
+                await channel.send(embed=embed)
+            except: #if the bot does not have access or any other errors occur
+                pass
         else:
             await ctx.respond(embed=embed)
 ###############################UNMUTE###################################
@@ -372,7 +387,10 @@ class Moderation(commands.Cog):
           
             await ctx.respond(f"{ctx.author.mention}\nI have dispatched the moderation information to {channel.mention}.", ephemeral=True)
           
-            await channel.send(embed=embed)
+            try:
+                await channel.send(embed=embed)
+            except: #if the bot does not have access or any other errors occur
+                pass
         else:
             await ctx.respond(embed=embed)
 
@@ -436,7 +454,10 @@ class Moderation(commands.Cog):
                   
                     await ctx.respond(f"{ctx.author.mention}\nI have dispatched the moderation information to {channel.mention}.", ephemeral=True)
                   
-                    await channel.send(embed=embed)
+                    try:
+                        await channel.send(embed=embed)
+                    except: #if the bot does not have access or any other errors occur
+                        pass
                 else:
                     await ctx.respond(embed=embed)
           
@@ -498,7 +519,10 @@ class Moderation(commands.Cog):
               
                 await ctx.respond(f"{ctx.author.mention}\nI have dispatched the moderation information to {channel.mention}.", ephemeral=True)
               
-                await channel.send(embed=embed)
+                try:
+                    await channel.send(embed=embed)
+                except: #if the bot does not have access or any other errors occur
+                    pass
             else:
                 await ctx.respond(embed=embed)
           
