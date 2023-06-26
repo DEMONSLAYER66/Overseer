@@ -11,6 +11,7 @@ You must also ensure that Lord Bottington's status (role) is higher than all oth
 + [Lord Bottington's Full Directive List](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/Full%20Directive%20List.md)
 
 ## General Permissions
+`View Audit Log`
 `Manage Roles`
 `Manage Channels`
 `Kick Members`
