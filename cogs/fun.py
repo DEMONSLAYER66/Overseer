@@ -488,7 +488,7 @@ class Fun(commands.Cog):
       updated_prompt = f"{prompt} {identifier}"
     
       await ctx.defer()
-      asyncio.sleep()
+      asyncio.sleep(0)
       # Generate a response from ChatGPT
       response = openai.Completion.create(
           model="text-davinci-003", #The ID of the model to use for this request
@@ -625,7 +625,7 @@ class Fun(commands.Cog):
       byname = await self.get_byname(ctx.guild.id)
 
       await ctx.defer()
-      asyncio.sleep()
+      asyncio.sleep(0)
       try:
           #generate an image from Dall-E openai
           response = openai.Image.create(
@@ -1407,7 +1407,7 @@ class Fun(commands.Cog):
       if item_type == "avatar" or item_type == "picture":
           if alteration_effect == "iconify":
               await ctx.defer() #this allows enough time for the image/text to be retrieved and acknowledges that the interaction is still being run
-              asyncio.sleep()
+              asyncio.sleep(0)
               
               try:  
                   result = await self.bot.loop.run_in_executor(None, get_emojified_image)
@@ -1484,7 +1484,7 @@ class Fun(commands.Cog):
           #alter image (add selected image effect)
           else:
               await ctx.defer() #this allows enough time for the image/text to be retrieved and acknowledges that the interaction is still being run
-              asyncio.sleep()
+              asyncio.sleep(0)
               
               # define the filter functions
               def mirror(frame):
@@ -1699,7 +1699,7 @@ class Fun(commands.Cog):
     
       else: #otherwise, convert the plain text to emojis
           await ctx.defer() #this allows enough time for the image/text to be retrieved and acknowledges that the interaction is still being run
-          asyncio.sleep()
+          asyncio.sleep(0)
           
           punctuations = {
               '!': ':exclamation:',
