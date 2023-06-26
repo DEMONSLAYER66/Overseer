@@ -473,14 +473,14 @@ class Configuration(commands.Cog):
                     messages = await channel.history(limit=None).flatten()
     
                     if len(messages) > message_count:
-                        # retain only specified number of messages (from the message_count numbered message to the oldest message)
+                        # retain only specified number of messages and pinned messages (from the message_count numbered message to the oldest message)
                         messages_to_delete = messages[message_count:len(messages)]
                         # print(messages_to_delete)
-                        deleted_messages = await channel.purge(limit=None, check=lambda m: m in messages_to_delete)
+                        deleted_messages = await channel.purge(limit=None, check=lambda m: m in messages_to_delete and not m.pinned)
                 else:
                     # print("all messages deleted")
-                    # Delete all messages in the channel
-                    deleted_messages = await channel.purge(limit=None)
+                    # Delete all messages in the channel except for pinned messages
+                    deleted_messages = await channel.purge(limit=None, check=lambda m: not m.pinned)
             
                 # Print number of messages deleted
                 # print(f"Deleted {len(deleted_messages)} messages in {channel.name}")
