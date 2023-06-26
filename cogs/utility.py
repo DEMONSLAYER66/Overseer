@@ -893,9 +893,6 @@ class Utility(commands.Cog):
             return
 
         else:
-            await ctx.defer()
-            await asyncio.sleep(0)
-          
             autopurge_embed = discord.Embed(title=f"{ctx.guild.name}\n__Autopurge List__", description = "The following is a list of the current channels being autopurged and their respective frequencies and message counts.", color = discord.Color.from_rgb(26, 92, 199))
 
             i = 1
