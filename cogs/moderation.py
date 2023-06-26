@@ -36,28 +36,56 @@ class Moderation(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def remove(self, ctx, member: Option(discord.Member, name="member", description="Member to remove from the guild."), *, reason: Option(str, name="reason", description="Reason for removing member from the guild.", required=False, default=None)):
         if not ctx.author.guild_permissions.administrator:
-            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this command.")
+            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
             return
 
-        embed = discord.Embed(title="Member Status Update", description=f"Attention members of {ctx.guild.name},\n{member.display_name} has been ***removed (kicked)*** from this guild.", color = discord.Color.from_rgb(0, 0, 255))
-
-        embed.add_field(name="Reason", value=reason if reason else "Not provided.")
-      
-        await member.kick(reason=reason if reason else "Not provided.")
-
-        moderation_key = {"server_id": ctx.guild.id}
+        moderation_key = {"server_id": member.guild.id}
         moderation_config = moderation_db.moderation_configs.find_one(moderation_key)
         if moderation_config:
             channel = await self.bot.fetch_channel(moderation_config["channel_id"])
           
             await ctx.respond(f"{ctx.author.mention}\nI have dispatched the moderation information to {channel.mention}.", ephemeral=True)
-          
-            await channel.send(embed=embed)
         else:
-            await ctx.respond(embed=embed)
+            await ctx.respond(f"{ctx.author.mention}\nI have `removed (kicked)` **{member.display_name}** from the guild for you, good sir.", ephemeral=True)
+      
+        await member.kick(reason=reason if reason else "Not provided.")
+
+
+
+    #when users are kicked
+    @commands.Cog.listener()
+    async def on_member_remove(self, member):
+        async for entry in member.guild.audit_logs(action=discord.AuditLogAction.kick, limit=1):
+            if entry.target == member:
+                reason = entry.reason
+
+                embed = discord.Embed(title="Member Status Update", description=f"Attention members of ***{member.guild.name}***,\n**{member.display_name}** has been `removed (kicked)` from this guild.", color = discord.Color.from_rgb(0, 0, 255))
+        
+                embed.add_field(name="Reason", value=reason if reason else "Not provided.")
+
+                #set thumbnail to author's avatar
+                try:
+                    embed.set_thumbnail(url=member.avatar.url)
+                except:
+                    pass #if no avatar set, skip the thumbnail
+                
+
+      
+                moderation_key = {"server_id": member.guild.id}
+                moderation_config = moderation_db.moderation_configs.find_one(moderation_key)
+                if moderation_config:
+                    channel = await self.bot.fetch_channel(moderation_config["channel_id"])
+                  
+                    await channel.send(embed=embed)
+                else:
+                    pass
+
+  
 ################################KICK###################################
 
 
+
+  
 
 ################################BAN###################################
     @discord.slash_command(
@@ -69,25 +97,21 @@ class Moderation(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def banish(self, ctx, member: Option(discord.Member, name="member", description="Member to banish from the guild."), *, reason: Option(str, name="reason", description="Reason for banishing member from the guild.", required=False, default=None)):
         if not ctx.author.guild_permissions.administrator:
-            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this command.")
+            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
             return
 
-        embed = discord.Embed(title="Member Status Update", description=f"Attention members of {ctx.guild.name},\n{member.display_name} has been ***banished (banned)*** from this guild.", color = discord.Color.from_rgb(0, 0, 255))
-
-        embed.add_field(name="Reason", value=reason if reason else "Not provided.")
-      
-        await member.ban(reason=reason if reason else "Not provided.")
-
-        moderation_key = {"server_id": ctx.guild.id}
+        moderation_key = {"server_id": member.guild.id}
         moderation_config = moderation_db.moderation_configs.find_one(moderation_key)
         if moderation_config:
             channel = await self.bot.fetch_channel(moderation_config["channel_id"])
           
             await ctx.respond(f"{ctx.author.mention}\nI have dispatched the moderation information to {channel.mention}.", ephemeral=True)
-          
-            await channel.send(embed=embed)
         else:
-            await ctx.respond(embed=embed)
+            await ctx.respond(f"{ctx.author.mention}\nI have `banished (banned)` **{member.display_name}** from the guild for you, good sir.", ephemeral=True)
+
+      
+      
+        await member.ban(reason=reason if reason else "Not provided.")
 
 
 
@@ -98,9 +122,16 @@ class Moderation(commands.Cog):
             if entry.target == user:
                 reason = entry.reason
 
-                embed = discord.Embed(title="Member Status Update", description=f"Attention members of ***{guild.name}***,\n{user.display_name} has been ***banished (banned)*** from this guild.", color = discord.Color.from_rgb(0, 0, 255))
+                embed = discord.Embed(title="Member Status Update", description=f"Attention members of ***{guild.name}***,\n**{user.display_name}** has been `banished (banned)` from this guild.", color = discord.Color.from_rgb(0, 0, 255))
         
                 embed.add_field(name="Reason", value=reason if reason else "Not provided.")
+
+                #set thumbnail to author's avatar
+                try:
+                    embed.set_thumbnail(url=user.avatar.url)
+                except:
+                    pass #if no avatar set, skip the thumbnail
+                
 
       
         moderation_key = {"server_id": guild.id}
@@ -129,37 +160,64 @@ class Moderation(commands.Cog):
         global_command = True
     )
     @commands.has_permissions(administrator=True)
-    async def unbanish(self, ctx, member_name: Option(str, name="member_name", description="ID of the member to unbanish from the guild."), reason: Option(str, name="reason", description="Reason for unbanning member from the guild.", required=False, default=None)):
+    async def unbanish(self, ctx, member_id: Option(str, name="member_id", description="ID of the member to unbanish from the guild."), reason: Option(str, name="reason", description="Reason for unbanning member from the guild.", required=False, default=None)):
         if not ctx.author.guild_permissions.administrator:
-            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this command.")
+            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
             return
 
       
-        banned_users = ctx.guild.bans()
+        banned_users = await ctx.guild.bans().flatten()
+
+        user = await self.bot.fetch_user(member_id)
 
         try:
             for ban_entry in banned_users:
-                if ban_entry.user.name.lower() == member_name.lower():
+                if ban_entry.user.name == user.display_name:
+
+                    moderation_key = {"server_id": ctx.guild.id}
+                    moderation_config = moderation_db.moderation_configs.find_one(moderation_key)
+                    if moderation_config:
+                        channel = await self.bot.fetch_channel(moderation_config["channel_id"])
+                      
+                        await ctx.respond(f"{ctx.author.mention}\nI have dispatched the moderation information to {channel.mention}.", ephemeral=True)
+                    else:
+                        await ctx.respond(f"{ctx.author.mention}\nI have `unbanished (unbanned)` **{user.display_name}** from the guild for you, good sir.", ephemeral=True)
+
+                  
                     await ctx.guild.unban(ban_entry.user)
 
-                    embed = discord.Embed(title="Member Status Update", description=f"Attention members of {ctx.guild.name},\n{ban_entry.user.name} has been ***unbanished (unbanned)*** from this guild.", color = discord.Color.from_rgb(0, 0, 255))
-    
-                    embed.add_field(name="Reason", value=reason if reason else "Not provided.")
-          
-    
-            moderation_key = {"server_id": ctx.guild.id}
-            moderation_config = moderation_db.moderation_configs.find_one(moderation_key)
-            if moderation_config:
-                channel = await self.bot.fetch_channel(moderation_config["channel_id"])
-              
-                await ctx.respond(f"{ctx.author.mention}\nI have dispatched the moderation information to {channel.mention}.", ephemeral=True)
-              
-                await channel.send(embed=embed)
-            else:
-                await ctx.respond(embed=embed)
-
         except:
-            await ctx.respond(f"{ctx.author.mention}\nIt appears that *{member_name}* is not currently banned from {ctx.guild.name}, good sir.", ephemeral=True)
+            await ctx.respond(f"{ctx.author.mention}\nIt appears that **{user.display_name} (ID: {member_id})** is not currently banned from ***{ctx.guild.name}***, good sir.\n*Please try again.*", ephemeral=True)
+
+
+
+    #when users are unbanned
+    @commands.Cog.listener()
+    async def on_member_unban(self, guild, user):
+        async for entry in guild.audit_logs(action=discord.AuditLogAction.unban):
+            if entry.target == user:
+                reason = entry.reason
+
+                embed = discord.Embed(title="Member Status Update", description=f"Attention members of ***{guild.name}***,\n**{user.display_name}** has been `unbanished (unbanned)` from this guild.", color = discord.Color.from_rgb(0, 0, 255))
+        
+                embed.add_field(name="Reason", value=reason if reason else "Not provided.")
+
+                #set thumbnail to author's avatar
+                try:
+                    embed.set_thumbnail(url=user.avatar.url)
+                except:
+                    pass #if no avatar set, skip the thumbnail
+                
+
+      
+        moderation_key = {"server_id": guild.id}
+        moderation_config = moderation_db.moderation_configs.find_one(moderation_key)
+        if moderation_config:
+            channel = await self.bot.fetch_channel(moderation_config["channel_id"])
+          
+            await channel.send(embed=embed)
+        else:
+            pass
 ###############################UNBAN###################################
 
 
@@ -176,7 +234,7 @@ class Moderation(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def silence(self, ctx, member: Option(discord.Member, name="member", description="Member to silence within the guild."), *, reason: Option(str, name="reason", description="Reason for silencing the member within the guild.", required=False, default=None)):
         if not ctx.author.guild_permissions.administrator:
-            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this command.")
+            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
             return
 
       
@@ -189,7 +247,7 @@ class Moderation(commands.Cog):
             await muted_role.edit(permissions=permissions, position=position)
         await member.add_roles(muted_role)
 
-        embed = discord.Embed(title="Member Status Update", description=f"Attention members of {ctx.guild.name},\n{member.display_name} has been ***silenced (muted)*** within this guild.", color = discord.Color.from_rgb(0, 0, 255))
+        embed = discord.Embed(title="Member Status Update", description=f"Attention members of {ctx.guild.name},\n{member.display_name} has been `silenced (muted)` within this guild.", color = discord.Color.from_rgb(0, 0, 255))
 
         embed.add_field(name="Reason", value=reason if reason else "Not provided.")
 
@@ -220,7 +278,7 @@ class Moderation(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def unsilence(self, ctx, member: Option(discord.Member, name="member", description="Member to unsilence within the guild."), *, reason: Option(str, name="reason", description="Reason for unsilencing the member within the guild.", required=False, default=None)):
         if not ctx.author.guild_permissions.administrator:
-            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this command.")
+            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
             return
 
       
@@ -236,7 +294,7 @@ class Moderation(commands.Cog):
             return
 
       
-        embed = discord.Embed(title="Member Status Update", description=f"Attention members of {ctx.guild.name},\n{member.display_name} has been ***unsilenced (unmuted)*** within this guild.", color = discord.Color.from_rgb(0, 0, 255))
+        embed = discord.Embed(title="Member Status Update", description=f"Attention members of {ctx.guild.name},\n{member.display_name} has been `unsilenced (unmuted)` within this guild.", color = discord.Color.from_rgb(0, 0, 255))
 
         embed.add_field(name="Reason", value=reason if reason else "Not provided.")
 
@@ -267,7 +325,7 @@ class Moderation(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def warn(self, ctx, member: Option(discord.Member, name="member", description="Member to warn within the guild."), *, reason: Option(str, name="reason", description="Reason for warning the member within the guild.", required=False, default=None)):
         if not ctx.author.guild_permissions.administrator:
-            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this command.")
+            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
             return
 
         warning_number = moderation_db[f"warnings_{ctx.guild.id}"].count_documents({"member_id": member.id})
@@ -298,7 +356,7 @@ class Moderation(commands.Cog):
         if warnings_left > 0:
             description = f"Attention members of {ctx.guild.name},\n{member.display_name} has been ***warned*** within this guild."
         else:
-            description = f"Attention members of {ctx.guild.name},\n{member.display_name} has been ***warned*** within this guild and has reached the maximum number of warnings ({self.warning_threshold}). They will be banished accordingly."
+            description = f"Attention members of {ctx.guild.name},\n{member.display_name} has been `warned` within this guild and has reached the maximum number of warnings ({self.warning_threshold}). They will be banished accordingly."
 
       
         embed = discord.Embed(title="Member Status Update", description=description, color = discord.Color.from_rgb(0, 0, 255))
@@ -336,7 +394,7 @@ class Moderation(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def warnremove(self, ctx, member: Option(discord.Member, name="member", description="Member to warn within the guild."), warning_index: Option(int, name="warning_index", description="Index of the warning.", min_value=1, max_value=3)):
         if not ctx.author.guild_permissions.administrator:
-            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this command.")
+            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
             return
 
       
@@ -403,8 +461,8 @@ class Moderation(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def warninglist(self, ctx, member: Option(discord.Member, name="member", description="Member to warn within the guild.")):
         if not ctx.author.guild_permissions.administrator:
-            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this command.")
-            return      
+            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
+            return    
     
         # Retrieve the warnings for the member from the database
         warnings = moderation_db[f"warnings_{ctx.guild.id}"].find_one({"member_id": member.id})
