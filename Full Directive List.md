@@ -139,7 +139,7 @@ You may toggle the use of each of the events within this category by utilizing m
     > + `{member.guild.name}` - Server Name
     > + `{byname}` - Byname (nickname) of the automaton
 ### `/moderate`
-  - Configure the moderation message settings for the guild. (Admin Only)
+  - Configure the moderation settings for the guild. (Admin Only)
   - This directive will allow the user to change where moderation messages are sent to within the guild, such as when a user is banished (banned) or removed (kicked), as well as the warning list for the specified user (if they have any).
   - If no channel is set or the channel is removed from the database, the messages will be sent to the same channel where the directive was used.
 ### `/starboard`
