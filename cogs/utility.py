@@ -893,6 +893,9 @@ class Utility(commands.Cog):
             return
 
         else:
+            await ctx.defer()
+            asyncio.sleep()
+          
             autopurge_embed = discord.Embed(title=f"{ctx.guild.name}\n__Autopurge List__", description = "The following is a list of the current channels being autopurged and their respective frequencies and message counts.", color = discord.Color.from_rgb(26, 92, 199))
 
             i = 1
@@ -929,7 +932,7 @@ class Utility(commands.Cog):
 
 
               
-                autopurge_embed.add_field(name = f"Purge Channel {i}", value = f"> Channel: {purge_channel.mention}\n> Frequency: `{frequency_purge_time}`\n> Message Count: `{messagecount:,} messages`", inline = True)
+                autopurge_embed.add_field(name = f"Purge Channel {i}", value = f"> Channel: {purge_channel.mention}\n> Frequency: `{frequency_purge_time}`\n> Message Count: `{messagecount} messages`", inline = True)
                 i = i + 1
 
 
