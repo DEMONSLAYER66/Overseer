@@ -323,6 +323,9 @@ class Configuration(commands.Cog):
             else:
                 frequency_purge_time = f"{seconds}s"
 
+        else:
+            frequency_purge_time = "0s"
+
 
 
         if not frequency or frequency_seconds == 0:
