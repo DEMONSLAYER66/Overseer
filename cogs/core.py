@@ -644,29 +644,11 @@ class Core(commands.Cog):
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
 
-        # server_key = {"owner": "XxJSweezeyxX"}
-        # server_data = server_id_db.server_ids
-
-      
-        # for server_id in SERVER_ID:
-        #     if server_id == guild.id:
-        #         break
-        #     else:
-        #         server_data.update_one(
-        #             server_key,
-        #             {"$push": {
-        #                 "server_ids": guild.id,
-        #                 "server_names": guild.name
-        #             }}
-        #         )
-              
-        #         break
-
-
         # get the guild object
         guild = self.bot.get_guild(guild.id)
 
-        general_info_github = "https://github.com/xxjsweezeyxx/Lord-Bottington/tree/main"
+        #link to README.md file on Github
+        general_info_github = "https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/README.md"
 
         first_embed = discord.Embed(title="Lord Bottington", description=f"Good day, dear members of ***{guild.name}***.\nI am **Lord Bottington**, at your service.\n\nPlease allow me to offer my assistance in any way I can.\nMay I suggest perusing my list of directives by utilizing my `/help` directive, good sir?\n\nYou may also visit the link below to view other general information related to myself...", color=discord.Color.from_rgb(0, 0, 255), url=general_info_github)
 
@@ -688,29 +670,7 @@ class Core(commands.Cog):
                 except discord.Forbidden:
                     # Handle the case where the bot doesn't have permission to send messages in the channel
                     continue
-                  
-
-
-    # #remove the server ID from the list of active servers when the bot leaves the server
-    # @commands.Cog.listener()
-    # async def on_guild_remove(self, guild):
-    #     server_key = {"owner": "XxJSweezeyxX"}
-    #     server_data = server_id_db.server_ids
-
       
-    #     for server_id in SERVER_ID:
-    #         if server_id == guild.id:
-    #             server_data.update_one(
-    #                 server_key,
-    #                 {"$pull": {
-    #                     "server_ids": guild.id,
-    #                     "server_names": guild.name
-    #                 }}
-    #             )
-
-    #             break
-    #         else:
-    #             pass
 
 
 #################################BOT JOIN AND LEAVE#############################
