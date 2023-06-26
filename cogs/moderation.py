@@ -44,7 +44,7 @@ class Moderation(commands.Cog):
         if moderation_config:
             channel = await self.bot.fetch_channel(moderation_config["channel_id"])
           
-            await ctx.respond(f"{ctx.author.mention}\nI have dispatched the moderation information to {channel.mention}.", ephemeral=True)
+            await ctx.respond(f"{ctx.author.mention}\nI have dispatched the moderation information to {channel.mention}.\n\n*Please note that if no message is sent, you may need to update my access to {channel.mention} for future moderation messages, good sir.*", ephemeral=True)
         else:
             await ctx.respond(f"{ctx.author.mention}\nI have `removed (kicked)` **{member.display_name}** from the guild for you, good sir.", ephemeral=True)
       
@@ -108,7 +108,7 @@ class Moderation(commands.Cog):
         if moderation_config:
             channel = await self.bot.fetch_channel(moderation_config["channel_id"])
           
-            await ctx.respond(f"{ctx.author.mention}\nI have dispatched the moderation information to {channel.mention}.", ephemeral=True)
+            await ctx.respond(f"{ctx.author.mention}\nI have dispatched the moderation information to {channel.mention}.\n\n*Please note that if no message is sent, you may need to update my access to {channel.mention} for future moderation messages, good sir.*", ephemeral=True)
         else:
             await ctx.respond(f"{ctx.author.mention}\nI have `banished (banned)` **{member.display_name}** from the guild for you, good sir.", ephemeral=True)
 
@@ -185,7 +185,7 @@ class Moderation(commands.Cog):
                     if moderation_config:
                         channel = await self.bot.fetch_channel(moderation_config["channel_id"])
                       
-                        await ctx.respond(f"{ctx.author.mention}\nI have dispatched the moderation information to {channel.mention}.", ephemeral=True)
+                        await ctx.respond(f"{ctx.author.mention}\nI have dispatched the moderation information to {channel.mention}.\n\n*Please note that if no message is sent, you may need to update my access to {channel.mention} for future moderation messages, good sir.*", ephemeral=True)
                     else:
                         await ctx.respond(f"{ctx.author.mention}\nI have `unbanished (unbanned)` **{user.display_name}** from the guild for you, good sir.", ephemeral=True)
 
@@ -270,7 +270,7 @@ class Moderation(commands.Cog):
             try:
                 await channel.send(embed=embed)
             except: #if the bot does not have access or any other errors occur
-                pass
+                await ctx.respond(f"Apologies {ctx.author.mention},\nI was unable to send the modersation message to {channel.mention}, good sir.\nPlease update my access to this channel, if necessary, and try again.*", ephemeral=True)
         else:
             await ctx.respond(embed=embed)
   
@@ -320,7 +320,7 @@ class Moderation(commands.Cog):
             try:
                 await channel.send(embed=embed)
             except: #if the bot does not have access or any other errors occur
-                pass
+                await ctx.respond(f"Apologies {ctx.author.mention},\nI was unable to send the modersation message to {channel.mention}, good sir.\nPlease update my access to this channel, if necessary, and try again.*", ephemeral=True)
         else:
             await ctx.respond(embed=embed)
 ###############################UNMUTE###################################
@@ -390,7 +390,7 @@ class Moderation(commands.Cog):
             try:
                 await channel.send(embed=embed)
             except: #if the bot does not have access or any other errors occur
-                pass
+                await ctx.respond(f"Apologies {ctx.author.mention},\nI was unable to send the modersation message to {channel.mention}, good sir.\nPlease update my access to this channel, if necessary, and try again.*", ephemeral=True)
         else:
             await ctx.respond(embed=embed)
 
@@ -457,7 +457,7 @@ class Moderation(commands.Cog):
                     try:
                         await channel.send(embed=embed)
                     except: #if the bot does not have access or any other errors occur
-                        pass
+                        await ctx.respond(f"Apologies {ctx.author.mention},\nI was unable to send the modersation message to {channel.mention}, good sir.\nPlease update my access to this channel, if necessary, and try again.*", ephemeral=True)
                 else:
                     await ctx.respond(embed=embed)
           
