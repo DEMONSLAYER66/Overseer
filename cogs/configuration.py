@@ -177,7 +177,7 @@ class Configuration(commands.Cog):
 ############################MODERATION###################################
     @discord.slash_command(
         name="moderate",
-        description="Configure the moderation settings for the guild. (Admin Only)",
+        description="Configure the moderation for the guild. (Admin Only)",
         # guild_ids=SERVER_ID
         global_command = True
     )
