@@ -39,6 +39,10 @@ class Moderation(commands.Cog):
             await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
             return
 
+        if member == self.bot.user:
+            await ctx.respond(f"Apologies {ctx.author.mention},\nI am unable to `remove (kick)` myself from ***{ctx.guild.name}***.\n*Please try again.*", ephemeral=True)
+            return
+
         moderation_key = {"server_id": member.guild.id}
         moderation_config = moderation_db.moderation_configs.find_one(moderation_key)
         if moderation_config:
@@ -101,6 +105,10 @@ class Moderation(commands.Cog):
     async def banish(self, ctx, member: Option(discord.Member, name="member", description="Member to banish from the guild."), *, reason: Option(str, name="reason", description="Reason for banishing member from the guild.", required=False, default=None)):
         if not ctx.author.guild_permissions.administrator:
             await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
+            return
+
+        if member == self.bot.user:
+            await ctx.respond(f"Apologies {ctx.author.mention},\nI am unable to `banish (ban)` myself from ***{ctx.guild.name}***.\n*Please try again.*", ephemeral=True)
             return
 
         moderation_key = {"server_id": member.guild.id}
@@ -176,6 +184,10 @@ class Moderation(commands.Cog):
 
         user = await self.bot.fetch_user(member_id)
 
+        if user == self.bot.user:
+            await ctx.respond(f"Apologies {ctx.author.mention},\nI am unable to `unbanish (unban)` myself from ***{ctx.guild.name}***.\n*Please try again.*", ephemeral=True)
+            return
+
         try:
             for ban_entry in banned_users:
                 if ban_entry.user.name == user.display_name:
@@ -246,6 +258,10 @@ class Moderation(commands.Cog):
             await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
             return
 
+        if member == self.bot.user:
+            await ctx.respond(f"Apologies {ctx.author.mention},\nI am unable to `silence (mute)` myself in ***{ctx.guild.name}***.\n*Please try again.*", ephemeral=True)
+            return
+
       
         muted_role = discord.utils.get(ctx.guild.roles, name="Silenced")
         if muted_role is None:
@@ -291,6 +307,10 @@ class Moderation(commands.Cog):
     async def unsilence(self, ctx, member: Option(discord.Member, name="member", description="Member to unsilence within the guild."), *, reason: Option(str, name="reason", description="Reason for unsilencing the member within the guild.", required=False, default=None)):
         if not ctx.author.guild_permissions.administrator:
             await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
+            return
+
+        if member == self.bot.user:
+            await ctx.respond(f"Apologies {ctx.author.mention},\nI am unable to `unsilence (unmute)` myself from ***{ctx.guild.name}***.\n*Please try again.*", ephemeral=True)
             return
 
       
@@ -341,6 +361,10 @@ class Moderation(commands.Cog):
     async def warn(self, ctx, member: Option(discord.Member, name="member", description="Member to warn within the guild."), *, reason: Option(str, name="reason", description="Reason for warning the member within the guild.", required=False, default=None)):
         if not ctx.author.guild_permissions.administrator:
             await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
+            return
+
+        if member == self.bot.user:
+            await ctx.respond(f"Apologies {ctx.author.mention},\nI am unable to `warn` myself in ***{ctx.guild.name}***.\n*Please try again.*", ephemeral=True)
             return
 
         warning_number = moderation_db[f"warnings_{ctx.guild.id}"].count_documents({"member_id": member.id})
@@ -415,6 +439,10 @@ class Moderation(commands.Cog):
             await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
             return
 
+        if member == self.bot.user:
+            await ctx.respond(f"Apologies {ctx.author.mention},\nI am unable to `remove a warning` from myself in ***{ctx.guild.name}***.\n*Please try again.*", ephemeral=True)
+            return
+
       
         # Retrieve the warnings for the member from the database
         warnings = moderation_db[f"warnings_{ctx.guild.id}"].find_one({"member_id": member.id})
@@ -483,7 +511,11 @@ class Moderation(commands.Cog):
     async def warninglist(self, ctx, member: Option(discord.Member, name="member", description="Member to warn within the guild.")):
         if not ctx.author.guild_permissions.administrator:
             await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
-            return    
+            return   
+
+        if member == self.bot.user:
+            await ctx.respond(f"Apologies {ctx.author.mention},\nI am unable to retrieve a list of warnings for myself from ***{ctx.guild.name}***.\n*Please try again.*", ephemeral=True)
+            return
     
         # Retrieve the warnings for the member from the database
         warnings = moderation_db[f"warnings_{ctx.guild.id}"].find_one({"member_id": member.id})
