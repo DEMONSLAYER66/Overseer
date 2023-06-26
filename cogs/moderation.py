@@ -59,33 +59,39 @@ class Moderation(commands.Cog):
     #when users are kicked
     @commands.Cog.listener()
     async def on_member_remove(self, member):
-        async for entry in member.guild.audit_logs(action=discord.AuditLogAction.kick, limit=1):
-            if entry.target == member:
-                reason = entry.reason
-
-                embed = discord.Embed(title="Member Status Update", description=f"Attention members of ***{member.guild.name}***,\n**{member.display_name}** has been `removed (kicked)` from this guild.", color = discord.Color.from_rgb(0, 0, 255))
-        
-                embed.add_field(name="Reason", value=reason if reason else "Not provided.")
-
-                #set thumbnail to author's avatar
-                try:
-                    embed.set_thumbnail(url=member.avatar.url)
-                except:
-                    pass #if no avatar set, skip the thumbnail
-                
-
-      
-                moderation_key = {"server_id": member.guild.id}
-                moderation_config = moderation_db.moderation_configs.find_one(moderation_key)
-                if moderation_config:
-                    channel = await self.bot.fetch_channel(moderation_config["channel_id"])
-
+        try:
+            async for entry in member.guild.audit_logs(action=discord.AuditLogAction.kick, limit=1):
+                if entry.target == member:
+                    reason = entry.reason
+    
+                    embed = discord.Embed(title="Member Status Update", description=f"Attention members of ***{member.guild.name}***,\n**{member.display_name}** has been `removed (kicked)` from this guild.", color = discord.Color.from_rgb(0, 0, 255))
+            
+                    embed.add_field(name="Reason", value=reason if reason else "Not provided.")
+    
+                    #set thumbnail to author's avatar
                     try:
-                        await channel.send(embed=embed)
-                    except: #if the bot does not have access or any other errors occur
+                        embed.set_thumbnail(url=member.avatar.url)
+                    except:
+                        pass #if no avatar set, skip the thumbnail
+                    
+    
+          
+                    moderation_key = {"server_id": member.guild.id}
+                    moderation_config = moderation_db.moderation_configs.find_one(moderation_key)
+                    if moderation_config:
+                        channel = await self.bot.fetch_channel(moderation_config["channel_id"])
+    
+                        try:
+                            await channel.send(embed=embed)
+                        except: #if the bot does not have access or any other errors occur
+                            pass
+                    else:
                         pass
-                else:
-                    pass
+
+        #possibly missing required permissions
+        except:
+            pass
+            
 
   
 ################################KICK###################################
@@ -129,32 +135,37 @@ class Moderation(commands.Cog):
     #when users are banned
     @commands.Cog.listener()
     async def on_member_ban(self, guild, user):
-        async for entry in guild.audit_logs(action=discord.AuditLogAction.ban):
-            if entry.target == user:
-                reason = entry.reason
-
-                embed = discord.Embed(title="Member Status Update", description=f"Attention members of ***{guild.name}***,\n**{user.display_name}** has been `banished (banned)` from this guild.", color = discord.Color.from_rgb(0, 0, 255))
-        
-                embed.add_field(name="Reason", value=reason if reason else "Not provided.")
-
-                #set thumbnail to author's avatar
-                try:
-                    embed.set_thumbnail(url=user.avatar.url)
-                except:
-                    pass #if no avatar set, skip the thumbnail
-                
-
-      
-        moderation_key = {"server_id": guild.id}
-        moderation_config = moderation_db.moderation_configs.find_one(moderation_key)
-        if moderation_config:
-            channel = await self.bot.fetch_channel(moderation_config["channel_id"])
+        try:
+            async for entry in guild.audit_logs(action=discord.AuditLogAction.ban):
+                if entry.target == user:
+                    reason = entry.reason
+    
+                    embed = discord.Embed(title="Member Status Update", description=f"Attention members of ***{guild.name}***,\n**{user.display_name}** has been `banished (banned)` from this guild.", color = discord.Color.from_rgb(0, 0, 255))
+            
+                    embed.add_field(name="Reason", value=reason if reason else "Not provided.")
+    
+                    #set thumbnail to author's avatar
+                    try:
+                        embed.set_thumbnail(url=user.avatar.url)
+                    except:
+                        pass #if no avatar set, skip the thumbnail
+                    
+    
           
-            try:
-                await channel.send(embed=embed)
-            except: #if the bot does not have access or any other errors occur
+            moderation_key = {"server_id": guild.id}
+            moderation_config = moderation_db.moderation_configs.find_one(moderation_key)
+            if moderation_config:
+                channel = await self.bot.fetch_channel(moderation_config["channel_id"])
+              
+                try:
+                    await channel.send(embed=embed)
+                except: #if the bot does not have access or any other errors occur
+                    pass
+            else:
                 pass
-        else:
+
+        #possibly missing required permissions
+        except:
             pass
 
   
@@ -212,32 +223,37 @@ class Moderation(commands.Cog):
     #when users are unbanned
     @commands.Cog.listener()
     async def on_member_unban(self, guild, user):
-        async for entry in guild.audit_logs(action=discord.AuditLogAction.unban):
-            if entry.target == user:
-                reason = entry.reason
-
-                embed = discord.Embed(title="Member Status Update", description=f"Attention members of ***{guild.name}***,\n**{user.display_name}** has been `unbanished (unbanned)` from this guild.", color = discord.Color.from_rgb(0, 0, 255))
-        
-                embed.add_field(name="Reason", value=reason if reason else "Not provided.")
-
-                #set thumbnail to author's avatar
-                try:
-                    embed.set_thumbnail(url=user.avatar.url)
-                except:
-                    pass #if no avatar set, skip the thumbnail
-                
-
-      
-        moderation_key = {"server_id": guild.id}
-        moderation_config = moderation_db.moderation_configs.find_one(moderation_key)
-        if moderation_config:
-            channel = await self.bot.fetch_channel(moderation_config["channel_id"])
+        try:
+            async for entry in guild.audit_logs(action=discord.AuditLogAction.unban):
+                if entry.target == user:
+                    reason = entry.reason
+    
+                    embed = discord.Embed(title="Member Status Update", description=f"Attention members of ***{guild.name}***,\n**{user.display_name}** has been `unbanished (unbanned)` from this guild.", color = discord.Color.from_rgb(0, 0, 255))
+            
+                    embed.add_field(name="Reason", value=reason if reason else "Not provided.")
+    
+                    #set thumbnail to author's avatar
+                    try:
+                        embed.set_thumbnail(url=user.avatar.url)
+                    except:
+                        pass #if no avatar set, skip the thumbnail
+                    
+    
           
-            try:
-                await channel.send(embed=embed)
-            except: #if the bot does not have access or any other errors occur
+            moderation_key = {"server_id": guild.id}
+            moderation_config = moderation_db.moderation_configs.find_one(moderation_key)
+            if moderation_config:
+                channel = await self.bot.fetch_channel(moderation_config["channel_id"])
+              
+                try:
+                    await channel.send(embed=embed)
+                except: #if the bot does not have access or any other errors occur
+                    pass
+            else:
                 pass
-        else:
+
+        #possibly missing required permissions
+        except:
             pass
 ###############################UNBAN###################################
 
