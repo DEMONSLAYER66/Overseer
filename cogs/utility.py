@@ -16,7 +16,7 @@ import re #string matching
 import json #used to read and write .json type files
 import pytz #used for timezone
 import datetime
-# from datetime import datetime #used to get date formatting and such
+from datetime import datetime #used to get date formatting and such
 from datetime import timedelta #used for time addition and subtraction
 import asyncio #used to wait for specified amounts of time
 import random #used to randomize selections or choices
@@ -1969,7 +1969,7 @@ class Utility(commands.Cog):
             timezone_abbr = timezone.localize(datetime.now()).strftime('%Z')
             date_time = datetime.strptime(date_time, '%Y-%m-%d %H:%M')
             date_time = date_time.strftime('%B %d, %Y %I:%M %p')
-            emebd.add_field(name="Last Updated", value=f"`{date_time} {timezone_abbr}`")
+            embed.add_field(name="Last Updated", value=f"`{date_time} {timezone_abbr}`")
             embed.set_footer(text="Powered by Weather API (weatherapi.com)")
     
             weather_message = f"{ctx.author.mention}, here is your weather information for *{data['location']['name']}, {data['location']['region']}:*"
