@@ -1967,7 +1967,7 @@ class Utility(commands.Cog):
             date_time = data['current']['last_updated'] #last updated time
             timezone = pytz.timezone(data['location']['tz_id']) #timezone
             timezone_abbr = timezone.localize(datetime.datetime.now()).strftime('%Z')
-            date_time = datetime.strptime(date_time, '%Y-%m-%d %H:%M')
+            date_time = datetime.datetime.strptime(date_time, '%Y-%m-%d %H:%M')
             date_time = date_time.strftime('%B %d, %Y %I:%M %p')
             embed.add_field(name="Last Updated", value=f"`{date_time} {timezone_abbr}`")
             embed.set_footer(text="Powered by Weather API (weatherapi.com)")
@@ -2728,7 +2728,7 @@ class Utility(commands.Cog):
                 continue
             elif timed_embeds_status == "Enabled":
                 for config_data in embeds_db[f"embeds_config_{server_id}"].find():
-                    send_time = datetime.strptime(config_data['send_time'], '%Y-%m-%d %H:%M') 
+                    send_time = datetime.datetime.strptime(config_data['send_time'], '%Y-%m-%d %H:%M') 
                     send_time = tz.localize(send_time) # Localize send_time to US/Central timezone
                     send_time = send_time.strftime('%Y-%m-%d %H:%M')
                     dt = datetime.datetime.now(tz).strftime('%Y-%m-%d %H:%M') #localize time to US/Central timezone
@@ -2802,7 +2802,7 @@ class Utility(commands.Cog):
 
                         #add interval to new time to continue sending
                         if interval and intervaltype == "repeating":
-                            send_time = datetime.strptime(send_time, '%Y-%m-%d %H:%M')
+                            send_time = datetime.datetime.strptime(send_time, '%Y-%m-%d %H:%M')
                             new_send_time = (send_time + timedelta(minutes=interval)).strftime('%Y-%m-%d %H:%M')
                             embeds_db[f"embeds_config_{server_id}"].update_one({"_id": config_data["_id"]}, {"$set": {"send_time": new_send_time}})
 
@@ -2840,7 +2840,7 @@ class Utility(commands.Cog):
             channel = self.bot.get_channel(config_data['channel_id'])
           
             send_time = config_data['send_time']
-            send_time = datetime.strptime(send_time, '%Y-%m-%d %H:%M')
+            send_time = datetime.datetime.strptime(send_time, '%Y-%m-%d %H:%M')
             send_time = send_time.strftime('%B %d, %Y %I:%M %p')
 
             intervaltype = config_data['intervaltype']
