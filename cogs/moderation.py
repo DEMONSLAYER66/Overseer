@@ -88,6 +88,31 @@ class Moderation(commands.Cog):
             await channel.send(embed=embed)
         else:
             await ctx.respond(embed=embed)
+
+
+
+    #when users are banned
+    @commands.Cog.listener()
+    async def on_member_ban(self, guild, user):
+        async for entry in guild.audit_logs(action=discord.AuditLogAction.ban):
+            if entry.target == user:
+                reason = entry.reason
+
+                embed = discord.Embed(title="Member Status Update", description=f"Attention members of ***{guild.name}***,\n{user.display_name} has been ***banished (banned)*** from this guild.", color = discord.Color.from_rgb(0, 0, 255))
+        
+                embed.add_field(name="Reason", value=reason if reason else "Not provided.")
+
+      
+        moderation_key = {"server_id": guild.id}
+        moderation_config = moderation_db.moderation_configs.find_one(moderation_key)
+        if moderation_config:
+            channel = await self.bot.fetch_channel(moderation_config["channel_id"])
+          
+            await channel.send(embed=embed)
+        else:
+            pass
+
+  
 ################################BAN###################################
 
 
