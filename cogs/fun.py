@@ -5,7 +5,7 @@ import glob #used to select a random GIF
 from discord.ext import commands #used for slash commands
 from discord.commands import Option #add options to slash commands
 
-import os #used for 
+import os #used for importing secrets and such
 import pymongo #used for mongoDB database
 
 import json #used to read and write to json files
