@@ -929,7 +929,7 @@ class Utility(commands.Cog):
 
 
               
-                autopurge_embed.add_field(name = f"Purge Channel {i}", value = f"> Channel: {purge_channel.mention}\n> Frequency: `{frequency_purge_time}`\n> Message Count: *{messagecount} messages*", inline = True)
+                autopurge_embed.add_field(name = f"Purge Channel {i}", value = f"> Channel: {purge_channel.mention}\n> Frequency: `{frequency_purge_time}`\n> Message Count: `{messagecount:,} messages`", inline = True)
                 i = i + 1
 
 
