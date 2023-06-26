@@ -16,7 +16,7 @@ import re #string matching
 import json #used to read and write .json type files
 import pytz #used for timezone
 import datetime
-from datetime import datetime #used to get date formatting and such
+# from datetime import datetime #used to get date formatting and such
 from datetime import timedelta #used for time addition and subtraction
 import asyncio #used to wait for specified amounts of time
 import random #used to randomize selections or choices
@@ -1652,7 +1652,7 @@ class Utility(commands.Cog):
 
             # Get the time now and localize it to US/Central time
             target_tz = pytz.timezone('US/Central')
-            now = datetime.now()
+            now = datetime.datetime.now()
             time = now.astimezone(target_tz)
             end_time = time.strftime("%A %B %d, %Y %I:%M:%S %p %Z")
 
@@ -1966,7 +1966,7 @@ class Utility(commands.Cog):
     
             date_time = data['current']['last_updated'] #last updated time
             timezone = pytz.timezone(data['location']['tz_id']) #timezone
-            timezone_abbr = timezone.localize(datetime.now()).strftime('%Z')
+            timezone_abbr = timezone.localize(datetime.datetime.now()).strftime('%Z')
             date_time = datetime.strptime(date_time, '%Y-%m-%d %H:%M')
             date_time = date_time.strftime('%B %d, %Y %I:%M %p')
             embed.add_field(name="Last Updated", value=f"`{date_time} {timezone_abbr}`")
@@ -2731,7 +2731,7 @@ class Utility(commands.Cog):
                     send_time = datetime.strptime(config_data['send_time'], '%Y-%m-%d %H:%M') 
                     send_time = tz.localize(send_time) # Localize send_time to US/Central timezone
                     send_time = send_time.strftime('%Y-%m-%d %H:%M')
-                    dt = datetime.now(tz).strftime('%Y-%m-%d %H:%M') #localize time to US/Central timezone
+                    dt = datetime.datetime.now(tz).strftime('%Y-%m-%d %H:%M') #localize time to US/Central timezone
                   
                     #only send message if time now is equal to send_time down to the minute (localized to US/Central timezone)
                     if dt == send_time:
@@ -2835,7 +2835,7 @@ class Utility(commands.Cog):
         timed_embeds_status = await self.get_timed_embeds_event_status(ctx.guild.id)
 
       
-        embed = discord.Embed(title=f"{ctx.guild.name}\n__Timed Embeds List__", description = f"The following is a list of timed embeds. It is advisable to *remove* or *edit* all timed embeds which are prior to the current time (`{datetime.now(tz).strftime('%B %d, %Y %I:%M %p %Z')}`)\n{f'Timed embeds are currently **disabled** for {ctx.guild.name}. However, you may update this using my `/eventhandler` directive, if you wish.' if timed_embeds_status == 'Disabled' else ''}", color=discord.Color.from_rgb(31, 92, 191))
+        embed = discord.Embed(title=f"{ctx.guild.name}\n__Timed Embeds List__", description = f"The following is a list of timed embeds. It is advisable to *remove* or *edit* all timed embeds which are prior to the current time (`{datetime.datetime.now(tz).strftime('%B %d, %Y %I:%M %p %Z')}`)\n{f'Timed embeds are currently **disabled** for {ctx.guild.name}. However, you may update this using my `/eventhandler` directive, if you wish.' if timed_embeds_status == 'Disabled' else ''}", color=discord.Color.from_rgb(31, 92, 191))
         for i, config_data in enumerate(embeds_data):
             channel = self.bot.get_channel(config_data['channel_id'])
           
