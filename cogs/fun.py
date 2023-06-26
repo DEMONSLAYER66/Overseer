@@ -74,10 +74,10 @@ class Fun(commands.Cog):
   )
   async def satireimage(self, ctx, community: Option(str, name="community", description="Name of the community (subreddit) to retrieve satirical images from. (Default: Random)", required=False, default=None, choices=["memes", "dankmemes", "meme", "wholesomememes", "Random"])):
     
-      # Reddit_API = os.environ['Reddit API']
-      # Client_ID = os.environ['Reddit Client ID']
-      Reddit_API = os.getenv('Reddit API')
-      Client_ID = os.getenv('Reddit Client ID')
+      # Reddit_API = os.environ['RedditAPI']
+      # Client_ID = os.environ['RedditClientID']
+      Reddit_API = os.getenv('RedditAPI')
+      Client_ID = os.getenv('RedditClientID')
 
 
       ### By using async with asyncpraw.Reddit(...) as reddit, the client session will be automatically closed once the code execution leaves the with block, ensuring that the session and connector are properly closed.
@@ -444,8 +444,8 @@ class Fun(commands.Cog):
 
     
       #API key for openai
-      # openai_key = os.environ['Open AI API Key']
-      openai_key = os.getenv('Open AI API Key')
+      # openai_key = os.environ['OpenAIAPIKey']
+      openai_key = os.getenv('OpenAIAPIKey')
       openai.api_key = openai_key
 
       identity_dict = {
@@ -617,8 +617,8 @@ class Fun(commands.Cog):
 
     
       #API key for openai
-      # dalle_openai_key = os.environ['Dall-E Open AI API Key']
-      dalle_openai_key = os.getenv('Dall-E Open AI API Key')
+      # dalle_openai_key = os.environ['DallEOpenAIAPIKey']
+      dalle_openai_key = os.getenv('DallEOpenAIAPIKey')
       openai.api_key = dalle_openai_key
 
       byname = await self.get_byname(ctx.guild.id)

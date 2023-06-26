@@ -133,10 +133,10 @@ class Utility(commands.Cog):
                 continue
             elif autosatire_status == "Enabled":
               
-                # Reddit_API = os.environ['Reddit API']
-                # Client_ID = os.environ['Reddit Client ID']
-                Reddit_API = os.getenv('Reddit API')
-                Client_ID = os.getenv('Reddit Client ID')
+                # Reddit_API = os.environ['RedditAPI']
+                # Client_ID = os.environ['RedditClientID']
+                Reddit_API = os.getenv('RedditAPI')
+                Client_ID = os.getenv('RedditClientID')
           
                 ### By using async with asyncpraw.Reddit(...) as reddit, the client session will be automatically closed once the code execution leaves the with block, ensuring that the session and connector are properly closed.
                 async with asyncpraw.Reddit(
@@ -1870,8 +1870,8 @@ class Utility(commands.Cog):
 
 
       
-        # weather_api_key = os.environ['Weather API Key']
-        weather_api_key = os.getenv('Weather API Key')
+        # weather_api_key = os.environ['WeatherAPIKey']
+        weather_api_key = os.getenv('WeatherAPIKey')
         current_url = "http://api.weatherapi.com/v1/current.json"
         params = {
           "key": weather_api_key,
