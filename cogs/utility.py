@@ -920,6 +920,7 @@ class Utility(commands.Cog):
                         frequency_purge_time = f"{seconds}s"
 
                 else:
+                    frequency_purge_time = "n/a"
                     frequency = "None"
 
 
