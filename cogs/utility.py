@@ -847,6 +847,13 @@ class Utility(commands.Cog):
         if image:
             embed.set_image(url=image)
 
+        if field_name and field_value:
+            embed.add_field(name=field_name, value=field_value)
+        elif field_name and not field_value:
+            embed.add_field(name=field_name, value="\u200b")
+        elif field_value:
+            embed.add_field(name="\u200b", value=field_value)
+      
         if footer:
             embed.set_footer(text=footer)
 
