@@ -2,7 +2,7 @@
 
 ## --- Version 1.0 ---
 
-Release Date: `Pending`
+Release Date: `June 26, 2023`
 
 ### Updates/Fixes
 
@@ -56,3 +56,6 @@ Release Date: `Pending`
 
 #### `June 23, 2023`
 - ***Updated Privacy Policy and TOS*** to incorporate payments for Patron (premium) features on [Patreon](https://www.patreon.com/LordBottington).
+
+### `June 26, 2023`
+- Lord Bottington v1.0 released.
