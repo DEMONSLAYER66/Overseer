@@ -331,7 +331,7 @@ class Configuration(commands.Cog):
         if not messagecount or messagecount == 0:
             messagecount = None
 
-        if messagecount > 100:
+        if messagecount and messagecount > 100:
             await ctx.respond(f"{ctx.author.mention}\nPlease specify a message count less than or equal to ***100*** to avoid Discord rate limits, good sir...", ephemeral=True)
             return
       
