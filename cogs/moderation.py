@@ -302,7 +302,7 @@ class Moderation(commands.Cog):
             try:
                 await channel.send(embed=embed)
             except: #if the bot does not have access or any other errors occur
-                await ctx.respond(f"Apologies {ctx.author.mention},\nI was unable to send the modersation message to {channel.mention}, good sir.\nPlease update my access to this channel, if necessary, and try again.*", ephemeral=True)
+                await ctx.respond(f"Apologies {ctx.author.mention},\nI was unable to send the moderation message to {channel.mention}, good sir.\n*Please update my access to this channel, if necessary, and try again.*", ephemeral=True)
         else:
             await ctx.respond(embed=embed)
   
@@ -342,7 +342,7 @@ class Moderation(commands.Cog):
             return
 
       
-        embed = discord.Embed(title="Member Status Update", description=f"Attention members of {ctx.guild.name},\n{member.display_name} has been `unsilenced (unmuted)` within this guild.", color = discord.Color.from_rgb(0, 0, 255))
+        embed = discord.Embed(title="Member Status Update", description=f"Attention members of ***{ctx.guild.name}***,\n**{member.display_name}** has been `unsilenced (unmuted)` within this guild.", color = discord.Color.from_rgb(0, 0, 255))
 
         embed.add_field(name="Reason", value=reason if reason else "Not provided.")
 
@@ -356,7 +356,7 @@ class Moderation(commands.Cog):
             try:
                 await channel.send(embed=embed)
             except: #if the bot does not have access or any other errors occur
-                await ctx.respond(f"Apologies {ctx.author.mention},\nI was unable to send the modersation message to {channel.mention}, good sir.\nPlease update my access to this channel, if necessary, and try again.*", ephemeral=True)
+                await ctx.respond(f"Apologies {ctx.author.mention},\nI was unable to send the moderation message to {channel.mention}, good sir.\n*Please update my access to this channel, if necessary, and try again.*", ephemeral=True)
         else:
             await ctx.respond(embed=embed)
 ###############################UNMUTE###################################
@@ -409,7 +409,7 @@ class Moderation(commands.Cog):
         warnings_left = self.warning_threshold - num_warnings
 
         if warnings_left > 0:
-            description = f"Attention members of {ctx.guild.name},\n{member.display_name} has been ***warned*** within this guild."
+            description = f"Attention members of ***{ctx.guild.name}***,\n**{member.display_name}** has been `warned` within this guild."
         else:
             description = f"Attention members of {ctx.guild.name},\n{member.display_name} has been `warned` within this guild and has reached the maximum number of warnings ({self.warning_threshold}). They will be banished accordingly."
 
@@ -430,7 +430,7 @@ class Moderation(commands.Cog):
             try:
                 await channel.send(embed=embed)
             except: #if the bot does not have access or any other errors occur
-                await ctx.respond(f"Apologies {ctx.author.mention},\nI was unable to send the modersation message to {channel.mention}, good sir.\nPlease update my access to this channel, if necessary, and try again.*", ephemeral=True)
+                await ctx.respond(f"Apologies {ctx.author.mention},\nI was unable to send the moderation message to {channel.mention}, good sir.\n*Please update my access to this channel, if necessary, and try again.*", ephemeral=True)
         else:
             await ctx.respond(embed=embed)
 
@@ -501,14 +501,14 @@ class Moderation(commands.Cog):
                     try:
                         await channel.send(embed=embed)
                     except: #if the bot does not have access or any other errors occur
-                        await ctx.respond(f"Apologies {ctx.author.mention},\nI was unable to send the modersation message to {channel.mention}, good sir.\nPlease update my access to this channel, if necessary, and try again.*", ephemeral=True)
+                        await ctx.respond(f"Apologies {ctx.author.mention},\nI was unable to send the moderation message to {channel.mention}, good sir.\n*Please update my access to this channel, if necessary, and try again.*", ephemeral=True)
                 else:
                     await ctx.respond(embed=embed)
           
             else:
-                await ctx.respond(f"Apologies {ctx.author.mention}\n***{warning_index}*** is not a valid warning index for {member.display_name}. This value must be a valid integer less than or equal to {num_warnings}.\n*Please try again.*", ephemeral=True)
+                await ctx.respond(f"Apologies {ctx.author.mention}\n***{warning_index}*** is not a valid warning index for **{member.display_name}**. This value must be a valid integer less than or equal to {num_warnings}.\n*Please try again.*", ephemeral=True)
         else:
-            await ctx.respond(f"Apologies {ctx.author.mention}\nIt appears that {member.display_name} has no warnings within {ctx.guild.name}.", ephemeral=True)
+            await ctx.respond(f"Apologies {ctx.author.mention}\nIt appears that **{member.display_name}** has no warnings within ***{ctx.guild.name}***.", ephemeral=True)
 
 ###############################WARNREMOVE############################
 
