@@ -15,6 +15,7 @@ You must also ensure that Lord Bottington's status (role) is higher than all oth
 `Manage Roles`
 `Manage Channels`
 `Kick Members`
+
 `Ban Members`
 `Change Nickname`
 `Manage Expressions`
