@@ -931,8 +931,8 @@ class Configuration(commands.Cog):
                   "color": [r, g, b],
                   "whitelisted_status_id": whitelisted_status_id,
                   "whitelisted_status_name": whitelisted_status_name,
-                  "blacklisted_status_id": blacklisted_status.id,
-                  "blacklisted_status_name": blacklisted_status.name
+                  "blacklisted_status_id": blacklisted_status_id,
+                  "blacklisted_status_name": blacklisted_status_name
                 }
               }
             )
