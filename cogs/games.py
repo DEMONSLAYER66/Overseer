@@ -66,6 +66,14 @@ class Games(commands.Cog):
             await ctx.respond(f"Apologies {ctx.author.mention},\nOnly those with administrative privileges within {ctx.guild.name} may view game information for other members of the guild.\n*Please try again.*", ephemeral=True)
             return
 
+        #cant lookup bot game playing info
+        if member.id == self.bot.user.id:
+            await ctx.respond(f"Apologies {ctx.author.mention},\nMy game playing info is unavailable to view.\n*Please try a different user, good sir.*", ephemeral=True)
+            return
+        elif member.id != self.bot.user.id and member.bot:
+            await ctx.respond(f"Apologies {ctx.author.mention},\nGame playing information for **{member.display_name}** is unavailable.\n*Please try a different user, good sir.*", ephemeral=True)
+            return           
+
         games = games_db[f"winnings_{ctx.guild.id}"] #the database to look in
         games_key = {"player_id": member.id} #search parameter
 
