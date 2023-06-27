@@ -650,6 +650,8 @@ class Fun(commands.Cog):
           self.byname = byname
           self.tries_left = tries_left #this will be n/a if they can use the variations (i.e. a patron) and a number if they cannot use it (not a patron)
           self.variation_number = 0 #the number for the variation
+          self.image_data = None
+          self.image_url = None
 
 
     
@@ -669,12 +671,13 @@ class Fun(commands.Cog):
           try:
               #generate an image from Dall-E openai
               response = openai.Image.create(
-                  prompt=prompt, #A text description of the desired image(s). The maximum length is 1000 characters.
+                  prompt=self.prompt, #A text description of the desired image(s). The maximum length is 1000 characters.
                   n=1, #The number of images to generate. Must be between 1 and 10.
                   size="1024x1024", #The size of the generated images. Must be one of 256x256, 512x512, or 1024x1024.
                   user = f"{self.ctx.author.display_name}_{self.ctx.author.id}" #A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse.
               )
               image_url = response['data'][0]['url']
+              self.image_url = image_url
     
             
     
@@ -693,6 +696,7 @@ class Fun(commands.Cog):
               with io.BytesIO() as image_buffer:
                   image.save(image_buffer, format='PNG')
                   image_data = image_buffer.getvalue()
+                  self.image_data = image_data
             
               # Create a Discord file object from the modified image data (this is for making variations of the image)
               file = discord.File(io.BytesIO(image_data), filename='generated_image.png')
@@ -716,7 +720,7 @@ class Fun(commands.Cog):
 
 
               self.children[0].disabled = True #disable the generate image button
-              self.chidlren[1].disabled = False #enable the variations image button
+              self.children[1].disabled = False #enable the variations image button
             
               await self.message.edit(embed=image_embed, view=self)
     
@@ -751,11 +755,11 @@ class Fun(commands.Cog):
 
           await interaction.response.defer()
 
-          image_embed = discord.Embed(title=f"{self.byname}\nImage Generation", description=f"{ctx.author.mention}\nNow generating your imagery, good sir.\n*This may take a moment...*", color=discord.Color.from_rgb(0, 0, 255))
+          image_embed = discord.Embed(title=f"{self.byname}\nImage Generation", description=f"{self.ctx.author.mention}\nNow generating your imagery, good sir.\n*This may take a moment...*", color=discord.Color.from_rgb(0, 0, 255))
       
-          image_embed.set_thumbnail(url=self.bot.user.avatar.url)
+          image_embed.set_thumbnail(url=self.ctx.bot.user.avatar.url)
     
-          image_embed.add_field(name=f"{self.ctx.author.display_name} Prompt", value=f"```{prompt}```")
+          image_embed.add_field(name=f"{self.ctx.author.display_name} Prompt", value=f"```{self.prompt}```")
     
           #inform the user of the tries remaining for the directive
           if self.tries_left != "n/a":
