@@ -2415,26 +2415,31 @@ class Utility(commands.Cog):
                 on_join_status_id = welcome_data['on_join_status_id']
                 on_join_status_name = welcome_data['on_join_status_name']
 
-                #check for the automaton patron tier and reset the configurations to the defaults
-                patron_data = patrons_db.patrons
-                refined_patron_key = {
-                  "server_id": member_server_id,
-                  "patron_tier": "Refined Automaton Patron"
-                }
-                distinguished_patron_key = {
-                  "server_id": member_server_id,
-                  "patron_tier": "Distinguished Automaton Patron"
-                }
-              
-                refined_patron = patron_data.find_one(refined_patron_key)
-                distinguished_patron = patron_data.find_one(distinguished_patron_key)
-                
-                if not refined_patron or not distinguished_patron:
-                    image_text = "Welcome {member.display_name}"
-                    image_text_color = [255, 255, 255]
-                    background = "https://i.imgur.com/QyT4Pho.jpg"
-                    avatar = "{member.avatar}"
-                    avatar_outline_color = [255, 255, 255]
+
+                # server ID for The Sweez Gang
+                support_guild_id = 1088118252200276071
+
+                if member.guild.id != support_guild_id:
+                    #check for the automaton patron tier and reset the configurations to the defaults
+                    patron_data = patrons_db.patrons
+                    refined_patron_key = {
+                      "server_id": member_server_id,
+                      "patron_tier": "Refined Automaton Patron"
+                    }
+                    distinguished_patron_key = {
+                      "server_id": member_server_id,
+                      "patron_tier": "Distinguished Automaton Patron"
+                    }
+                  
+                    refined_patron = patron_data.find_one(refined_patron_key)
+                    distinguished_patron = patron_data.find_one(distinguished_patron_key)
+                    
+                    if not refined_patron or not distinguished_patron:
+                        image_text = "Welcome {member.display_name}"
+                        image_text_color = [255, 255, 255]
+                        background = "https://i.imgur.com/QyT4Pho.jpg"
+                        avatar = "{member.avatar}"
+                        avatar_outline_color = [255, 255, 255]
               
 
                 #get the bot's nickname from mongoDB
