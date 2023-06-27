@@ -136,8 +136,8 @@ class Core(commands.Cog):
         else:
             uptime = f"{seconds} seconds"
 
-        # invite link
-        invite_link = discord.utils.oauth_url(self.bot.user.id, permissions=discord.Permissions())
+        # bot invite link
+        invite_link = "https://discord.com/api/oauth2/authorize?client_id=1092515783025889383&permissions=3557027030&scope=bot%20applications.commands"
 
         #get the servers the bot is in
         bot_servers = []
