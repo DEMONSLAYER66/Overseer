@@ -1332,6 +1332,7 @@ class Fun(commands.Cog):
                   item = user.avatar.url
                   original_file=None
                   item_type = "avatar"
+                  picture_file = False
     
               except AttributeError: #avatar not defined
                   await ctx.respond(f"Apologies {ctx.author.mention},\n**{user.display_name}** does not have an avatar defined.\n*Please try again.*", ephemeral = True)
@@ -1367,6 +1368,7 @@ class Fun(commands.Cog):
                     
                       item_type = "picture"
                       original_file=None
+                      picture_file = False
                   else:
                       await ctx.respond(f"Apologies {ctx.author.mention},\nThe image must be in *.jpg*, *.jpeg*, *.png*, or *.gif* format.\n*Please try again.*", ephemeral=True)
                       return
@@ -1379,6 +1381,7 @@ class Fun(commands.Cog):
                   item = user.avatar.url
                   original_file=None
                   item_type = "avatar"
+                  picture_file = False
     
               except AttributeError: #avatar not defined
                   await ctx.respond(f"Apologies {ctx.author.mention},\nYou do not have an avatar defined.\n*Please try again.*", ephemeral = True)
