@@ -819,7 +819,7 @@ class Configuration(commands.Cog):
             streamer_id = None
             
 
-        if stream_channel is None:
+        if not stream_channel:
             stream_channel_id = None
             stream_channel_name = None
         else:
@@ -840,7 +840,7 @@ class Configuration(commands.Cog):
             "✅ Match Streaming Service": (None, None, None)
         }
 
-        if color is not None:
+        if color:
             if color in color_codes:
                 r = color_codes[color][0]
                 g = color_codes[color][1]
@@ -858,7 +858,7 @@ class Configuration(commands.Cog):
             b = custom_b
 
       
-        if whitelisted_status is None:
+        if not whitelisted_status:
             whitelisted_status_id = None
             whitelisted_status_name = None
         else:
@@ -866,7 +866,7 @@ class Configuration(commands.Cog):
             whitelisted_status_name = whitelisted_status.name
 
 
-        if blacklisted_status is None:
+        if not blacklisted_status:
             blacklisted_status_id = None
             blacklisted_status_name = None
         else:
