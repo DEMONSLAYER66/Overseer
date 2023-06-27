@@ -1514,16 +1514,16 @@ class Games(commands.Cog):
         ####### Fire Button
         @discord.ui.button(emoji="💥", label="Fire", row=4, style=discord.ButtonStyle.success, disabled=True) #start with Fire button disabled (until the user selects both positions)
         async def fire_button_callback(self, button, interaction):
-            await interaction.response.defer()
-
             if interaction.user.id != self.current_turn.id:
                 return
+            
+            await interaction.response.defer()
 
             await self.fire()
-
+            
             #Make bot move after player's turn (if used)
             if self.player2_bot is True:
-                await asyncio.sleep(4) #simulate loading
+                await asyncio.sleep(1) #simulate loading
                 await self.bot_move()
 
 
