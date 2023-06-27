@@ -126,7 +126,7 @@ class Utility(commands.Cog):
             autosatire_guild = self.bot.get_guild(satire_guild_id)
 
             #get the autosatire event status from mongoDB
-            autosatire_status = await self.get_autosatire_event_status(autosatire_guild)
+            autosatire_status = await self.get_autosatire_event_status(satire_guild_id)
 
             #Autosatire task event only runs if event status using /eventhandler is set to enabled OR if the user has not set the status using /eventhandler
             if autosatire_status == "Disabled":
