@@ -1463,11 +1463,19 @@ class Core(commands.Cog):
                 )
         
         elif directive in app_command_names_list and directive not in command_names_list:
+            help_embed = discord.Embed(title=f"__**Directives for {byname}**__", color = discord.Color.from_rgb(47, 85, 222), url=f"{full_directives_list}")
+
+            help_embed.set_thumbnail(url=self.bot.user.avatar.url)
+          
             help_embed.add_field(
                 name="Help Error",
                 value=f"Apologies good sir,\nIt appears that the **{directive}** directive is restricted for you.\n*Please try again or contact an administrator if more help is required.*")                
         
         else:
+            help_embed = discord.Embed(title=f"__**Directives for {byname}**__", color = discord.Color.from_rgb(47, 85, 222), url=f"{full_directives_list}")
+
+            help_embed.set_thumbnail(url=self.bot.user.avatar.url)
+          
             help_embed.add_field(
                 name="Help Error",
                 value=f"Apologies good sir,\nIt appears that I could not locate a directive entitled **{directive}**.\n*Please try again.*")
