@@ -57,9 +57,9 @@ Release Date: `June 27, 2023`
 #### `June 23, 2023`
 - ***Updated Privacy Policy and TOS*** to incorporate payments for Patron (premium) features on [Patreon](https://www.patreon.com/LordBottington).
 
-### `June 26, 2023`
+#### `June 26, 2023`
 - Began hosting with *SparkedHost* services.
 - Final review and fixes in code.
 
-### `June 27, 2023`
+#### `June 27, 2023`
 - Lord Bottington v1.0 released!
