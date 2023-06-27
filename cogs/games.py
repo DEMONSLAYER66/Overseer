@@ -84,6 +84,7 @@ class Games(commands.Cog):
             wins = games_data["wins"]
             earnings = games_data["shillings"]
         else:
+            game_names = ["battleship", "connectfour", "mastermind", "rps", "tictactoe", "wumpus"]
             favorite_game = None
             wins = [0 for _ in range(6)] #6 total games, but no data found, so 0 wins for them all
             earnings = [0 for _ in range(6)]
@@ -1516,11 +1517,11 @@ class Games(commands.Cog):
         async def fire_button_callback(self, button, interaction):
             if interaction.user.id != self.current_turn.id:
                 return
-            
+
             await interaction.response.defer()
 
             await self.fire()
-            
+
             #Make bot move after player's turn (if used)
             if self.player2_bot is True:
                 await asyncio.sleep(1) #simulate loading
