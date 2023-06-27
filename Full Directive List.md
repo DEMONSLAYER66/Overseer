@@ -132,7 +132,7 @@ You may toggle the use of each of the events within this category by utilizing m
   - *However, if the user does not set their birthday **before** midnight of the actual day, the automaton will be unable to distribute the birthday message and status accordingly.*
   - *Markdown Syntax:* The following variables may be used in the birthday message to display the respective information.
     > *[General Markdown Syntax](https://support.discord.com/hc/en-us/articles/210298617-Markdown-Text-101-Chat-Formatting-Bold-Italic-Underline-)*
-    > + `{member.mention}` - Mention joining user
+    > + `{member.mention}` - Mention birthday user
     > + `{member.display_name}` - User's display name
     > + `{birthday_role_name}` - Birthday status name (if set)
     > + `{birthday_role_mention}` - Mention birthday status (if set)
