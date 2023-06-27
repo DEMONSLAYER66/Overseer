@@ -1027,7 +1027,7 @@ class Utility(commands.Cog):
                     await self.message.edit(content=f"{interaction.user.mention}\nPlease submit a file directly into the chat box which you would like to add as an icon.", view=self)
 
                   
-                    file = await self.bot.wait_for("message", check=lambda m: m.author == interaction.user and m.channel == self.ctx.channel, timeout=30.0)
+                    file = await self.bot.wait_for("message", check=lambda m: m.author == interaction.user and m.channel == self.ctx.channel, timeout=120.0)
                 except asyncio.TimeoutError:
                     try:#check if the list has not been cancelled
                         await self.ctx.channel.fetch_message(self.message.id)
@@ -1230,7 +1230,7 @@ class Utility(commands.Cog):
 
                     await self.message.edit(content=f"{interaction.user.mention}\nPlease enter the name of the icon you would like to remove directly into the chat box below:", view=self) #update the changes of the disable buttons in the view
                   
-                    message = await self.bot.wait_for("message", check=lambda m: m.author == interaction.user and m.channel == self.ctx.channel, timeout=30.0)
+                    message = await self.bot.wait_for("message", check=lambda m: m.author == interaction.user and m.channel == self.ctx.channel, timeout=120.0)
 
                 except asyncio.TimeoutError:
                     try: #check if the list has not been cancelled
