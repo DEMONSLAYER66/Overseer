@@ -1424,9 +1424,9 @@ class Configuration(commands.Cog):
     
         #define font files
         fonts = {
-          "Arial": "Lord Bottington Code/fonts/arial.ttf",
-          "Allura Regular": "Lord Bottington Code/fonts/Allura-Regular.ttf",
-          "Ariana Violeta": "Lord Bottington Code/fonts/ArianaVioleta.ttf"
+          "Arial": "fonts/arial.ttf",
+          "Allura Regular": "fonts/Allura-Regular.ttf",
+          "Ariana Violeta": "fonts/ArianaVioleta.ttf"
         }   
     
         if font is not None:
@@ -1435,7 +1435,7 @@ class Configuration(commands.Cog):
             else:
                 await ctx.respond(f"**Error**\n*{font}* is not a viable option, good sir.\n*Please try again.*", ephemeral=True)
         else: #default font to arial
-            font = "Lord Bottington Code/fonts/arial.ttf"
+            font = "fonts/arial.ttf"
     
 
 
