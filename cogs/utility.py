@@ -2511,7 +2511,7 @@ class Utility(commands.Cog):
                     raise ValueError('Invalid avatar placement option')
                     
                 # Download the background image
-                response = requests.get(background, stream=True)
+                response = requests.get(background)
                 background_image = Image.open(io.BytesIO(response.content))
     
     
