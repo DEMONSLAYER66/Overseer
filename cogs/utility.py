@@ -509,7 +509,7 @@ class Utility(commands.Cog):
             super().__init__(timeout=3600) #used to initialize the timeout (if needed)
             self.ctx = ctx #initialize the context
             self.bot = bot #intialize bot
-            self.game = Status.games_list[game]
+            self.game = Utility.games_list[game]
             self.players = players
             self.platform = platform
             self.other_game = other_game
