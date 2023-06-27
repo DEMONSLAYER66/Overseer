@@ -688,6 +688,7 @@ class Configuration(commands.Cog):
         self,
         ctx,
         streamers: Option(str, name="streamers", description="Receive streaming notifications from and provide streaming status to ALL users or only ONE user.", choices=["👥 ALL", "👤 ONE"]),
+        user: Option(discord.Member, name="user", description="User to receive notifications for. (Default: None)", required=False, default=None),
         stream_status: Option(discord.Role, name="stream_status", description="Status the user receives when streaming commences. (Default = None)", required=False, default=None),
         stream_channel: Option(discord.TextChannel, name="stream_channel", description="Channel the embed notifications will be sent to when user begins streaming. (Default: None)", required=False, default=None),
         message: Option(bool, name="message", description="Send a plain text message that is posted above the streaming notification. (Default: True)", required=False, default=True),
@@ -803,25 +804,19 @@ class Configuration(commands.Cog):
           "👤 ONE": "one"
         }
 
-        if streamers is not None and streamers == "👤 ONE":
+        if streamers is not None and streamers == "👤 ONE" and user:
             streamers = streamer_dict[streamers]
-          
-            await ctx.respond("Please enter a streamer's **DISCORD** username directly into the chat box to receive streaming notifications from or provide a streaming status for:", ephemeral=True)
-            streamer_username_message = await self.bot.wait_for("message", check=lambda m: m.author == ctx.author and m.channel == ctx.channel)
-            streamer_username = streamer_username_message.content
-            await streamer_username_message.delete() #delete the username message
-          
-            # Check if the entered username is a member of the current guild
-            member = discord.utils.get(ctx.guild.members, name=streamer_username)
-            if member is None:
-                streamer_id = None
-                await ctx.send(f"{streamer_username} is not a member of this server, good sir.\n*Please try again.*")
-                return
-            else:
-                streamer_id = member.id # get the ID of the member
+
+            streamer_username = user.display_name
+            streamer_id = user.id
 
         else:
             streamers = streamer_dict[streamers]
+
+      
+        if not user:
+            streamer_username = None
+            streamer_id = None
             
 
         if stream_channel is None:
