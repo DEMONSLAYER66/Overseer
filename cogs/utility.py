@@ -2748,12 +2748,15 @@ class Utility(commands.Cog):
                             # print(f"Error: Channel with ID {config_data['channel_id']} not found for server {server_id}.")
                             continue
         
-                        color_data = config_data.get('color', None)
+                        color_data = config_data['color']
                         if color_data:
-                            r, g, b = color_data
-                            color = discord.Color.from_rgb(r, g, b)
+                            r = color_data[0]
+                            g = color_data[1]
+                            b = color_data[2]
                         else:
-                            color = discord.Color.default()
+                            r = 0
+                            g = 0
+                            b = 255
 
                       
                         #check for the automaton patron tier and reset the configurations to the defaults
@@ -2778,7 +2781,9 @@ class Utility(commands.Cog):
                             embeds_db[f"embeds_config_{server_id}"].delete_many({"server_id": server_id}, limit=excess_count)
                           
                         if not refined_patron or not distinguished_patron:
-                            color = [0, 0, 255] #reset to embed color to blue default
+                            r = 0
+                            g = 0
+                            b = 255
 
                       
 
@@ -2791,7 +2796,7 @@ class Utility(commands.Cog):
                         embed = discord.Embed(
                             title=title,
                             description=body,
-                            color=color
+                            color=discord.Color.from_rgb(r, g, b)
                         )
         
                         if config_data.get('thumbnail'):
