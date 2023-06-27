@@ -292,6 +292,12 @@ class Moderation(commands.Cog):
 
         embed.add_field(name="Reason", value=reason if reason else "Not provided.")
 
+        #set thumbnail to author's avatar
+        try:
+            embed.set_thumbnail(url=member.avatar.url)
+        except:
+            pass #if no avatar set, skip the thumbnail
+
         moderation_key = {"server_id": ctx.guild.id}
         moderation_config = moderation_db.moderation_configs.find_one(moderation_key)
         if moderation_config:
@@ -345,6 +351,12 @@ class Moderation(commands.Cog):
         embed = discord.Embed(title="Member Status Update", description=f"Attention members of ***{ctx.guild.name}***,\n**{member.display_name}** has been `unsilenced (unmuted)` within this guild.", color = discord.Color.from_rgb(0, 0, 255))
 
         embed.add_field(name="Reason", value=reason if reason else "Not provided.")
+
+        #set thumbnail to author's avatar
+        try:
+            embed.set_thumbnail(url=member.avatar.url)
+        except:
+            pass #if no avatar set, skip the thumbnail
 
         moderation_key = {"server_id": ctx.guild.id}
         moderation_config = moderation_db.moderation_configs.find_one(moderation_key)
@@ -420,6 +432,12 @@ class Moderation(commands.Cog):
       
         embed.add_field(name="Reason", value=reason if reason else "Not provided.", inline=False)
 
+        #set thumbnail to author's avatar
+        try:
+            embed.set_thumbnail(url=member.avatar.url)
+        except:
+            pass #if no avatar set, skip the thumbnail
+
         moderation_key = {"server_id": ctx.guild.id}
         moderation_config = moderation_db.moderation_configs.find_one(moderation_key)
         if moderation_config:
@@ -490,6 +508,12 @@ class Moderation(commands.Cog):
                 embed = discord.Embed(title="Member Status Update", description=f"Attention members of {ctx.guild.name},\nA warning has been *removed* from {member.display_name} for this guild.", color = discord.Color.from_rgb(0, 0, 255))
         
                 embed.add_field(name="Warnings Remaining", value = f"{warnings_left} of {self.warning_threshold}", inline=False)
+
+                #set thumbnail to author's avatar
+                try:
+                    embed.set_thumbnail(url=member.avatar.url)
+                except:
+                    pass #if no avatar set, skip the thumbnail
         
                 moderation_key = {"server_id": ctx.guild.id}
                 moderation_config = moderation_db.moderation_configs.find_one(moderation_key)
