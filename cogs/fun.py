@@ -665,7 +665,7 @@ class Fun(commands.Cog):
 
   
 
-      async def get_image(self, prompt, byname, tries_left):
+      async def get_image(self):
           try:
               #generate an image from Dall-E openai
               response = openai.Image.create(
@@ -701,18 +701,18 @@ class Fun(commands.Cog):
     
             
               # Create an embed with the image
-              image_embed = discord.Embed(title=f"{byname}\nImage Generation", color=discord.Color.from_rgb(0, 0, 255))
+              image_embed = discord.Embed(title=f"{self.byname}\nImage Generation", color=discord.Color.from_rgb(0, 0, 255))
           
             
-              image_embed.add_field(name=f"{self.ctx.author.display_name} Prompt", value=f"```{prompt}```")
+              image_embed.add_field(name=f"{self.ctx.author.display_name} Prompt", value=f"```{self.prompt}```")
           
-              image_embed.set_thumbnail(url=self.bot.user.avatar.url)
+              image_embed.set_thumbnail(url=self.ctx.bot.user.avatar.url)
             
               image_embed.set_image(url=image_url)
     
               #inform the user of the tries remaining for the directive
-              if tries_left != "n/a":
-                  image_embed.set_footer(text=f"{tries_left} tries remaining for {self.ctx.author.display_name}")
+              if self.tries_left != "n/a":
+                  image_embed.set_footer(text=f"{self.tries_left} tries remaining for {self.ctx.author.display_name}")
 
 
               self.children[0].disabled = True #disable the generate image button
@@ -723,20 +723,20 @@ class Fun(commands.Cog):
           #prompt is rejected by safety system because prompt might be inappropriate
           except openai.error.InvalidRequestError as e:
               #inform the user of the tries remaining for the directive
-              if tries_left == "n/a":
+              if self.tries_left == "n/a":
                   error_message = f"{self.ctx.author.mention}\nYour prompt violates the safety guidelines and cannot be processed.\n*Please try again with a different prompt.\n**Error:** {e}"
               else:
-                  error_message = f"{self.ctx.author.mention}\nYour prompt violates the safety guidelines and cannot be processed.\n*Please try again with a different prompt.\n**Error:** {e}\n\n***{tries_left}*** tries remaining for ***{self.ctx.author.display_name}***."
+                  error_message = f"{self.ctx.author.mention}\nYour prompt violates the safety guidelines and cannot be processed.\n*Please try again with a different prompt.\n**Error:** {e}\n\n***{self.tries_left}*** tries remaining for ***{self.ctx.author.display_name}***."
                 
               await self.message.edit(embed=None, content=error_message, view=None, ephemeral=True)
               self.stop()
     
           except openai.error.OpenAIError as e:
               #inform the user of the tries remaining for the directive
-              if tries_left == "n/a":
+              if self.tries_left == "n/a":
                   error_message = f"{self.ctx.author.mention}\nAn error occurred while trying to generate your prompt.\n*please try again.*\n**Error:** {e}"
               else:
-                  error_message = f"{self.ctx.author.mention}\nAn error occurred while trying to generate your prompt.\n*please try again.*\n**Error:** {e}\n\n***{tries_left}*** tries remaining for ***{self.ctx.author.display_name}***."
+                  error_message = f"{self.ctx.author.mention}\nAn error occurred while trying to generate your prompt.\n*please try again.*\n**Error:** {e}\n\n***{self.tries_left}*** tries remaining for ***{self.ctx.author.display_name}***."
     
               await self.message.edit(embed=None, content=error_message, view=None, ephemeral=True)
               self.stop()
@@ -751,7 +751,21 @@ class Fun(commands.Cog):
 
           await interaction.response.defer()
 
-          await self.get_image(self.prompt, self.byname, self.tries_left)
+          image_embed = discord.Embed(title=f"{self.byname}\nImage Generation", description=f"{ctx.author.mention}\nNow generating your imagery, good sir.\n*This may take a moment...*", color=discord.Color.from_rgb(0, 0, 255))
+      
+          image_embed.set_thumbnail(url=self.bot.user.avatar.url)
+    
+          image_embed.add_field(name=f"{self.ctx.author.display_name} Prompt", value=f"```{prompt}```")
+    
+          #inform the user of the tries remaining for the directive
+          if self.tries_left != "n/a":
+              image_embed.set_footer(text=f"{self.tries_left} tries remaining for {self.ctx.author.display_name}")
+
+          self.disable_all_items()
+        
+          await self.message.edit(embed=image_embed, view=self)
+
+          await self.get_image()
 
 
     
