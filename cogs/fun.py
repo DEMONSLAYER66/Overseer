@@ -629,7 +629,7 @@ class Fun(commands.Cog):
   
       image_embed.set_thumbnail(url=self.bot.user.avatar.url)
 
-      image_embed.add_field(name=f"{self.ctx.author.display_name} Prompt", value=f"```{prompt}```")
+      image_embed.add_field(name=f"{ctx.author.display_name} Prompt", value=f"```{prompt}```")
 
       # #inform the user of the tries remaining for the directive
       # if tries_left != "n/a":
