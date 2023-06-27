@@ -623,89 +623,109 @@ class Fun(commands.Cog):
 
       byname = await self.get_byname(ctx.guild.id)
 
-      await ctx.defer()
-      try:
-          #generate an image from Dall-E openai
-          response = openai.Image.create(
-              prompt=prompt, #A text description of the desired image(s). The maximum length is 1000 characters.
-              n=1, #The number of images to generate. Must be between 1 and 10.
-              size="1024x1024", #The size of the generated images. Must be one of 256x256, 512x512, or 1024x1024.
-              user = f"{ctx.author.display_name}_{ctx.author.id}" #A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse.
-          )
-          image_url = response['data'][0]['url']
-
-        
-
-          #retrieve the image
-          r = requests.get(image_url, stream=True)
-
-
-          picture = Image.open(r.raw)
-          if picture.mode == "P" and "transparency" in picture.info:
-              image = picture.convert("RGBA") #convert the image to RGBA mode (A = alpha mode -- i.e. transparent pixels)
-          else:
-              image = picture.convert("RGB")
-
-        
-          # Save the modified image to a buffer
-          with io.BytesIO() as image_buffer:
-              image.save(image_buffer, format='PNG')
-              image_data = image_buffer.getvalue()
-        
-          # Create a Discord file object from the modified image data (this is for making variations of the image)
-          file = discord.File(io.BytesIO(image_data), filename='generated_image.png')
-        
-
-
-        
-          # Create an embed with the image
-          image_embed = discord.Embed(title=f"{byname}\nImage Generation", color=discord.Color.from_rgb(0, 0, 255))
       
-        
-          image_embed.add_field(name=f"{ctx.author.display_name} Prompt", value=f"```{prompt}```")
-      
-          image_embed.set_thumbnail(url=self.bot.user.avatar.url)
-        
-          image_embed.set_image(url=image_url)
+      # Create an embed with the image
+      image_embed = discord.Embed(title=f"{byname}\nImage Generation", description=f"{ctx.author.mention}\nPlease wait a moment while I generate your desired imagery, good sir.", color=discord.Color.from_rgb(0, 0, 255))
+  
+      image_embed.set_thumbnail(url=self.bot.user.avatar.url)
 
-          #inform the user of the tries remaining for the directive
-          if tries_left != "n/a":
-              image_embed.set_footer(text=f"{tries_left} tries remaining for {ctx.author.display_name}")
+      #inform the user of the tries remaining for the directive
+      if tries_left != "n/a":
+          image_embed.set_footer(text=f"{tries_left} tries remaining for {ctx.author.display_name}")
 
-        
-          await ctx.respond(embed=image_embed, view=self.ImagineView(ctx, image_data, prompt, byname, image_url, tries_left))
-
-      #prompt is rejected by safety system because prompt might be inappropriate
-      except openai.error.InvalidRequestError as e:
-          #inform the user of the tries remaining for the directive
-          if tries_left == "n/a":
-              error_message = f"{ctx.author.mention}\nYour prompt violates the safety guidelines and cannot be processed.\n*Please try again with a different prompt.\n**Error:** {e}"
-          else:
-              error_message = f"{ctx.author.mention}\nYour prompt violates the safety guidelines and cannot be processed.\n*Please try again with a different prompt.\n**Error:** {e}\n\n***{tries_left}*** tries remaining for ***{ctx.author.display_name}***."
-            
-          await ctx.respond(error_message, ephemeral=True)
-
-      except openai.error.OpenAIError as e:
-          #inform the user of the tries remaining for the directive
-          if tries_left == "n/a":
-              error_message = f"{ctx.author.mention}\nAn error occurred while trying to generate your prompt.\n*please try again.*\n**Error:** {e}"
-          else:
-              error_message = f"{ctx.author.mention}\nAn error occurred while trying to generate your prompt.\n*please try again.*\n**Error:** {e}\n\n***{tries_left}*** tries remaining for ***{ctx.author.display_name}***."
-
-          await ctx.respond(error_message, ephemeral=True)
+    
+      await ctx.respond(embed=image_embed, view=self.ImagineView(ctx, prompt, byname, tries_left))
 
 
 
   class ImagineView(discord.ui.View):
-      def __init__(self, ctx, image_data, prompt, byname, image_url, tries_left):
+      def __init__(self, ctx, prompt, byname, tries_left):
           super().__init__(timeout=120) #set the timeout
           self.ctx = ctx #initialize the context
-          self.image_data = image_data #the original generated image data as bytes
           self.prompt = prompt #the original prompt
           self.byname = byname
-          self.image_url = image_url #url for the original image
           self.tries_left = tries_left #this will be n/a if they can use the variations (i.e. a patron) and a number if they cannot use it (not a patron)
           self.variation_number = 0 #the number for the variation
+
+          await self.get_image(self.prompt, self.byname, self.tries_left)
+
+
+
+      async def get_image(self, prompt, byname, tries_left):
+          try:
+              #generate an image from Dall-E openai
+              response = openai.Image.create(
+                  prompt=prompt, #A text description of the desired image(s). The maximum length is 1000 characters.
+                  n=1, #The number of images to generate. Must be between 1 and 10.
+                  size="1024x1024", #The size of the generated images. Must be one of 256x256, 512x512, or 1024x1024.
+                  user = f"{self.ctx.author.display_name}_{self.ctx.author.id}" #A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse.
+              )
+              image_url = response['data'][0]['url']
+    
+            
+    
+              #retrieve the image
+              r = requests.get(image_url, stream=True)
+    
+    
+              picture = Image.open(r.raw)
+              if picture.mode == "P" and "transparency" in picture.info:
+                  image = picture.convert("RGBA") #convert the image to RGBA mode (A = alpha mode -- i.e. transparent pixels)
+              else:
+                  image = picture.convert("RGB")
+    
+            
+              # Save the modified image to a buffer
+              with io.BytesIO() as image_buffer:
+                  image.save(image_buffer, format='PNG')
+                  image_data = image_buffer.getvalue()
+            
+              # Create a Discord file object from the modified image data (this is for making variations of the image)
+              file = discord.File(io.BytesIO(image_data), filename='generated_image.png')
+            
+    
+    
+            
+              # Create an embed with the image
+              image_embed = discord.Embed(title=f"{byname}\nImage Generation", color=discord.Color.from_rgb(0, 0, 255))
+          
+            
+              image_embed.add_field(name=f"{self.ctx.author.display_name} Prompt", value=f"```{prompt}```")
+          
+              image_embed.set_thumbnail(url=self.bot.user.avatar.url)
+            
+              image_embed.set_image(url=image_url)
+    
+              #inform the user of the tries remaining for the directive
+              if tries_left != "n/a":
+                  image_embed.set_footer(text=f"{tries_left} tries remaining for {self.ctx.author.display_name}")
+    
+            
+              await self.message.edit(embed=image_embed, view=self)
+    
+          #prompt is rejected by safety system because prompt might be inappropriate
+          except openai.error.InvalidRequestError as e:
+              #inform the user of the tries remaining for the directive
+              if tries_left == "n/a":
+                  error_message = f"{self.ctx.author.mention}\nYour prompt violates the safety guidelines and cannot be processed.\n*Please try again with a different prompt.\n**Error:** {e}"
+              else:
+                  error_message = f"{self.ctx.author.mention}\nYour prompt violates the safety guidelines and cannot be processed.\n*Please try again with a different prompt.\n**Error:** {e}\n\n***{tries_left}*** tries remaining for ***{self.ctx.author.display_name}***."
+                
+              await self.message.edit(error_message, view=None, ephemeral=True)
+              self.stop()
+    
+          except openai.error.OpenAIError as e:
+              #inform the user of the tries remaining for the directive
+              if tries_left == "n/a":
+                  error_message = f"{self.ctx.author.mention}\nAn error occurred while trying to generate your prompt.\n*please try again.*\n**Error:** {e}"
+              else:
+                  error_message = f"{self.ctx.author.mention}\nAn error occurred while trying to generate your prompt.\n*please try again.*\n**Error:** {e}\n\n***{tries_left}*** tries remaining for ***{self.ctx.author.display_name}***."
+    
+              await self.message.edit(error_message, view=None, ephemeral=True)
+              self.stop()
+
+
+    
 
     
       async def on_timeout(self):
