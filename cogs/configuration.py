@@ -598,7 +598,7 @@ class Configuration(commands.Cog):
             await ctx.send_modal(modal)
         
             try:
-                await asyncio.wait_for(modal.wait(), timeout=120.0)
+                await asyncio.wait_for(modal.wait(), timeout=600.0)
               
                 message = modal.message
             except asyncio.TimeoutError:
@@ -784,7 +784,7 @@ class Configuration(commands.Cog):
             await ctx.send_modal(modal)
         
             try:
-                await asyncio.wait_for(modal.wait(), timeout=120.0)
+                await asyncio.wait_for(modal.wait(), timeout=600.0)
               
                 body = modal.body
                 message = modal.message
@@ -1373,7 +1373,7 @@ class Configuration(commands.Cog):
             await ctx.send_modal(modal)
         
             try:
-                await asyncio.wait_for(modal.wait(), timeout=120.0)
+                await asyncio.wait_for(modal.wait(), timeout=600.0)
               
                 image_text = modal.image_text
                 message = modal.message
@@ -1854,7 +1854,7 @@ class Configuration(commands.Cog):
         await ctx.send_modal(modal)
       
         try:
-            await asyncio.wait_for(modal.wait(), timeout=300.0)
+            await asyncio.wait_for(modal.wait(), timeout=600.0)
 
             title = modal.title
             body = modal.body

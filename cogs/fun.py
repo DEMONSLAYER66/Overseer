@@ -1034,7 +1034,7 @@ class Fun(commands.Cog):
           await ctx.send_modal(modal)
       
           try:
-              await asyncio.wait_for(modal.wait(), timeout=120.0)
+              await asyncio.wait_for(modal.wait(), timeout=600.0)
             
               text = modal.message
           except asyncio.TimeoutError:
@@ -1174,7 +1174,7 @@ class Fun(commands.Cog):
           await ctx.send_modal(modal)
       
           try:
-              await asyncio.wait_for(modal.wait(), timeout=120.0)
+              await asyncio.wait_for(modal.wait(), timeout=600.0)
             
               text = modal.message
           except asyncio.TimeoutError:

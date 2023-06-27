@@ -811,7 +811,7 @@ class Utility(commands.Cog):
         await ctx.send_modal(modal)
       
         try:
-            await asyncio.wait_for(modal.wait(), timeout=300.0)
+            await asyncio.wait_for(modal.wait(), timeout=600.0)
     
             title = modal.title
             body = modal.body
