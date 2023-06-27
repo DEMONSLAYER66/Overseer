@@ -625,18 +625,22 @@ class Fun(commands.Cog):
 
       
       # Create an embed with the image
-      image_embed = discord.Embed(title=f"{byname}\nImage Generation", description=f"{ctx.author.mention}\nPlease wait a moment while I generate your desired imagery, good sir.", color=discord.Color.from_rgb(0, 0, 255))
+      image_embed = discord.Embed(title=f"{byname}\nImage Generation", description=f"{ctx.author.mention}\nPlease use the following interface to generate your desired imagery, good sir.", color=discord.Color.from_rgb(0, 0, 255))
   
       image_embed.set_thumbnail(url=self.bot.user.avatar.url)
 
-      #inform the user of the tries remaining for the directive
-      if tries_left != "n/a":
-          image_embed.set_footer(text=f"{tries_left} tries remaining for {ctx.author.display_name}")
+      image_embed.add_field(name=f"{self.ctx.author.display_name} Prompt", value=f"```{prompt}```")
+
+      # #inform the user of the tries remaining for the directive
+      # if tries_left != "n/a":
+      #     image_embed.set_footer(text=f"{tries_left} tries remaining for {ctx.author.display_name}")
 
     
       await ctx.respond(embed=image_embed, view=self.ImagineView(ctx, prompt, byname, tries_left))
 
 
+
+  
 
   class ImagineView(discord.ui.View):
       def __init__(self, ctx, prompt, byname, tries_left):
@@ -647,9 +651,19 @@ class Fun(commands.Cog):
           self.tries_left = tries_left #this will be n/a if they can use the variations (i.e. a patron) and a number if they cannot use it (not a patron)
           self.variation_number = 0 #the number for the variation
 
-          await self.get_image(self.prompt, self.byname, self.tries_left)
 
+    
+      async def on_timeout(self):
+          self.disable_all_items()
+        
+          try:
+              await self.message.edit(view=None)
+          except discord.errors.NotFound: #if message deleted before timeout
+              pass
 
+          self.stop()
+
+  
 
       async def get_image(self, prompt, byname, tries_left):
           try:
@@ -699,7 +713,10 @@ class Fun(commands.Cog):
               #inform the user of the tries remaining for the directive
               if tries_left != "n/a":
                   image_embed.set_footer(text=f"{tries_left} tries remaining for {self.ctx.author.display_name}")
-    
+
+
+              self.children[0].disabled = True #disable the generate image button
+              self.chidlren[1].disabled = False #enable the variations image button
             
               await self.message.edit(embed=image_embed, view=self)
     
@@ -711,7 +728,7 @@ class Fun(commands.Cog):
               else:
                   error_message = f"{self.ctx.author.mention}\nYour prompt violates the safety guidelines and cannot be processed.\n*Please try again with a different prompt.\n**Error:** {e}\n\n***{tries_left}*** tries remaining for ***{self.ctx.author.display_name}***."
                 
-              await self.message.edit(error_message, view=None, ephemeral=True)
+              await self.message.edit(embed=None, content=error_message, view=None, ephemeral=True)
               self.stop()
     
           except openai.error.OpenAIError as e:
@@ -721,27 +738,25 @@ class Fun(commands.Cog):
               else:
                   error_message = f"{self.ctx.author.mention}\nAn error occurred while trying to generate your prompt.\n*please try again.*\n**Error:** {e}\n\n***{tries_left}*** tries remaining for ***{self.ctx.author.display_name}***."
     
-              await self.message.edit(error_message, view=None, ephemeral=True)
+              await self.message.edit(embed=None, content=error_message, view=None, ephemeral=True)
               self.stop()
 
 
-    
 
-    
-      async def on_timeout(self):
-          self.disable_all_items()
-        
-          try:
-              await self.message.edit(view=None)
-          except discord.errors.NotFound: #if message deleted before timeout
-              pass
+      # add the get image buttons
+      @discord.ui.button(label="Generate Imagery", style=discord.ButtonStyle.success, emoji="🎨")
+      async def imagery_button_callback(self, button, interaction):
+          if interaction.user.id != self.ctx.author.id:
+              return
 
-          self.stop()
+          await interaction.response.defer()
+
+          await self.get_image(self.prompt, self.byname, self.tries_left)
 
 
     
-      # add the variatons buttons
-      @discord.ui.button(label="Create Variaton", style=discord.ButtonStyle.primary, emoji="🔀")
+      # add the variations buttons
+      @discord.ui.button(label="Create Variaton", style=discord.ButtonStyle.primary, emoji="🔀", disabled=True)
       async def variation_button_callback(self, button, interaction):
           if interaction.user.id != self.ctx.author.id:
               return
