@@ -975,19 +975,18 @@ class Utility(commands.Cog):
             await ctx.respond(f"{ctx.author.mention}\nPlease specify a message count less than or equal to ***100*** to avoid Discord rate limits, good sir...", ephemeral=True)
             return
         else:
-            async with ctx.typing():
-                await ctx.respond(f"Attempting to delete *{messagecount}* message{'s' if messagecount > 1 else ''} from {ctx.channel.mention}...", ephemeral=True)
-                await asyncio.sleep(5)
-        
-                deleted = await ctx.channel.purge(limit=messagecount)
-                deleted_count = len(deleted)
-        
-                #if there were no messages in the channel
-                if deleted_count == 0:
-                    await ctx.respond(f"Apologies {ctx.author.mention},\nThere were no messages to delete in {ctx.channel.mention}.", ephemeral=True)
-                    return
-                else:  
-                    await ctx.respond(f"{ctx.author.mention}\nI have successfully removed ***{deleted_count}*** message{'s' if deleted_count > 1 else ''} from {ctx.channel.mention}, good sir.", ephemeral=True)
+            await ctx.respond(f"Attempting to delete *{messagecount}* message{'s' if messagecount > 1 else ''} from {ctx.channel.mention}...", ephemeral=True)
+            await asyncio.sleep(5)
+    
+            deleted = await ctx.channel.purge(limit=messagecount)
+            deleted_count = len(deleted)
+    
+            #if there were no messages in the channel
+            if deleted_count == 0:
+                await ctx.respond(f"Apologies {ctx.author.mention},\nThere were no messages to delete in {ctx.channel.mention}.", ephemeral=True)
+                return
+            else:  
+                await ctx.respond(f"{ctx.author.mention}\nI have successfully removed ***{deleted_count}*** message{'s' if deleted_count > 1 else ''} from {ctx.channel.mention}, good sir.", ephemeral=True)
 
 #########################################PURGE##################################
 
@@ -1415,9 +1414,8 @@ class Utility(commands.Cog):
 
             #only allow author or admin to close the message
             if await self.bot.is_owner(self.ctx.author) or self.ctx.author.guild_permissions.administrator:
-                async with self.ctx.typing():
-                    await self.message.edit(content="Now storing your iconography, good sir...", embed=None, view=None) #remove view and embed and only show message content
-                    await asyncio.sleep(5)
+                await self.message.edit(content="Now storing your iconography, good sir...", embed=None, view=None) #remove view and embed and only show message content
+                await asyncio.sleep(5)
                 
                 self.stop() #disable the buttons
                 await self.message.delete() #delete the message
@@ -1666,25 +1664,24 @@ class Utility(commands.Cog):
 
 
             #send the winner list and embed
-            async with self.ctx.typing():
-                giveaway_embed = discord.Embed(title="__Prize Drawing__", description="A prize drawing has ended!\nNow selecting the winner(s)...", color=discord.Color.from_rgb(self.color_r, self.color_g, self.color_b))
-                giveaway_embed.add_field(name="Ending In", value="`COMPLETE`", inline = False)
-                giveaway_embed.add_field(name="Number of Winners", value=self.winners, inline=False)
-                giveaway_embed.add_field(name="Prize", value=self.prize, inline=False)
-                giveaway_embed.set_footer(text=f"Initiated by: {self.ctx.author.display_name}")
-              
-                #set thumbnail avatar url (unless they dont have one, then set it to bot's url)
-                try:
-                    giveaway_embed.set_thumbnail(url=self.ctx.author.avatar.url)
-                except:
-                    giveaway_embed.set_thumbnail(url=self.bot.user.avatar.url)
+            giveaway_embed = discord.Embed(title="__Prize Drawing__", description="A prize drawing has ended!\nNow selecting the winner(s)...", color=discord.Color.from_rgb(self.color_r, self.color_g, self.color_b))
+            giveaway_embed.add_field(name="Ending In", value="`COMPLETE`", inline = False)
+            giveaway_embed.add_field(name="Number of Winners", value=self.winners, inline=False)
+            giveaway_embed.add_field(name="Prize", value=self.prize, inline=False)
+            giveaway_embed.set_footer(text=f"Initiated by: {self.ctx.author.display_name}")
+          
+            #set thumbnail avatar url (unless they dont have one, then set it to bot's url)
+            try:
+                giveaway_embed.set_thumbnail(url=self.ctx.author.avatar.url)
+            except:
+                giveaway_embed.set_thumbnail(url=self.bot.user.avatar.url)
 
-                if self.image:
-                    giveaway_embed.set_image(url=self.image.url)
-              
-                await self.message.edit(embed=giveaway_embed, view=None)
-              
-                await asyncio.sleep(5)
+            if self.image:
+                giveaway_embed.set_image(url=self.image.url)
+          
+            await self.message.edit(embed=giveaway_embed, view=None)
+          
+            await asyncio.sleep(5)
 
 
             #set the winner embed with information
