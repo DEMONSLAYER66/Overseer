@@ -87,7 +87,7 @@ class Status(commands.Cog):
   
     
     async def get_bd_message(self):
-        print("get bd message event started")
+        # print("get bd message event started")
         #get the full list of BD configs
         bd_configs = BD_db.server_birthday_config_data.find()
 
