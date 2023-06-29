@@ -2393,7 +2393,11 @@ class Utility(commands.Cog):
             return
         elif welcome_messages_status == "Enabled":
             welcome_key = {"server_id": member_server_id} #key to search through mongoDB with to find the appropriate welcome configuration
-    
+
+            #don't welcome bots
+            if member.bot:
+                return
+          
             #find the welcome config for the server
             welcome_data = welcome_db.welcomeconfig.find_one(welcome_key)
     
