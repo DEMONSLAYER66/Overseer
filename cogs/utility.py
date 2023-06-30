@@ -736,7 +736,7 @@ class Utility(commands.Cog):
         # guild_ids=SERVER_ID
         global_command = True
     )
-    @commands.has_permissions(administrator=True)
+    # @commands.has_permissions(administrator=True)
     async def embedder(
             self, 
             ctx, 
@@ -746,7 +746,7 @@ class Utility(commands.Cog):
             image: Option(discord.Attachment, name="image", description="URL of the embed image.", required=False, default=None)
     ):
         if not ctx.author.guild_permissions.administrator:
-            await ctx.respond(f"My dear {ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive.")
+            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
             return
     
         if channel:
@@ -881,11 +881,11 @@ class Utility(commands.Cog):
         # guild_ids=SERVER_ID
         global_command = True
     )
-    @commands.has_permissions(administrator=True)
+    # @commands.has_permissions(administrator=True)
     async def autopurgelist(self, ctx):
       
         if not ctx.author.guild_permissions.administrator:
-            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this command.", ephemeral=True)
+            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
             return
 
         if not autopurge_db[f"autopurge_config_{ctx.guild.id}"].find():
@@ -951,12 +951,12 @@ class Utility(commands.Cog):
         # guild_ids=SERVER_ID
         global_command = True
     )
-    @commands.has_permissions(manage_messages=True) #must have manage messages permissons
+    # @commands.has_permissions(manage_messages=True) #must have manage messages permissons
     async def purge(self, ctx, messagecount: Option(int, name="messagecount", description="Number of messages that will be deleted from the specified channel.", min_value=1, max_value=100)):
       
         #user must have manage messages privileges
         if not ctx.author.guild_permissions.manage_messages:
-            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those that are permitted to manage messages in this guild may use this directive.", ephemeral=True)
+            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those that are permitted to *manage messages* in this guild may use this directive, good sir.", ephemeral=True)
             return
 
         # Get the bot's member object
@@ -1710,7 +1710,7 @@ class Utility(commands.Cog):
         # guild_ids=SERVER_ID
         global_command = True
     )
-    @commands.has_permissions(administrator=True)
+    # @commands.has_permissions(administrator=True)
     async def giftgiving(
         self, 
         ctx,
@@ -1724,7 +1724,7 @@ class Utility(commands.Cog):
 
         #only allow admins to initiate giveaways
         if not ctx.author.guild_permissions.administrator:
-            await ctx.respond(f"My dear {ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this command.")
+            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
             return
 
         #winner count must be between 1 and 20 total
@@ -2383,6 +2383,10 @@ class Utility(commands.Cog):
     #welcome new members event listener
     @commands.Cog.listener()
     async def on_member_join(self, member):
+    		#do not welcome bots
+        if member.bot:
+            return
+      
         member_server_id = member.guild.id #retrieve the server ID of where the member is being welcomed
 
         #get the welcome event status from mongoDB
@@ -2393,10 +2397,6 @@ class Utility(commands.Cog):
             return
         elif welcome_messages_status == "Enabled":
             welcome_key = {"server_id": member_server_id} #key to search through mongoDB with to find the appropriate welcome configuration
-
-            #don't welcome bots
-            if member.bot:
-                return
           
             #find the welcome config for the server
             welcome_data = welcome_db.welcomeconfig.find_one(welcome_key)
@@ -2675,8 +2675,14 @@ class Utility(commands.Cog):
         # guild_ids=SERVER_ID
         global_command = True
     )
-    @commands.has_permissions(administrator=True)
+    # @commands.has_permissions(administrator=True)
     async def testwelcome(self, ctx, user: Option(discord.Member, name="user", description="Choose a user to welcome.", required=False)):
+        #only allow admins to test welcome
+        if not ctx.author.guild_permissions.administrator:
+            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
+            return
+
+      
         member_server_id = ctx.guild.id #retrieve the server ID of where the member is being welcomed
         welcome_key = {"server_id": member_server_id} #key to search through mongoDB with to find the appropriate welcome configuration
       
@@ -2838,8 +2844,14 @@ class Utility(commands.Cog):
         # guild_ids=SERVER_ID
         global_command = True
     )
-    @commands.has_permissions(administrator=True)
+    # @commands.has_permissions(administrator=True)
     async def embedslist(self, ctx):
+        #only allow admins to retrieve embeds list
+        if not ctx.author.guild_permissions.administrator:
+            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
+            return
+
+      
         embeds_data = list(embeds_db[f"embeds_config_{ctx.guild.id}"].find())
         # embed_count = len(embeds_data)
 

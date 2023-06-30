@@ -33,7 +33,7 @@ class Moderation(commands.Cog):
         # guild_ids=SERVER_ID
         global_command = True
     )
-    @commands.has_permissions(administrator=True)
+    # @commands.has_permissions(administrator=True)
     async def remove(self, ctx, member: Option(discord.Member, name="member", description="Member to remove from the guild."), *, reason: Option(str, name="reason", description="Reason for removing member from the guild.", required=False, default=None)):
         if not ctx.author.guild_permissions.administrator:
             await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
@@ -107,7 +107,7 @@ class Moderation(commands.Cog):
         # guild_ids=SERVER_ID
         global_command = True
     )
-    @commands.has_permissions(administrator=True)
+    # @commands.has_permissions(administrator=True)
     async def banish(self, ctx, member: Option(discord.Member, name="member", description="Member to banish from the guild."), *, reason: Option(str, name="reason", description="Reason for banishing member from the guild.", required=False, default=None)):
         if not ctx.author.guild_permissions.administrator:
             await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
@@ -184,7 +184,7 @@ class Moderation(commands.Cog):
         # guild_ids=SERVER_ID
         global_command = True
     )
-    @commands.has_permissions(administrator=True)
+    # @commands.has_permissions(administrator=True)
     async def unbanish(self, ctx, member_id: Option(str, name="member_id", description="ID of the member to unbanish from the guild."), reason: Option(str, name="reason", description="Reason for unbanning member from the guild.", required=False, default=None)):
         if not ctx.author.guild_permissions.administrator:
             await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
@@ -268,7 +268,7 @@ class Moderation(commands.Cog):
         # guild_ids=SERVER_ID
         global_command = True
     )
-    @commands.has_permissions(administrator=True)
+    # @commands.has_permissions(administrator=True)
     async def silence(self, ctx, member: Option(discord.Member, name="member", description="Member to silence within the guild."), *, reason: Option(str, name="reason", description="Reason for silencing the member within the guild.", required=False, default=None)):
         if not ctx.author.guild_permissions.administrator:
             await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
@@ -325,7 +325,7 @@ class Moderation(commands.Cog):
         # guild_ids=SERVER_ID
         global_command = True
     )
-    @commands.has_permissions(administrator=True)
+    # @commands.has_permissions(administrator=True)
     async def unsilence(self, ctx, member: Option(discord.Member, name="member", description="Member to unsilence within the guild."), *, reason: Option(str, name="reason", description="Reason for unsilencing the member within the guild.", required=False, default=None)):
         if not ctx.author.guild_permissions.administrator:
             await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
@@ -385,7 +385,7 @@ class Moderation(commands.Cog):
         # guild_ids=SERVER_ID
         global_command = True
     )
-    @commands.has_permissions(administrator=True)
+    # @commands.has_permissions(administrator=True)
     async def warn(self, ctx, member: Option(discord.Member, name="member", description="Member to warn within the guild."), *, reason: Option(str, name="reason", description="Reason for warning the member within the guild.", required=False, default=None)):
         if not ctx.author.guild_permissions.administrator:
             await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
@@ -467,7 +467,7 @@ class Moderation(commands.Cog):
         # guild_ids=SERVER_ID
         global_command = True
     )
-    @commands.has_permissions(administrator=True)
+    # @commands.has_permissions(administrator=True)
     async def warnremove(self, ctx, member: Option(discord.Member, name="member", description="Member to warn within the guild."), warning_index: Option(int, name="warning_index", description="Index of the warning.", min_value=1, max_value=3)):
         if not ctx.author.guild_permissions.administrator:
             await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
@@ -547,7 +547,7 @@ class Moderation(commands.Cog):
         # guild_ids=SERVER_ID
         global_command = True
     )
-    @commands.has_permissions(administrator=True)
+    # @commands.has_permissions(administrator=True)
     async def warninglist(self, ctx, member: Option(discord.Member, name="member", description="Member to warn within the guild.")):
         if not ctx.author.guild_permissions.administrator:
             await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)

@@ -767,10 +767,10 @@ class Status(commands.Cog):
         # guild_ids=SERVER_ID
         global_command = True
     )
-    @commands.has_permissions(administrator=True)
+    # @commands.has_permissions(administrator=True)
     async def birthdaylist(self, ctx, liststyle: Option(str, name="liststyle", description="Birthday list style. (Default: 📝 Embed)", choices=["📝 Embed", "💬 Regular"], required=False, default=None)):
         if not ctx.author.guild_permissions.administrator:
-            await ctx.respond(f"My dear {ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may access other users' dates of birth.", ephemeral=True)
+            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may access a full list of other users' dates of birth.", ephemeral=True)
             return
 
       

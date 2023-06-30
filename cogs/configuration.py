@@ -75,7 +75,7 @@ class Configuration(commands.Cog):
         # guild_ids=SERVER_ID
         global_command = True
     )
-    @commands.has_permissions(administrator=True)
+    # @commands.has_permissions(administrator=True)
     async def autosatire(
         self,
         ctx,
@@ -84,7 +84,7 @@ class Configuration(commands.Cog):
         remove: Option(bool, name="remove", description="Remove the autosatire configuration for the guild. (Default: False)", required=False, default=False)
     ):
         if not ctx.author.guild_permissions.administrator:
-            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this command.", ephemeral=True)
+            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
             return
 
       
@@ -181,7 +181,7 @@ class Configuration(commands.Cog):
         # guild_ids=SERVER_ID
         global_command = True
     )
-    @commands.has_permissions(administrator=True)
+    # @commands.has_permissions(administrator=True)
     async def moderate(
         self,
         ctx,
@@ -189,7 +189,7 @@ class Configuration(commands.Cog):
         remove: Option(bool, name="remove", description="Remove the moderation configuration for the guild. (Default: False)", required=False, default=False)
     ):
         if not ctx.author.guild_permissions.administrator:
-            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this command.", ephemeral=True)
+            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
             return
 
         moderation_key = {"server_id": ctx.guild.id}
@@ -257,7 +257,7 @@ class Configuration(commands.Cog):
         # guild_ids=SERVER_ID
         global_command = True
     )
-    @commands.has_permissions(administrator=True)
+    # @commands.has_permissions(administrator=True)
     async def autopurge(
         self,
         ctx,
@@ -266,7 +266,7 @@ class Configuration(commands.Cog):
         messagecount: Option(int, name="messagecount", description="The maximum number of messages allowed in the specified channel.", required=False, default=None, min_value=0, max_value=100)
     ):
         if not ctx.author.guild_permissions.administrator:
-            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this command.", ephemeral=True)
+            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
             return
           
 
@@ -507,7 +507,7 @@ class Configuration(commands.Cog):
         # guild_ids=SERVER_ID
         global_command = True
     )
-    @commands.has_permissions(administrator=True)
+    # @commands.has_permissions(administrator=True)
     async def birthday(
         self, 
         ctx, 
@@ -516,7 +516,7 @@ class Configuration(commands.Cog):
         message: Option(str, name="message", description="Birthday message that will be sent to the specified channel. (Default: 🤖 Automaton Defined)", required = False, choices = ["🧒 User Defined", "🤖 Automaton Defined", "🚫 No Message"], default=None)
     ):
         if not ctx.author.guild_permissions.administrator:
-            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this command.")
+            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
             return
 
       
@@ -683,7 +683,7 @@ class Configuration(commands.Cog):
         # guild_ids=SERVER_ID
         global_command = True
     )
-    @commands.has_permissions(administrator=True)
+    # @commands.has_permissions(administrator=True)
     async def streaming(
         self,
         ctx,
@@ -704,7 +704,7 @@ class Configuration(commands.Cog):
         blacklisted_status: Option(discord.Role, name="blacklisted_status", description="This status will be ignored when assigning the user the streaming status. (Default: None)", required=False, default=None)
     ):
         if not ctx.author.guild_permissions.administrator:
-            await ctx.respond(f"My dear {ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this command.")
+            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
             return
 
         # #ONLY the bot owner can create more than 1 streaming configuration, otherwise cap it at 1 config.
@@ -1009,7 +1009,7 @@ class Configuration(commands.Cog):
         # guild_ids=SERVER_ID
         global_command = True
     )
-    @commands.has_permissions(administrator=True)
+    # @commands.has_permissions(administrator=True)
     async def starboard(
         self,
         ctx,
@@ -1024,7 +1024,7 @@ class Configuration(commands.Cog):
         custom_color: Option(str, name="custom_color", description="Custom RGB color tuple (0, 0, 0) for the starred post's embed. (Patron Only)", required=False, default=None)
     ):
         if not ctx.author.guild_permissions.administrator:
-            await ctx.respond(f"My dear {ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this command.")
+            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
             return
 
       
@@ -1238,7 +1238,7 @@ class Configuration(commands.Cog):
         # guild_ids=SERVER_ID
         global_command = True
     )
-    @commands.has_permissions(administrator=True)
+    # @commands.has_permissions(administrator=True)
     async def welcome(
             self,
             ctx,
@@ -1260,7 +1260,7 @@ class Configuration(commands.Cog):
     ):
       
         if not ctx.author.guild_permissions.administrator:
-            await ctx.respond(f"My dear {ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this command.")
+            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
             return
 
 
@@ -1706,7 +1706,7 @@ class Configuration(commands.Cog):
         # guild_ids=SERVER_ID
         global_command = True
     )
-    @commands.has_permissions(administrator=True)
+    # @commands.has_permissions(administrator=True)
     async def timedembeds(
             self, 
             ctx, 
@@ -1722,7 +1722,7 @@ class Configuration(commands.Cog):
             field_inline: Option(bool, name="field_inline", description="Whether the field should be inline or not.", required=False, default=False)
     ):
         if not ctx.author.guild_permissions.administrator:
-            await ctx.respond(f"My dear {ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this command.")
+            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
             return
       
       

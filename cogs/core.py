@@ -182,10 +182,10 @@ class Core(commands.Cog):
         # guild_ids=SERVER_ID
         global_command = True
     )
-    @commands.has_permissions(administrator=True)
+    # @commands.has_permissions(administrator=True)
     async def patron(self, ctx):
         if not ctx.author.guild_permissions.administrator:
-            await ctx.respond(f"Dear {ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may enable the patron (premium) features for ***{ctx.guild.name}***.", ephemeral=True)
+            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may enable the patron (premium) features for ***{ctx.guild.name}***.", ephemeral=True)
             return
 
         # server ID for The Sweez Gang
@@ -1140,10 +1140,10 @@ class Core(commands.Cog):
         # guild_ids=SERVER_ID
         global_command=True
     )
-    @commands.has_permissions(administrator=True)
+    # @commands.has_permissions(administrator=True)
     async def eventhandler(self, ctx):
         if not ctx.author.guild_permissions.administrator:
-            await ctx.respond(f"My dear {ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this command.")
+            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.")
             return
       
         view = self.ConfigView(ctx)
@@ -1595,10 +1595,10 @@ class Core(commands.Cog):
         # guild_ids=SERVER_ID
         global_command=True
     )
-    @commands.has_permissions(administrator=True)
+    # @commands.has_permissions(administrator=True)
     async def byname(self, ctx, byname: Option(str, name="byname", description="Set a byname (nickname) for the automaton. (No entry sets the default of Lord Bottington)", required=False, default=None)):
         if not ctx.author.guild_permissions.administrator:
-            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this command.", ephemeral=True)
+            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
             return
       
       
