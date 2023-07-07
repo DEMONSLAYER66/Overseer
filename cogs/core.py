@@ -159,6 +159,7 @@ class Core(commands.Cog):
         embed.add_field(name="❗Invite to Guild", value=f"[Click Here]({invite_link})", inline=True)
         embed.add_field(name="🎩Join Support Guild", value="[Click Here](https://discord.gg/4P6ApdPAF7)", inline=True)
         embed.add_field(name="❓General Information, Privacy Policy, and ToS", value="[Click Here](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/README.md)", inline=False)
+        embed.add_field(name="↑ Vote For Me", value="[Click](https://top.gg/bot/1092515783025889383/vote)", inline=False)
         
         embed.set_thumbnail(url=self.bot.user.avatar.url) #thumbnail as bot's avatar
     
@@ -1248,9 +1249,16 @@ class Core(commands.Cog):
         #help embed
         help_embed = discord.Embed(title=f"__**Directives for {byname}**__", description=f"{ctx.author.mention}\nSelect a category to view the directives for by utilizing the select menu below, good sir.", color = discord.Color.from_rgb(47, 85, 222), url=github_full_directives_list)
 
-
+        # bot invite link
+        invite_link = "https://discord.com/api/oauth2/authorize?client_id=1092515783025889383&permissions=3557027030&scope=bot%20applications.commands"
 
         help_embed.add_field(name="", value=f"❗Please use the link provided in the title *OR* [Click Here]({github_full_directives_list}) for a full list of directives for *{byname}*, good sir.\n\nYou may also utilize `/help directive-name` for an in-depth analysis of a specific directive, if you desire.", inline=False)
+        
+        help_embed.add_field(name="❗Invite to Guild", value=f"[Click Here]({invite_link})", inline=True)
+        help_embed.add_field(name="🎩Join Support Guild", value="[Click Here](https://discord.gg/4P6ApdPAF7)", inline=True)
+        help_embed.add_field(name="❓General Information, Privacy Policy, and ToS", value="[Click Here](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/README.md)", inline=False)
+        help_embed.add_field(name="↑ Vote For Me", value="[Click](https://top.gg/bot/1092515783025889383/vote)", inline=False)
+        
         help_embed.set_thumbnail(url=self.bot.user.avatar.url) #make the thumbnail the bot's avatar
 
         #only admins can post the help for everyone to view
