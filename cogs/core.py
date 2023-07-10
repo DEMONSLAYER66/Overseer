@@ -125,6 +125,12 @@ class Core(commands.Cog):
         days, remainder = divmod(uptime_seconds, 86400)
         hours, remainder = divmod(remainder, 3600)
         minutes, seconds = divmod(remainder, 60)
+
+        # Round the values to integers
+        days = int(days)
+        hours = int(hours)
+        minutes = int(minutes)
+        seconds = int(seconds)
         
         # Format the countdown string
         if days > 0:
