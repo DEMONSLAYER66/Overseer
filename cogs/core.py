@@ -119,7 +119,7 @@ class Core(commands.Cog):
         byname = await self.get_byname(ctx.guild.id) #get the current server's nickname for the bot
 
         delta = datetime.datetime.utcnow() - self.start_time
-        uptime_seconds = delta.seconds
+        uptime_seconds = delta.total_seconds()
 
         # Calculate the remaining time in days, hours, minutes, and seconds
         days, remainder = divmod(uptime_seconds, 86400)
