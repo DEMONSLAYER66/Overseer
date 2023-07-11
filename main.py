@@ -28,7 +28,8 @@ bot.remove_command('help')
 @bot.event
 async def on_ready():
   #begin changing Lord Bottington's activities
-  change_activity.start()
+  if not change_activity.is_running():
+      change_activity.start()
 
   #let user of bot know that bot is ready in Console
   print(f"Be advised, {bot.user.name} hath loaded with a ping of {int(bot.latency*100)}, good sirs.")
