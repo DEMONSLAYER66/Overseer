@@ -1000,10 +1000,22 @@ class Utility(commands.Cog):
 #################################EMOJIS#######################################
     class IconView(discord.ui.View):
         def __init__(self, ctx, bot, iconlinks):
-            super().__init__() #used to initialize the timeout (if needed)
+            super().__init__(timeout=120) #used to initialize the timeout (if needed)
             self.ctx = ctx #initialize the context
             self.bot = bot #intialize bot
             self.iconlinks = iconlinks
+
+      
+        #timeout function
+        async def on_timeout(self):
+            self.disable_all_items()
+          
+            try:
+                await self.message.edit(view=None)
+            except discord.errors.NotFound: #if message deleted before timeout
+                pass
+  
+            self.stop()
 
 
         #insert the add icon button
