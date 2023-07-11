@@ -8,7 +8,7 @@ asyncprawcore
 py-cord
 emoji
 openai
-Pillow
+Pillow==9.5.0
 pymongo
 python-dotenv
 pytz
