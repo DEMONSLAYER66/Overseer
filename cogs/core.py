@@ -165,7 +165,7 @@ class Core(commands.Cog):
         embed.add_field(name="❗Invite to Guild", value=f"[Click Here]({invite_link})", inline=True)
         embed.add_field(name="🎩Join Support Guild", value="[Click Here](https://discord.gg/4P6ApdPAF7)", inline=True)
         embed.add_field(name="❓General Information, Privacy Policy, and ToS", value="[Click Here](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/README.md)", inline=False)
-        embed.add_field(name="↑ Vote For Me", value="[Click Here](https://top.gg/bot/1092515783025889383/vote)", inline=False)
+        embed.add_field(name="↑ Vote For Me", value="[top.gg](https://top.gg/bot/1092515783025889383/vote) | [discordbotlist](https://discordbotlist.com/bots/lord-bottington/upvote)", inline=False)
         
         embed.set_thumbnail(url=self.bot.user.avatar.url) #thumbnail as bot's avatar
     
@@ -1263,7 +1263,7 @@ class Core(commands.Cog):
         help_embed.add_field(name="❗Invite to Guild", value=f"[Click Here]({invite_link})", inline=True)
         help_embed.add_field(name="🎩Join Support Guild", value="[Click Here](https://discord.gg/4P6ApdPAF7)", inline=True)
         help_embed.add_field(name="❓General Information, Privacy Policy, and ToS", value="[Click Here](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/README.md)", inline=False)
-        help_embed.add_field(name="↑ Vote For Me", value="[Click Here](https://top.gg/bot/1092515783025889383/vote)", inline=False)
+        help_embed.add_field(name="↑ Vote For Me", value="[top.gg](https://top.gg/bot/1092515783025889383/vote) | [discordbotlist](https://discordbotlist.com/bots/lord-bottington/upvote)", inline=False)
         
         help_embed.set_thumbnail(url=self.bot.user.avatar.url) #make the thumbnail the bot's avatar
 
