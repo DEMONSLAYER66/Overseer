@@ -58,7 +58,7 @@ async def on_ready():
               purge_channel_id = config["purge_channel_id"]
 
               #create the autopurge task loop
-              await bot.loop.create_task(configuration_cog.autopurge_task(server_id, purge_channel_id))
+              bot.loop.create_task(configuration_cog.autopurge_task(server_id, purge_channel_id))
 
 
 
