@@ -1786,7 +1786,12 @@ class Configuration(commands.Cog):
         key = {'config_name': config_name}
 
         #delete config if send_time is set to 0 or None (will always need to be 0 since this is a required option at the moment)
-        if send_time == 0:
+        try:
+            config_delete = int(send_time)
+        except:
+            pass
+        
+        if config_delete == 0:
             if embeds_db[f"embeds_config_{ctx.guild.id}"].find_one(key):
                 
                 embeds_db[f"embeds_config_{ctx.guild.id}"].delete_one(key)
@@ -1796,6 +1801,8 @@ class Configuration(commands.Cog):
             else:
                 await ctx.respond(f"Apologies {ctx.author.mention},\nI was unable to find a Timed Embed configurtion titles ***{config_name}***, good sir.\n*Please ensure the configuration is spelled correctly. The configuration name is also case sensitive.*", ephemeral=True)
                 return
+        else:
+            pass
 
         #interval type
         intervaltype_dict = {
