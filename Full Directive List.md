@@ -190,7 +190,7 @@ You may toggle the use of each of the events within this category by utilizing m
     > + **Note:** Each server is allowed a maximum of 5 timed embed messages for use. Use them wisely, good sir.
     > + Please use <a href=#embedslist>/embedslist</a> to view your timed embed configurations.
   - *Configuration Removal*
-    > - In order to remove a configuration from use, simply input the configuration name and set the *interval* parameter to ***0***. This will indicate that the configuration is no longer needed.
+    > - In order to remove a configuration from use, simply input the configuration name and set the *send_time* parameter to ***0***. This will indicate that the configuration is no longer needed.
     > It is advisable to remove all embed configurations that have already past or are no longer needed to clear up space.
   - *Markdown Syntax:* The following is a list of syntax parameters you may employ for use in the timed embeds.
     > - [General Markdown Syntax](https://support.discord.com/hc/en-us/articles/210298617-Markdown-Text-101-Chat-Formatting-Bold-Italic-Underline-)
