@@ -1785,12 +1785,17 @@ class Configuration(commands.Cog):
       
         key = {'config_name': config_name}
 
-        #delete config if interval is set to 0 or None (will always need to be 0 since this is a required option at the moment)
-        if interval == 0:
-            embeds_db[f"embeds_config_{ctx.guild.id}"].delete_one(key)
+        #delete config if send_time is set to 0 or None (will always need to be 0 since this is a required option at the moment)
+        if send_time == 0:
+            if embeds_db[f"embeds_config_{ctx.guild.id}"].find_one(key):
+                
+                embeds_db[f"embeds_config_{ctx.guild.id}"].delete_one(key)
 
-            await ctx.respond(f"{ctx.author.mention}\nI have successfully removed *{config_name}* from the registry.", ephemeral=True)
-            return
+                await ctx.respond(f"{ctx.author.mention}\nI have successfully removed the ***{config_name}*** timed embed configuration from the registry, good sir.", ephemeral=True)
+                return
+            else:
+                await ctx.respond(f"Apologies {ctx.author.mention},\nI was unable to find a Timed Embed configurtion titles ***{config_name}***, good sir.\n*Please ensure the configuration is spelled correctly. The configuration name is also case sensitive.*", ephemeral=True)
+                return
 
         #interval type
         intervaltype_dict = {
