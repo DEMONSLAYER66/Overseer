@@ -677,7 +677,6 @@ class Fun(commands.Cog):
                   user = f"{self.ctx.author.display_name}_{self.ctx.author.id}" #A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse.
               )
               image_url = response['data'][0]['url']
-              self.image_url = image_url
     
             
     
@@ -702,7 +701,7 @@ class Fun(commands.Cog):
               file = discord.File(io.BytesIO(image_data), filename='generated_image.png')
             
     
-    
+              self.image_url = f"https://cdn.discordapp.com/attachments/{self.ctx.guild.id}/{self.ctx.channel.id}/{file.filename}"
             
               # Create an embed with the image
               image_embed = discord.Embed(title=f"{self.byname}\nImage Generation", color=discord.Color.from_rgb(0, 0, 255))
@@ -712,7 +711,7 @@ class Fun(commands.Cog):
           
               image_embed.set_thumbnail(url=self.ctx.bot.user.avatar.url)
             
-              image_embed.set_image(url="attachment://generated_image.png")
+              image_embed.set_image(url=discord_image_url)
     
               #inform the user of the tries remaining for the directive
               if self.tries_left != "n/a":
@@ -824,6 +823,8 @@ class Fun(commands.Cog):
         
               # Create a Discord file object from the modified image data (this is for making variations of the image)
               variation_file = discord.File(io.BytesIO(image_data), filename=f'variation{self.variation_number}_image.png')
+
+              variaton_url = f"https://cdn.discordapp.com/attachments/{self.ctx.guild.id}/{self.ctx.channel.id}/{variation_file.filename}"
             
               # Create an embed with the image
               image_embed = discord.Embed(title=f"{self.byname}\nImage Generation", description=f"Variation #{self.variation_number}", color=discord.Color.from_rgb(0, 0, 255))
@@ -834,7 +835,7 @@ class Fun(commands.Cog):
           
               image_embed.set_thumbnail(url=self.ctx.bot.user.avatar.url)
             
-              image_embed.set_image(url=f"attachment://variation{self.variation_number}_image.png")
+              image_embed.set_image(url=variation_url)
 
               await interaction.followup.send(embed=image_embed)
 
