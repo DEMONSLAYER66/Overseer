@@ -678,7 +678,6 @@ class Fun(commands.Cog):
               )
               image_url = response['data'][0]['url']
     
-            
     
               #retrieve the image
               r = requests.get(image_url, stream=True)
@@ -701,7 +700,7 @@ class Fun(commands.Cog):
               file = discord.File(io.BytesIO(image_data), filename='generated_image.png')
             
     
-              self.image_url = f"https://cdn.discordapp.com/attachments/{self.ctx.guild.id}/{self.ctx.channel.id}/{file.filename}"
+              self.image_url = f"https://cdn.discordapp.com/attachments/{image_url.split('/')[-2]}/{image_url.split('/')[-1]}"
             
               # Create an embed with the image
               image_embed = discord.Embed(title=f"{self.byname}\nImage Generation", color=discord.Color.from_rgb(0, 0, 255))
@@ -824,7 +823,7 @@ class Fun(commands.Cog):
               # Create a Discord file object from the modified image data (this is for making variations of the image)
               variation_file = discord.File(io.BytesIO(image_data), filename=f'variation{self.variation_number}_image.png')
 
-              variaton_url = f"https://cdn.discordapp.com/attachments/{self.ctx.guild.id}/{self.ctx.channel.id}/{variation_file.filename}"
+              discord_variaton_url = f"https://cdn.discordapp.com/attachments/{variation_url.split('/')[-2]}/{variation_url.split('/')[-1]}"
             
               # Create an embed with the image
               image_embed = discord.Embed(title=f"{self.byname}\nImage Generation", description=f"Variation #{self.variation_number}", color=discord.Color.from_rgb(0, 0, 255))
@@ -835,7 +834,7 @@ class Fun(commands.Cog):
           
               image_embed.set_thumbnail(url=self.ctx.bot.user.avatar.url)
             
-              image_embed.set_image(url=variation_url)
+              image_embed.set_image(url=discord_variaton_url)
 
               await interaction.followup.send(embed=image_embed)
 
