@@ -698,8 +698,7 @@ class Fun(commands.Cog):
             
               # Create a Discord file object from the modified image data (this is for making variations of the image)
               file = discord.File(io.BytesIO(image_data), filename='generated_image.png')
-              attachment = discord.Attachment(file)
-              self.image_url = attachment.url
+              self.image_url = f"https://cdn.discordapp.com/attachments/{self.ctx.guild.id}/{self.ctx.channel.id}/{file.filename}"
             
               # Create an embed with the image
               image_embed = discord.Embed(title=f"{self.byname}\nImage Generation", color=discord.Color.from_rgb(0, 0, 255))
@@ -821,8 +820,7 @@ class Fun(commands.Cog):
         
               # Create a Discord file object from the modified image data (this is for making variations of the image)
               variation_file = discord.File(io.BytesIO(image_data), filename=f'variation{self.variation_number}_image.png')
-              attachment = discord.Attachment(variation_file)
-              discord_variaton_url = attachment.url
+              discord_variaton_url = f"https://cdn.discordapp.com/attachments/{self.ctx.guild.id}/{self.ctx.channel.id}/{variation_file.filename}"
             
               # Create an embed with the image
               image_embed = discord.Embed(title=f"{self.byname}\nImage Generation", description=f"Variation #{self.variation_number}", color=discord.Color.from_rgb(0, 0, 255))
