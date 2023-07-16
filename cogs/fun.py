@@ -781,6 +781,8 @@ class Fun(commands.Cog):
           if interaction.user.id != self.ctx.author.id:
               return
 
+          await interaction.response.defer()
+        
           #this indicates that the user cannot use this feature (only available to patrons)
           if self.tries_left != "n/a" or self.tries_left >= 0:
               patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {self.ctx.author.mention},\nImage variations for my `/imagine` directive are an exclusive directive available solely to `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{self.ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling or upgrading patron (premium) features for ***{self.ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(0, 0, 255))
@@ -790,8 +792,6 @@ class Fun(commands.Cog):
               await interaction.followup.send(embed=patron_embed, ephemeral=True)
             
               return
-
-          await interaction.response.defer()
 
           await interaction.followup.send(f"{self.ctx.author.mention}\nI am now working on generating a variation of your image, good sir.\n*Please wait a moment...*", ephemeral=True)
         
