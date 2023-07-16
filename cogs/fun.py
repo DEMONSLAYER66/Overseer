@@ -698,7 +698,11 @@ class Fun(commands.Cog):
             
               # Create a Discord file object from the modified image data (this is for making variations of the image)
               file = discord.File(io.BytesIO(image_data), filename='generated_image.png')
-              message = await self.ctx.send(file=file)
+
+              #channel for lord bottington on support server (so the message does not appear in the user's channel
+              channel = self.ctx.bot.get_channel(1129414105820844092)
+
+              message = await channel.send(file=file)
               self.image_url = message.attachments[0].url
               await message.delete()
             
@@ -822,7 +826,11 @@ class Fun(commands.Cog):
         
               # Create a Discord file object from the modified image data (this is for making variations of the image)
               variation_file = discord.File(io.BytesIO(image_data), filename=f'variation{self.variation_number}_image.png')
-              message = await self.ctx.send(file=variation_file)
+
+              #channel for lord bottington on support server (so the message does not appear in the user's channel
+              channel = self.ctx.bot.get_channel(1129414105820844092)
+
+              message = await channel.send(file=variation_file)
               discord_variaton_url = message.attachments[0].url
               await message.delete()
             
