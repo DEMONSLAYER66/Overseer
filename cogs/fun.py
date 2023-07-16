@@ -712,7 +712,7 @@ class Fun(commands.Cog):
           
               image_embed.set_thumbnail(url=self.ctx.bot.user.avatar.url)
             
-              image_embed.set_image(url=image_url)
+              image_embed.set_image(url="attachment://generated_image.png")
     
               #inform the user of the tries remaining for the directive
               if self.tries_left != "n/a":
@@ -834,7 +834,7 @@ class Fun(commands.Cog):
           
               image_embed.set_thumbnail(url=self.ctx.bot.user.avatar.url)
             
-              image_embed.set_image(url=variation_url)
+              image_embed.set_image(url=f"attachment://variation{self.variation_number}_image.png")
 
               await interaction.followup.send(embed=image_embed)
 
