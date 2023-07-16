@@ -711,7 +711,7 @@ class Fun(commands.Cog):
           
               image_embed.set_thumbnail(url=self.ctx.bot.user.avatar.url)
             
-              image_embed.set_image(url=discord_image_url)
+              image_embed.set_image(url=self.image_url)
     
               #inform the user of the tries remaining for the directive
               if self.tries_left != "n/a":
