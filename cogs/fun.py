@@ -1478,9 +1478,9 @@ class Fun(commands.Cog):
                   if item_type == "avatar":
                       #turn image preview on or off (add <> around link to turn preview off)
                       if display_original:
-                          message = f"The following is an iconofied image of **{user.display_name}**, good sir:\n> *Size: {size}*\n> *[{user.display_name} Avatar Link]({user.avatar.url})*"
+                          message = f"The following is an iconified image of **{user.display_name}**, good sir:\n> *Size: {size}*\n> *[{user.display_name} Avatar Link]({user.avatar.url})*"
                       else:
-                          message = f"The following is an iconofied image of **{user.display_name}**, good sir:\n> *Size: {size}*\n> *[{user.display_name} Avatar Link](<{user.avatar.url}>)*"
+                          message = f"The following is an iconified image of **{user.display_name}**, good sir:\n> *Size: {size}*\n> *[{user.display_name} Avatar Link](<{user.avatar.url}>)*"
 
                 
                   elif item_type == "picture":
