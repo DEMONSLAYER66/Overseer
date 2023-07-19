@@ -1298,6 +1298,7 @@ class Core(commands.Cog):
                 iconify_app_command = ":slight_smile::regional_indicator_p::regional_indicator_i::regional_indicator_c::regional_indicator_t::regional_indicator_o::regional_indicator_r::regional_indicator_i::regional_indicator_a::regional_indicator_l::regional_indicator_i::regional_indicator_z::regional_indicator_e::open_mouth:\n:grinning::regional_indicator_h::regional_indicator_e::regional_indicator_l::regional_indicator_p::stuck_out_tongue:"
                 #thumbnail set to top hat emoji gif (goodsir emoji)
                 help_embed.set_thumbnail(url="https://i.imgur.com/pfRNFyk.gif")
+                help_embed.set_image(url="https://i.imgur.com/p2RygwY.png")
                 await ctx.respond(f"{iconify_app_command}", ephemeral=True)
             
             
@@ -1343,6 +1344,7 @@ class Core(commands.Cog):
             elif app_command.name.lower() == "glyph":
                 ascii_text = text2art("Glyph Help", font = "larry3d")
                 help_embed.set_thumbnail(url="https://i.imgur.com/rVtl3zz.gif")
+                help_embed.set_image(url="https://i.imgur.com/qql6oKh.png")
                 await ctx.respond(f"```{ascii_text}```", ephemeral=True)
             
             # set thumbnail to dice roll gif
