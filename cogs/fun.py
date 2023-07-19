@@ -728,23 +728,39 @@ class Fun(commands.Cog):
     
           #prompt is rejected by safety system because prompt might be inappropriate
           except openai.error.InvalidRequestError as e:
+              error_embed = discord.Embed(title=f"{self.byname}\nImage Generation", color=discord.Color.from_rgb(0, 0, 255))
+          
+              error_embed.add_field(name=f"{self.ctx.author.display_name} Prompt", value=f"```{self.prompt}```")
+
+              error_embed.add_field(name="Error", value=f"{self.ctx.author.mention}\nYour prompt violates the safety guidelines and cannot be processed.\n*Please try again with a different prompt.\n**Error:** {e}", inline=False)
+
               #inform the user of the tries remaining for the directive
-              if self.tries_left == "n/a":
-                  error_message = f"{self.ctx.author.mention}\nYour prompt violates the safety guidelines and cannot be processed.\n*Please try again with a different prompt.\n**Error:** {e}"
-              else:
-                  error_message = f"{self.ctx.author.mention}\nYour prompt violates the safety guidelines and cannot be processed.\n*Please try again with a different prompt.\n**Error:** {e}\n\n***{self.tries_left}*** tries remaining for ***{self.ctx.author.display_name}***."
-                
-              await self.message.edit(embed=None, content=error_message, view=None, ephemeral=True)
+              if self.tries_left != "n/a":
+                  error_embed.set_footer(text=f"{self.tries_left} tries remaining for {self.ctx.author.display_name}")
+          
+              error_embed.set_thumbnail(url=self.ctx.bot.user.avatar.url)
+
+              self.disable_all_items()
+            
+              await self.message.edit(embed=error_embed, view=None)
               self.stop()
     
           except openai.error.OpenAIError as e:
+              error_embed = discord.Embed(title=f"{self.byname}\nImage Generation", color=discord.Color.from_rgb(0, 0, 255))
+          
+              error_embed.add_field(name=f"{self.ctx.author.display_name} Prompt", value=f"```{self.prompt}```")
+
+              error_embed.add_field(name="Error", value=f"{self.ctx.author.mention}\nAn error occurred while trying to generate your prompt.\n*please try again.*\n**Error:** {e}", inline=False)
+
               #inform the user of the tries remaining for the directive
-              if self.tries_left == "n/a":
-                  error_message = f"{self.ctx.author.mention}\nAn error occurred while trying to generate your prompt.\n*please try again.*\n**Error:** {e}"
-              else:
-                  error_message = f"{self.ctx.author.mention}\nAn error occurred while trying to generate your prompt.\n*please try again.*\n**Error:** {e}\n\n***{self.tries_left}*** tries remaining for ***{self.ctx.author.display_name}***."
-    
-              await self.message.edit(embed=None, content=error_message, view=None, ephemeral=True)
+              if self.tries_left != "n/a":
+                  error_embed.set_footer(text=f"{self.tries_left} tries remaining for {self.ctx.author.display_name}")
+          
+              error_embed.set_thumbnail(url=self.ctx.bot.user.avatar.url)
+
+              self.disable_all_items()
+            
+              await self.message.edit(embed=error_embed, view=None)
               self.stop()
 
 
