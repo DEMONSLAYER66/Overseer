@@ -445,6 +445,7 @@ This category is for directives related to providing members of your guild with 
   ![ascii-unclesam](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/e5534743-b099-4b13-a035-e470c312548f)
 
   - The automaton will return a glyph (ascii art) of the desired selection.
+  - *This directive typically only works for Discord on *Desktop*. Mobile users will not be able to see the full picture, as the image and text will be distorted.
   - When employed, this directive will return a glyph image (ascii art) of either an image (default selection or custom image file) *OR* a text string.
     > - Custom images will be returned as a *.txt* file entitled ***ascii_art.txt***.
     > - *Please note that custom images are a [`🎩 Patron Feature`](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/Patron%20(Premium)%20Features.md) only.*
@@ -455,6 +456,9 @@ This category is for directives related to providing members of your guild with 
   - However, if the username is too long or the random font is too large, the text string *HELLO* will be returned in a random font instead.
   - Refer to the following documentation for more information on textual conversions: [ASCII Art Library for Python](<https://pypi.org/project/art/>)
   - Refer to the following link for default images source: [ASCII Art](https://emojicombos.com/funny-ascii-art)
+
+  ![glyph](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/5f22adf6-11f6-4ff9-8249-4913515f3aea)
+
 ### `/greet`
   - Greet the automaton.
 ### `/imagine`
@@ -505,6 +509,7 @@ This category is for directives related to providing members of your guild with 
     > - `Enhance` - Sharpen and brighten.
     > - `Thumbnail` - Resize to *256x256*.
   - *Iconify Alteration ⬜*
+    > - *This directive typically only works for Discord on *Desktop*. Mobile users will not be able to see the full picture, as the image will be distorted.
     > - The automaton works to obtain the pixels from an image (avatar url or user defined imagery) and convert them to the closest icon ⬜🟥🟩⬛.
     > - While not 100% accurate, the directive works best for *simpler* image designs.
     > - The default size begins at ***14***, but you may increase this to enhance the detail of the output image until the Discord-enforced character message limit is reached. Once reached, sizes larger than ***2000*** characters will zoom in on the picture to show even more enhanced detail, while sacrificing the outer edges of the image.
@@ -516,6 +521,9 @@ This category is for directives related to providing members of your guild with 
     > - Either a direct link to an image or a file attachment may be used.
     > - If both are input, the file attachment will be used instead.
     > - However, if neither are input, the avatar of the directive author will be used.
+
+    ![Lord Bottington Pictorialize](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/1caebc7b-9641-49e0-8466-48f88741e1ed)
+
   - *Plain Text Strings*
     > - The automaton is also able to convert *plain text strings* to their respective icons, if desired.
     > - The following iconography is defined and may be used in your string. However, it is important to note that there can be *no space* between the two string characters, and they may not be located next to other character strings (most of the time).
@@ -523,6 +531,7 @@ This category is for directives related to providing members of your guild with 
       > - `:|`:neutral_face: `:/`:confused: `:s`:confounded: `:*`:kissing_heart: `;)`:wink:
       > 
       > - *Note:* If a punctuation or letter is not defined when trying to convert a plain text string to emoticons, it will simply remain a regular character.
+
 ### `/roll`
 
   ![dice](https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/c26f490a-a2ab-46a8-820e-615da2a4b6c2)
