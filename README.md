@@ -16,7 +16,7 @@
   <a href="https://discord.gg/4P6ApdPAF7">
     <img src="https://img.shields.io/discord/1088118252200276071.svg?style=flat-square&logo=discord&colorB=7289da&label=Join%20Support%20Server">
   </a>
-  <a href="https://discord.com/api/oauth2/authorize?client_id=1092515783025889383&permissions=3557027030&scope=bot%20applications.commands">
+  <a href="https://discord.com/api/oauth2/authorize?client_id=1092515783025889383&permissions=3557027031&scope=bot%20applications.commands">
     <img src="https://img.shields.io/badge/Invite-Lord%20Bottington-7289da?style=flat-square&logo=discord">
   </a>
   <br>
@@ -84,7 +84,7 @@ You may use my [`/patron`](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/
 ___
 + 🎩[Join the Support Guild](https://discord.gg/4P6ApdPAF7)
   
-+ ❗[Invite Lord Bottington to Your Guild](https://discord.com/api/oauth2/authorize?client_id=1092515783025889383&permissions=3557027030&scope=bot%20applications.commands)
++ ❗[Invite Lord Bottington to Your Guild](https://discord.com/api/oauth2/authorize?client_id=1092515783025889383&permissions=3557027031&scope=bot%20applications.commands)
 
 + 💰 [Become a Patron](https://www.patreon.com/LordBottington)
   
