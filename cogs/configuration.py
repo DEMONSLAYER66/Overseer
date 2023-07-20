@@ -37,6 +37,7 @@ autopurge_db = client.autopurge_db #create the autopurge database on MongoDB
 moderation_db = client.moderation_db #create the moderation database on MongoDB
 patrons_db = client.patrons_db #create the patrons database on mongoDB
 autosatire_db = client.autosatire_db #create the autosatire (automeme) database on MongoDB
+bump_db = client.bump_db #create the bumd (promotion) database on MongoDB
 #########################MONGODB DATABASE##################################
 
 #this is an array of the server IDs where command testing is done
@@ -66,7 +67,212 @@ class Configuration(commands.Cog):
 
 
 
+############################### BUMP (PROMOTION) #############################
+    @discord.slash_command(
+        name="promotion",
+        description="Configure the promotion settings for the guild. (Admin Only)",
+        # guild_ids=SERVER_ID
+        global_command = True
+    )
+    # @commands.has_permissions(administrator=True)
+    async def promotion(
+        self,
+        ctx,
+        promotion_channel: Option(discord.TextChannel, name="promotion_channel", description="Channel within your guild to send promotions to."),
+        invite_channel: Option(discord.TextChannel, name="invite_channel", description="Channel to invite new users to upon promotion."),
+        color: Option(str, name="color", description="Select a color for the guild promotion. (Default: 🔵Blue)", required=False, choices=["🔴 Red", "🟢 Green", "🔵 Blue", "🟡 Yellow", "🟣 Purple", "⚫ Black", "⚪ White"], default=None),
+        custom_color: Option(str, name="custom_color", description="Custom RGB color tuple (0, 0, 0) for the guild promotion. (Patron Only)", required=False, default=None),
+        guild_banner: Option(str, name="guild_banner", description="Image URL for the guild banner upon promotion. (Patron Feature)", required=False, default=None)
+    )
+        if not ctx.author.guild_permissions.administrator:
+            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
+            return
+        
+        guild_description = None
 
+        
+        # Get the bot's member object
+        lordbottington = ctx.guild.get_member(ctx.bot.user.id)
+
+        # Check if the bot has create invite permissions in the current channel
+        if not lordbottington.guild_permissions.create_instant_invite:
+            await ctx.respond(f"Apologies {ctx.author.mention},\nI do not have permission to create invites in this guild.\n*Please change this for myself in the guild (server) settings and try again.*", ephemeral=True)
+            return
+
+        # Create a new invite for the invite_channel with unlimited uses
+        invite_link = await invite_channel.create_invite(max_age=0, max_uses=0, unique=True)
+
+        
+        #define RGB guild promotion color tuples
+        colors = {
+            "🔴 Red": (255, 0, 0),
+            "🟢 Green": (0, 255, 0),
+            "🔵 Blue": (0, 0, 255),
+            "🟡 Yellow": (255, 255, 0),
+            "🟣 Purple": (152, 3, 252),
+            "⚫ Black": (0, 0, 0),
+            "⚪ White": (255, 255, 255)
+        }        
+    
+        if color:
+            if color in colors:
+                r = colors[color][0]
+                g = colors[color][1]
+                b = colors[color][2]
+        else: #set to blue if nothing selected
+            r = 0
+            g = 0
+            b = 255
+        
+
+        #PATRON FEATURE
+        # server ID for The Sweez Gang
+        support_guild_id = 1088118252200276071
+
+        if ctx.guild.id != support_guild_id:
+            #search for a guild on mongoDB that has the Distinguished Automaton Patron tier
+            distinguished_patron_key = {
+              "server_id": ctx.guild.id,
+              "patron_tier": "Distinguished Automaton Patron"
+            }
+            refined_patron_key = {
+              "server_id": ctx.guild.id,
+              "patron_tier": "Refined Automaton Patron"
+            }
+            patron_data = patrons_db.patrons
+            refined_patron = patron_data.find_one(refined_patron_key)
+            distinguished_patron = patron_data.find_one(distinguished_patron_key)
+  
+
+        #check for a custom color (only avaliable to refined and distinguished patrons and support guild)
+        if custom_color or guild_banner:
+            if ctx.guild.id != support_guild_id:
+                if not refined_patron and not distinguished_patron:
+                    patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {ctx.author.mention},\nCustom embed colors and guild banners for my `/promotion` directive are exclusive features available solely to `🎩🎩 Refined Automaton Patrons` and `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling or upgrading patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(0, 0, 255))
+          
+                    patron_embed.set_thumbnail(url=self.bot.user.avatar.url)
+          
+                    await ctx.respond(embed=patron_embed, ephemeral=True)
+                    return
+                    
+
+        if guild_banner:
+            parsed_url = urlparse(guild_banner)
+            if parsed_url.scheme in ("http", "https"): # check if item is a valid url
+                if parsed_url.path.endswith((".jpg", ".png", ".jpeg", ".gif")): #only allow .jpg, .png, .jpeg, .gif files
+                    banner_url = guild_banner
+    
+                else:
+                    await ctx.respond(f"Apologies {ctx.author.mention},\nIt appears that ***{guild_banner}*** is not a valid image link.\nThis URL must be a direct link to a .JPG, .JPEG, .PNG, or .GIF image.\n*Please try again.*", ephemeral=True)
+                    return
+    
+            else:
+                await ctx.respond(f"Apologies {ctx.author.mention},\nIt appears that ***{background}*** is not a valid image link.\nThis url must be a direct link to a .JPG, .JPEG, .PNG, or .GIF image.\n*Please try again.*", ephemeral=True)
+                return
+
+        
+        #check the custom color
+        if custom_color:
+            custom_color = self.check_custom_color(custom_color)
+    
+            if custom_color: #if the check is passed
+                custom_r = custom_color[0]
+                custom_g = custom_color[1]
+                custom_b = custom_color[2]
+            else:
+                await ctx.respond(f"Apologies {ctx.author.mention},\nThe custom color must be a comma-separated RGB color tuple.\n\n**For example:**\n*Black - (0, 0, 0)*\n*White: (255, 255, 255)*\n\n*Please input a valid RGB color tuple and try again.*", ephemeral=True)
+                return
+
+            #override the original color if custom color is used            
+            r = custom_r
+            g = custom_g
+            b = custom_b
+
+        
+        bump_key = {"guild_id": ctx.guild.id}
+
+        server_data = bump_db.bump_configs.find_one(bump_key)
+
+        if server_data:
+            guild_description = server_data['guild_description']
+
+
+        bump_modal = self.BumpModal(title="Guild Promotion Configuration", previous_description=guild_description)
+        await ctx.send_modal(bump_modal)
+    
+        try:
+            await asyncio.wait_for(bump_modal.wait(), timeout=600.0)
+          
+            guild_description = bump_modal.description
+        except asyncio.TimeoutError:
+            await ctx.respond("Good sir, it appears you have taken too long to enter your guild promotion configuration.\n*Please try again.*", ephemeral=True)
+            return
+
+
+        
+        if server_data:
+            bump_db.bump_configs.insert_one(
+              {
+                "server_id": ctx.guild.id,
+                "server_name": ctx.guild.name,
+                "guild_description": guild_description,
+                "promotion_channel_id": promotion_channel.id,
+                "promotion_channel_name": promotion_channel.name,
+                "color": [r, g, b],
+                "banner_url": banner_url
+              }
+            )
+            
+            embed_description = f"{ctx.author.mention}\nI have successfully *created* the guild promotion configuration for ***{ctx.guild.name}***.\nPlease await your guild to be promoted along with the other guilds in {promotion_channel.mention}.\n\nYou may now utilize my `/promote` directive every ***2*** hours to promote your guild!\nYou may also utilize by `/testpromote` directive to see a preview of your promotion, if you desire.\n\n*Best of luck to you in growing your esteemed community, good sir!*"
+            
+        else:
+            bump_db.bump_configs.update_one(
+              {
+                "server_id": ctx.guild.id,
+                "server_name": ctx.guild.name
+              },
+              {"$set": {
+                "guild_description": guild_description,
+                "promotion_channel_id": promotion_channel.id,
+                "promotion_channel_name": promotion_channel.name,
+                "color": [r, g, b],
+                "banner_url": banner_url
+                }
+              }
+            )
+
+        
+            embed_description = f"{ctx.author.mention}\nI have successfully *updated* the guild promotion configuration for ***{ctx.guild.name}***.\nPlease await your guild to be promoted along with the other guilds in {promotion_channel.mention}.\n\nYou may now utilize my `/promote` directive every ***2*** hours to promote your guild!\nYou may also utilize by `/testpromote` directive to see a preview of your promotion, if you desire.\n\n*Best of luck to you in growing your esteemed community, good sir!*"
+
+        promotion_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion Configuration", description = embed_description, color=discord.color.from_rgb(r, g, b))
+
+        promotion_embed.set_thumbnail(url=self.bot.user.avatar.url)
+
+        await ctx.respond(embed=promotion_embed)
+
+
+
+    #description field
+    class BumpModal(discord.ui.Modal):
+        def __init__(self, *args, previous_description=None, **kwargs):
+            super().__init__(*args, **kwargs)
+
+            self.description = previous_description
+
+            self.add_item(discord.ui.InputText(label="Guild Description", style=discord.InputTextStyle.long, min_length=150, max_length=1000, placeholder="Enter a proper description for your guild (server).", value=previous_description))
+  
+
+        async def callback(self, interaction: discord.Interaction):
+            self.description = self.children[0].value
+            await interaction.response.defer() #acknowledges the interaction before calling self.stop()
+            self.stop()
+    
+############################### BUMP (PROMOTION) #############################
+
+
+
+
+    
 
 ############################### AUTOSATIRE #############################
     @discord.slash_command(
@@ -1457,7 +1663,7 @@ class Configuration(commands.Cog):
         if background:
             parsed_url = urlparse(background)
             if parsed_url.scheme in ("http", "https"): # check if item is a valid url
-                if parsed_url.path.endswith((".jpg", ".png", "jpeg")): #only allow .jpg, .png, .jpeg files
+                if parsed_url.path.endswith((".jpg", ".png", ".jpeg")): #only allow .jpg, .png, .jpeg files
                     background_image = background
 
                 else:
@@ -1489,7 +1695,7 @@ class Configuration(commands.Cog):
         if avatar:
             parsed_url = urlparse(avatar)
             if parsed_url.scheme in ("http", "https"): # check if item is a valid url
-                if parsed_url.path.endswith((".jpg", ".png", "jpeg")): #only allow .jpg, .png, .jpeg files
+                if parsed_url.path.endswith((".jpg", ".png", ".jpeg")): #only allow .jpg, .png, .jpeg files
                     avatar_image = avatar
 
                 else:
@@ -1877,7 +2083,7 @@ class Configuration(commands.Cog):
         if thumbnail:
             parsed_url = urlparse(thumbnail)
             if parsed_url.scheme in ("http", "https"): # check if item is a valid url
-                if parsed_url.path.endswith((".jpg", ".png", "jpeg", ".gif")): #only allow .jpg, .png, .jpeg, or .gif files
+                if parsed_url.path.endswith((".jpg", ".png", ".jpeg", ".gif")): #only allow .jpg, .png, .jpeg, or .gif files
                     thumbnail = thumbnail
 
                 else:
@@ -1893,7 +2099,7 @@ class Configuration(commands.Cog):
         if image:
             parsed_url = urlparse(image)
             if parsed_url.scheme in ("http", "https"): # check if item is a valid url
-                if parsed_url.path.endswith((".jpg", ".png", "jpeg", ".gif")): #only allow .jpg, .png, .jpeg, or .gif files
+                if parsed_url.path.endswith((".jpg", ".png", ".jpeg", ".gif")): #only allow .jpg, .png, .jpeg, or .gif files
                     image = image
 
                 else:
