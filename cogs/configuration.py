@@ -169,6 +169,8 @@ class Configuration(commands.Cog):
             else:
                 await ctx.respond(f"Apologies {ctx.author.mention},\nIt appears that ***{background}*** is not a valid image link.\nThis url must be a direct link to a .JPG, .JPEG, .PNG, or .GIF image.\n*Please try again.*", ephemeral=True)
                 return
+        else:
+            banner_url = None
 
         
         #check the custom color
