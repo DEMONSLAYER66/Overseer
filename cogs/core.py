@@ -143,7 +143,7 @@ class Core(commands.Cog):
             uptime = f"{seconds} seconds"
 
         # bot invite link
-        invite_link = "https://discord.com/api/oauth2/authorize?client_id=1092515783025889383&permissions=3557027030&scope=bot%20applications.commands"
+        invite_link = "https://discord.com/api/oauth2/authorize?client_id=1092515783025889383&permissions=3557027031&scope=bot%20applications.commands"
 
         #get the servers the bot is in
         bot_servers = []
@@ -1256,7 +1256,7 @@ class Core(commands.Cog):
         help_embed = discord.Embed(title=f"__**Directives for {byname}**__", description=f"{ctx.author.mention}\nSelect a category to view the directives for by utilizing the select menu below, good sir.", color = discord.Color.from_rgb(47, 85, 222), url=github_full_directives_list)
 
         # bot invite link
-        invite_link = "https://discord.com/api/oauth2/authorize?client_id=1092515783025889383&permissions=3557027030&scope=bot%20applications.commands"
+        invite_link = "https://discord.com/api/oauth2/authorize?client_id=1092515783025889383&permissions=3557027031&scope=bot%20applications.commands"
 
         help_embed.add_field(name="", value=f"Please use the link provided in the title *OR* [Click Here]({github_full_directives_list}) for a full list of directives for *{byname}*, good sir.\n\nYou may also utilize `/help directive-name` for an in-depth analysis of a specific directive, if you desire.", inline=False)
         
