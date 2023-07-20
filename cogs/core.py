@@ -1555,10 +1555,6 @@ class Core(commands.Cog):
 
             #help embed
             help_embed = discord.Embed(title=f"__**Directives for {self.byname}**__", description=f"`{category}`\n{category_description}", color = discord.Color.from_rgb(47, 85, 222), url=f"{self.full_directives_list}#{category_name.lower()}")
-            
-            app_commands = []
-            for command in 
-            self.bot.get_application_command(directive)
     
             commands_list = self.cog_dict[category_name]['commands']
             app_commands_list = self.cog_dict[category_name]['app_commands']
