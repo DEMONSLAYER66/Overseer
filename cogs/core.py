@@ -1403,14 +1403,14 @@ class Core(commands.Cog):
             else:
                 command_description="No description available for this directive."
             
-            #check to see if a longer description is available from json file
+            #check to see if a longer description is available from .json file
             if self.command_help.get(directive, {}).get("long_description_contd2"):
                 command_long_description = self.command_help[directive]["long_description"]
                 command_long_description_contd = self.command_help[directive]["long_description_contd"]
                 command_long_description_contd2 = self.command_help[directive]["long_description_contd2"]                  
             
                 help_embed.add_field(
-                    name = app_command.name,
+                    name = f"</{app_command.name}:{app_command.id}>",
                     value=f"> {command_description}"
                 )
             
@@ -1439,7 +1439,7 @@ class Core(commands.Cog):
                           
               
                 help_embed.add_field(
-                    name = app_command.name,
+                    name = f"</{app_command.name}:{app_command.id}>",
                     value=f"> {command_description}"
                 )
             
@@ -1461,7 +1461,7 @@ class Core(commands.Cog):
             
               
                 help_embed.add_field(
-                    name=app_command.name,
+                    name=f"</{app_command.name}:{app_command.id}>",
                     value=f"> {command_description}"
                 )
             
@@ -1474,7 +1474,7 @@ class Core(commands.Cog):
             
             else:
                 help_embed.add_field(
-                    name=app_command.name,
+                    name=f"</{app_command.name}:{app_command.id}>",
                     value=f"> {command_description}"
                 )
         
@@ -1561,7 +1561,8 @@ class Core(commands.Cog):
             app_commands_list = self.cog_dict[category_name]['app_commands']
             if commands_list or app_commands_list:
                 for command in app_commands_list:
-                    help_embed.add_field(name="", value=f"[/{command}]({self.full_directives_list}#{command.lower()})")
+                    help_embed.add_field(name=f"</{command.name}:{command.id}>", value=f"[Directive Help]({self.full_directives_list}#{command.lower()})")
+                    #f"[/{command}]({self.full_directives_list}#{command.lower()})"
     
     
             help_embed.add_field(name="", value=f"Please use the links provided for each directive for specific help *OR* [Click Here]({self.full_directives_list}#{category_name.lower()}) for a list of directives within this category, good sir.\n\nYou may also utilize `/help directive-name` for an in-depth analysis of a specific directive, if you desire.", inline=False)
