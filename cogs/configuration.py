@@ -246,7 +246,7 @@ class Configuration(commands.Cog):
         
             embed_description = f"{ctx.author.mention}\nI have successfully *updated* the guild promotion configuration for ***{ctx.guild.name}***.\nPlease await your guild to be promoted along with the other guilds in {promotion_channel.mention}.\n\nYou may now utilize my `/promote` directive every ***2*** hours to promote your guild!\nYou may also utilize by `/testpromote` directive to see a preview of your promotion, if you desire.\n\n*Best of luck to you in growing your esteemed community, good sir!*"
 
-        promotion_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion Configuration", description = embed_description, color=discord.color.from_rgb(r, g, b))
+        promotion_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion Configuration", description = embed_description, color=discord.Color.from_rgb(r, g, b))
 
         promotion_embed.set_thumbnail(url=self.bot.user.avatar.url)
 
