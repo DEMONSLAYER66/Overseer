@@ -699,12 +699,12 @@ class Fun(commands.Cog):
               # Create a Discord file object from the modified image data (this is for making variations of the image)
               file = discord.File(io.BytesIO(image_data), filename='generated_image.png')
 
-              #channel for lord bottington on support server (so the message does not appear in the user's channel
-              channel = self.ctx.bot.get_channel(1129414105820844092)
+              #channel for lord bottington's generated images on support server (so the message does not appear in the user's channel)
+              #do not delete message (otherwise the cdn.discordapp.com/attachments link eventually gets removed and the users may not be able to access the image
+              channel = self.ctx.bot.get_channel(1131587941051945011)
 
-              message = await channel.send(file=file)
+              message = await channel.send(f"{self.ctx.author.display_name}", file=file)
               self.image_url = message.attachments[0].url
-              await message.delete()
             
               # Create an embed with the image
               image_embed = discord.Embed(title=f"{self.byname}\nImage Generation", color=discord.Color.from_rgb(0, 0, 255))
@@ -843,12 +843,12 @@ class Fun(commands.Cog):
               # Create a Discord file object from the modified image data (this is for making variations of the image)
               variation_file = discord.File(io.BytesIO(image_data), filename=f'variation{self.variation_number}_image.png')
 
-              #channel for lord bottington on support server (so the message does not appear in the user's channel
-              channel = self.ctx.bot.get_channel(1129414105820844092)
+              #channel for lord bottington's generated images on support server (so the message does not appear in the user's channel)
+              #do not delete message (otherwise the cdn.discordapp.com/attachments link eventually gets removed and the users may not be able to access the image
+              channel = self.ctx.bot.get_channel(1131587941051945011)
 
-              message = await channel.send(file=variation_file)
+              message = await channel.send(f"{self.ctx.author.display_name}", file=variation_file)
               discord_variaton_url = message.attachments[0].url
-              await message.delete()
             
               # Create an embed with the image
               image_embed = discord.Embed(title=f"{self.byname}\nImage Generation", description=f"Variation #{self.variation_number}", color=discord.Color.from_rgb(0, 0, 255))
