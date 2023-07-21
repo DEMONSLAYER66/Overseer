@@ -272,10 +272,11 @@ class Utility(commands.Cog):
 
     async def send_reminder(self, ctx):
         promote_app_command = self.bot.get_application_command("promote")
+        eventhandler_command = self.bot.get_application_command("eventhandler")
       
         reminder_embed = discord.Embed(
             title=f"{ctx.guild.name}\nPromotion Reminder",
-            description=f"> Attention {ctx.author.mention} and the members of {ctx.guild.name},\n> The promotion cooldown has **ended** for this guild...\n> \n> You may once again use the </{promote_app_command.name}:{promote_app_command.id}> directive!\n> \n> *Best of luck in promoting and growing this esteemed community, good fellows!*",
+            description=f"> Attention {ctx.author.mention} and the members of {ctx.guild.name},\n> The promotion cooldown has **ended** for this guild...\n> \n> You may once again use the </{promote_app_command.name}:{promote_app_command.id}> directive!\n> \n> You may also utilize </{eventhandler_command.name}:{eventhandler_command.id}> in order to turn promotion reminders on or off.\n> \n> *Best of luck in promoting and growing this esteemed community, good fellows!*",
             color=discord.Color.from_rgb(0, 0, 255)
         )
         reminder_embed.set_thumbnail(url=self.bot.user.avatar.url)
