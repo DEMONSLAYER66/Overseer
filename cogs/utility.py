@@ -110,8 +110,10 @@ class Utility(commands.Cog):
             return
 
         else:
+            bump_key = {"server_id": ctx.guild.id}
+          
             #increase the number of bumps for the server by 1 on mongodb
-            bump_db.bumps_config.update_one(
+            bump_db.bump_configs.update_one(
               bump_key,
               {"$inc": {
                 "bumps": 1
@@ -119,6 +121,24 @@ class Utility(commands.Cog):
               }
             )
 
+            #increase the total number of bumps for the bot by 1
+            if not bump_db.total_bumps.find_one({"automaton": "Lord Bottington"}):
+                bump_db.total_bumps.insert_one(
+                  {
+                    "automaton": "Lord Bottington",
+                    "total_bumps": 1
+                  }
+                )
+            else:
+                bump_db.total_bumps.update_one(
+                  {"automaton": "Lord Bottington"},
+                  {"$inc": {
+                    "total_bumps": 1
+                    }
+                  }
+                )
+
+            bump_key = {"server_id": ctx.guild.id}
             server_data = bump_db.bump_configs.find_one(bump_key)
           
             automaton_invite_link = "https://discord.com/api/oauth2/authorize?client_id=1092515783025889383&permissions=3557027031&scope=bot%20applications.commands"
@@ -163,7 +183,22 @@ class Utility(commands.Cog):
             view.add_item(InviteLordBottington)
             view.add_item(JoinSupportGuild)
 
-            await promotion_channel.send(invite_link, embed=test_embed, view=view)
+            promotion_message = await promotion_channel.send(invite_link, embed=test_embed, view=view)
+
+
+            total_bumps = bump_db.total_bumps.find_one({"automaton": "Lord Bottington"}) #the total number of bumps for the bot
+          
+            info_embed = discord.Embed(title=f"{ctx.guild.name}\nSuccessful Promotion", description=f"🎩Congratulations!🎩\nThis guild has been **successfully promoted**.\nYou may view the posting in {promotion_channel.mention} by [clicking here]({promotion_message.jump_url}).\n\nYou may promote this guild again in `2 hours`, if you so desire.\n\nI would also like to inform you that since my creation, I have received a grand total of 🚀`{total_bumps:,} Promotions`. I do appreciate your support and look forward to serving you even more!\n\n*Best of luck in growing your esteemed community, good sir!*", color=discord.Color.from_rgb(color[0], color[1], color[2]))
+
+            info_embed.add_field(name=f"🚀Guild Promotions", value=f"`{bumps:,}`")
+
+            info_embed.set_thumbnail(self.bot.user.avatar.url)
+
+            info_view=View()
+            info_view.add_item(InviteLordBottington)
+            info_view.add_item(JoinSupportGuild)
+            
+            await ctx.respond(embed=info_embed, view=info_view)
 
 
 ############################# TEST PROMOTION #########################
