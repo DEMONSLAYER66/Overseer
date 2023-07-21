@@ -257,9 +257,16 @@ class Utility(commands.Cog):
             
             await ctx.send(embed=info_embed, view=info_view)
 
-            await asyncio.sleep(30)
+            #get the promotion event status from mongoDB
+            promotions_status = await self.get_promotions_event_status(ctx.guild.id)
 
-            await self.send_reminder(ctx)
+            #Promotion Reminders event only runs if event status using /eventhandler is set to enabled OR if the user has not set the status using /eventhandler
+            if promotions_status == "Disabled":
+                pass
+            elif promotions_status == "Enabled":
+                await asyncio.sleep(7200) #wait for 2 hours (ratelimit/slowmode)
+    
+                await self.send_reminder(ctx)
 
 
 
@@ -274,6 +281,20 @@ class Utility(commands.Cog):
         reminder_embed.set_thumbnail(url=self.bot.user.avatar.url)
 
         await ctx.send(embed=reminder_embed)
+
+
+    #This retrieves the current server's event status from the mongoDB database
+    async def get_promotions_event_status(self, guild_id):
+        # mongoDBpass = os.environ['mongoDBpass']
+        mongoDBpass = os.getenv('mongoDBpass')
+        client = pymongo.MongoClient(mongoDBpass)
+        event_handler_db = client.event_handler_db
+
+        event_doc = event_handler_db[f"events_{guild_id}"].find_one({"server_id": guild_id})
+        if event_doc:
+            return event_doc["promotions_reminders"]
+        else:
+            return "Enabled"
 
 ############################# PROMOTE #########################
 
