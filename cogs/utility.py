@@ -57,7 +57,7 @@ SERVER_ID = [1088118252200276071, 1117859916749742140]
 
 ####################### COOLDOWN FOR PROMOTION #########################
 # Define the cooldown time (in seconds)
-cooldown_time = 7200  # 2 hours cooldown
+cooldown_time = 30  # 2 hours cooldown
 
 # Create a cooldown mapping object for the /promote command
 promote_cooldown = commands.CooldownMapping.from_cooldown(1, cooldown_time, commands.BucketType.guild)
@@ -78,6 +78,9 @@ class Utility(commands.Cog):
       self.meme_time = datetime.time(hour=9, minute=0, second=0, microsecond=0, tzinfo=self.timezone)
       self.daily_meme_time = self.meme_time.strftime("%I:%M") + " AM" #set the daily meme time to ##:## AM
       self.send_meme.start()
+
+      # send promote reminders loop task
+      self.send_reminder_loop.stop()  # Stop the loop initially
       
   
 
@@ -109,6 +112,7 @@ class Utility(commands.Cog):
         bucket = promote_cooldown.get_bucket(ctx)
         retry_after = bucket.update_rate_limit()
         if retry_after:
+            self.send_reminder_loop.start(ctx)  # Start the loop when the cooldown begins
             promote_app_command = self.bot.get_application_command("promote")
             
             # Calculate the total cooldown time in days, hours, minutes, and seconds
@@ -266,7 +270,36 @@ class Utility(commands.Cog):
             
             await ctx.send(embed=info_embed, view=info_view)
 
-############################# TEST PROMOTION #########################
+
+
+    async def send_reminder(self, ctx):
+        promote_app_command = self.bot.get_application_command("promote")
+      
+        reminder_embed = discord.Embed(
+            title=f"{ctx.guild.name}\nPromotion Reminder",
+            description=f"{ctx.author.mention}\n\n> The promotion cooldown has ended, good sir.\n> \n> *You may now use the </{promote_app_command.name}:{promote_app_command.id}> directive for this guild again!*",
+            color=discord.Color.from_rgb(0, 255, 0)
+        )
+        reminder_embed.set_thumbnail(url=self.bot.user.avatar.url)
+
+        await ctx.send(embed=reminder_embed)
+        self.send_reminder_loop.stop()  # Stop the loop after sending the reminder
+
+
+
+    @tasks.loop(seconds=5)
+    async def send_reminder_loop(self, ctx):
+        bucket = promote_cooldown.get_bucket(ctx)
+        if bucket._tokens == 0:  # _tokens represents the number of tokens in the bucket
+            await self.send_reminder(ctx)
+
+    @send_reminder_loop.before_loop
+    async def before_send_reminder_loop(self):
+        await self.bot.wait_until_ready()  # Wait until the bot is ready before starting the loop
+
+
+
+############################# PROMOTE #########################
 
 
 
