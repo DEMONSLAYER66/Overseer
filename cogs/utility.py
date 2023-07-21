@@ -148,7 +148,7 @@ class Utility(commands.Cog):
                 test_embed.set_footer(text=f"Promoter: {ctx.author.display_name}") #no avatar set
 
             InviteButton = discord.ui.Button(emoji='✅', label="Join Guild", url=invite_link, style=discord.ButtonStyle.link)
-            InviteLordBottington = discord.ui.Button(emoji='🤖', label="Invite Automaton", url=automaton_invite_link, style=discord.ButtonStyle.link)
+            InviteLordBottington = discord.ui.Button(emoji='🤖', label="Add Lord Bottington", url=automaton_invite_link, style=discord.ButtonStyle.link)
             JoinSupportGuild = discord.ui.Button(emoji='🎩', label="Join 𝓣𝓱𝓮 𝓢𝔀𝓮𝓮𝔃 𝓖𝓪𝓷𝓰", url=support_guild_invite, style=discord.ButtonStyle.link)
 
             view=View()
