@@ -48,6 +48,9 @@ async def on_ready():
   for guild in bot.guilds:
       server_ids.append(guild.id)
 
+  core_cog = bot.get_cog('Core') #get the core cog
+  bot.add_view(core_cog.HelpView())
+
   #start the autopurge task
   configuration_cog = bot.get_cog('Configuration') #get the configuration cog
   for server_id in server_ids: #for every active server, create a loop task for autopurge
