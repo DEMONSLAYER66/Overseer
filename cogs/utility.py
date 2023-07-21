@@ -110,10 +110,6 @@ class Utility(commands.Cog):
     async def promote(self, ctx):
         # Check if the cooldown is active for this guild
         bucket = promote_cooldown.get_bucket(ctx)
-
-        if bucket._tokens == bucket.rate - 1:  # Start the loop when the cooldown begins
-            self.send_reminder_loop.start(ctx)
-      
         retry_after = bucket.update_rate_limit()
         if retry_after:
             promote_app_command = self.bot.get_application_command("promote")
@@ -139,6 +135,9 @@ class Utility(commands.Cog):
 
             await ctx.respond(embed=cooldown_embed, ephemeral=True)
             return
+          
+        else:
+            self.send_reminder_loop.start(ctx) #start the reminder loop
 
       
         #get the promotion application command
