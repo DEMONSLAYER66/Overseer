@@ -57,11 +57,11 @@ async def on_ready():
           # Update the 'send_time' field in the MongoDB collection
           bump_db.cooldowns.update_one(
               {'_id': cooldown_data['_id']},  # Use the _id field to identify the document
-              {'$set': {'send_time': current_time}}
+              {'$set': {'start_time': current_time}}
           )
           
           utility_cog = bot.get_cog('Utility') #get the utility cog
-          utility_cog.send_reminder(cooldown_time)
+          await utility_cog.send_reminder(cooldown_time)
 
 
 
