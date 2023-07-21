@@ -86,6 +86,92 @@ class Utility(commands.Cog):
 
 
 
+############################# PROMOTE #########################
+    @discord.slash_command(
+        name="promote",
+        description="Promote this guild (server).",
+        # guild_ids=SERVER_ID
+        global_command = True
+    )
+    async def promote(self, ctx):
+        #get the promotion application command
+        promotion_app_command = self.bot.get_application_command("promotion")
+
+        bump_key = {"server_id": ctx.guild.id}
+        server_data = bump_db.bump_configs.find_one(bump_key)
+
+        if not server_data:
+            no_data_description = f"Apologies {ctx.author.mention},\nIt appears that a guild promotion configuration has not been set up for ***{ctx.guild.name}***, good sir.\n\nYou may utilize my </{promotion_app_command.name}:{promotion_app_command.id}> directive to configure this for your guild, if you desire."
+            no_data_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion Configuration", description = no_data_description, color=discord.Color.from_rgb(0, 0, 255))
+
+            no_data_embed.set_thumbnail(url=self.bot.user.avatar.url)
+
+            await ctx.respond(embed=no_data_embed, ephemeral=True)
+            return
+
+        else:
+            #increase the number of bumps for the server by 1 on mongodb
+            bump_db.bumps_config.update_one(
+              bump_key,
+              {"$inc": {
+                "bumps": 1
+                }
+              }
+            )
+
+            server_data = bump_db.bump_configs.find_one(bump_key)
+          
+            automaton_invite_link = "https://discord.com/api/oauth2/authorize?client_id=1092515783025889383&permissions=3557027031&scope=bot%20applications.commands"
+            support_guild_invite = "https://discord.gg/4P6ApdPAF7"
+            invite_link = server_data['invite_link']
+            guild_description = server_data['guild_description']
+            promotion_channel = await self.bot.fetch_channel(server_data['promotion_channel_id'])
+            color = server_data['color'] #array of (r, g, b)
+            banner_url = server_data['banner_url']
+            bumps = server_data['bumps']
+            guild_created_at = ctx.guild.created_at.strftime('%B %d, %Y')
+            topic = server_data['topic']
+
+            test_embed =  discord.Embed(title=f"{ctx.guild.name}", description = guild_description, color=discord.Color.from_rgb(color[0], color[1], color[2]))
+
+            test_embed.add_field(name="❗Guild Topic", value=f"`{topic}`", inline=False)
+            test_embed.add_field(name="🚀Promotions", value=f"`{bumps:,}`", inline=True)
+            test_embed.add_field(name="👨Member Count", value=f"`{ctx.guild.member_count:,}`", inline=True)
+            test_embed.add_field(name="💎Boosts", value=f"`{ctx.guild.premium_subscription_count:,}`", inline=True)
+            test_embed.add_field(name="🕒Guild Creation", value=f"`{guild_created_at}`", inline=True)
+            test_embed.add_field(name="# Promotion Channel", value=promotion_channel.mention, inline=True)
+
+            try:
+                test_embed.set_thumbnail(url=ctx.guild.icon.url)
+            except:
+                pass
+
+            if banner_url:
+                test_embed.set_image(url=banner_url)
+
+            try:
+                test_embed.set_footer(text=f"Promoter: {ctx.author.display_name}", icon_url=ctx.author.avatar.url)
+            except:
+                test_embed.set_footer(text=f"Promoter: {ctx.author.display_name}") #no avatar set
+
+            InviteButton = discord.ui.Button(emoji='✅', label="Join Guild", url=invite_link, style=discord.ButtonStyle.link)
+            InviteLordBottington = discord.ui.Button(emoji='🤖', label="Add Lord Bottington", url=automaton_invite_link, style=discord.ButtonStyle.link)
+            JoinSupportGuild = discord.ui.Button(emoji='🎩', label="Join 𝓣𝓱𝓮 𝓢𝔀𝓮𝓮𝔃 𝓖𝓪𝓷𝓰", url=support_guild_invite, style=discord.ButtonStyle.link)
+
+            view=View()
+            view.add_item(InviteButton)
+            view.add_item(InviteLordBottington)
+            view.add_item(JoinSupportGuild)
+
+            await promotion_channel.send(invite_link, embed=test_embed, view=view)
+
+
+############################# TEST PROMOTION #########################
+
+
+
+  
+
 ############################# TEST PROMOTION #########################
     @discord.slash_command(
         name="testpromote",
@@ -157,36 +243,6 @@ class Utility(commands.Cog):
             view.add_item(JoinSupportGuild)
 
             await ctx.respond(invite_link, embed=test_embed, view=view, ephemeral=True)
-
-
-
-    # class PromoteView(discord.ui.View):
-    #     def __init__(self, ctx, bot, iconlinks):
-    #         super().__init__(timeout=120) #used to initialize the timeout (if needed)
-    #         self.ctx = ctx #initialize the context
-    #         self.bot = bot #intialize bot
-    #         self.iconlinks = iconlinks
-
-      
-    #     #timeout function
-    #     async def on_timeout(self):
-    #         self.children[3].disabled=True
-          
-    #         try:
-    #             await self.message.edit(view=self)
-    #         except discord.errors.NotFound: #if message deleted before timeout
-    #             pass
-  
-    #         self.stop()
-
-      
-    #     @discord.ui.button(label="Join", style=discord.ButtonStyle.danger, emoji="👍")
-    #     async def join_button(self, button: discord.ui.Button, interaction: discord.Interaction):
-    #         if interaction.user == self.ctx.author: #author cannot use the buttons
-    #             await interaction.response.defer()
-    #             return
-          
-    #         await interaction.response.defer()
 
 
 ############################# TEST PROMOTION #########################
