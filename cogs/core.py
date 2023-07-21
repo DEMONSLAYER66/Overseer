@@ -26,6 +26,7 @@ client = pymongo.MongoClient(mongoDBpass) # Create a new client and connect to t
 byname_db = client.byname_db #create the byname (nickname) database on MongoDB
 appearance_db = client.appearance_db #create the appearance (avatar) database on MongoDB
 patrons_db = client.patrons_db #create the patrons database on mongoDB
+bump_db = client.bump_db #create the bump (promotion) database on MongoDB
 #########################MONGODB DATABASE################################
 
 
@@ -59,6 +60,44 @@ class Core(commands.Cog):
 
 
   
+############################# REST (SHUTDOWN) ####################################
+    @commands.slash_command(
+        name="rest",
+        description="Permit the automaton a well-deserved rest (Automaton Owner Only)",
+        # guild_ids=SERVER_ID #sync command to only specified guilds (for testing - much faster than global)
+        global_command=True #sync command to all guilds the bot is in
+    )
+    async def rest(self, ctx):
+        # Check if the command invoker is the bot owner
+        if ctx.author.id == 776986646377267240:
+            current_time = datetime.datetime.utcnow()
+        
+            # Get all cooldown entries from the database (for cooldowns on promotions)
+            cooldown_data_list = bump_db.cooldowns.find()
+    
+            if cooldown_data_list:
+                for cooldown_data in cooldown_data_list:
+                    start_time = cooldown_data['start_time']
+                    elapsed_time = current_time - start_time
+                    cooldown_time = cooldown_data['cooldown']
+                    remaining_time = max(0, cooldown_time - elapsed_time.total_seconds())
+            
+                    if remaining_time <= 0:
+                        # Delete the cooldown time from MongoDB if the cooldown time is found and over
+                        bump_db.cooldowns.delete_one(cooldown_data)
+                    else:
+                        # Save the remaining time to the database
+                        bump_db.cooldowns.update_one({"_id": cooldown_data["_id"]}, {"$set": {"cooldown": remaining_time}})
+
+            await ctx.respond(f"{ctx.author.mention}\nNow taking a rest sir...\n*Have a wonderful day!*", ephemeral=True)
+            await self.bot.close()
+        else:
+            await ctx.respond(f"Apologies {ctx.author.mention},\nOnly my owner is able to utilize this directive.\n\n*Have a nice day, good sir.*", ephemeral=True)
+            return
+
+################################## REST (SHUTDOWN) ####################################
+
+    
 
 
 ##############################BOT UPDATES#####################################
