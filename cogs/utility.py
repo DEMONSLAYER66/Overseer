@@ -59,12 +59,8 @@ SERVER_ID = [1088118252200276071, 1117859916749742140]
 # Define the cooldown time (in seconds)
 cooldown_time = 7200  # 2 hours cooldown
 
-# Custom key function to create separate buckets for each guild
-def get_guild_key(ctx):
-    return ctx.guild.id
-
 # Create a cooldown mapping object for the /promote command
-promote_cooldown = commands.CooldownMapping.from_cooldown(1, cooldown_time, commands.BucketType.guild, key=get_guild_key)
+promote_cooldown = commands.CooldownMapping.from_cooldown(1, cooldown_time, commands.BucketType.guild)
 ####################### COOLDOWN FOR PROMOTION #########################
 
 
