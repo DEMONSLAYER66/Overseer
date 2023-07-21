@@ -1504,7 +1504,7 @@ class Core(commands.Cog):
     ## Select menu for help function
     class HelpView(discord.ui.View):
         def __init__(self, ctx, byname, full_directives_list, category_dict, category_description_dict, cog_dict):
-            super().__init__(timeout=None) #set the timeout
+            super().__init__(timeout=120) #set the timeout
             self.ctx = ctx #intialize the context
             self.byname = byname
             self.full_directives_list = full_directives_list #Github full directives list link
@@ -1527,7 +1527,6 @@ class Core(commands.Cog):
           placeholder="Choose a directive category.",
           min_values=1,
           max_values=1,
-          custom_id="lordbottington_help_select",
           options = [
             discord.SelectOption(emoji='🌐', label="Core", description="Basic directives."),
             discord.SelectOption(emoji='⚙️', label="Configuration", description="Automaton configuration directives."),
