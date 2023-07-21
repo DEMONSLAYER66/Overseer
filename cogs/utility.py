@@ -193,7 +193,7 @@ class Utility(commands.Cog):
 
             info_embed.add_field(name=f"🚀Guild Promotions", value=f"`{bumps:,}`")
 
-            info_embed.set_thumbnail(self.bot.user.avatar.url)
+            info_embed.set_thumbnail(url=self.bot.user.avatar.url)
 
             info_view=View()
             info_view.add_item(InviteLordBottington)
