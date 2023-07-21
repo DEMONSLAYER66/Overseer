@@ -99,9 +99,6 @@ class Configuration(commands.Cog):
             await ctx.respond(f"Apologies {ctx.author.mention},\nI do not have permission to create invites in this guild.\n*Please change this for myself in the guild (server) settings and try again.*", ephemeral=True)
             return
 
-        # Create a new invite for the invite_channel with unlimited uses
-        invite_link = await invite_channel.create_invite(max_age=0, max_uses=0, unique=True)
-
         
         #define RGB guild promotion color tuples
         colors = {
@@ -197,6 +194,13 @@ class Configuration(commands.Cog):
 
         if server_data:
             guild_description = server_data['guild_description']
+            previous_invite_channel_id = server_data['invite_channel_id']
+
+            if previous_invite_channel_id != invite_channel.id:
+                # Create a new invite for the invite_channel with unlimited uses (if not the same channel as the previously used one)
+                invite = await invite_channel.create_invite(max_age=0, max_uses=0, unique=True)
+        else:
+            invite = await invite_channel.create_invite(max_age=0, max_uses=0, unique=True)
 
 
         bump_modal = self.BumpModal(title="Guild Promotion Configuration", previous_description=guild_description)
@@ -211,12 +215,17 @@ class Configuration(commands.Cog):
             return
 
 
+        bump_key = {"server_id": ctx.guild.id}
+        server_data = bump_db.bump_configs.find_one(bump_key)
         
         if server_data:
             bump_db.bump_configs.insert_one(
               {
                 "server_id": ctx.guild.id,
                 "server_name": ctx.guild.name,
+                "invite_link": invite_link,
+                "invite_channel_id": invite_channel.id,
+                "invite_channel_name": invite_channel.name,
                 "guild_description": guild_description,
                 "promotion_channel_id": promotion_channel.id,
                 "promotion_channel_name": promotion_channel.name,
@@ -234,6 +243,9 @@ class Configuration(commands.Cog):
                 "server_name": ctx.guild.name
               },
               {"$set": {
+                "invite_link": invite_link,
+                "invite_channel_id": invite_channel.id,
+                "invite_channel_name": invite_channel.name,
                 "guild_description": guild_description,
                 "promotion_channel_id": promotion_channel.id,
                 "promotion_channel_name": promotion_channel.name,
