@@ -42,7 +42,37 @@ async def on_ready():
   mongoDBpass = os.getenv('mongoDBpass')
   client = pymongo.MongoClient(mongoDBpass) # Create a new client and connect to the server
   autopurge_db = client.autopurge_db #create the autpourge database on mongoDB
+  starboard_db = client.starboard_configs #create the starboard database on mongoDB
 
+
+  # Iterate over all the servers
+  for guild in self.bot.guilds:
+      # Get the starboard data from MongoDB for the current guild
+      server_config = starboard_db.starboard_configs.find_one({"server_id": guild.id})
+    
+      # Check if starboard_data exists for the current guild
+      if server_config:
+          # Get the list of message IDs from starboard_data
+          starboard_messages = server_config.get("starboard_messages", [])
+        
+          # Iterate over each message ID in starboard_messages
+          for message_id in starboard_messages:
+              try:
+                  # Fetch the message using its ID
+                  message = await guild.fetch_message(message_id)
+              except discord.NotFound:
+                  # Remove the deleted message from the starboard_messages array
+                  starboard_db.starboard_configs.update_one(
+                      {"server_id": guild.id},
+                      {"$pull": {"starboard_messages": message_id}}
+                  )
+                  continue
+            
+              # Start the listen_for_reactions task for the fetched message
+              utility_cog = bot.get_cog('Utility') #get the configuration cog
+              if utility_cog:
+                  await utility_cog.listen_for_reactions(message, server_config)
+    
 
   server_ids = []
   for guild in bot.guilds:
