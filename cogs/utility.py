@@ -289,14 +289,14 @@ class Utility(commands.Cog):
                   }
                 )
               
-                await self.send_reminder(ctx, cooldown_time)
+                await self.send_reminder(cooldown_time)
 
 
 
-    async def send_reminder(self, ctx, cooldown_time):
+    async def send_reminder(self, cooldown_time):
         await asyncio.sleep(cooldown_time)
 
-        cooldown_key = {"server_id": ctx.guild.id}
+        cooldown_key = {"server_id": self.ctx.guild.id}
         cooldown_data = bump_db.cooldowns.find_one(cooldown_key)
 
         if cooldown_data:
@@ -309,7 +309,7 @@ class Utility(commands.Cog):
       
         reminder_embed = discord.Embed(
             title=f"{ctx.guild.name}\nPromotion Reminder",
-            description=f"> Attention {ctx.author.mention} and the members of {ctx.guild.name},\n> The promotion cooldown has **ended** for this guild...\n> \n> You may once again use the </{promote_app_command.name}:{promote_app_command.id}> directive!\n> \n> You may also utilize </{eventhandler_command.name}:{eventhandler_command.id}> in order to turn promotion reminders on or off.\n> \n> *Best of luck in promoting and growing this esteemed community, good fellows!*",
+            description=f"> Attention {self.ctx.author.mention} and the members of {self.ctx.guild.name},\n> The promotion cooldown has **ended** for this guild...\n> \n> You may once again use the </{promote_app_command.name}:{promote_app_command.id}> directive!\n> \n> You may also utilize </{eventhandler_command.name}:{eventhandler_command.id}> in order to turn promotion reminders on or off.\n> \n> *Best of luck in promoting and growing this esteemed community, good fellows!*",
             color=discord.Color.from_rgb(0, 0, 255)
         )
         reminder_embed.set_thumbnail(url=self.bot.user.avatar.url)
