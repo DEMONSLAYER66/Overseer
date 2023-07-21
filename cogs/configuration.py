@@ -276,7 +276,7 @@ class Configuration(commands.Cog):
 
             self.description = previous_description
 
-            self.add_item(discord.ui.InputText(label="Guild Description", style=discord.InputTextStyle.long, min_length=150, max_length=1000, placeholder="Enter a proper description for your guild (server).", value=previous_description))
+            self.add_item(discord.ui.InputText(label="Guild Description", style=discord.InputTextStyle.long, min_length=150, max_length=2000, placeholder="Enter a proper description for your guild (server).", value=previous_description))
   
 
         async def callback(self, interaction: discord.Interaction):
