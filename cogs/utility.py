@@ -2625,7 +2625,7 @@ class Utility(commands.Cog):
                 
                 if message.embeds:
                     # Get the existing embed from the message
-                    existing_embed = message.embeds[0].to_dict()
+                    existing_embed = message.embeds[0]
 
                     await starboard_channel.send(embed=existing_embed) #send original embed
 
