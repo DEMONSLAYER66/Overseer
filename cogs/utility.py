@@ -137,7 +137,7 @@ class Utility(commands.Cog):
 
             no_data_embed.set_thumbnail(url=self.bot.user.avatar.url)
 
-            await ctx.respond(embed=no_data_embed)
+            await ctx.respond(embed=no_data_embed, ephemeral=True)
             return
 
         else:
@@ -268,27 +268,12 @@ class Utility(commands.Cog):
       
         reminder_embed = discord.Embed(
             title=f"{ctx.guild.name}\nPromotion Reminder",
-            description=f"{ctx.author.mention}\n\n> The promotion cooldown has ended, good sir.\n> \n> *You may now use the </{promote_app_command.name}:{promote_app_command.id}> directive for this guild again!*",
+            description=f"> Attention {ctx.author.mention} and the members of {ctx.guild.name},\n> The promotion cooldown has **ended** for this guild...\n> \n> You may once again use the </{promote_app_command.name}:{promote_app_command.id}> directive!\n> \n> *Best of luck in promoting and growing this esteemed community, good fellows!*",
             color=discord.Color.from_rgb(0, 0, 255)
         )
         reminder_embed.set_thumbnail(url=self.bot.user.avatar.url)
 
         await ctx.send(embed=reminder_embed)
-
-
-
-    # @tasks.loop(seconds=5)
-    # async def send_reminder_loop(self, ctx):
-    #     bucket = self.promote_cooldowns[ctx.guild.id].get_bucket(ctx)
-    #     retry_after = bucket.update_rate_limit()
-    #     if not retry_after: # the retry time is 0 and cooldown is over
-    #         await self.send_reminder(ctx)
-
-    # @send_reminder_loop.before_loop
-    # async def before_send_reminder_loop(self):
-    #     await self.bot.wait_until_ready()  # Wait until the bot is ready before starting the loop
-
-
 
 ############################# PROMOTE #########################
 
