@@ -123,6 +123,8 @@ class Utility(commands.Cog):
     )
     @commands.cooldown(1, 30, commands.BucketType.guild)
     async def promote(self, ctx):
+        await ctx.defer() #acknowledge the interaction
+      
         #get the promotion application command
         promotion_app_command = self.bot.get_application_command("promotion")
 
@@ -135,7 +137,7 @@ class Utility(commands.Cog):
 
             no_data_embed.set_thumbnail(url=self.bot.user.avatar.url)
 
-            await ctx.respond(embed=no_data_embed, ephemeral=True)
+            await ctx.send(embed=no_data_embed)
             return
 
         else:
@@ -143,7 +145,7 @@ class Utility(commands.Cog):
 
             initial_embed.set_thumbnail(url=self.bot.user.avatar.url)
 
-            await ctx.respond(embed=initial_embed, ephemeral=True) #send an initial embed to interact with the response
+            initial_message = await ctx.send(embed=initial_embed) #send an initial embed to interact with the response
           
             #update the mongoDB database and retrieve info
             bump_key = {"server_id": ctx.guild.id}
@@ -253,7 +255,7 @@ class Utility(commands.Cog):
             info_view.add_item(InviteLordBottington)
             info_view.add_item(JoinSupportGuild)
             
-            await ctx.send(embed=info_embed, view=info_view)
+            await initial_message.edit(embed=info_embed, view=info_view)
 
             await asyncio.sleep(30)
 
