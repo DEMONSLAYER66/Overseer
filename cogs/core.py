@@ -91,7 +91,7 @@ class Core(commands.Cog):
 
             await ctx.respond(f"{ctx.author.mention}\nNow taking a rest sir...\n*Have a wonderful day!*", ephemeral=True)
             await self.bot.close() #restart (graceful)
-            await self.bot.logout() #shutdown
+            raise SystemExit #shut down the server
         else:
             await ctx.respond(f"Apologies {ctx.author.mention},\nOnly my owner is able to utilize this directive.\n\n*Have a nice day, good sir.*", ephemeral=True)
             return
