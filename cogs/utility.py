@@ -156,7 +156,7 @@ class Utility(commands.Cog):
             view.add_item(InviteLordBottington)
             view.add_item(JoinSupportGuild)
 
-            await ctx.respond(embed=test_embed, view=view, ephemeral=True)
+            await ctx.respond(invite_link, embed=test_embed, view=view, ephemeral=True)
 
 
 ############################# TEST PROMOTION #########################
