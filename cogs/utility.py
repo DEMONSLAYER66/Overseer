@@ -45,6 +45,7 @@ starboard_db = client.starboard_db #create the starboard database on MongoDB
 autopurge_db = client.autopurge_db #create the autopurge database on MongoDB
 patrons_db = client.patrons_db #create the patrons database on mongoDB
 autosatire_db = client.autosatire_db #create the autosatire (automeme) database on MongoDB
+bump_db = client.bump_db #create the bump (promotion) database on MongoDB
 #########################MONGODB DATABASE##################################
 
 
