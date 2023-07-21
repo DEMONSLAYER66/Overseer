@@ -117,7 +117,7 @@ class Utility(commands.Cog):
   
     @discord.slash_command(
         name="promote",
-        description="Promote this guild (server).",
+        description="Promote this guild.",
         # guild_ids=SERVER_ID
         global_command = True
     )
