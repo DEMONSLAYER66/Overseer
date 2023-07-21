@@ -106,7 +106,7 @@ class Utility(commands.Cog):
     )
     async def promote(self, ctx):
         # Check if the cooldown is active for this guild
-        bucket = promote_cooldown.get_bucket(ctx.message)
+        bucket = promote_cooldown.get_bucket(ctx)
         retry_after = bucket.update_rate_limit()
         if retry_after:
             promote_app_command = self.bot.get_application_command("promote")
@@ -265,12 +265,6 @@ class Utility(commands.Cog):
             info_view.add_item(JoinSupportGuild)
             
             await ctx.send(embed=info_embed, view=info_view)
-
-  
-            # Update the cooldown for this guild
-            bucket = promote_cooldown.get_bucket(ctx.message)
-            bucket.update_rate_limit()
-
 
 ############################# TEST PROMOTION #########################
 
