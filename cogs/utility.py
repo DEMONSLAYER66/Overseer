@@ -2611,40 +2611,40 @@ class Utility(commands.Cog):
                     # print("mongoDB updated with message id")
                     # Update the footer with the new reaction count
                     embed = starboard_message.embeds[0]
-                    embed.set_footer(text=f"{reaction} {reactions}")
+                    embed.set_footer(text=f"Maximum Reactions: {reaction} {reactions}")
                     await starboard_message.edit(embed=embed)
                     # print("embed sent")
                     break
-            else:
-                # If there is no existing starboard embed, create a new one
-                starboard_db.starboard_configs.update_one(
-                    {"server_id": message.guild.id},
-                    {"$push": {"starboard_messages": message.id}}
-                )
-                # print("mongoDB updated with message id")
-                
-                author_avatar = message.author.avatar
-                embed = discord.Embed(
-                    title = "Original Posting (click here)",
-                    url = message.jump_url,
-                    description=message.content,
-                    timestamp=message.created_at,
-                    color=discord.Color.from_rgb(*server_config["color"]),
-                )
-                embed.set_author(
-                    name=message.author.display_name,
-                    icon_url=author_avatar,
-                )
-
-                embed.set_footer(text=f"{reaction} {reactions}")
-                if message.attachments:
-                    attachment = message.attachments[0]
-                    if attachment.url.lower().endswith(("png", "jpeg", "jpg", "gif", "webp")):
-                        embed.set_image(url=attachment.url)
-                    else:
-                        embed.add_field(name="Attachment", value=f"[{attachment.filename}]({attachment.url})", inline=False)
-                await starboard_channel.send(embed=embed)
-                # print("embed sent")
+                else:
+                    # If there is no existing starboard embed, create a new one
+                    starboard_db.starboard_configs.update_one(
+                        {"server_id": message.guild.id},
+                        {"$push": {"starboard_messages": message.id}}
+                    )
+                    # print("mongoDB updated with message id")
+                    
+                    author_avatar = message.author.avatar
+                    embed = discord.Embed(
+                        title = "Original Posting (click here)",
+                        url = message.jump_url,
+                        description=message.content,
+                        timestamp=message.created_at,
+                        color=discord.Color.from_rgb(*server_config["color"]),
+                    )
+                    embed.set_author(
+                        name=message.author.display_name,
+                        icon_url=author_avatar,
+                    )
+    
+                    embed.set_footer(text=f"Maximum Reactions: {reaction} {reactions}")
+                    if message.attachments:
+                        attachment = message.attachments[0]
+                        if attachment.url.lower().endswith(("png", "jpeg", "jpg", "gif", "webp")):
+                            embed.set_image(url=attachment.url)
+                        else:
+                            embed.add_field(name="Attachment", value=f"[{attachment.filename}]({attachment.url})", inline=False)
+                    await starboard_channel.send(embed=embed)
+                    # print("embed sent")
 
 
 
