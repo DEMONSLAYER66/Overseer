@@ -111,8 +111,8 @@ class Utility(commands.Cog):
         # Check if the cooldown is active for this guild
         bucket = promote_cooldown.get_bucket(ctx)
 
-        if bucket._tokens != 0:
-            self.send_reminder_loop.start(ctx)  # Start the loop when the cooldown begins
+        if bucket._tokens == bucket.rate - 1:  # Start the loop when the cooldown begins
+            self.send_reminder_loop.start(ctx)
       
         retry_after = bucket.update_rate_limit()
         if retry_after:
