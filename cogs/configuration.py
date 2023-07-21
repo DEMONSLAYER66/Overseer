@@ -191,7 +191,7 @@ class Configuration(commands.Cog):
             b = custom_b
 
         
-        bump_key = {"guild_id": ctx.guild.id}
+        bump_key = {"server_id": ctx.guild.id}
 
         server_data = bump_db.bump_configs.find_one(bump_key)
 
