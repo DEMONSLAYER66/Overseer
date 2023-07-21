@@ -42,6 +42,29 @@ async def on_ready():
   mongoDBpass = os.getenv('mongoDBpass')
   client = pymongo.MongoClient(mongoDBpass) # Create a new client and connect to the server
   autopurge_db = client.autopurge_db #create the autpourge database on mongoDB
+  bump_db = client.bump_db #create the bump (promotion) database on MongoDB
+
+      current_time = datetime.datetime.utcnow()
+
+      # Get all cooldown entries from the database (for cooldowns on promotions)
+      cooldown_data_list = bump_db.cooldowns.find()
+
+      if cooldown_data_list:
+          for cooldown_data in cooldown_data_list:
+              cooldown_time = cooldown_data['cooldown']
+
+              # Update the 'send_time' field in the MongoDB collection
+              bump_db.cooldowns.update_one(
+                  {'_id': cooldown_data['_id']},  # Use the _id field to identify the document
+                  {'$set': {'send_time': current_time}}
+              )
+              
+              utility_cog = bot.get_cog('Utility') #get the utility cog
+              utility_cog.send_reminder(cooldown_time)
+
+
+
+    
 
   server_ids = []
   for guild in bot.guilds:
