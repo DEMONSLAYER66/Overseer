@@ -80,7 +80,8 @@ class Configuration(commands.Cog):
         ctx,
         promotion_channel: Option(discord.TextChannel, name="promotion_channel", description="Channel within your guild to send promotions to."),
         invite_channel: Option(discord.TextChannel, name="invite_channel", description="Channel to invite new users to upon promotion."),
-        color: Option(str, name="color", description="Select a color for the guild promotion. (Default: 🔵Blue)", required=False, choices=["🔴 Red", "🟢 Green", "🔵 Blue", "🟡 Yellow", "🟣 Purple", "⚫ Black", "⚪ White"], default=None),
+        topic: Option(str, name="topic", description="Primary topic for your guild. (Default: None)", required=False, default=None, choices=["🎮 Gaming", "🎨 Art", "🎵 Music", "😺 Anime", "😂 Memes", "📚 Books", "📱 Technology", "🍔 Food", "💪 Fitness", "⚽ Sports", "🎬 Movies", "💻 Programming", "🌍 Travel", "🐾 Pets", "📷 Photography", "✍️ Writing", "👗 Fashion", "🔬 Science", "📚 Education", "🎭 Roleplay", "🤝 Support", "🗳️ Politics", "📜 History", "🚀 Promotion", "👥 General Hangout"]),
+        color: Option(str, name="color", description="Color for the guild promotion. (Default: 🔵Blue)", required=False, choices=["🔴 Red", "🟢 Green", "🔵 Blue", "🟡 Yellow", "🟣 Purple", "⚫ Black", "⚪ White"], default=None),
         custom_color: Option(str, name="custom_color", description="Custom RGB color tuple (0, 0, 0) for the guild promotion. (Patron Only)", required=False, default=None),
         guild_banner: Option(str, name="guild_banner", description="Image URL for the guild banner upon promotion. (Patron Feature)", required=False, default=None)
     ):
@@ -187,6 +188,11 @@ class Configuration(commands.Cog):
             g = custom_g
             b = custom_b
 
+        if topic:
+            topic = topic
+        else:
+            topic = None
+
         
         bump_key = {"server_id": ctx.guild.id}
 
@@ -218,6 +224,9 @@ class Configuration(commands.Cog):
             await ctx.respond("Good sir, it appears you have taken too long to enter your guild promotion configuration.\n*Please try again.*", ephemeral=True)
             return
 
+        #get the app_commands related to promotion
+        testpromote_app_command = self.bot.get_application_command("testpromote")
+        # promote_app_command = self.bot.get_application_command("promote")
 
         bump_key = {"server_id": ctx.guild.id}
         server_data = bump_db.bump_configs.find_one(bump_key)
@@ -235,11 +244,12 @@ class Configuration(commands.Cog):
                 "promotion_channel_name": promotion_channel.name,
                 "color": [r, g, b],
                 "banner_url": banner_url,
-                "bumps": bumps #initialize the bump count to 0
+                "bumps": bumps, #initialize the bump count to 0
+                "topic": topic
               }
             )
             
-            embed_description = f"{ctx.author.mention}\n\n> I have successfully *created* the guild promotion configuration for ***{ctx.guild.name}***.\n> Please await your guild to be promoted along with the other guilds in {promotion_channel.mention}.\n> \n> You may now utilize my `/promote` directive every ***2*** hours to promote your guild!\n> You may also utilize by `/testpromote` directive to see a preview of your promotion, if you desire.\n> \n> *Best of luck to you in growing your esteemed community, good sir!*"
+            embed_description = f"{ctx.author.mention}\n\n> I have successfully *created* the guild promotion configuration for ***{ctx.guild.name}***.\n> Please await your guild to be promoted along with the other guilds in {promotion_channel.mention}.\n> \n> You may now utilize my `/promote` directive every ***2*** hours to promote your guild!\n> You may also utilize by </{testpromote_app_command.name}:{testpromote_app_command.id}> directive to see a preview of your promotion, if you desire.\n> \n> *Best of luck to you in growing your esteemed community, good sir!*"
             
         else:
             bump_db.bump_configs.update_one(
@@ -256,13 +266,14 @@ class Configuration(commands.Cog):
                 "promotion_channel_name": promotion_channel.name,
                 "color": [r, g, b],
                 "banner_url": banner_url,
-                "bumps": bumps                  
+                "bumps": bumps,
+                "topic": topic
                 }
               }
             )
 
         
-            embed_description = f"{ctx.author.mention}\n\n> I have successfully *updated* the guild promotion configuration for ***{ctx.guild.name}***.\n> Please await your guild to be promoted along with the other guilds in {promotion_channel.mention}.\n> \n> You may now utilize my `/promote` directive every ***2*** hours to promote your guild!\n> You may also utilize by `/testpromote` directive to see a preview of your promotion, if you desire.\n> \n> *Best of luck to you in growing your esteemed community, good sir!*"
+            embed_description = f"{ctx.author.mention}\n\n> I have successfully *updated* the guild promotion configuration for ***{ctx.guild.name}***.\n> Please await your guild to be promoted along with the other guilds in {promotion_channel.mention}.\n> \n> You may now utilize my `/promote` directive every ***2*** hours to promote your guild!\n> You may also utilize by </{testpromote_app_command.name}:{testpromote_app_command.id}> directive to see a preview of your promotion, if you desire.\n> \n> *Best of luck to you in growing your esteemed community, good sir!*"
 
         #send the embed to the user
         promotion_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion Configuration", description = embed_description, color=discord.Color.from_rgb(r, g, b))
