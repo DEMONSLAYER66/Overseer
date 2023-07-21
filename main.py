@@ -5,6 +5,7 @@ from discord.ext import tasks #used to start various loop tasks
 from discord.ext import commands #used for slash commands
 import pymongo #used for database management
 from dotenv import load_dotenv
+import datetime
 
 
 #This checks if the person running the code has a token for discord API or not
