@@ -110,6 +110,13 @@ class Utility(commands.Cog):
             return
 
         else:
+            initial_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion", description = "Your guild has been added to the promotion roster and will be promoted momentarily, good sir.\nPlease be patient while I process this request for you...", color=discord.Color.from_rgb(color[0], color[1], color[2]))
+
+            initial_embed.set_thumbnail(url=self.bot.user.avatar.url)
+
+            await ctx.respond(embed=initial_embed, ephemeral=True) #send an initial embed to interact with the response
+          
+            #update the mongoDB database and retrieve info
             bump_key = {"server_id": ctx.guild.id}
           
             #increase the number of bumps for the server by 1 on mongodb
@@ -145,7 +152,7 @@ class Utility(commands.Cog):
             support_guild_invite = "https://discord.gg/4P6ApdPAF7"
             invite_link = server_data['invite_link']
             guild_description = server_data['guild_description']
-            promotion_channel = await self.bot.fetch_channel(server_data['promotion_channel_id'])
+            original_promotion_channel = await self.bot.fetch_channel(server_data['promotion_channel_id'])
             color = server_data['color'] #array of (r, g, b)
             banner_url = server_data['banner_url']
             bumps = server_data['bumps']
@@ -182,7 +189,24 @@ class Utility(commands.Cog):
             view.add_item(InviteLordBottington)
             view.add_item(JoinSupportGuild)
 
-            promotion_message = await promotion_channel.send(invite_link, embed=test_embed, view=view)
+
+            # Fetch all promotion channel IDs from the MongoDB collection
+            promotion_channel_ids = bump_db.bump_configs.distinct("promotion_channel_id")
+            
+            # Iterate through each promotion channel ID
+            for promotion_channel_id in promotion_channel_ids:
+                # Fetch the promotion channel from the ID
+                promotion_channel = await self.bot.fetch_channel(promotion_channel_id)
+
+                if original_promotion_channel.id == promotion_channel.id:
+                    promotion_message = await promotion_channel.send(invite_link, embed=test_embed, view=view)
+                    continue
+            
+                # Check if the promotion channel exists and is a TextChannel
+                elif promotion_channel and isinstance(promotion_channel, discord.TextChannel):
+                    # Send the embed to the promotion channel
+                    await promotion_channel.send(invite_link, embed=test_embed, view=view)
+
 
 
             bot_data = bump_db.total_bumps.find_one({"automaton": "Lord Bottington"}) #the total number of bumps for the bot
@@ -198,7 +222,7 @@ class Utility(commands.Cog):
             info_view.add_item(InviteLordBottington)
             info_view.add_item(JoinSupportGuild)
             
-            await ctx.respond(embed=info_embed, view=info_view)
+            await ctx.send(embed=info_embed, view=info_view)
 
 
 ############################# TEST PROMOTION #########################
