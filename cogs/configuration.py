@@ -37,7 +37,7 @@ autopurge_db = client.autopurge_db #create the autopurge database on MongoDB
 moderation_db = client.moderation_db #create the moderation database on MongoDB
 patrons_db = client.patrons_db #create the patrons database on mongoDB
 autosatire_db = client.autosatire_db #create the autosatire (automeme) database on MongoDB
-bump_db = client.bump_db #create the bumd (promotion) database on MongoDB
+bump_db = client.bump_db #create the bump (promotion) database on MongoDB
 #########################MONGODB DATABASE##################################
 
 #this is an array of the server IDs where command testing is done
@@ -218,7 +218,7 @@ class Configuration(commands.Cog):
         bump_key = {"server_id": ctx.guild.id}
         server_data = bump_db.bump_configs.find_one(bump_key)
         
-        if server_data:
+        if not server_data:
             bump_db.bump_configs.insert_one(
               {
                 "server_id": ctx.guild.id,
@@ -234,7 +234,7 @@ class Configuration(commands.Cog):
               }
             )
             
-            embed_description = f"{ctx.author.mention}\n\n> I have successfully *created* the guild promotion configuration for ***{ctx.guild.name}***.\n> Please await your guild to be promoted along with the other guilds in {promotion_channel.mention}.\n> \n> You may now utilize my `/promote` directive every ***2*** hours to promote your guild!\nYou may also utilize by `/testpromote` directive to see a preview of your promotion, if you desire.\n> \n> *Best of luck to you in growing your esteemed community, good sir!*"
+            embed_description = f"{ctx.author.mention}\n\n> I have successfully *created* the guild promotion configuration for ***{ctx.guild.name}***.\n> Please await your guild to be promoted along with the other guilds in {promotion_channel.mention}.\n> \n> You may now utilize my `/promote` directive every ***2*** hours to promote your guild!\n> You may also utilize by `/testpromote` directive to see a preview of your promotion, if you desire.\n> \n> *Best of luck to you in growing your esteemed community, good sir!*"
             
         else:
             bump_db.bump_configs.update_one(
@@ -256,8 +256,9 @@ class Configuration(commands.Cog):
             )
 
         
-            embed_description = f"{ctx.author.mention}\n\n> I have successfully *updated* the guild promotion configuration for ***{ctx.guild.name}***.\n> Please await your guild to be promoted along with the other guilds in {promotion_channel.mention}.\n> \n> You may now utilize my `/promote` directive every ***2*** hours to promote your guild!\nYou may also utilize by `/testpromote` directive to see a preview of your promotion, if you desire.\n> \n> *Best of luck to you in growing your esteemed community, good sir!*"
+            embed_description = f"{ctx.author.mention}\n\n> I have successfully *updated* the guild promotion configuration for ***{ctx.guild.name}***.\n> Please await your guild to be promoted along with the other guilds in {promotion_channel.mention}.\n> \n> You may now utilize my `/promote` directive every ***2*** hours to promote your guild!\n> You may also utilize by `/testpromote` directive to see a preview of your promotion, if you desire.\n> \n> *Best of luck to you in growing your esteemed community, good sir!*"
 
+        #send the embed to the user
         promotion_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion Configuration", description = embed_description, color=discord.Color.from_rgb(r, g, b))
 
         promotion_embed.set_thumbnail(url=self.bot.user.avatar.url)
