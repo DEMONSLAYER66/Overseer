@@ -159,6 +159,36 @@ class Utility(commands.Cog):
             await ctx.respond(invite_link, embed=test_embed, view=view, ephemeral=True)
 
 
+
+    # class PromoteView(discord.ui.View):
+    #     def __init__(self, ctx, bot, iconlinks):
+    #         super().__init__(timeout=120) #used to initialize the timeout (if needed)
+    #         self.ctx = ctx #initialize the context
+    #         self.bot = bot #intialize bot
+    #         self.iconlinks = iconlinks
+
+      
+    #     #timeout function
+    #     async def on_timeout(self):
+    #         self.children[3].disabled=True
+          
+    #         try:
+    #             await self.message.edit(view=self)
+    #         except discord.errors.NotFound: #if message deleted before timeout
+    #             pass
+  
+    #         self.stop()
+
+      
+    #     @discord.ui.button(label="Join", style=discord.ButtonStyle.danger, emoji="👍")
+    #     async def join_button(self, button: discord.ui.Button, interaction: discord.Interaction):
+    #         if interaction.user == self.ctx.author: #author cannot use the buttons
+    #             await interaction.response.defer()
+    #             return
+          
+    #         await interaction.response.defer()
+
+
 ############################# TEST PROMOTION #########################
 
 
