@@ -223,7 +223,7 @@ class Configuration(commands.Cog):
               {
                 "server_id": ctx.guild.id,
                 "server_name": ctx.guild.name,
-                "invite_link": invite_link,
+                "invite_link": str(invite_link),
                 "invite_channel_id": invite_channel.id,
                 "invite_channel_name": invite_channel.name,
                 "guild_description": guild_description,
@@ -243,7 +243,7 @@ class Configuration(commands.Cog):
                 "server_name": ctx.guild.name
               },
               {"$set": {
-                "invite_link": invite_link,
+                "invite_link": str(invite_link),
                 "invite_channel_id": invite_channel.id,
                 "invite_channel_name": invite_channel.name,
                 "guild_description": guild_description,
