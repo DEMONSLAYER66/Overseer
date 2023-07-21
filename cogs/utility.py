@@ -88,7 +88,7 @@ class Utility(commands.Cog):
 
 ############################# PROMOTE #########################
     @commands.Cog.listener()
-    async def on_application_command_error(uses, ctx: discord.ApplicationContext, error: discord.DiscordException):
+    async def on_application_command_error(self, ctx: discord.ApplicationContext, error: discord.DiscordException):
         if isinstance(error, commands.CommandOnCooldown):
             promote_app_command = self.bot.get_application_command("promote")
             
