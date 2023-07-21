@@ -54,6 +54,7 @@ async def on_ready():
       if server_config:
           # Get the list of message IDs from starboard_data
           starboard_messages = server_config.get("starboard_messages", [])
+          print(starboard_messages)
         
           # Iterate over each message ID in starboard_messages
           for message_id in starboard_messages:
