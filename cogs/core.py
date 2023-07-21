@@ -37,7 +37,6 @@ class Core(commands.Cog):
     # this is a special method that is called when the cog is loaded
     def __init__(self, bot):
         self.bot: commands.Bot = bot
-        self.bot.add_view(self.HelpView()) #add the help view (to make it a persistent view)
         self.check_patron_status.start() #update the patron status automatically every minute
         self.start_time = datetime.datetime.utcnow() #start time for the bot (used for uptime)
 
