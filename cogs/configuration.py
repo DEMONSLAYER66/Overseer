@@ -20,6 +20,8 @@ import asyncprawcore.exceptions
 
 from dotenv import load_dotenv
 
+from discord.ui import Button, View #used to manually create LINK type buttons on views when sending embeds or messages
+
 # Load environment variables from .env
 load_dotenv()
 
@@ -297,12 +299,22 @@ class Configuration(commands.Cog):
         
             embed_description = f"{ctx.author.mention}\n\n> I have successfully *updated* the guild promotion configuration for ***{ctx.guild.name}***.\n> Please await your guild to be promoted along with the other guilds in {promotion_channel.mention}.\n> \n> You may now utilize my `/promote` directive every ***2*** hours to promote your guild!\n> You may also utilize by </{testpromote_app_command.name}:{testpromote_app_command.id}> directive to see a preview of your promotion, if you desire.\n> \n> *Best of luck to you in growing your esteemed community, good sir!*"
 
+        automaton_invite_link = "https://discord.com/api/oauth2/authorize?client_id=1092515783025889383&permissions=3557027031&scope=bot%20applications.commands"
+        support_guild_invite = "https://discord.gg/4P6ApdPAF7"
+
+        InviteLordBottington = discord.ui.Button(emoji='🤖', label="Add Lord Bottington", url=automaton_invite_link, style=discord.ButtonStyle.link)
+        JoinSupportGuild = discord.ui.Button(emoji='🎩', label="Join 𝓣𝓱𝓮 𝓢𝔀𝓮𝓮𝔃 𝓖𝓪𝓷𝓰", url=support_guild_invite, style=discord.ButtonStyle.link)
+
+        view=View()
+        view.add_item(InviteLordBottington)
+        view.add_item(JoinSupportGuild)
+        
         #send the embed to the user
         promotion_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion Configuration", description = embed_description, color=discord.Color.from_rgb(r, g, b))
 
         promotion_embed.set_thumbnail(url=self.bot.user.avatar.url)
 
-        await ctx.respond(embed=promotion_embed, ephemeral=True)
+        await ctx.respond(embed=promotion_embed, view=view, ephemeral=True)
 
 
 
