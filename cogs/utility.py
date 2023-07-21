@@ -123,10 +123,16 @@ class Utility(commands.Cog):
             banner_url = server_data['banner_url']
             bumps = server_data['bumps']
             guild_created_at = ctx.guild.created_at.strftime('%B %d, %Y')
+            topic = server_data['topic']
 
             test_embed =  discord.Embed(title=f"{ctx.guild.name}", description = guild_description, color=discord.Color.from_rgb(color[0], color[1], color[2]))
 
-            test_embed.add_field(name="❗Guild Information", value=f"> **#** Promotion Channel: {promotion_channel.mention}\n> 🕒Guild Creation: `{guild_created_at}`\n> 👨Members: `{ctx.guild.member_count:,}`\n> 🚀Promotions: `{bumps:,}`\n> Boosts: `{ctx.guild.premium_subscription_count:,}`", inline=False)
+            test_embed.add_field(name="❗Guild Topic", value=f"`{topic}`", inline=False)
+            test_embed.add_field(name="🚀Promotions", value=f"`{bumps:,}`", inline=True)
+            test_embed.add_field(name="👨Member Count", value=f"`{ctx.guild.member_count:,}`", inline=True)
+            test_embed.add_field(name="💎Boosts", value=f"`{ctx.guild.premium_subscription_count:,}`", inline=True)
+            test_embed.add_field(name="🕒Guild Creation", value=f"`{guild_created_at}`", inline=False)
+            test_embed.add_field(name="# Promotion Channel", value=promotion_channel.mention, inline=False)
 
             try:
                 test_embed.set_thumbnail(url=ctx.guild.icon.url)
