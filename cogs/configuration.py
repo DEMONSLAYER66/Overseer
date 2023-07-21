@@ -83,11 +83,33 @@ class Configuration(commands.Cog):
         topic: Option(str, name="topic", description="Best/primary topic to describe your guild. (Default: None)", required=False, default=None, choices=["🎮 Gaming", "🎨 Art", "🎵 Music", "😺 Anime", "😂 Memes", "📚 Books", "📱 Technology", "🍔 Food", "💪 Fitness", "⚽ Sports", "🎬 Movies", "💻 Programming", "🌍 Travel", "🐾 Pets", "📷 Photography", "✍️ Writing", "👗 Fashion", "🔬 Science", "📚 Education", "🎭 Roleplay", "🤝 Support", "🗳️ Politics", "📜 History", "🚀 Promotion", "👥 General Hangout"]),
         color: Option(str, name="color", description="Color for the guild promotion. (Default: 🔵Blue)", required=False, choices=["🔴 Red", "🟢 Green", "🔵 Blue", "🟡 Yellow", "🟣 Purple", "⚫ Black", "⚪ White"], default=None),
         custom_color: Option(str, name="custom_color", description="Custom RGB color tuple (0, 0, 0) for the guild promotion. (Patron Only)", required=False, default=None),
-        guild_banner: Option(str, name="guild_banner", description="Image URL for the guild banner upon promotion. (Patron Feature)", required=False, default=None)
+        guild_banner: Option(str, name="guild_banner", description="Image URL for the guild banner upon promotion. (Patron Feature)", required=False, default=None),
+        remove: Option(bool, name="remove", description="Remove your guild promotion configuration from the database. (Default: False)", required=False, default=None)
     ):
         if not ctx.author.guild_permissions.administrator:
             await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
             return
+
+        #remove the configuration
+        if remove:
+            bump_key = {"server_id": ctx.guild.id}
+
+            data = bump_db.bump_configs.find_one(bump_key)
+
+            if data:
+                invite_url = data['invite_link']
+
+                # Delete the invite link
+                try:
+                    invite = await self.bot.fetch_invite(invite_url)
+                    await invite.delete(reason="Removing promotion configuration")
+                except discord.NotFound:
+                    # Invite not found, it might have already been deleted
+                    pass
+                
+                bump_db.bump_configs.delete_one(bump_key)
+                await ctx.respond(f"{ctx.author.mention}\nI have successfully removed the promotion configuration for ***{ctx.guild.name}***, good sir.", ephemeral=True)
+                return
         
         guild_description = None
 
