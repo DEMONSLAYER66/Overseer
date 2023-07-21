@@ -164,7 +164,7 @@ class Configuration(commands.Cog):
                     return
     
             else:
-                await ctx.respond(f"Apologies {ctx.author.mention},\nIt appears that ***{background}*** is not a valid image link.\nThis url must be a direct link to a .JPG, .JPEG, .PNG, or .GIF image.\n*Please try again.*", ephemeral=True)
+                await ctx.respond(f"Apologies {ctx.author.mention},\nIt appears that ***{guild_banner}*** is not a valid image link.\nThis URL must be a direct link to a .JPG, .JPEG, .PNG, or .GIF image.\n*Please try again.*", ephemeral=True)
                 return
         else:
             banner_url = None
