@@ -93,7 +93,7 @@ class Utility(commands.Cog):
 
 ############################# PROMOTE #########################
     @commands.Cog.listener()
-    async def cog_command_error(self, ctx: commands.Context, error: commands.CommandError):
+    async def on_application_command_error(ctx: discord.ApplicationContext, error: discord.DiscordException):
         if isinstance(error, commands.CommandOnCooldown):
             msg = 'This command is ratelimited, please try again in {:.2f}s'.format(error.retry_after)
             await ctx.send(msg)
