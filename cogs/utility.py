@@ -102,7 +102,7 @@ class Utility(commands.Cog):
         # Get or create the cooldown mapping for the current guild
         if ctx.guild.id not in self.promote_cooldowns:
             self.promote_cooldowns[ctx.guild.id] = commands.CooldownMapping.from_cooldown(
-                1, cooldown_time, commands.BucketType.guild
+                1, 30, commands.BucketType.guild
             )
 
       
