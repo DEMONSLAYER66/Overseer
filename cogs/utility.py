@@ -2507,45 +2507,50 @@ class Utility(commands.Cog):
             #get the list of listening channel IDs
             listen_channels = server_config["listen_channels_id"]
 
-
-            #check for the automaton patron tier and reset the configurations to the defaults
-            patron_data = patrons_db.patrons
-            refined_patron_key = {
-              "server_id": reaction_server,
-              "patron_tier": "Refined Automaton Patron"
-            }
-            distinguished_patron_key = {
-              "server_id": reaction_server,
-              "patron_tier": "Distinguished Automaton Patron"
-            }
           
-            refined_patron = patron_data.find_one(refined_patron_key)
-            distinguished_patron = patron_data.find_one(distinguished_patron_key)
-            
-            if not refined_patron or not distinguished_patron:
-                starboard_db.starboard_configs.update_one(
-                  {"server_id": reaction_server},
-                  {"$set": {
-                    "color": [255, 223, 0],
-                    "reaction": "⭐"
-                    }
-                  }
-                )
+            #PATRON FEATURE
+            # server ID for The Sweez Gang
+            support_guild_id = 1088118252200276071
+    
+            if reaction_server != support_guild_id:
+                #check for the automaton patron tier and reset the configurations to the defaults
+                patron_data = patrons_db.patrons
+                refined_patron_key = {
+                  "server_id": reaction_server,
+                  "patron_tier": "Refined Automaton Patron"
+                }
+                distinguished_patron_key = {
+                  "server_id": reaction_server,
+                  "patron_tier": "Distinguished Automaton Patron"
+                }
               
-                server_config = starboard_db.starboard_configs.find_one({"server_id": reaction_server})
+                refined_patron = patron_data.find_one(refined_patron_key)
+                distinguished_patron = patron_data.find_one(distinguished_patron_key)
+                
+                if not refined_patron or not distinguished_patron:
+                    starboard_db.starboard_configs.update_one(
+                      {"server_id": reaction_server},
+                      {"$set": {
+                        "color": [255, 223, 0],
+                        "reaction": "⭐"
+                        }
+                      }
+                    )
+              
+            server_config = starboard_db.starboard_configs.find_one({"server_id": reaction_server})
 
           
             #if the channel the reaction is added on is not in the listening channels OR
             #if the user adding the reaction is a bot OR
             #if the reaction emoji added is not the same as the defined on on mongoDB
             if reaction.message.channel.id not in listen_channels or user.bot or reaction.emoji != server_config["reaction"]:
-                # print(server_config["reaction"])
-                # print(f"reaction emoji: {reaction.emoji}")
-                # print(f"message channel id: {reaction.message.channel.id}")
-                # star_channel_id = server_config["star_channel_id"]
-                # print(listen_channels)
-                # print(user.bot)
-                # print("did not pass criteria")
+                print(server_config["reaction"])
+                print(f"reaction emoji: {reaction.emoji}")
+                print(f"message channel id: {reaction.message.channel.id}")
+                star_channel_id = server_config["star_channel_id"]
+                print(listen_channels)
+                print(user.bot)
+                print("did not pass criteria")
                 return
     
             #await the listen for reactions function below
