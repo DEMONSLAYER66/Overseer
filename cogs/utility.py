@@ -29,6 +29,8 @@ import asyncpraw #used for reddit memes
 import asyncprawcore.exceptions
 from dotenv import load_dotenv
 
+from discord.ui import Button, View #used to manually create LINK type buttons on views when sending embeds or messages
+
 # Load environment variables from .env
 load_dotenv()
 
@@ -82,6 +84,76 @@ class Utility(commands.Cog):
             return "Lord Bottington"
 
 
+
+############################# TEST PROMOTION #########################
+    @discord.slash_command(
+        name="testpromote",
+        description="Test the guild promotion for the guild. (Admin Only)",
+        # guild_ids=SERVER_ID
+        global_command = True
+    )
+    async def testpromote(self, ctx):
+        if not ctx.author.guild_permissions.administrator:
+            await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
+            return
+          
+        #get the promotion application command
+        promotion_app_command = self.bot.get_application_command(promotion)
+
+        bump_key = {"server_id": ctx.guild.id}
+        server_data = bump_db.bump_configs.find_one(bump_key)
+
+        if not server_data:
+            no_data_description = f"Apologies {ctx.author.mention},\nIt appears that a guild promotion configuration has not been set up for ***{ctx.guild.name}***, good sir.\n\nYou may utilize my </{promotion_app_command.name}:{promotion_app_command.id}> directive to configure this for your guild, if you desire.
+            no_data_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion Configuration", description = no_data_description, color=discord.Color.from_rgb(0, 0, 255))
+
+            no_data_embed.set_thumbnail(url=self.bot.user.avatar.url)
+
+            await ctx.respond(embed=no_data_embed, ephemeral=True)
+            return
+
+        else:
+            automaton_invite_link = "https://discord.com/api/oauth2/authorize?client_id=1092515783025889383&permissions=3557027031&scope=bot%20applications.commands"
+            support_guild_invite = "https://discord.gg/4P6ApdPAF7"
+            invite_link = server_data['invite_link']
+            guild_description = server_data['guild_description']
+            promotion_channel = await self.bot.fetch_channel(server_data['promotion_channel_id'])
+            color = server_data['color'] #array of (r, g, b)
+            banner_url = server_data['banner_url']
+            bumps = server_data['bumps']
+
+            test_embed =  discord.Embed(title=f"{ctx.guild.name}", description = guild_description, color=discord.Color.from_rgb(color[0], color[1], color[2]))
+
+            try:
+                test_embed.set_thumbnail(url=ctx.guild.icon.url)
+            except:
+                pass
+
+            if banner_url:
+                test_embed.set_image(url=banner_url)
+
+            try:
+                test_embed.set_footer(text=f"Promoter: {ctx.author.display_name} | 🚀Promotions: {bumps:,}", icon_url=ctx.author.avatar.url)
+            except:
+                test_embed.set_footer(text=f"Promoter: {ctx.author.display_name} | 🚀Promotions: {bumps:,}") #no avatar set
+
+            InviteButton = discord.ui.Button(emoji='❗', label="Join Guild", url=invite_link, style=discord.ButtonStyle.link)
+            InviteLordBottington = discord.ui.Button(emoji='🤖', label="Invite Automaton", url=automaton_invite_link, style=discord.ButtonStyle.link)
+            JoinSupportGuild = discord.ui.Button(emoji='🎩', label="Join 𝓣𝓱𝓮 𝓢𝔀𝓮𝓮𝔃 𝓖𝓪𝓷𝓰", url=support_guild_invite, style=discord.ButtonStyle.link)
+
+            view=View()
+            view.add_item(InviteButton)
+            view.add_item(InviteLordBottington)
+            view.add_item(JoinSupportGuild)
+
+            await ctx.respond(embed=test_embed, view=view, ephemeral=True)
+
+
+############################# TEST PROMOTION #########################
+
+
+
+  
 
   
 ############################# AUTOSATIRE EVENT #########################
