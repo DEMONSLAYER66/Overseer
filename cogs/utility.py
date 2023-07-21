@@ -104,7 +104,7 @@ class Utility(commands.Cog):
         server_data = bump_db.bump_configs.find_one(bump_key)
 
         if not server_data:
-            no_data_description = f"Apologies {ctx.author.mention},\nIt appears that a guild promotion configuration has not been set up for ***{ctx.guild.name}***, good sir.\n\nYou may utilize my </{promotion_app_command.name}:{promotion_app_command.id}> directive to configure this for your guild, if you desire.
+            no_data_description = f"Apologies {ctx.author.mention},\nIt appears that a guild promotion configuration has not been set up for ***{ctx.guild.name}***, good sir.\n\nYou may utilize my </{promotion_app_command.name}:{promotion_app_command.id}> directive to configure this for your guild, if you desire."
             no_data_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion Configuration", description = no_data_description, color=discord.Color.from_rgb(0, 0, 255))
 
             no_data_embed.set_thumbnail(url=self.bot.user.avatar.url)
