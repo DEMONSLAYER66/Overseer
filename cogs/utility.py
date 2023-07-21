@@ -196,9 +196,11 @@ class Utility(commands.Cog):
 
             test_embed.add_field(name="❗Guild Topic", value=f"`{topic}`", inline=True)
             test_embed.add_field(name="🕒Guild Creation", value=f"`{guild_created_at}`", inline=True)
+            test_embed.add_field(name="👑 Owner", value=`str(ctx.guild.owner)`)
             test_embed.add_field(name="🚀Promotions", value=f"`{bumps:,}`", inline=True)
             test_embed.add_field(name="👨Member Count", value=f"`{ctx.guild.member_count:,}`", inline=True)
-            test_embed.add_field(name="💎Boosts", value=f"`{ctx.guild.premium_subscription_count:,}`", inline=True)
+            test_embed.add_field(name="💎Boost Tier", value=f"`{ctx.guild.premium_subscription_count:,}`", inline=True)
+            test_embed.add_field(name="🤣 Iconography", value=f"`{len(ctx.guild.emojis):,}/{ctx.guild.emoji_limit:,}`", inline=True)
 
             try:
                 test_embed.set_thumbnail(url=ctx.guild.icon.url)
@@ -231,15 +233,22 @@ class Utility(commands.Cog):
                 # Fetch the promotion channel from the ID
                 promotion_channel = await self.bot.fetch_channel(promotion_channel_id)
 
-                if original_promotion_channel.id == promotion_channel.id:
-                    promotion_message = await promotion_channel.send(invite_link, embed=test_embed, view=view)
-                    continue
-            
-                # Check if the promotion channel exists and is a TextChannel
-                elif promotion_channel and isinstance(promotion_channel, discord.TextChannel):
-                    # Send the embed to the promotion channel
-                    await promotion_channel.send(invite_link, embed=test_embed, view=view)
 
+                if original_promotion_channel.id == promotion_channel.id:
+                    try:
+                        promotion_message = await promotion_channel.send(invite_link, embed=test_embed, view=view)
+                    except (discord.errors.HTTPException, discord.errors.Forbidden) as e:
+                        await ctx.respond(f"Apologies {ctx.author.mention},\nI was unable to send the promotion message to the specified channel with ID ***{promotion_channel_id}*** as I may not have the required permissions to do so.\n*Please check my permissions for this channel and ensure I have the `Send Messages` and `Managae Messages` permissions and try again.*\n\nError: `{e}`", ephemeral=True)
+                        continue
+
+              
+               # Check if the promotion channel exists and is a TextChannel
+                elif promotion_channel and isinstance(promotion_channel, discord.TextChannel):
+                    try:
+                        # Send the embed to the promotion channel
+                        await promotion_channel.send(invite_link, embed=test_embed, view=view)
+                    except (discord.errors.HTTPException, discord.errors.Forbidden) as e:
+                        await ctx.respond(f"Apologies {ctx.author.mention},\nI was unable to send the promotion message to the specified channel with ID ***{promotion_channel.id}*** as I may not have the required permissions to do so.\n*Please check my permissions for this channel and ensure I have the `Send Messages` and `Managae Messages` permissions and try again.*\n\nError: `{e}`", ephemeral=True)
 
 
             bot_data = bump_db.total_bumps.find_one({"automaton": "Lord Bottington"}) #the total number of bumps for the bot
@@ -266,12 +275,13 @@ class Utility(commands.Cog):
             if promotions_status == "Disabled":
                 pass
             elif promotions_status == "Enabled":
-                await self.send_reminder(ctx)
+                cooldown_time = 7200 #max cooldown time (2 hours)
+                await self.send_reminder(ctx, cooldown_time)
 
 
 
-    async def send_reminder(self, ctx):
-        await asyncio.sleep(7200)
+    async def send_reminder(self, ctx, cooldown_time):
+        await asyncio.sleep(cooldown_time)
       
         promote_app_command = self.bot.get_application_command("promote")
         eventhandler_command = self.bot.get_application_command("eventhandler")
@@ -349,9 +359,11 @@ class Utility(commands.Cog):
 
             test_embed.add_field(name="❗Guild Topic", value=f"`{topic}`", inline=True)
             test_embed.add_field(name="🕒Guild Creation", value=f"`{guild_created_at}`", inline=True)
+            test_embed.add_field(name="👑 Owner", value=`str(ctx.guild.owner)`)
             test_embed.add_field(name="🚀Promotions", value=f"`{bumps:,}`", inline=True)
             test_embed.add_field(name="👨Member Count", value=f"`{ctx.guild.member_count:,}`", inline=True)
-            test_embed.add_field(name="💎Boosts", value=f"`{ctx.guild.premium_subscription_count:,}`", inline=True)
+            test_embed.add_field(name="💎Boost Tier", value=f"`{ctx.guild.premium_subscription_count:,}`", inline=True)
+            test_embed.add_field(name="🤣 Iconography", value=f"`{len(ctx.guild.emojis):,}/{ctx.guild.emoji_limit:,}`", inline=True)
             test_embed.add_field(name="# Promotion Channel", value=promotion_channel.mention, inline=False)
 
             try:
