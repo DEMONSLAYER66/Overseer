@@ -196,7 +196,7 @@ class Utility(commands.Cog):
 
             test_embed.add_field(name="❗Guild Topic", value=f"`{topic}`", inline=True)
             test_embed.add_field(name="🕒Guild Creation", value=f"`{guild_created_at}`", inline=True)
-            test_embed.add_field(name="👑 Owner", value=`str(ctx.guild.owner)`)
+            test_embed.add_field(name="👑 Owner", value=str(ctx.guild.owner))
             test_embed.add_field(name="🚀Promotions", value=f"`{bumps:,}`", inline=True)
             test_embed.add_field(name="👨Member Count", value=f"`{ctx.guild.member_count:,}`", inline=True)
             test_embed.add_field(name="💎Boost Tier", value=f"`{ctx.guild.premium_subscription_count:,}`", inline=True)
@@ -359,7 +359,7 @@ class Utility(commands.Cog):
 
             test_embed.add_field(name="❗Guild Topic", value=f"`{topic}`", inline=True)
             test_embed.add_field(name="🕒Guild Creation", value=f"`{guild_created_at}`", inline=True)
-            test_embed.add_field(name="👑 Owner", value=`str(ctx.guild.owner)`)
+            test_embed.add_field(name="👑 Owner", value=str(ctx.guild.owner))
             test_embed.add_field(name="🚀Promotions", value=f"`{bumps:,}`", inline=True)
             test_embed.add_field(name="👨Member Count", value=f"`{ctx.guild.member_count:,}`", inline=True)
             test_embed.add_field(name="💎Boost Tier", value=f"`{ctx.guild.premium_subscription_count:,}`", inline=True)
