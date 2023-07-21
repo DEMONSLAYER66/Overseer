@@ -110,9 +110,12 @@ class Utility(commands.Cog):
     async def promote(self, ctx):
         # Check if the cooldown is active for this guild
         bucket = promote_cooldown.get_bucket(ctx)
+
+        if bucket._tokens != 0:
+            self.send_reminder_loop.start(ctx)  # Start the loop when the cooldown begins
+      
         retry_after = bucket.update_rate_limit()
         if retry_after:
-            self.send_reminder_loop.start(ctx)  # Start the loop when the cooldown begins
             promote_app_command = self.bot.get_application_command("promote")
             
             # Calculate the total cooldown time in days, hours, minutes, and seconds
