@@ -37,6 +37,7 @@ class Core(commands.Cog):
     # this is a special method that is called when the cog is loaded
     def __init__(self, bot):
         self.bot: commands.Bot = bot
+        self.bot.add_view(HelpView()) #add the help view (to make it a persistent view)
         self.check_patron_status.start() #update the patron status automatically every minute
         self.start_time = datetime.datetime.utcnow() #start time for the bot (used for uptime)
 
@@ -1504,7 +1505,7 @@ class Core(commands.Cog):
     ## Select menu for help function
     class HelpView(discord.ui.View):
         def __init__(self, ctx, byname, full_directives_list, category_dict, category_description_dict, cog_dict):
-            super().__init__(timeout=120) #set the timeout
+            super().__init__(timeout=None) #set the timeout
             self.ctx = ctx #intialize the context
             self.byname = byname
             self.full_directives_list = full_directives_list #Github full directives list link
@@ -1527,6 +1528,7 @@ class Core(commands.Cog):
           placeholder="Choose a directive category.",
           min_values=1,
           max_values=1,
+          custom_id="lordbottington_help_select",
           options = [
             discord.SelectOption(emoji='🌐', label="Core", description="Basic directives."),
             discord.SelectOption(emoji='⚙️', label="Configuration", description="Automaton configuration directives."),
@@ -1536,7 +1538,7 @@ class Core(commands.Cog):
             discord.SelectOption(emoji='📊', label="Status", description="Status related directives."),
             discord.SelectOption(emoji='🔧', label="Utility", description="Helpful directives."),
             discord.SelectOption(emoji='💰', label="Marketplace", description="Directives for buying and selling items.")
-          ]
+          ]  
         )
         async def select_callback(self, select, interaction):
             #only author can use the select menu
