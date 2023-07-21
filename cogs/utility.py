@@ -101,12 +101,21 @@ class Utility(commands.Cog):
 
 
 ############################# PROMOTE #########################
+    @commands.Cog.listener()
+    async def on_command_error(self, ctx, error):
+        if isinstance(error, commands.CommandOnCooldown):
+
+          
+            await ctx.send('This command is on cooldown, you can use it in {round(error.retry_after, 2)}')
+
+
     @discord.slash_command(
         name="promote",
         description="Promote this guild (server).",
         # guild_ids=SERVER_ID
         global_command = True
     )
+    @commands.cooldown(1, 30, commands.BucketType.guild)
     async def promote(self, ctx):
         # Check if the cooldown is active for this guild
         bucket = promote_cooldown.get_bucket(ctx)
