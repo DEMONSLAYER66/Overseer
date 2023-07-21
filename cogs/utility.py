@@ -107,6 +107,7 @@ class Utility(commands.Cog):
         # guild_ids=SERVER_ID
         global_command = True
     )
+    @commands.cooldown(1, 7200, commands.BucketType.guild)
     async def promote(self, ctx):
         # Check if the cooldown is active for this guild
         bucket = promote_cooldown.get_bucket(ctx)
