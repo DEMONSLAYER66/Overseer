@@ -110,10 +110,8 @@ class Utility(commands.Cog):
     async def promote(self, ctx):
         # Check if the cooldown is active for this guild
         bucket = promote_cooldown.get_bucket(ctx)
-        print(bucket._tokens)
         retry_after = bucket.update_rate_limit()
         if retry_after:
-            print("retried")
             promote_app_command = self.bot.get_application_command("promote")
             
             # Calculate the total cooldown time in days, hours, minutes, and seconds
@@ -139,7 +137,6 @@ class Utility(commands.Cog):
             return
           
         else:
-            print("did not retry")
             self.send_reminder_loop.start(ctx) #start the reminder loop
 
       
@@ -278,7 +275,6 @@ class Utility(commands.Cog):
 
 
     async def send_reminder(self, ctx):
-        print("send reminder start")
         promote_app_command = self.bot.get_application_command("promote")
       
         reminder_embed = discord.Embed(
@@ -296,8 +292,8 @@ class Utility(commands.Cog):
     @tasks.loop(seconds=5)
     async def send_reminder_loop(self, ctx):
         bucket = promote_cooldown.get_bucket(ctx)
-        print(bucket._tokens)
-        if bucket._tokens == 0:  # _tokens represents the number of tokens in the bucket
+        retry_after = bucket.update_rate_limit()
+        if retry_after <= 0:  # the retry time is 0 and cooldown is over
             await self.send_reminder(ctx)
 
     @send_reminder_loop.before_loop
