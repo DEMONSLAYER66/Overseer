@@ -110,7 +110,7 @@ class Utility(commands.Cog):
             return
 
         else:
-            initial_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion", description = "Your guild has been added to the promotion roster and will be promoted momentarily, good sir.\nPlease be patient while I process this request for you...", color=discord.Color.from_rgb(color[0], color[1], color[2]))
+            initial_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion", description = "Your guild has been added to the promotion roster and will be promoted momentarily, good sir.\nPlease be patient while I process this request for you...", color=discord.Color.from_rgb(0, 0, 255))
 
             initial_embed.set_thumbnail(url=self.bot.user.avatar.url)
 
