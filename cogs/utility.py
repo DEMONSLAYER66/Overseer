@@ -137,7 +137,11 @@ class Utility(commands.Cog):
             return
           
         else:
-            self.send_reminder_loop.start(ctx) #start the reminder loop
+            #check if the loop is already running
+            if not self.send_reminder_loop.is_running():
+                self.send_reminder_loop.start(ctx) #start the reminder loop
+            else:
+                return
 
       
         #get the promotion application command
