@@ -186,7 +186,8 @@ class Utility(commands.Cog):
             promotion_message = await promotion_channel.send(invite_link, embed=test_embed, view=view)
 
 
-            total_bumps = bump_db.total_bumps.find_one({"automaton": "Lord Bottington"}) #the total number of bumps for the bot
+            bot_data = bump_db.total_bumps.find_one({"automaton": "Lord Bottington"}) #the total number of bumps for the bot
+            total_bumps = bot_data['total_bumps']
           
             info_embed = discord.Embed(title=f"{ctx.guild.name}\nSuccessful Promotion", description=f"🎩Congratulations!🎩\nThis guild has been **successfully promoted**.\nYou may view the posting in {promotion_channel.mention} by [clicking here]({promotion_message.jump_url}).\n\nYou may promote this guild again in `2 hours`, if you so desire.\n\nI would also like to inform you that since my creation, I have received a grand total of 🚀`{total_bumps:,} Promotions`. I do appreciate your support and look forward to serving you even more!\n\n*Best of luck in growing your esteemed community, good sir!*", color=discord.Color.from_rgb(color[0], color[1], color[2]))
 
