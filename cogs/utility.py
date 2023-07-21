@@ -53,6 +53,17 @@ bump_db = client.bump_db #create the bump (promotion) database on MongoDB
 SERVER_ID = [1088118252200276071, 1117859916749742140]
 
 
+
+
+####################### COOLDOWN FOR PROMOTION #########################
+# Define the cooldown time (in seconds)
+cooldown_time = 7200  # 2 hours cooldown
+
+# Create a cooldown mapping object for the /promote command
+promote_cooldown = commands.CooldownMapping.from_cooldown(1, cooldown_time, commands.BucketType.guild)
+####################### COOLDOWN FOR PROMOTION #########################
+
+
 class Utility(commands.Cog):
     # this is a special method that is called when the cog is loaded
     def __init__(self, bot):
@@ -94,6 +105,35 @@ class Utility(commands.Cog):
         global_command = True
     )
     async def promote(self, ctx):
+        # Check if the cooldown is active for this guild
+        bucket = promote_cooldown.get_bucket(ctx.message)
+        retry_after = bucket.update_rate_limit()
+        if retry_after:
+            promote_app_command = self.bot.get_application_command("promote")
+            
+            # Calculate the total cooldown time in days, hours, minutes, and seconds
+            days, remainder = divmod(retry_after, 86400)
+            hours, remainder = divmod(remainder, 3600)
+            minutes, seconds = divmod(remainder, 60)
+            
+            # Format the frequency string
+            if days > 0:
+                cooldown_time = f"{days:02d}d:{hours:02d}h:{minutes:02d}m:{seconds:02d}s"
+            elif hours > 0:
+                cooldown_time = f"{hours:02d}h:{minutes:02d}m:{seconds:02d}s"
+            elif minutes > 0:
+                cooldown_time = f"{minutes:02d}m:{seconds:02d}s"
+            else:
+                cooldown_time = f"{seconds}s"
+
+            cooldown_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion Cooldown", description=f"{ctx.author.mention}\n\n> It appears that the </{promote_app_command.name}:{promote_app_command.id}> directive is **still on cooldown**.\n> You may try again in `{cooldown_time}`.\n> \n> *I apologize for the inconvenience, good sir.*", color=discord.Color.from_rgb(0, 0, 255))
+
+            cooldown_embed.set_thumbnail(url=self.bot.user.avatar.url)
+
+            await ctx.respond(embed=cooldown_embed, ephemeral=True)
+            return
+
+      
         #get the promotion application command
         promotion_app_command = self.bot.get_application_command("promotion")
 
@@ -102,7 +142,7 @@ class Utility(commands.Cog):
 
         if not server_data:
             no_data_description = f"Apologies {ctx.author.mention},\nIt appears that a guild promotion configuration has not been set up for ***{ctx.guild.name}***, good sir.\n\nYou may utilize my </{promotion_app_command.name}:{promotion_app_command.id}> directive to configure this for your guild, if you desire."
-            no_data_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion Configuration", description = no_data_description, color=discord.Color.from_rgb(0, 0, 255))
+            no_data_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion Error", description = no_data_description, color=discord.Color.from_rgb(0, 0, 255))
 
             no_data_embed.set_thumbnail(url=self.bot.user.avatar.url)
 
