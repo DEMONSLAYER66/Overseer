@@ -84,7 +84,7 @@ class Configuration(commands.Cog):
         color: Option(str, name="color", description="Color for the guild promotion. (Default: 🔵Blue)", required=False, choices=["🔴 Red", "🟢 Green", "🔵 Blue", "🟡 Yellow", "🟣 Purple", "⚫ Black", "⚪ White"], default=None),
         custom_color: Option(str, name="custom_color", description="Custom RGB color tuple (0, 0, 0) for the guild promotion. (Patron Only)", required=False, default=None),
         guild_banner: Option(str, name="guild_banner", description="Image URL for the guild banner upon promotion. (Patron Feature)", required=False, default=None),
-        remove: Option(bool, name="remove", description="Remove your guild promotion configuration from the database. (Default: False)", required=False, default=None)
+        remove: Option(bool, name="remove", description="Remove your guild promotion configuration from the database. (Default: False)", required=False, default=False)
     ):
         if not ctx.author.guild_permissions.administrator:
             await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
