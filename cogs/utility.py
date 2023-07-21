@@ -266,6 +266,11 @@ class Utility(commands.Cog):
             
             await ctx.send(embed=info_embed, view=info_view)
 
+  
+            # Update the cooldown for this guild
+            bucket = promote_cooldown.get_bucket(ctx.message)
+            bucket.update_rate_limit()
+
 
 ############################# TEST PROMOTION #########################
 
