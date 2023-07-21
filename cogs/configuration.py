@@ -195,6 +195,7 @@ class Configuration(commands.Cog):
         if server_data:
             guild_description = server_data['guild_description']
             previous_invite_channel_id = server_data['invite_channel_id']
+            bumps = server_data['bumps']
 
             if previous_invite_channel_id != invite_channel.id:
                 # Create a new invite for the invite_channel with unlimited uses (if not the same channel as the previously used one)
@@ -202,6 +203,7 @@ class Configuration(commands.Cog):
             else:
                 invite_link = server_data['invite_link']
         else:
+            bumps = 0 #no bumps yet
             invite_link = await invite_channel.create_invite(max_age=0, max_uses=0, unique=True)
 
 
@@ -232,7 +234,8 @@ class Configuration(commands.Cog):
                 "promotion_channel_id": promotion_channel.id,
                 "promotion_channel_name": promotion_channel.name,
                 "color": [r, g, b],
-                "banner_url": banner_url
+                "banner_url": banner_url,
+                "bumps": bumps #initialize the bump count to 0
               }
             )
             
@@ -252,7 +255,8 @@ class Configuration(commands.Cog):
                 "promotion_channel_id": promotion_channel.id,
                 "promotion_channel_name": promotion_channel.name,
                 "color": [r, g, b],
-                "banner_url": banner_url
+                "banner_url": banner_url,
+                "bumps": bumps                  
                 }
               }
             )
