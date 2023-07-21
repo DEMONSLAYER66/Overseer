@@ -293,7 +293,7 @@ class Utility(commands.Cog):
     async def send_reminder_loop(self, ctx):
         bucket = promote_cooldown.get_bucket(ctx)
         retry_after = bucket.update_rate_limit()
-        if retry_after <= 0:  # the retry time is 0 and cooldown is over
+        if not retry_after: # the retry time is 0 and cooldown is over
             await self.send_reminder(ctx)
 
     @send_reminder_loop.before_loop
