@@ -131,8 +131,8 @@ class Utility(commands.Cog):
             test_embed.add_field(name="🚀Promotions", value=f"`{bumps:,}`", inline=True)
             test_embed.add_field(name="👨Member Count", value=f"`{ctx.guild.member_count:,}`", inline=True)
             test_embed.add_field(name="💎Boosts", value=f"`{ctx.guild.premium_subscription_count:,}`", inline=True)
-            test_embed.add_field(name="🕒Guild Creation", value=f"`{guild_created_at}`", inline=False)
-            test_embed.add_field(name="# Promotion Channel", value=promotion_channel.mention, inline=False)
+            test_embed.add_field(name="🕒Guild Creation", value=f"`{guild_created_at}`", inline=True)
+            test_embed.add_field(name="# Promotion Channel", value=promotion_channel.mention, inline=True)
 
             try:
                 test_embed.set_thumbnail(url=ctx.guild.icon.url)
