@@ -2544,13 +2544,13 @@ class Utility(commands.Cog):
             #if the user adding the reaction is a bot OR
             #if the reaction emoji added is not the same as the defined on on mongoDB
             if reaction.message.channel.id not in listen_channels or user.bot or reaction.emoji != server_config["reaction"]:
-                print(server_config["reaction"])
-                print(f"reaction emoji: {reaction.emoji}")
-                print(f"message channel id: {reaction.message.channel.id}")
-                star_channel_id = server_config["star_channel_id"]
-                print(listen_channels)
-                print(user.bot)
-                print("did not pass criteria")
+                # print(server_config["reaction"])
+                # print(f"reaction emoji: {reaction.emoji}")
+                # print(f"message channel id: {reaction.message.channel.id}")
+                # star_channel_id = server_config["star_channel_id"]
+                # print(listen_channels)
+                # print(user.bot)
+                # print("did not pass criteria")
                 return
     
             #await the listen for reactions function below
@@ -2574,21 +2574,21 @@ class Utility(commands.Cog):
         # Count the author's reaction if the author is not ignored
         if not server_config["ignore_author"]:
             reactions = sum([1 for r in message.reactions if not r.me and not r.bot])
-            # print(f"author not ignored: {reactions}")
+            print(f"author not ignored: {reactions}")
         else:
             reactions = 0
-            # print(f"author ignored: {reactions}")
+            print(f"author ignored: {reactions}")
       
         # Get the updated number of reactions on the message
         updated_message = None
         async for message_in_history in message.channel.history(limit=200):
             if message_in_history.id == message.id:
                 updated_message = message_in_history
-                # print(f"Updated message: {updated_message}")
+                print(f"Updated message: {updated_message}")
                 break
         
         if not updated_message:
-            # print("Message not found")
+            print("Message not found")
             return
   
         
@@ -2596,16 +2596,16 @@ class Utility(commands.Cog):
         for reaction in updated_message.reactions:
             if reaction.emoji == server_config["reaction"]:
                 reactions += reaction.count
-                # print(f"updated reaction count: {reactions}")
+                print(f"updated reaction count: {reactions}")
                 break
     
         # Update the starboard message with the updated number of reactions
         if reactions and reactions >= server_config["threshold"]:
             reaction = server_config["reaction"]
             threshold = server_config["threshold"]
-            # print(f"threshold passed: threshold = {threshold}, reactions = {reactions}")
+            print(f"threshold passed: threshold = {threshold}, reactions = {reactions}")
             starboard_channel = await self.bot.fetch_channel(server_config["star_channel_id"])
-            # print(f"starboard_channel: {starboard_channel}")
+            print(f"starboard_channel: {starboard_channel}")
             async for starboard_message in starboard_channel.history(limit=200):
                 if starboard_message.embeds and starboard_message.embeds[0].url == message.jump_url:
                     # print("starboard embed check passed")
