@@ -716,7 +716,8 @@ class Core(commands.Cog):
                     "livestreams": "Enabled",
                     "starboard": "Enabled",
                     "autopurge": "Enabled",
-                    "autosatire": "Enabled"
+                    "autosatire": "Enabled",
+                    "promotions_reminders": "Enabled"
                   }
                 )
                 event_doc = self.event_handler_db[f"events_{self.ctx.guild.id}"].find_one({"server_id": self.ctx.guild.id})
@@ -730,6 +731,7 @@ class Core(commands.Cog):
             starboard = event_doc["starboard"]
             autopurge = event_doc["autopurge"]
             autosatire = event_doc["autosatire"]
+            promotions_reminders = event_doc["promotions_reminders"]
           
             #Welcome message button
             welcome_messages_button = discord.ui.Button(
@@ -787,6 +789,14 @@ class Core(commands.Cog):
               style=discord.ButtonStyle.success if autosatire == "Enabled" else discord.ButtonStyle.danger,
               custom_id=f"Autosatire_{autosatire}"
             )
+
+            #Promotion Message Reminders Button
+            promo_messages_button = discord.ui.Button(
+              emoji="🚀",
+              label=f"Promotion Reminders ({promotions_reminders})",
+              style=discord.ButtonStyle.success if promotions_reminders == "Enabled" else discord.ButtonStyle.danger,
+              custom_id=f"WelcomeMessages_{promotions_reminders}"
+            )
           
 
             # Exit button
@@ -805,6 +815,7 @@ class Core(commands.Cog):
             starboard_button.callback = self.event_button_click
             autopurge_button.callback = self.event_button_click
             autosatire_button.callback = self.event_button_click
+            promo_messages_button.callback = self.event_button_click
             exit_button.callback = self.exit_interaction
           
             self.add_item(welcome_messages_button)
@@ -814,6 +825,7 @@ class Core(commands.Cog):
             self.add_item(starboard_button)
             self.add_item(autopurge_button)
             self.add_item(autosatire_button)
+            self.add_item(promo_messages_button)
             self.add_item(exit_button)
     
             await interaction.response.edit_message(content="Please select an event to enable or disable.", view=self)
@@ -832,6 +844,7 @@ class Core(commands.Cog):
             starboard = event_doc["starboard"]
             autopurge = event_doc["autopurge"]
             autosatire = event_doc["autosatire"]
+            promotions_reminders = event_doc["promotions_reminders"]
           
             event_dict = {
                 "WelcomeMessages": welcome_messages,
@@ -840,7 +853,8 @@ class Core(commands.Cog):
                 "Livestreams": livestreams,
                 "Starboard": starboard,
                 "Autopurge": autopurge,
-                "Autosatire": autosatire
+                "Autosatire": autosatire,
+                "PromotionReminders": promotions_reminders
             }
             
             # retrieve the data from the first interaction
@@ -863,7 +877,8 @@ class Core(commands.Cog):
                     "livestreams": event_dict["Livestreams"],
                     "starboard": event_dict["Starboard"],
                     "autopurge": event_dict["Autopurge"],
-                    "autosatire": event_dict["Autosatire"]
+                    "autosatire": event_dict["Autosatire"],
+                    "promotions_reminders": event_dict["PromotionReminders"]
                     }
                 }
             )
@@ -878,6 +893,7 @@ class Core(commands.Cog):
             starboard = event_dict["Starboard"]
             autopurge = event_dict["Autopurge"]
             autosatire = event_dict["Autosatire"]
+            promotions_reminders = event_dict["PromotionReminders"]
 
           
             # update the button labels based on the new values
@@ -933,6 +949,14 @@ class Core(commands.Cog):
               label=f"Auto-Satire ({autosatire})",
               style=discord.ButtonStyle.success if autosatire == "Enabled" else discord.ButtonStyle.danger,
               custom_id=f"Autosatire_{autosatire}"
+            )
+
+            #Promotion Message Reminders Button
+            promo_messages_button = discord.ui.Button(
+              emoji="🚀",
+              label=f"Promotion Reminders ({promotions_reminders})",
+              style=discord.ButtonStyle.success if promotions_reminders == "Enabled" else discord.ButtonStyle.danger,
+              custom_id=f"WelcomeMessages_{promotions_reminders}"
             )
           
          
@@ -951,6 +975,7 @@ class Core(commands.Cog):
             starboard_button.callback = self.event_button_second_click
             autopurge_button.callback = self.event_button_second_click
             autosatire_button.callback = self.event_button_second_click
+            promo_messages_button.callback = self.event_button_second_click
             exit_button.callback = self.exit_interaction
           
             self.add_item(welcome_messages_button)
@@ -960,6 +985,7 @@ class Core(commands.Cog):
             self.add_item(starboard_button)
             self.add_item(autopurge_button)
             self.add_item(autosatire_button)
+            self.add_item(promo_messages_button)
             self.add_item(exit_button)
           
             await interaction.response.edit_message(content="Please select an event to enable or disable.", view=self)
@@ -978,6 +1004,7 @@ class Core(commands.Cog):
             starboard = event_doc["starboard"]
             autopurge = event_doc["autopurge"]
             autosatire = event_doc["autosatire"]
+            promotions_reminders = event_doc["promotions_reminders"]
           
             event_dict = {
                 "WelcomeMessages": welcome_messages,
@@ -986,7 +1013,8 @@ class Core(commands.Cog):
                 "Livestreams": livestreams,
                 "Starboard": starboard,
                 "Autopurge": autopurge,
-                "Autosatire": autosatire
+                "Autosatire": autosatire,
+                "PromotionReminders": promotions_reminders
             }
             
             # retrieve the data from the first interaction
@@ -1009,7 +1037,8 @@ class Core(commands.Cog):
                     "livestreams": event_dict["Livestreams"],
                     "starboard": event_dict["Starboard"],
                     "autopurge": event_dict["Autopurge"],
-                    "autosatire": event_dict["Autosatire"]
+                    "autosatire": event_dict["Autosatire"],
+                    "promotions_reminders": event_dict["PromotionReminders"],
                     }
                 }
             )
@@ -1024,6 +1053,7 @@ class Core(commands.Cog):
             starboard = event_dict["Starboard"]
             autopurge = event_dict["Autopurge"]
             autosatire = event_dict["Autosatire"]
+            promotions_reminders = event_dict["PromotionReminders"]
           
           
             # update the button labels based on the new values
@@ -1079,6 +1109,14 @@ class Core(commands.Cog):
               style=discord.ButtonStyle.success if autosatire == "Enabled" else discord.ButtonStyle.danger,
               custom_id=f"Autosatire_{autosatire}"
             )
+
+            #Promotion Message Reminders Button
+            promo_messages_button = discord.ui.Button(
+              emoji="🚀",
+              label=f"Promotion Reminders ({promotions_reminders})",
+              style=discord.ButtonStyle.success if promotions_reminders == "Enabled" else discord.ButtonStyle.danger,
+              custom_id=f"WelcomeMessages_{promotions_reminders}"
+            )
           
             # Exit button
             exit_button = discord.ui.Button(
@@ -1095,6 +1133,7 @@ class Core(commands.Cog):
             starboard_button.callback = self.event_button_click
             autopurge_button.callback = self.event_button_click
             autosatire_button.callback = self.event_button_click
+            promo_messages_button.callback = self.event_button_click
             exit_button.callback = self.exit_interaction
           
             self.add_item(welcome_messages_button)
@@ -1104,6 +1143,7 @@ class Core(commands.Cog):
             self.add_item(starboard_button)
             self.add_item(autopurge_button)
             self.add_item(autosatire_button)
+            self.add_item(promo_messages_button)
             self.add_item(exit_button)
           
             await interaction.response.edit_message(content="Please select an event to enable or disable.", view=self)
