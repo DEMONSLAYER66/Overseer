@@ -92,12 +92,20 @@ class Utility(commands.Cog):
 
 
 ############################# PROMOTE #########################
+    @commands.Cog.listener()
+    async def cog_command_error(self, ctx: commands.Context, error: commands.CommandError):
+        if isinstance(error, commands.CommandOnCooldown):
+            msg = 'This command is ratelimited, please try again in {:.2f}s'.format(error.retry_after)
+            await ctx.send(msg)
+
+  
     @discord.slash_command(
         name="promote",
         description="Promote this guild (server).",
         # guild_ids=SERVER_ID
         global_command = True
     )
+    @commands.cooldown(1, 30, commands.BucketType.guild)
     async def promote(self, ctx):
         # Get or create the cooldown mapping for the current guild
         if ctx.guild.id not in self.promote_cooldowns:
