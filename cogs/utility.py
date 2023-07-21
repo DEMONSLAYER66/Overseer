@@ -69,7 +69,7 @@ class Utility(commands.Cog):
       self.daily_meme_time = self.meme_time.strftime("%I:%M") + " AM" #set the daily meme time to ##:## AM
       self.send_meme.start()
 
-      sself.promote_cooldowns = {}  # A dictionary to store separate cooldowns for each guild
+      self.promote_cooldowns = {}  # A dictionary to store separate cooldowns for each guild
       # send promote reminders loop task
       self.send_reminder_loop.stop()  # Stop the loop initially
       
