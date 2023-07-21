@@ -297,30 +297,34 @@ class Utility(commands.Cog):
     async def send_reminder(self, cooldown):
         await asyncio.sleep(cooldown)
 
-        cooldown_key = {"server_id": guild_id}
-        cooldown_data = bump_db.cooldowns.find_one(cooldown_key)
-
-        if cooldown_data:
-            author = self.bot.fetch_user(cooldown_data['promoter_id'])
-            guild = self.bot.fetch_guild(cooldown_data['server_id'])
-            channel = self.bot.fetch_channel(cooldown_data['promotion_channel_id'])
+        try:
+            cooldown_key = {"server_id": guild_id}
+            cooldown_data = bump_db.cooldowns.find_one(cooldown_key)
+    
+            if cooldown_data:
+                author = self.bot.fetch_user(cooldown_data['promoter_id'])
+                guild = self.bot.fetch_guild(cooldown_data['server_id'])
+                channel = self.bot.fetch_channel(cooldown_data['promotion_channel_id'])
+              
+                #delete the cooldown time on mongodb if the cooldown time is is found and over
+                bump_db.cooldowns.delete_one(cooldown_key)
+    
           
-            #delete the cooldown time on mongodb if the cooldown time is is found and over
-            bump_db.cooldowns.delete_one(cooldown_key)
+            promote_app_command = self.bot.get_application_command("promote")
+            eventhandler_command = self.bot.get_application_command("eventhandler")
+          
+            reminder_embed = discord.Embed(
+                title=f"{guild.name}\nPromotion Reminder",
+                description=f"> Attention {author.mention} and the members of {guild.name},\n> The promotion cooldown has **ended** for this guild...\n> \n> You may once again use the </{promote_app_command.name}:{promote_app_command.id}> directive!\n> \n> You may also utilize </{eventhandler_command.name}:{eventhandler_command.id}> in order to turn promotion reminders on or off.\n> \n> *Best of luck in promoting and growing this esteemed community, good fellows!*",
+                color=discord.Color.from_rgb(0, 0, 255)
+            )
+            reminder_embed.set_thumbnail(url=self.bot.user.avatar.url)
+    
+            await channel.send(embed=reminder_embed)
 
-      
-        promote_app_command = self.bot.get_application_command("promote")
-        eventhandler_command = self.bot.get_application_command("eventhandler")
-      
-        reminder_embed = discord.Embed(
-            title=f"{guild.name}\nPromotion Reminder",
-            description=f"> Attention {author.mention} and the members of {guild.name},\n> The promotion cooldown has **ended** for this guild...\n> \n> You may once again use the </{promote_app_command.name}:{promote_app_command.id}> directive!\n> \n> You may also utilize </{eventhandler_command.name}:{eventhandler_command.id}> in order to turn promotion reminders on or off.\n> \n> *Best of luck in promoting and growing this esteemed community, good fellows!*",
-            color=discord.Color.from_rgb(0, 0, 255)
-        )
-        reminder_embed.set_thumbnail(url=self.bot.user.avatar.url)
-
-        await channel.send(embed=reminder_embed)
-        
+        #except the bot was unable to do something from the above
+        except:
+            pass
 
 
     #This retrieves the current server's event status from the mongoDB database
