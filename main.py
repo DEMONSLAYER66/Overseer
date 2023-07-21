@@ -42,7 +42,7 @@ async def on_ready():
   mongoDBpass = os.getenv('mongoDBpass')
   client = pymongo.MongoClient(mongoDBpass) # Create a new client and connect to the server
   autopurge_db = client.autopurge_db #create the autpourge database on mongoDB
-  starboard_db = client.starboard_configs #create the starboard database on mongoDB
+  starboard_db = client.starboard_db #create the starboard database on mongoDB
 
 
   # Iterate over all the servers
