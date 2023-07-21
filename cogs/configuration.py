@@ -256,7 +256,7 @@ class Configuration(commands.Cog):
 
     #description field
     class BumpModal(discord.ui.Modal):
-        def __init__(self, *args, previous_description=None, **kwargs):
+        def __init__(self, *args, previous_description, **kwargs):
             super().__init__(*args, **kwargs)
 
             self.description = previous_description
