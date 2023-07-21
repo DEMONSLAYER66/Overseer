@@ -121,7 +121,7 @@ class Configuration(commands.Cog):
 
         # Check if the bot has create invite permissions in the current channel
         if not lordbottington.guild_permissions.create_instant_invite:
-            await ctx.respond(f"Apologies {ctx.author.mention},\nI do not have permission to create invites in this guild.\n*Please change this for myself in the guild (server) settings and try again.*", ephemeral=True)
+            await ctx.respond(f"Apologies {ctx.author.mention},\nI do not have permission to create invites in this guild.\n*Please change this for myself in the guild (server) settings on Discord and try again.*", ephemeral=True)
             return
 
         
@@ -170,7 +170,10 @@ class Configuration(commands.Cog):
         if custom_color or guild_banner:
             if ctx.guild.id != support_guild_id:
                 if not refined_patron and not distinguished_patron:
-                    patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {ctx.author.mention},\nCustom embed colors and guild banners for my `/promotion` directive are exclusive features available solely to `🎩🎩 Refined Automaton Patrons` and `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling or upgrading patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(0, 0, 255))
+                    patron_command = self.bot.get_application_command("patron")
+                    promotion_command = self.bot.get_application_command("promotion")
+                    
+                    patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {ctx.author.mention},\nCustom embed colors and guild banners for my </{promotion_command,name}:{promotion_command.id}> directive are exclusive features available solely to `🎩🎩 Refined Automaton Patrons` and `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my </{patron_command.name}:{patron_command.id}> directive to learn more information on enabling or upgrading patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(0, 0, 255))
           
                     patron_embed.set_thumbnail(url=self.bot.user.avatar.url)
           
@@ -250,7 +253,8 @@ class Configuration(commands.Cog):
 
         #get the app_commands related to promotion
         testpromote_app_command = self.bot.get_application_command("testpromote")
-        # promote_app_command = self.bot.get_application_command("promote")
+        promote_app_command = self.bot.get_application_command("promote")
+        event_handler_command = self.bot.get_application_command("eventhandler")
 
         bump_key = {"server_id": ctx.guild.id}
         server_data = bump_db.bump_configs.find_one(bump_key)
@@ -273,7 +277,7 @@ class Configuration(commands.Cog):
               }
             )
             
-            embed_description = f"{ctx.author.mention}\n\n> I have successfully *created* the guild promotion configuration for ***{ctx.guild.name}***.\n> \n> You may now utilize my `/promote` directive every ***2*** hours to promote your guild!\n> You may also utilize by </{testpromote_app_command.name}:{testpromote_app_command.id}> directive to see a preview of your promotion, if you desire.\n> \n> *Best of luck to you in growing your esteemed community, good sir!*"
+            embed_description = f"{ctx.author.mention}\n\n> I have successfully *created* the guild promotion configuration for ***{ctx.guild.name}***.\n> \n> You may now utilize my </{promote_app_command.name}:{promote_app_command.id}> directive every ***2*** hours to promote your guild!\n> You may also utilize </{testpromote_app_command.name}:{testpromote_app_command.id}> to see a preview of your promotion and </{event_handler_command.name}:{event_handler_command.id}> to turn reminders to promote this guild on or off, if you desire.\n> \n> *Best of luck to you in growing this esteemed community, good sir!*"
             
         else:
             bump_db.bump_configs.update_one(
@@ -297,7 +301,7 @@ class Configuration(commands.Cog):
             )
 
         
-            embed_description = f"{ctx.author.mention}\n\n> I have successfully *updated* the guild promotion configuration for ***{ctx.guild.name}***.\n> \n> You may now utilize my `/promote` directive every ***2*** hours to promote your guild!\n> You may also utilize by </{testpromote_app_command.name}:{testpromote_app_command.id}> directive to see a preview of your promotion, if you desire.\n> \n> *Best of luck to you in growing your esteemed community, good sir!*"
+            embed_description = f"{ctx.author.mention}\n\n> I have successfully *updated* the guild promotion configuration for ***{ctx.guild.name}***.\n> \n> You may now utilize my </{promote_app_command.name}:{promote_app_command.id}> directive every ***2*** hours to promote your guild!\n> You may also utilize </{testpromote_app_command.name}:{testpromote_app_command.id}> to see a preview of your promotion and </{event_handler_command.name}:{event_handler_command.id}> to turn reminders to promote this guild on or off, if you desire.\n> \n> *Best of luck to you in growing this esteemed community, good sir!*"
 
         automaton_invite_link = "https://discord.com/api/oauth2/authorize?client_id=1092515783025889383&permissions=3557027031&scope=bot%20applications.commands"
         support_guild_invite = "https://discord.gg/4P6ApdPAF7"
