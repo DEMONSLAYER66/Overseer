@@ -112,7 +112,7 @@ class Utility(commands.Cog):
             promote_app_command = self.bot.get_application_command("promote")
             
             # Calculate the total cooldown time in days, hours, minutes, and seconds
-            days, remainder = divmod(retry_after, 86400)
+            days, remainder = divmod(int(retry_after), 86400)
             hours, remainder = divmod(remainder, 3600)
             minutes, seconds = divmod(remainder, 60)
             
