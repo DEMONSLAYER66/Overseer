@@ -2615,14 +2615,42 @@ class Utility(commands.Cog):
                     await starboard_message.edit(embed=embed)
                     # print("embed sent")
                     break
-                else:
-                    # If there is no existing starboard embed, create a new one
-                    starboard_db.starboard_configs.update_one(
-                        {"server_id": message.guild.id},
-                        {"$push": {"starboard_messages": message.id}}
+            else:
+                # If there is no existing starboard embed, create a new one
+                starboard_db.starboard_configs.update_one(
+                    {"server_id": message.guild.id},
+                    {"$push": {"starboard_messages": message.id}}
+                )
+                # print("mongoDB updated with message id")
+                
+                if message.embeds:
+                    # Get the existing embed from the message
+                    existing_embed = message.embeds[0].to_dict()
+
+                    await starboard_channel.send(embed=existing_embed) #send original embed
+
+                    author_avatar = message.author.avatar
+                    embed = discord.Embed(
+                        title = "Original Posting (click here)",
+                        url = message.jump_url,
+                        description="⬆️See embedded message above.⬆️",
+                        timestamp=message.created_at,
+                        color=discord.Color.from_rgb(*server_config["color"]),
                     )
-                    # print("mongoDB updated with message id")
-                    
+                    embed.set_author(
+                        name=message.author.display_name,
+                        icon_url=author_avatar,
+                    )
+    
+                    embed.set_footer(text=f"Maximum Reactions: {reaction} {reactions}")
+                    if message.attachments:
+                        attachment = message.attachments[0]
+                        if attachment.url.lower().endswith(("png", "jpeg", "jpg", "gif", "webp")):
+                            embed.set_image(url=attachment.url)
+                        else:
+                            embed.add_field(name="Attachment", value=f"[{attachment.filename}]({attachment.url})", inline=False)
+
+                else:
                     author_avatar = message.author.avatar
                     embed = discord.Embed(
                         title = "Original Posting (click here)",
@@ -2643,8 +2671,8 @@ class Utility(commands.Cog):
                             embed.set_image(url=attachment.url)
                         else:
                             embed.add_field(name="Attachment", value=f"[{attachment.filename}]({attachment.url})", inline=False)
-                    await starboard_channel.send(embed=embed)
-                    # print("embed sent")
+                await starboard_channel.send(embed=embed)
+                # print("embed sent")
 
 
 
