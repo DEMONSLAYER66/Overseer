@@ -276,12 +276,30 @@ class Utility(commands.Cog):
                 pass
             elif promotions_status == "Enabled":
                 cooldown_time = 7200 #max cooldown time (2 hours)
+
+                bump_db.cooldowns.insert_one(
+                  {
+                    "server_id": ctx.guild.id,
+                    "server_name": ctx.guild.name,
+                    "cooldown": cooldown_time,
+                    "start_time": datetime.datetime.utcnow()
+                  }
+                )
+              
                 await self.send_reminder(ctx, cooldown_time)
 
 
 
     async def send_reminder(self, ctx, cooldown_time):
         await asyncio.sleep(cooldown_time)
+
+        cooldown_key = {"server_id": ctx.guild.id}
+        cooldown_data = bump_db.cooldowns.find_one(cooldown_key)
+
+        if cooldown_data:
+            #delete the cooldown time on mongodb if the cooldown time is is found and over
+            bump_db.cooldowns.delete_one(cooldown_key)
+
       
         promote_app_command = self.bot.get_application_command("promote")
         eventhandler_command = self.bot.get_application_command("eventhandler")
@@ -309,6 +327,29 @@ class Utility(commands.Cog):
             return event_doc["promotions_reminders"]
         else:
             return "Enabled"
+
+
+    # when the bot goes offline
+    @commands.Cog.listener()
+    async def on_disconnect(self):
+        current_time = datetime.datetime.utcnow()
+    
+        # Get all cooldown entries from the database
+        cooldown_data_list = bump_db.cooldowns.find()
+
+        if cooldown_data_list:
+            for cooldown_data in cooldown_data_list:
+                start_time = cooldown_data['start_time']
+                elapsed_time = current_time - start_time
+                cooldown_time = cooldown_data['cooldown']
+                remaining_time = max(0, cooldown_time - elapsed_time.total_seconds())
+        
+                if remaining_time <= 0:
+                    # Delete the cooldown time from MongoDB if the cooldown time is found and over
+                    bump_db.cooldowns.delete_one(cooldown_data)
+                else:
+                    # Save the remaining time to the database
+                    bump_db.cooldowns.update_one({"_id": cooldown_data["_id"]}, {"$set": {"cooldown": remaining_time}})
 
 ############################# PROMOTE #########################
 
