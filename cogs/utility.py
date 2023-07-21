@@ -101,14 +101,6 @@ class Utility(commands.Cog):
 
 
 ############################# PROMOTE #########################
-    @commands.Cog.listener()
-    async def on_command_error(self, ctx, error):
-        if isinstance(error, commands.CommandOnCooldown):
-
-          
-            await ctx.send('This command is on cooldown, you can use it in {round(error.retry_after, 2)}')
-
-
     @discord.slash_command(
         name="promote",
         description="Promote this guild (server).",
