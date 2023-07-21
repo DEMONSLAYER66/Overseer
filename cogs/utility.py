@@ -290,12 +290,12 @@ class Utility(commands.Cog):
                   }
                 )
               
-                await self.send_reminder()
+                await self.send_reminder(cooldown_time)
 
 
 
-    async def send_reminder(self):
-        await asyncio.sleep(7200)
+    async def send_reminder(self, cooldown):
+        await asyncio.sleep(cooldown)
 
         cooldown_key = {"server_id": guild_id}
         cooldown_data = bump_db.cooldowns.find_one(cooldown_key)
