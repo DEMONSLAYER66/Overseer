@@ -290,7 +290,7 @@ class Utility(commands.Cog):
                   }
                 )
               
-                await self.send_reminder(cooldown_time)
+                await self.send_reminder(cooldown_time, ctx.guild.id)
 
 
 
