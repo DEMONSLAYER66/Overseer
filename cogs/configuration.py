@@ -198,9 +198,9 @@ class Configuration(commands.Cog):
 
             if previous_invite_channel_id != invite_channel.id:
                 # Create a new invite for the invite_channel with unlimited uses (if not the same channel as the previously used one)
-                invite = await invite_channel.create_invite(max_age=0, max_uses=0, unique=True)
+                invite_link = await invite_channel.create_invite(max_age=0, max_uses=0, unique=True)
         else:
-            invite = await invite_channel.create_invite(max_age=0, max_uses=0, unique=True)
+            invite_link = await invite_channel.create_invite(max_age=0, max_uses=0, unique=True)
 
 
         bump_modal = self.BumpModal(title="Guild Promotion Configuration", previous_description=guild_description)
@@ -234,7 +234,7 @@ class Configuration(commands.Cog):
               }
             )
             
-            embed_description = f"{ctx.author.mention}\nI have successfully *created* the guild promotion configuration for ***{ctx.guild.name}***.\nPlease await your guild to be promoted along with the other guilds in {promotion_channel.mention}.\n\nYou may now utilize my `/promote` directive every ***2*** hours to promote your guild!\nYou may also utilize by `/testpromote` directive to see a preview of your promotion, if you desire.\n\n*Best of luck to you in growing your esteemed community, good sir!*"
+            embed_description = f"{ctx.author.mention}\n\n> I have successfully *created* the guild promotion configuration for ***{ctx.guild.name}***.\n> Please await your guild to be promoted along with the other guilds in {promotion_channel.mention}.\n> \n> You may now utilize my `/promote` directive every ***2*** hours to promote your guild!\nYou may also utilize by `/testpromote` directive to see a preview of your promotion, if you desire.\n> \n> *Best of luck to you in growing your esteemed community, good sir!*"
             
         else:
             bump_db.bump_configs.update_one(
@@ -256,13 +256,13 @@ class Configuration(commands.Cog):
             )
 
         
-            embed_description = f"{ctx.author.mention}\nI have successfully *updated* the guild promotion configuration for ***{ctx.guild.name}***.\nPlease await your guild to be promoted along with the other guilds in {promotion_channel.mention}.\n\nYou may now utilize my `/promote` directive every ***2*** hours to promote your guild!\nYou may also utilize by `/testpromote` directive to see a preview of your promotion, if you desire.\n\n*Best of luck to you in growing your esteemed community, good sir!*"
+            embed_description = f"{ctx.author.mention}\n\n> I have successfully *updated* the guild promotion configuration for ***{ctx.guild.name}***.\n> Please await your guild to be promoted along with the other guilds in {promotion_channel.mention}.\n> \n> You may now utilize my `/promote` directive every ***2*** hours to promote your guild!\nYou may also utilize by `/testpromote` directive to see a preview of your promotion, if you desire.\n> \n> *Best of luck to you in growing your esteemed community, good sir!*"
 
         promotion_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion Configuration", description = embed_description, color=discord.Color.from_rgb(r, g, b))
 
         promotion_embed.set_thumbnail(url=self.bot.user.avatar.url)
 
-        await ctx.respond(embed=promotion_embed)
+        await ctx.respond(embed=promotion_embed, ephemeral=True)
 
 
 
