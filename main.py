@@ -53,6 +53,7 @@ async def on_ready():
   if cooldown_data_list:
       for cooldown_data in cooldown_data_list:
           cooldown_time = cooldown_data['cooldown']
+          guild_id = cooldown_data['server_id']
 
           # Update the 'send_time' field in the MongoDB collection
           bump_db.cooldowns.update_one(
@@ -61,7 +62,7 @@ async def on_ready():
           )
           
           utility_cog = bot.get_cog('Utility') #get the utility cog
-          await utility_cog.send_reminder(cooldown_time)
+          await utility_cog.send_reminder(cooldown_time, guild_id)
 
 
 
