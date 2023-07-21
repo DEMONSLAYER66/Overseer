@@ -199,6 +199,8 @@ class Configuration(commands.Cog):
             if previous_invite_channel_id != invite_channel.id:
                 # Create a new invite for the invite_channel with unlimited uses (if not the same channel as the previously used one)
                 invite_link = await invite_channel.create_invite(max_age=0, max_uses=0, unique=True)
+            else:
+                invite_link = server_data['invite_link']
         else:
             invite_link = await invite_channel.create_invite(max_age=0, max_uses=0, unique=True)
 
