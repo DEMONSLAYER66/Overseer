@@ -79,6 +79,8 @@ class Utility(commands.Cog):
       self.daily_meme_time = self.meme_time.strftime("%I:%M") + " AM" #set the daily meme time to ##:## AM
       self.send_meme.start()
 
+
+      self.promote_cooldown = commands.CooldownMapping.from_cooldown(1, 7200, commands.BucketType.guild)
       # send promote reminders loop task
       self.send_reminder_loop.stop()  # Stop the loop initially
       
@@ -109,7 +111,7 @@ class Utility(commands.Cog):
     )
     async def promote(self, ctx):
         # Check if the cooldown is active for this guild
-        bucket = promote_cooldown.get_bucket(ctx)
+        bucket = self.promote_cooldown.get_bucket(ctx)
         retry_after = bucket.update_rate_limit()
         if retry_after:
             promote_app_command = self.bot.get_application_command("promote")
@@ -295,7 +297,7 @@ class Utility(commands.Cog):
 
     @tasks.loop(seconds=5)
     async def send_reminder_loop(self, ctx):
-        bucket = promote_cooldown.get_bucket(ctx)
+        bucket = self.promote_cooldown.get_bucket(ctx)
         retry_after = bucket.update_rate_limit()
         if not retry_after: # the retry time is 0 and cooldown is over
             await self.send_reminder(ctx)
