@@ -87,9 +87,189 @@ class Utility(commands.Cog):
 
 
 ############################# PROMOTE #########################
-    @commands.Cog.listener()
-    async def on_application_command_error(self, ctx: discord.ApplicationContext, error: discord.DiscordException):
-        if isinstance(error, commands.CommandOnCooldown):
+    # @commands.Cog.listener()
+    # async def on_application_command_error(self, ctx: discord.ApplicationContext, error: discord.DiscordException):
+    #     if isinstance(error, commands.CommandOnCooldown):
+    #         promote_app_command = self.bot.get_application_command("promote")
+            
+    #         # Calculate the total cooldown time in days, hours, minutes, and seconds
+    #         days, remainder = divmod(int(error.retry_after), 86400)
+    #         hours, remainder = divmod(remainder, 3600)
+    #         minutes, seconds = divmod(remainder, 60)
+            
+    #         # Format the frequency string
+    #         if days > 0:
+    #             cooldown_time = f"{days:02d}d:{hours:02d}h:{minutes:02d}m:{seconds:02d}s"
+    #         elif hours > 0:
+    #             cooldown_time = f"{hours:02d}h:{minutes:02d}m:{seconds:02d}s"
+    #         elif minutes > 0:
+    #             cooldown_time = f"{minutes:02d}m:{seconds:02d}s"
+    #         else:
+    #             cooldown_time = f"{seconds}s"
+
+    #         cooldown_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion Cooldown", description=f"{ctx.author.mention}\n\n> It appears that the </{promote_app_command.name}:{promote_app_command.id}> directive is **still on cooldown**.\n> You may try again in `{cooldown_time}`.\n> \n> *I apologize for the inconvenience, good sir.*", color=discord.Color.from_rgb(0, 0, 255))
+
+    #         cooldown_embed.set_thumbnail(url=self.bot.user.avatar.url)
+
+    #         await ctx.respond(embed=cooldown_embed, ephemeral=True)
+
+
+  
+    @discord.slash_command(
+        name="promote",
+        description="Promote this guild.",
+        # guild_ids=SERVER_ID
+        global_command = True
+    )
+    @commands.cooldown(1, 7200, commands.BucketType.guild)
+    async def promote(self, ctx):
+        await ctx.defer() #acknowledge the interaction
+
+        try:
+            #get the promotion application command
+            promotion_app_command = self.bot.get_application_command("promotion")
+    
+            bump_key = {"server_id": ctx.guild.id}
+            server_data = bump_db.bump_configs.find_one(bump_key)
+    
+            if not server_data:
+                no_data_description = f"Apologies {ctx.author.mention},\nIt appears that a guild promotion configuration has not been set up for ***{ctx.guild.name}***, good sir.\n\nYou may utilize my </{promotion_app_command.name}:{promotion_app_command.id}> directive to configure this for your guild, if you desire."
+                no_data_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion Error", description = no_data_description, color=discord.Color.from_rgb(0, 0, 255))
+    
+                no_data_embed.set_thumbnail(url=self.bot.user.avatar.url)
+    
+                await ctx.respond(embed=no_data_embed, ephemeral=True)
+                return
+    
+            else:
+                initial_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion", description = "Your guild has been added to the promotion roster and will be promoted momentarily, good sir.\nPlease be patient while I process this request for you...", color=discord.Color.from_rgb(0, 0, 255))
+    
+                initial_embed.set_thumbnail(url=self.bot.user.avatar.url)
+    
+                await ctx.respond(embed=initial_embed, ephemeral=True) #send an initial embed to interact with the response
+              
+                #update the mongoDB database and retrieve info
+                bump_key = {"server_id": ctx.guild.id}
+              
+                #increase the number of bumps for the server by 1 on mongodb
+                bump_db.bump_configs.update_one(
+                  bump_key,
+                  {"$inc": {
+                    "bumps": 1
+                    }
+                  }
+                )
+    
+                #increase the total number of bumps for the bot by 1
+                if not bump_db.total_bumps.find_one({"automaton": "Lord Bottington"}):
+                    bump_db.total_bumps.insert_one(
+                      {
+                        "automaton": "Lord Bottington",
+                        "total_bumps": 1
+                      }
+                    )
+                else:
+                    bump_db.total_bumps.update_one(
+                      {"automaton": "Lord Bottington"},
+                      {"$inc": {
+                        "total_bumps": 1
+                        }
+                      }
+                    )
+    
+                bump_key = {"server_id": ctx.guild.id}
+                server_data = bump_db.bump_configs.find_one(bump_key)
+              
+                automaton_invite_link = "https://discord.com/api/oauth2/authorize?client_id=1092515783025889383&permissions=3557027031&scope=bot%20applications.commands"
+                support_guild_invite = "https://discord.gg/4P6ApdPAF7"
+                invite_link = server_data['invite_link']
+                guild_description = server_data['guild_description']
+                original_promotion_channel = await self.bot.fetch_channel(server_data['promotion_channel_id'])
+                color = server_data['color'] #array of (r, g, b)
+                banner_url = server_data['banner_url']
+                bumps = server_data['bumps']
+                guild_created_at = ctx.guild.created_at.strftime('%B %d, %Y')
+                topic = server_data['topic']
+    
+                test_embed =  discord.Embed(title=f"{ctx.guild.name}", description = guild_description, color=discord.Color.from_rgb(color[0], color[1], color[2]))
+    
+                test_embed.add_field(name="❗Guild Topic", value=f"`{topic}`", inline=True)
+                test_embed.add_field(name="🕒Guild Creation", value=f"`{guild_created_at}`", inline=True)
+                test_embed.add_field(name="🚀Promotions", value=f"`{bumps:,}`", inline=True)
+                test_embed.add_field(name="👨Member Count", value=f"`{ctx.guild.member_count:,}`", inline=True)
+                test_embed.add_field(name="💎Boosts", value=f"`{ctx.guild.premium_subscription_count:,}`", inline=True)
+    
+                try:
+                    test_embed.set_thumbnail(url=ctx.guild.icon.url)
+                except:
+                    pass
+    
+                if banner_url:
+                    test_embed.set_image(url=banner_url)
+    
+                try:
+                    test_embed.set_footer(text=f"Promoter: {ctx.author.display_name}", icon_url=ctx.author.avatar.url)
+                except:
+                    test_embed.set_footer(text=f"Promoter: {ctx.author.display_name}") #no avatar set
+    
+                InviteButton = discord.ui.Button(emoji='✅', label="Join Guild", url=invite_link, style=discord.ButtonStyle.link)
+                InviteLordBottington = discord.ui.Button(emoji='🤖', label="Add Lord Bottington", url=automaton_invite_link, style=discord.ButtonStyle.link)
+                JoinSupportGuild = discord.ui.Button(emoji='🎩', label="Join 𝓣𝓱𝓮 𝓢𝔀𝓮𝓮𝔃 𝓖𝓪𝓷𝓰", url=support_guild_invite, style=discord.ButtonStyle.link)
+    
+                view=View()
+                view.add_item(InviteButton)
+                view.add_item(InviteLordBottington)
+                view.add_item(JoinSupportGuild)
+    
+    
+                # Fetch all promotion channel IDs from the MongoDB collection
+                promotion_channel_ids = bump_db.bump_configs.distinct("promotion_channel_id")
+                
+                # Iterate through each promotion channel ID
+                for promotion_channel_id in promotion_channel_ids:
+                    # Fetch the promotion channel from the ID
+                    promotion_channel = await self.bot.fetch_channel(promotion_channel_id)
+    
+                    if original_promotion_channel.id == promotion_channel.id:
+                        promotion_message = await promotion_channel.send(invite_link, embed=test_embed, view=view)
+                        continue
+                
+                    # Check if the promotion channel exists and is a TextChannel
+                    elif promotion_channel and isinstance(promotion_channel, discord.TextChannel):
+                        # Send the embed to the promotion channel
+                        await promotion_channel.send(invite_link, embed=test_embed, view=view)
+    
+    
+    
+                bot_data = bump_db.total_bumps.find_one({"automaton": "Lord Bottington"}) #the total number of bumps for the bot
+                total_bumps = bot_data['total_bumps']
+    
+                guild_count = bump_db.bump_configs.count_documents({}) #the amount of servers that have configured their promo channel
+              
+                info_embed = discord.Embed(title=f"{ctx.guild.name}\nSuccessful Promotion", description=f"**🎩Congratulations!🎩**\nThis guild has been **successfully promoted** to `{guild_count:,}` other guilds.\n\nYou may view the posting for your guild in {promotion_channel.mention} by [clicking here]({promotion_message.jump_url}).\n\nYou may *promote* this guild again in `2 hours`, if you so desire.\n\nI would also like to inform you that since my creation, I have received a grand total of 🚀`{total_bumps:,}` promotions.\nI do appreciate your support and look forward to serving you even more!\n\n*Best of luck in growing your esteemed community, good sir!*", color=discord.Color.from_rgb(color[0], color[1], color[2]))
+    
+                info_embed.add_field(name=f"🚀Guild Promotions", value=f"`{bumps:,}`")
+    
+                info_embed.set_thumbnail(url=self.bot.user.avatar.url)
+    
+                info_view=View()
+                info_view.add_item(InviteLordBottington)
+                info_view.add_item(JoinSupportGuild)
+                
+                await ctx.send(embed=info_embed, view=info_view)
+    
+                #get the promotion event status from mongoDB
+                promotions_status = await self.get_promotions_event_status(ctx.guild.id)
+    
+                #Promotion Reminders event only runs if event status using /eventhandler is set to enabled OR if the user has not set the status using /eventhandler
+                if promotions_status == "Disabled":
+                    pass
+                elif promotions_status == "Enabled":
+                    await asyncio.sleep(7200) #wait for 2 hours (ratelimit/slowmode)
+        
+                    await self.send_reminder(ctx)
+
+        except commands.CommandOnCooldown as error:
             promote_app_command = self.bot.get_application_command("promote")
             
             # Calculate the total cooldown time in days, hours, minutes, and seconds
@@ -106,167 +286,12 @@ class Utility(commands.Cog):
                 cooldown_time = f"{minutes:02d}m:{seconds:02d}s"
             else:
                 cooldown_time = f"{seconds}s"
-
-            cooldown_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion Cooldown", description=f"{ctx.author.mention}\n\n> It appears that the </{promote_app_command.name}:{promote_app_command.id}> directive is **still on cooldown**.\n> You may try again in `{cooldown_time}`.\n> \n> *I apologize for the inconvenience, good sir.*", color=discord.Color.from_rgb(0, 0, 255))
-
-            cooldown_embed.set_thumbnail(url=self.bot.user.avatar.url)
-
-            await ctx.respond(embed=cooldown_embed, ephemeral=True)
-
-
-  
-    @discord.slash_command(
-        name="promote",
-        description="Promote this guild.",
-        # guild_ids=SERVER_ID
-        global_command = True
-    )
-    @commands.cooldown(1, 7200, commands.BucketType.guild)
-    async def promote(self, ctx):
-        await ctx.defer() #acknowledge the interaction
-      
-        #get the promotion application command
-        promotion_app_command = self.bot.get_application_command("promotion")
-
-        bump_key = {"server_id": ctx.guild.id}
-        server_data = bump_db.bump_configs.find_one(bump_key)
-
-        if not server_data:
-            no_data_description = f"Apologies {ctx.author.mention},\nIt appears that a guild promotion configuration has not been set up for ***{ctx.guild.name}***, good sir.\n\nYou may utilize my </{promotion_app_command.name}:{promotion_app_command.id}> directive to configure this for your guild, if you desire."
-            no_data_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion Error", description = no_data_description, color=discord.Color.from_rgb(0, 0, 255))
-
-            no_data_embed.set_thumbnail(url=self.bot.user.avatar.url)
-
-            await ctx.respond(embed=no_data_embed, ephemeral=True)
-            return
-
-        else:
-            initial_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion", description = "Your guild has been added to the promotion roster and will be promoted momentarily, good sir.\nPlease be patient while I process this request for you...", color=discord.Color.from_rgb(0, 0, 255))
-
-            initial_embed.set_thumbnail(url=self.bot.user.avatar.url)
-
-            await ctx.respond(embed=initial_embed, ephemeral=True) #send an initial embed to interact with the response
-          
-            #update the mongoDB database and retrieve info
-            bump_key = {"server_id": ctx.guild.id}
-          
-            #increase the number of bumps for the server by 1 on mongodb
-            bump_db.bump_configs.update_one(
-              bump_key,
-              {"$inc": {
-                "bumps": 1
-                }
-              }
-            )
-
-            #increase the total number of bumps for the bot by 1
-            if not bump_db.total_bumps.find_one({"automaton": "Lord Bottington"}):
-                bump_db.total_bumps.insert_one(
-                  {
-                    "automaton": "Lord Bottington",
-                    "total_bumps": 1
-                  }
-                )
-            else:
-                bump_db.total_bumps.update_one(
-                  {"automaton": "Lord Bottington"},
-                  {"$inc": {
-                    "total_bumps": 1
-                    }
-                  }
-                )
-
-            bump_key = {"server_id": ctx.guild.id}
-            server_data = bump_db.bump_configs.find_one(bump_key)
-          
-            automaton_invite_link = "https://discord.com/api/oauth2/authorize?client_id=1092515783025889383&permissions=3557027031&scope=bot%20applications.commands"
-            support_guild_invite = "https://discord.gg/4P6ApdPAF7"
-            invite_link = server_data['invite_link']
-            guild_description = server_data['guild_description']
-            original_promotion_channel = await self.bot.fetch_channel(server_data['promotion_channel_id'])
-            color = server_data['color'] #array of (r, g, b)
-            banner_url = server_data['banner_url']
-            bumps = server_data['bumps']
-            guild_created_at = ctx.guild.created_at.strftime('%B %d, %Y')
-            topic = server_data['topic']
-
-            test_embed =  discord.Embed(title=f"{ctx.guild.name}", description = guild_description, color=discord.Color.from_rgb(color[0], color[1], color[2]))
-
-            test_embed.add_field(name="❗Guild Topic", value=f"`{topic}`", inline=True)
-            test_embed.add_field(name="🕒Guild Creation", value=f"`{guild_created_at}`", inline=True)
-            test_embed.add_field(name="🚀Promotions", value=f"`{bumps:,}`", inline=True)
-            test_embed.add_field(name="👨Member Count", value=f"`{ctx.guild.member_count:,}`", inline=True)
-            test_embed.add_field(name="💎Boosts", value=f"`{ctx.guild.premium_subscription_count:,}`", inline=True)
-
-            try:
-                test_embed.set_thumbnail(url=ctx.guild.icon.url)
-            except:
-                pass
-
-            if banner_url:
-                test_embed.set_image(url=banner_url)
-
-            try:
-                test_embed.set_footer(text=f"Promoter: {ctx.author.display_name}", icon_url=ctx.author.avatar.url)
-            except:
-                test_embed.set_footer(text=f"Promoter: {ctx.author.display_name}") #no avatar set
-
-            InviteButton = discord.ui.Button(emoji='✅', label="Join Guild", url=invite_link, style=discord.ButtonStyle.link)
-            InviteLordBottington = discord.ui.Button(emoji='🤖', label="Add Lord Bottington", url=automaton_invite_link, style=discord.ButtonStyle.link)
-            JoinSupportGuild = discord.ui.Button(emoji='🎩', label="Join 𝓣𝓱𝓮 𝓢𝔀𝓮𝓮𝔃 𝓖𝓪𝓷𝓰", url=support_guild_invite, style=discord.ButtonStyle.link)
-
-            view=View()
-            view.add_item(InviteButton)
-            view.add_item(InviteLordBottington)
-            view.add_item(JoinSupportGuild)
-
-
-            # Fetch all promotion channel IDs from the MongoDB collection
-            promotion_channel_ids = bump_db.bump_configs.distinct("promotion_channel_id")
-            
-            # Iterate through each promotion channel ID
-            for promotion_channel_id in promotion_channel_ids:
-                # Fetch the promotion channel from the ID
-                promotion_channel = await self.bot.fetch_channel(promotion_channel_id)
-
-                if original_promotion_channel.id == promotion_channel.id:
-                    promotion_message = await promotion_channel.send(invite_link, embed=test_embed, view=view)
-                    continue
-            
-                # Check if the promotion channel exists and is a TextChannel
-                elif promotion_channel and isinstance(promotion_channel, discord.TextChannel):
-                    # Send the embed to the promotion channel
-                    await promotion_channel.send(invite_link, embed=test_embed, view=view)
-
-
-
-            bot_data = bump_db.total_bumps.find_one({"automaton": "Lord Bottington"}) #the total number of bumps for the bot
-            total_bumps = bot_data['total_bumps']
-
-            guild_count = bump_db.bump_configs.count_documents({}) #the amount of servers that have configured their promo channel
-          
-            info_embed = discord.Embed(title=f"{ctx.guild.name}\nSuccessful Promotion", description=f"**🎩Congratulations!🎩**\nThis guild has been **successfully promoted** to `{guild_count:,}` other guilds.\n\nYou may view the posting for your guild in {promotion_channel.mention} by [clicking here]({promotion_message.jump_url}).\n\nYou may *promote* this guild again in `2 hours`, if you so desire.\n\nI would also like to inform you that since my creation, I have received a grand total of 🚀`{total_bumps:,}` promotions.\nI do appreciate your support and look forward to serving you even more!\n\n*Best of luck in growing your esteemed community, good sir!*", color=discord.Color.from_rgb(color[0], color[1], color[2]))
-
-            info_embed.add_field(name=f"🚀Guild Promotions", value=f"`{bumps:,}`")
-
-            info_embed.set_thumbnail(url=self.bot.user.avatar.url)
-
-            info_view=View()
-            info_view.add_item(InviteLordBottington)
-            info_view.add_item(JoinSupportGuild)
-            
-            await ctx.send(embed=info_embed, view=info_view)
-
-            #get the promotion event status from mongoDB
-            promotions_status = await self.get_promotions_event_status(ctx.guild.id)
-
-            #Promotion Reminders event only runs if event status using /eventhandler is set to enabled OR if the user has not set the status using /eventhandler
-            if promotions_status == "Disabled":
-                pass
-            elif promotions_status == "Enabled":
-                await asyncio.sleep(7200) #wait for 2 hours (ratelimit/slowmode)
     
-                await self.send_reminder(ctx)
+            cooldown_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion Cooldown", description=f"{ctx.author.mention}\n\n> It appears that the </{promote_app_command.name}:{promote_app_command.id}> directive is **still on cooldown**.\n> You may try again in `{cooldown_time}`.\n> \n> *I apologize for the inconvenience, good sir.*", color=discord.Color.from_rgb(0, 0, 255))
+    
+            cooldown_embed.set_thumbnail(url=self.bot.user.avatar.url)
+    
+            await ctx.respond(embed=cooldown_embed, ephemeral=True)
 
 
 
