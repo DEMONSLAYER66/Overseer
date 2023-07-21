@@ -46,7 +46,7 @@ async def on_ready():
 
 
   # Iterate over all the servers
-  for guild in self.bot.guilds:
+  for guild in bot.guilds:
       # Get the starboard data from MongoDB for the current guild
       server_config = starboard_db.starboard_configs.find_one({"server_id": guild.id})
     
