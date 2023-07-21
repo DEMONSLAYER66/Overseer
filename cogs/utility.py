@@ -98,7 +98,7 @@ class Utility(commands.Cog):
             return
           
         #get the promotion application command
-        promotion_app_command = self.bot.get_application_command(promotion)
+        promotion_app_command = self.bot.get_application_command("promotion")
 
         bump_key = {"server_id": ctx.guild.id}
         server_data = bump_db.bump_configs.find_one(bump_key)
