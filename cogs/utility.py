@@ -162,7 +162,7 @@ class Utility(commands.Cog):
             test_embed =  discord.Embed(title=f"{ctx.guild.name}", description = guild_description, color=discord.Color.from_rgb(color[0], color[1], color[2]))
 
             test_embed.add_field(name="❗Guild Topic", value=f"`{topic}`", inline=True)
-            test_embed.add_field(name="🕒Guild Creation", value=f"`{guild_created_at}`", inline=False)
+            test_embed.add_field(name="🕒Guild Creation", value=f"`{guild_created_at}`", inline=True)
             test_embed.add_field(name="🚀Promotions", value=f"`{bumps:,}`", inline=True)
             test_embed.add_field(name="👨Member Count", value=f"`{ctx.guild.member_count:,}`", inline=True)
             test_embed.add_field(name="💎Boosts", value=f"`{ctx.guild.premium_subscription_count:,}`", inline=True)
@@ -211,8 +211,10 @@ class Utility(commands.Cog):
 
             bot_data = bump_db.total_bumps.find_one({"automaton": "Lord Bottington"}) #the total number of bumps for the bot
             total_bumps = bot_data['total_bumps']
+
+            guild_count = bump_db.bump_configs.count_documents({}) #the amount of servers that have configured their promo channel
           
-            info_embed = discord.Embed(title=f"{ctx.guild.name}\nSuccessful Promotion", description=f"**🎩Congratulations!🎩**\nThis guild has been **successfully promoted**.\nYou may view the posting in {promotion_channel.mention} by [clicking here]({promotion_message.jump_url}).\n\nYou may promote this guild again in `2 hours`, if you so desire.\n\nI would also like to inform you that since my creation, I have received a grand total of 🚀`{total_bumps:,}` promotions.\nI do appreciate your support and look forward to serving you even more!\n\n*Best of luck in growing your esteemed community, good sir!*", color=discord.Color.from_rgb(color[0], color[1], color[2]))
+            info_embed = discord.Embed(title=f"{ctx.guild.name}\nSuccessful Promotion", description=f"**🎩Congratulations!🎩**\nThis guild has been **successfully promoted** to `{guild_count:,}` other guilds.\n\nYou may view the posting for your guild in {promotion_channel.mention} by [clicking here]({promotion_message.jump_url}).\n\nYou may *promote* this guild again in `2 hours`, if you so desire.\n\nI would also like to inform you that since my creation, I have received a grand total of 🚀`{total_bumps:,}` promotions.\nI do appreciate your support and look forward to serving you even more!\n\n*Best of luck in growing your esteemed community, good sir!*", color=discord.Color.from_rgb(color[0], color[1], color[2]))
 
             info_embed.add_field(name=f"🚀Guild Promotions", value=f"`{bumps:,}`")
 
@@ -273,7 +275,7 @@ class Utility(commands.Cog):
             test_embed =  discord.Embed(title=f"{ctx.guild.name}", description = guild_description, color=discord.Color.from_rgb(color[0], color[1], color[2]))
 
             test_embed.add_field(name="❗Guild Topic", value=f"`{topic}`", inline=True)
-            test_embed.add_field(name="🕒Guild Creation", value=f"`{guild_created_at}`", inline=False)
+            test_embed.add_field(name="🕒Guild Creation", value=f"`{guild_created_at}`", inline=True)
             test_embed.add_field(name="🚀Promotions", value=f"`{bumps:,}`", inline=True)
             test_embed.add_field(name="👨Member Count", value=f"`{ctx.guild.member_count:,}`", inline=True)
             test_embed.add_field(name="💎Boosts", value=f"`{ctx.guild.premium_subscription_count:,}`", inline=True)
