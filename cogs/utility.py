@@ -302,9 +302,9 @@ class Utility(commands.Cog):
             cooldown_data = bump_db.cooldowns.find_one(cooldown_key)
     
             if cooldown_data:
-                author = self.bot.fetch_user(cooldown_data['promoter_id'])
-                guild = self.bot.fetch_guild(cooldown_data['server_id'])
-                channel = self.bot.fetch_channel(cooldown_data['promotion_channel_id'])
+                author = self.bot.get_user(cooldown_data['promoter_id'])
+                guild = self.bot.get_guild(cooldown_data['server_id'])
+                channel = self.bot.get_channel(cooldown_data['promotion_channel_id'])
               
                 #delete the cooldown time on mongodb if the cooldown time is is found and over
                 bump_db.cooldowns.delete_one(cooldown_key)
