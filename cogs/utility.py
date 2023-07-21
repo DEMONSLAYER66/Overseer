@@ -125,6 +125,41 @@ class Utility(commands.Cog):
     )
     @commands.cooldown(1, 60, commands.BucketType.guild)
     async def promote(self, ctx):
+        # check if a cooldown is active for the guild
+        cooldown_data = bump_db.cooldowns.find_one(ctx.guild.id)
+
+        if cooldown_data:
+            start_time = cooldown_data['start_time']
+            elapsed_time = current_time - start_time
+            cooldown_time = cooldown_data['cooldown']
+            remaining_time = int(max(0, cooldown_time - elapsed_time.total_seconds()))
+
+            promote_app_command = self.bot.get_application_command("promote")
+            
+            # Calculate the total cooldown time in days, hours, minutes, and seconds
+            days, remainder = divmod(remaining_time, 86400)
+            hours, remainder = divmod(remainder, 3600)
+            minutes, seconds = divmod(remainder, 60)
+            
+            # Format the frequency string
+            if days > 0:
+                cooldown_time = f"{days:02d}d:{hours:02d}h:{minutes:02d}m:{seconds:02d}s"
+            elif hours > 0:
+                cooldown_time = f"{hours:02d}h:{minutes:02d}m:{seconds:02d}s"
+            elif minutes > 0:
+                cooldown_time = f"{minutes:02d}m:{seconds:02d}s"
+            else:
+                cooldown_time = f"{seconds}s"
+
+            cooldown_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion Cooldown", description=f"{ctx.author.mention}\n\n> It appears that my </{promote_app_command.name}:{promote_app_command.id}> directive is not ready to use at the moment...\n> Please try again in `{cooldown_time}`.\n> \n> *I apologize for the inconvenience, good sir.*", color=discord.Color.from_rgb(0, 0, 255))
+
+            cooldown_embed.set_thumbnail(url=self.bot.user.avatar.url)
+
+            await ctx.respond(embed=cooldown_embed, ephemeral=True)
+            return
+
+
+        #begin promote command
         await ctx.defer() #acknowledge the interaction
 
         #get the promotion application command
