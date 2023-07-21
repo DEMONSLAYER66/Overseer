@@ -90,7 +90,8 @@ class Core(commands.Cog):
                         bump_db.cooldowns.update_one({"_id": cooldown_data["_id"]}, {"$set": {"cooldown": remaining_time}})
 
             await ctx.respond(f"{ctx.author.mention}\nNow taking a rest sir...\n*Have a wonderful day!*", ephemeral=True)
-            await self.bot.close()
+            await self.bot.close() #restart (graceful)
+            await self.bot.logout() #shutdown
         else:
             await ctx.respond(f"Apologies {ctx.author.mention},\nOnly my owner is able to utilize this directive.\n\n*Have a nice day, good sir.*", ephemeral=True)
             return
