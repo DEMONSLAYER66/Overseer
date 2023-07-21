@@ -273,7 +273,7 @@ class Configuration(commands.Cog):
               }
             )
             
-            embed_description = f"{ctx.author.mention}\n\n> I have successfully *created* the guild promotion configuration for ***{ctx.guild.name}***.\n> Please await your guild to be promoted along with the other guilds in {promotion_channel.mention}.\n> \n> You may now utilize my `/promote` directive every ***2*** hours to promote your guild!\n> You may also utilize by </{testpromote_app_command.name}:{testpromote_app_command.id}> directive to see a preview of your promotion, if you desire.\n> \n> *Best of luck to you in growing your esteemed community, good sir!*"
+            embed_description = f"{ctx.author.mention}\n\n> I have successfully *created* the guild promotion configuration for ***{ctx.guild.name}***.\n> \n> You may now utilize my `/promote` directive every ***2*** hours to promote your guild!\n> You may also utilize by </{testpromote_app_command.name}:{testpromote_app_command.id}> directive to see a preview of your promotion, if you desire.\n> \n> *Best of luck to you in growing your esteemed community, good sir!*"
             
         else:
             bump_db.bump_configs.update_one(
@@ -297,7 +297,7 @@ class Configuration(commands.Cog):
             )
 
         
-            embed_description = f"{ctx.author.mention}\n\n> I have successfully *updated* the guild promotion configuration for ***{ctx.guild.name}***.\n> Please await your guild to be promoted along with the other guilds in {promotion_channel.mention}.\n> \n> You may now utilize my `/promote` directive every ***2*** hours to promote your guild!\n> You may also utilize by </{testpromote_app_command.name}:{testpromote_app_command.id}> directive to see a preview of your promotion, if you desire.\n> \n> *Best of luck to you in growing your esteemed community, good sir!*"
+            embed_description = f"{ctx.author.mention}\n\n> I have successfully *updated* the guild promotion configuration for ***{ctx.guild.name}***.\n> \n> You may now utilize my `/promote` directive every ***2*** hours to promote your guild!\n> You may also utilize by </{testpromote_app_command.name}:{testpromote_app_command.id}> directive to see a preview of your promotion, if you desire.\n> \n> *Best of luck to you in growing your esteemed community, good sir!*"
 
         automaton_invite_link = "https://discord.com/api/oauth2/authorize?client_id=1092515783025889383&permissions=3557027031&scope=bot%20applications.commands"
         support_guild_invite = "https://discord.gg/4P6ApdPAF7"
