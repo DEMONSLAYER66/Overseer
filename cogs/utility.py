@@ -114,10 +114,6 @@ class Utility(commands.Cog):
             await ctx.respond(embed=cooldown_embed, ephemeral=True)
 
 
-            # msg = 'This command is ratelimited, please try again in {:.2f}s'.format(error.retry_after)
-            # await ctx.send(msg)
-
-
   
     @discord.slash_command(
         name="promote",
@@ -126,43 +122,7 @@ class Utility(commands.Cog):
         global_command = True
     )
     @commands.cooldown(1, 30, commands.BucketType.guild)
-    async def promote(self, ctx):      
-        # # Check if the cooldown is active for this guild
-        # bucket = self.promote_cooldowns[ctx.guild.id].get_bucket(ctx)
-        # retry_after = bucket.update_rate_limit()
-        # if retry_after:
-        #     promote_app_command = self.bot.get_application_command("promote")
-            
-        #     # Calculate the total cooldown time in days, hours, minutes, and seconds
-        #     days, remainder = divmod(int(retry_after), 86400)
-        #     hours, remainder = divmod(remainder, 3600)
-        #     minutes, seconds = divmod(remainder, 60)
-            
-        #     # Format the frequency string
-        #     if days > 0:
-        #         cooldown_time = f"{days:02d}d:{hours:02d}h:{minutes:02d}m:{seconds:02d}s"
-        #     elif hours > 0:
-        #         cooldown_time = f"{hours:02d}h:{minutes:02d}m:{seconds:02d}s"
-        #     elif minutes > 0:
-        #         cooldown_time = f"{minutes:02d}m:{seconds:02d}s"
-        #     else:
-        #         cooldown_time = f"{seconds}s"
-
-        #     cooldown_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion Cooldown", description=f"{ctx.author.mention}\n\n> It appears that the </{promote_app_command.name}:{promote_app_command.id}> directive is **still on cooldown**.\n> You may try again in `{cooldown_time}`.\n> \n> *I apologize for the inconvenience, good sir.*", color=discord.Color.from_rgb(0, 0, 255))
-
-        #     cooldown_embed.set_thumbnail(url=self.bot.user.avatar.url)
-
-        #     await ctx.respond(embed=cooldown_embed, ephemeral=True)
-        #     return
-          
-        # else:
-        #     #check if the loop is already running
-        #     if not self.send_reminder_loop.is_running():
-        #         self.send_reminder_loop.start(ctx) #start the reminder loop
-        #     else:
-        #         return
-
-      
+    async def promote(self, ctx):
         #get the promotion application command
         promotion_app_command = self.bot.get_application_command("promotion")
 
@@ -295,20 +255,23 @@ class Utility(commands.Cog):
             
             await ctx.send(embed=info_embed, view=info_view)
 
+            await asyncio.sleep(30)
+
+            await self.send_reminder(ctx)
 
 
-    # async def send_reminder(self, ctx):
-    #     promote_app_command = self.bot.get_application_command("promote")
+
+    async def send_reminder(self, ctx):
+        promote_app_command = self.bot.get_application_command("promote")
       
-    #     reminder_embed = discord.Embed(
-    #         title=f"{ctx.guild.name}\nPromotion Reminder",
-    #         description=f"{ctx.author.mention}\n\n> The promotion cooldown has ended, good sir.\n> \n> *You may now use the </{promote_app_command.name}:{promote_app_command.id}> directive for this guild again!*",
-    #         color=discord.Color.from_rgb(0, 255, 0)
-    #     )
-    #     reminder_embed.set_thumbnail(url=self.bot.user.avatar.url)
+        reminder_embed = discord.Embed(
+            title=f"{ctx.guild.name}\nPromotion Reminder",
+            description=f"{ctx.author.mention}\n\n> The promotion cooldown has ended, good sir.\n> \n> *You may now use the </{promote_app_command.name}:{promote_app_command.id}> directive for this guild again!*",
+            color=discord.Color.from_rgb(0, 0, 255)
+        )
+        reminder_embed.set_thumbnail(url=self.bot.user.avatar.url)
 
-    #     await ctx.send(embed=reminder_embed)
-    #     self.send_reminder_loop.stop()  # Stop the loop after sending the reminder
+        await ctx.send(embed=reminder_embed)
 
 
 
