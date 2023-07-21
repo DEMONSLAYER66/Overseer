@@ -60,7 +60,7 @@ SERVER_ID = [1088118252200276071, 1117859916749742140]
 cooldown_time = 7200  # 2 hours cooldown
 
 # Create a cooldown mapping object for the /promote command
-promote_cooldown = commands.CooldownMapping.from_cooldown(1, cooldown_time, commands.BucketType.guild)
+promote_cooldown = commands.CooldownMapping.from_cooldown(1, cooldown_time, commands.BucketType.default)
 ####################### COOLDOWN FOR PROMOTION #########################
 
 
@@ -107,7 +107,6 @@ class Utility(commands.Cog):
         # guild_ids=SERVER_ID
         global_command = True
     )
-    @commands.cooldown(1, 7200, commands.BucketType.guild)
     async def promote(self, ctx):
         # Check if the cooldown is active for this guild
         bucket = promote_cooldown.get_bucket(ctx)
