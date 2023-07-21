@@ -121,8 +121,11 @@ class Utility(commands.Cog):
             color = server_data['color'] #array of (r, g, b)
             banner_url = server_data['banner_url']
             bumps = server_data['bumps']
+            guild_created_at = ctx.guild.created_at.strftime('%B %d, %Y')
 
             test_embed =  discord.Embed(title=f"{ctx.guild.name}", description = guild_description, color=discord.Color.from_rgb(color[0], color[1], color[2]))
+
+            test_embed.add_field(name="❗Guild Information", value=f"> **#** Promotion Channel: {promotion_channel.mention}\n> 🕒Guild Creation: `{guild_created_at}`\n> 👨Members: `{ctx.guild.member_count:,}`\n> 🚀Promotions: `{bumps:,}`\n> Boosts: `{ctx.guild.premium_subscription_count:,}`", inline=False)
 
             try:
                 test_embed.set_thumbnail(url=ctx.guild.icon.url)
@@ -133,11 +136,11 @@ class Utility(commands.Cog):
                 test_embed.set_image(url=banner_url)
 
             try:
-                test_embed.set_footer(text=f"Promoter: {ctx.author.display_name} | 🚀Promotions: {bumps:,}", icon_url=ctx.author.avatar.url)
+                test_embed.set_footer(text=f"Promoter: {ctx.author.display_name}", icon_url=ctx.author.avatar.url)
             except:
-                test_embed.set_footer(text=f"Promoter: {ctx.author.display_name} | 🚀Promotions: {bumps:,}") #no avatar set
+                test_embed.set_footer(text=f"Promoter: {ctx.author.display_name}") #no avatar set
 
-            InviteButton = discord.ui.Button(emoji='❗', label="Join Guild", url=invite_link, style=discord.ButtonStyle.link)
+            InviteButton = discord.ui.Button(emoji='✅', label="Join Guild", url=invite_link, style=discord.ButtonStyle.link)
             InviteLordBottington = discord.ui.Button(emoji='🤖', label="Invite Automaton", url=automaton_invite_link, style=discord.ButtonStyle.link)
             JoinSupportGuild = discord.ui.Button(emoji='🎩', label="Join 𝓣𝓱𝓮 𝓢𝔀𝓮𝓮𝔃 𝓖𝓪𝓷𝓰", url=support_guild_invite, style=discord.ButtonStyle.link)
 
