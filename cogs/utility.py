@@ -54,16 +54,6 @@ SERVER_ID = [1088118252200276071, 1117859916749742140]
 
 
 
-
-####################### COOLDOWN FOR PROMOTION #########################
-# Define the cooldown time (in seconds)
-cooldown_time = 7200  # 2 hours cooldown
-
-# Create a cooldown mapping object for the /promote command
-promote_cooldown = commands.CooldownMapping.from_cooldown(1, cooldown_time, commands.BucketType.guild)
-####################### COOLDOWN FOR PROMOTION #########################
-
-
 class Utility(commands.Cog):
     # this is a special method that is called when the cog is loaded
     def __init__(self, bot):
