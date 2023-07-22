@@ -79,7 +79,7 @@ class Core(commands.Cog):
                     start_time = cooldown_data['start_time']
                     elapsed_time = current_time - start_time
                     cooldown_time = float(cooldown_data['cooldown']) #convert to float type to ensure accuracy
-                    remaining_time = max(0, cooldown_time - elapsed_time.total_seconds())
+                    remaining_time = max(0, cooldown_time - float(elapsed_time.total_seconds()))
 
                     await ctx.send(f"start time = {start_time}\nelapsed_time = {elapsed_time}\ncooldown_time = {cooldown_time}\nremaining time = {remaining_time}")
             
