@@ -89,6 +89,7 @@ class Core(commands.Cog):
                     else:
                         # Save the remaining time to the database
                         bump_db.cooldowns.update_one({"_id": cooldown_data["_id"]}, {"$set": {"cooldown": remaining_time}})
+                        continue
 
             await ctx.respond(f"{ctx.author.mention}\nNow taking a rest sir...\n*Have a wonderful day!*", ephemeral=True)
             await self.bot.close() #shutdown bot (graceful) -- currently doesnt work with sparkedhost as they have a "restart server on crash" system in place
