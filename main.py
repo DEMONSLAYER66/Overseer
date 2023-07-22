@@ -51,26 +51,38 @@ async def on_ready():
 
   #start the autopurge task
   configuration_cog = bot.get_cog('Configuration') #get the configuration cog
+  current_time = datetime.datetime.utcnow()
   for server_id in server_ids: #for every active server, create a loop task for autopurge
       # Retrieve autopurge configurations from database
       autopurge_config = autopurge_db[f"autopurge_config_{server_id}"].find()
       if autopurge_config:
           for config in autopurge_config:
-              purge_channel_id = config["purge_channel_id"]
+              time_remaining = config['time_remaining']
+              if time_remaining:
+                  time_remaining = float(time_remaining) #convert to float type
+                  purge_channel_id = config["purge_channel_id"]
+        
+                  # Update the 'start_time' field in the MongoDB collection
+                  autopurge_config = autopurge_db[f"autopurge_config_{server_id}"].update_one(
+                      {'_id': config['_id']},  # Use the _id field to identify the document
+                      {'$set': {'start_time': current_time}}
+                  )
+    
+                  #continue the autopurge task loop
+                  await configuration_cog.autopurge_startup(server_id, purge_channel_id, time_remaining)
 
-              #create the autopurge task loop
-              bot.loop.create_task(configuration_cog.autopurge_task(server_id, purge_channel_id))
-
+    
   # Get all cooldown entries from the database (for cooldowns on promotions)
   cooldown_data_list = bump_db.cooldowns.find()
+    
+  current_time = datetime.datetime.utcnow()
 
   if cooldown_data_list:
       for cooldown_data in cooldown_data_list:
-          current_time = datetime.datetime.utcnow()
           cooldown_time = float(cooldown_data['cooldown']) #convert to integer
           guild_id = cooldown_data['server_id']
 
-          # Update the 'send_time' field in the MongoDB collection
+          # Update the 'start_time' field in the MongoDB collection
           bump_db.cooldowns.update_one(
               {'_id': cooldown_data['_id']},  # Use the _id field to identify the document
               {'$set': {'start_time': current_time}}
