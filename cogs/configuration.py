@@ -663,7 +663,7 @@ class Configuration(commands.Cog):
               }
             )
 
-            await ctx.respond(f"{ctx.author.mention}\nI have begun the purging process and set up your autopurge configuration.\n{channel.mention} will be purged every `{frequency_purge_time}` and will have a maximum message count of `{messagecount if messagecount else 0}` messages.\n\n*Please ensure that any messages you would like to keep in the future have been **pinned** to the channel.*\n\nYou may view your currently autopurged channels using my </{autopurgelist_command.name}:{autopurgelist_command.id}> directive, if you desire.", ephemeral=True)
+            await ctx.respond(f"{ctx.author.mention}\n\nI have begun the purging process and set up your autopurge configuration.\n{channel.mention} will be purged every `{frequency_purge_time}` and will have a maximum message count of `{messagecount if messagecount else 0}` messages.\n\n*Please ensure that any messages you would like to keep in the future have been **pinned** to the channel.*\nYou may view your currently autopurged channels using my </{autopurgelist_command.name}:{autopurgelist_command.id}> directive, if you desire.", ephemeral=True)
 
 
             #create a loop that begins using the information given here
@@ -686,7 +686,7 @@ class Configuration(commands.Cog):
               }
             )
 
-            await ctx.respond(f"{ctx.author.mention}\nI have begun the purging process and updated your autopurge configuration.\n{channel.mention} will now be purged every `{frequency_purge_time}` and will have a maximum message count of `{messagecount if messagecount else 0}` messages.\n\n*Please ensure that any messages you would like to keep in the future have been **pinned** to the channel.*\n\nYou may view your currently autopurged channels using my </{autopurgelist_command.name}:{autopurgelist_command.id}> directive, if you desire.", ephemeral=True)
+            await ctx.respond(f"{ctx.author.mention}\n\nI have begun the purging process and updated your autopurge configuration.\n{channel.mention} will now be purged every `{frequency_purge_time}` and will have a maximum message count of `{messagecount if messagecount else 0}` messages.\n\n*Please ensure that any messages you would like to keep in the future have been **pinned** to the channel.*\nYou may view your currently autopurged channels using my </{autopurgelist_command.name}:{autopurgelist_command.id}> directive, if you desire.", ephemeral=True)
 
             #create a loop that begins using the information given here
             self.bot.loop.create_task(self.autopurge_task(ctx.guild.id, channel.id))
