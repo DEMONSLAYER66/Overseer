@@ -381,13 +381,14 @@ class Utility(commands.Cog):
     # when the bot goes offline
     @commands.Cog.listener()
     async def on_disconnect(self):
-        current_time = datetime.datetime.utcnow()
+        print("loop1")
     
         # Get all cooldown entries from the database
         cooldown_data_list = bump_db.cooldowns.find()
 
         if cooldown_data_list:
             for cooldown_data in cooldown_data_list:
+                current_time = datetime.datetime.utcnow()
                 start_time = cooldown_data['start_time']
                 elapsed_time = current_time - start_time
                 cooldown_time = float(cooldown_data['cooldown'])
