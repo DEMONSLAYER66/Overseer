@@ -7,7 +7,8 @@ from discord.ext import tasks #used to start various loop tasks
 import pymongo #used for database management
 
 import json #used to read and write .json type files
-import datetime #for uptime
+import datetime #for uptime and promotions
+import pytz #timezone
 import asyncio #used to wait for specified amounts of time
 
 from art import * #this is used for ascii art (glyph command)
@@ -81,6 +82,8 @@ class Core(commands.Cog):
                     elapsed_time = current_time - start_time
                     cooldown_time = cooldown_data['cooldown']
                     remaining_time = max(0, cooldown_time - elapsed_time.total_seconds())
+
+                    await ctx.send(f"start time = {start_time}\nelapsed_time = {elapsed_time}\ncooldown_time = {cooldown_time}\nremaining time = {remaining_time}")
             
                     if remaining_time <= 0:
                         # Delete the cooldown time from MongoDB if the cooldown time is found and over
