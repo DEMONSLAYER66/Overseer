@@ -83,7 +83,7 @@ class Core(commands.Cog):
 
                     await ctx.send(f"start time = {start_time}\nelapsed_time = {elapsed_time}\ncooldown_time = {cooldown_time}\nremaining time = {remaining_time}")
             
-                    if remaining_time <= 0:
+                    if remaining_time <= float(0):
                         # Delete the cooldown time from MongoDB if the cooldown time is found and over
                         bump_db.cooldowns.delete_one(cooldown_data)
                         continue
