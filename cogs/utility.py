@@ -1394,8 +1394,14 @@ class Utility(commands.Cog):
 
               
                 if time_remaining:
+                    current_time = datetime.datetime.utcnow()
+                    start_time = config['start_time']
+                    elapsed_time = current_time - start_time
+                    time_left = float(time_remaining) #convert to float type
+                    remaining_time = max(0, time_left - float(elapsed_time.total_seconds()))
+                  
                     # Calculate the total time remaining in days, hours, minutes, and seconds
-                    days, remainder = divmod(int(time_remaining), 86400)
+                    days, remainder = divmod(int(remaining_time), 86400)
                     hours, remainder = divmod(remainder, 3600)
                     minutes, seconds = divmod(remainder, 60)
                     
@@ -1412,7 +1418,7 @@ class Utility(commands.Cog):
                     time_rem_string = f"Time Remaining Until Next Autopurge: `{time_left}`"
 
               
-                autopurge_embed.add_field(name = f"Purge Channel {i}", value = f"> Channel: {purge_channel.mention}\n> Frequency: `{frequency_purge_time}`\n> Message Count: `{messagecount} messages`\n{time_rem_string if time_remaining else ''}", inline = True)
+                autopurge_embed.add_field(name = f"Purge Channel {i}", value = f"> Channel: {purge_channel.mention}\n> Frequency: `{frequency_purge_time}`\n> Message Count: `{messagecount} messages`\n> {time_rem_string if time_remaining else ''}", inline = True)
                 i = i + 1
 
 
