@@ -70,12 +70,13 @@ class Core(commands.Cog):
     async def rest(self, ctx):
         # Check if the command invoker is the bot owner
         if ctx.author.id == 776986646377267240:
+            # current_time = datetime.datetime.utcnow()
+            #
             # # Get all cooldown entries from the database (for cooldowns on promotions)
             # cooldown_data_list = bump_db.cooldowns.find()
     
             # if cooldown_data_list:
             #     for cooldown_data in cooldown_data_list:
-            #         current_time = datetime.datetime.utcnow()
             #         start_time = cooldown_data['start_time']
             #         elapsed_time = current_time - start_time
             #         cooldown_time = float(cooldown_data['cooldown']) #convert to float type to ensure accuracy
