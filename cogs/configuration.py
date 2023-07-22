@@ -585,6 +585,10 @@ class Configuration(commands.Cog):
                         frequency_seconds += int(value) * 60
                     elif unit == "s":
                         frequency_seconds += int(value)
+
+            if frequency_seconds < 60:
+                await ctx.respond(f"Apologies {ctx.author.mention},\nAutopurged channels must have a *frequency* of at least `60s`.\n*Please try again.*", ephmeral=True)
+                return
     
           
             # Calculate the total frequency time in days, hours, minutes, and seconds
