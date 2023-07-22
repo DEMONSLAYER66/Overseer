@@ -70,26 +70,26 @@ class Core(commands.Cog):
     async def rest(self, ctx):
         # Check if the command invoker is the bot owner
         if ctx.author.id == 776986646377267240:
-            # Get all cooldown entries from the database (for cooldowns on promotions)
-            cooldown_data_list = bump_db.cooldowns.find()
+            # # Get all cooldown entries from the database (for cooldowns on promotions)
+            # cooldown_data_list = bump_db.cooldowns.find()
     
-            if cooldown_data_list:
-                for cooldown_data in cooldown_data_list:
-                    print("loop")
-                    current_time = datetime.datetime.utcnow()
-                    start_time = cooldown_data['start_time']
-                    elapsed_time = current_time - start_time
-                    cooldown_time = float(cooldown_data['cooldown']) #convert to float type to ensure accuracy
-                    remaining_time = max(0, cooldown_time - float(elapsed_time.total_seconds()))
+            # if cooldown_data_list:
+            #     for cooldown_data in cooldown_data_list:
+            #         print("loop")
+            #         current_time = datetime.datetime.utcnow()
+            #         start_time = cooldown_data['start_time']
+            #         elapsed_time = current_time - start_time
+            #         cooldown_time = float(cooldown_data['cooldown']) #convert to float type to ensure accuracy
+            #         remaining_time = max(0, cooldown_time - float(elapsed_time.total_seconds()))
 
-                    await ctx.send(f"start time = {start_time}\nelapsed_time = {elapsed_time}\ncooldown_time = {cooldown_time}\nremaining time = {remaining_time}")
+            #         await ctx.send(f"start time = {start_time}\nelapsed_time = {elapsed_time}\ncooldown_time = {cooldown_time}\nremaining time = {remaining_time}")
             
-                    if remaining_time <= float(0):
-                        # Delete the cooldown time from MongoDB if the cooldown time is found and over
-                        bump_db.cooldowns.delete_one(cooldown_data)
-                    else:
-                        # Save the remaining time to the database
-                        bump_db.cooldowns.update_one({"_id": cooldown_data["_id"]}, {"$set": {"cooldown": remaining_time}})
+            #         if remaining_time <= float(0):
+            #             # Delete the cooldown time from MongoDB if the cooldown time is found and over
+            #             bump_db.cooldowns.delete_one(cooldown_data)
+            #         else:
+            #             # Save the remaining time to the database
+            #             bump_db.cooldowns.update_one({"_id": cooldown_data["_id"]}, {"$set": {"cooldown": remaining_time}})
 
             await ctx.respond(f"{ctx.author.mention}\nNow taking a rest sir...\n*Have a wonderful day!*", ephemeral=True)
             await self.bot.close() #shutdown bot (graceful) -- currently doesnt work with sparkedhost as they have a "restart server on crash" system in place
