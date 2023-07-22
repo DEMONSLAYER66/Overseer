@@ -61,15 +61,13 @@ async def on_ready():
               #create the autopurge task loop
               bot.loop.create_task(configuration_cog.autopurge_task(server_id, purge_channel_id))
 
-    
-  current_time = datetime.datetime.utcnow()
-
   # Get all cooldown entries from the database (for cooldowns on promotions)
   cooldown_data_list = bump_db.cooldowns.find()
 
   if cooldown_data_list:
       for cooldown_data in cooldown_data_list:
-          cooldown_time = cooldown_data['cooldown']
+          current_time = datetime.datetime.utcnow()
+          cooldown_time = float(cooldown_data['cooldown']) #convert to float type to ensure accuracy
           guild_id = cooldown_data['server_id']
 
           # Update the 'send_time' field in the MongoDB collection
