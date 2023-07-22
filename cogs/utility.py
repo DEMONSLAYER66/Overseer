@@ -396,11 +396,9 @@ class Utility(commands.Cog):
                 if remaining_time <= 0:
                     # Delete the cooldown time from MongoDB if the cooldown time is found and over
                     bump_db.cooldowns.delete_one(cooldown_data)
-                    continue
                 else:
                     # Save the remaining time to the database
                     bump_db.cooldowns.update_one({"_id": cooldown_data["_id"]}, {"$set": {"cooldown": remaining_time}})
-                    continue
 
 ############################# PROMOTE #########################
 
