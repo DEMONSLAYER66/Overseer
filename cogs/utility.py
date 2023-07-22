@@ -129,6 +129,7 @@ class Utility(commands.Cog):
         cooldown_data = bump_db.cooldowns.find_one(ctx.guild.id)
 
         if cooldown_data:
+            current_time = datetime.datetime.utcnow()
             start_time = cooldown_data['start_time']
             elapsed_time = current_time - start_time
             cooldown_time = cooldown_data['cooldown']
