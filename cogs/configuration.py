@@ -586,7 +586,9 @@ class Configuration(commands.Cog):
                     elif unit == "s":
                         frequency_seconds += int(value)
 
-                    if frequency_seconds < 60:
+                    if frequency_seconds == 0:
+                        pass
+                    elif frequency_seconds < 60:
                         await ctx.respond(f"Apologies {ctx.author.mention},\nAutopurged channels must have a *frequency* of at least `60s`.\n*Please try again.*", ephemeral=True)
                         return
             else:
