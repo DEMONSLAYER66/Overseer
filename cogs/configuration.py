@@ -585,12 +585,12 @@ class Configuration(commands.Cog):
                         frequency_seconds += int(value) * 60
                     elif unit == "s":
                         frequency_seconds += int(value)
+
+                    if frequency_seconds < 60:
+                        await ctx.respond(f"Apologies {ctx.author.mention},\nAutopurged channels must have a *frequency* of at least `60s`.\n*Please try again.*", ephmeral=True)
+                        return
             else:
                 await ctx.respond(f"Apologies {ctx.author.mention},\nThe *frequency* parameter must be in the form `01d:01h:01m:01s` or a combination of this.\n*Please try again.*", ephemeral=True)
-                return
-                
-            if frequency_seconds < 60:
-                await ctx.respond(f"Apologies {ctx.author.mention},\nAutopurged channels must have a *frequency* of at least `60s`.\n*Please try again.*", ephmeral=True)
                 return
     
           
