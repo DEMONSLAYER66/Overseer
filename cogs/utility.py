@@ -353,13 +353,13 @@ class Utility(commands.Cog):
       
         reminder_embed = discord.Embed(
             title=f"{guild.name}\nPromotion Reminder",
-            description=f"> Attention {author.mention} and the members of {guild.name},\n> The promotion cooldown has **ended** for this guild...\n> \n> You may once again use the </{promote_app_command.name}:{promote_app_command.id}> directive!\n> \n> You may also utilize </{eventhandler_command.name}:{eventhandler_command.id}> in order to turn promotion reminders on or off.\n> \n> *Best of luck in promoting and growing this esteemed community, good fellows!*",
+            description=f"> Attention members of {guild.name},\n> The promotion cooldown has **ended** for this guild...\n> \n> You may once again use the </{promote_app_command.name}:{promote_app_command.id}> directive!\n> \n> You may also utilize </{eventhandler_command.name}:{eventhandler_command.id}> in order to turn promotion reminders on or off.\n> \n> *Best of luck in promoting and growing this esteemed community, good fellows!*",
             color=discord.Color.from_rgb(0, 0, 255)
         )
         reminder_embed.set_thumbnail(url=self.bot.user.avatar.url)
 
         try:
-            await channel.send(embed=reminder_embed)
+            await channel.send(f"{author.mention}", embed=reminder_embed)
         except:
             return
 
