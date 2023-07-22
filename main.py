@@ -67,7 +67,7 @@ async def on_ready():
   if cooldown_data_list:
       for cooldown_data in cooldown_data_list:
           current_time = datetime.datetime.utcnow()
-          cooldown_time = int(cooldown_data['cooldown']) #convert to integer
+          cooldown_time = float(cooldown_data['cooldown']) #convert to integer
           guild_id = cooldown_data['server_id']
 
           # Update the 'send_time' field in the MongoDB collection
