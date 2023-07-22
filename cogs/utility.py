@@ -126,7 +126,7 @@ class Utility(commands.Cog):
     @commands.cooldown(1, 60, commands.BucketType.guild)
     async def promote(self, ctx):
         # check if a cooldown is active for the guild
-        cooldown_data = bump_db.cooldowns.find_one(ctx.guild.id)
+        cooldown_data = bump_db.cooldowns.find_one({"server_id": ctx.guild.id})
 
         if cooldown_data:
             current_time = datetime.datetime.utcnow()
