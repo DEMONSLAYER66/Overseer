@@ -8,7 +8,6 @@ import pymongo #used for database management
 
 import json #used to read and write .json type files
 import datetime #for uptime and promotions
-import pytz #timezone
 import asyncio #used to wait for specified amounts of time
 
 from art import * #this is used for ascii art (glyph command)
