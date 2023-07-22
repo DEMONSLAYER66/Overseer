@@ -381,6 +381,7 @@ class Utility(commands.Cog):
     # when the bot goes offline (either manually or randomly)
     @commands.Cog.listener()
     async def on_disconnect(self):
+        #### Promotions
         current_time = datetime.datetime.utcnow()
       
         # Get all cooldown entries from the database
@@ -395,10 +396,68 @@ class Utility(commands.Cog):
         
                 if remaining_time <= 0:
                     # Delete the cooldown time from MongoDB if the cooldown time is found and over
-                    bump_db.cooldowns.delete_one(cooldown_data)
+                    bump_db.cooldowns.delete_one({"_id": cooldown_data["_id"]})
                 else:
                     # Save the remaining time to the database
                     bump_db.cooldowns.update_one({"_id": cooldown_data["_id"]}, {"$set": {"cooldown": remaining_time}})
+
+
+        #### Autopurge
+        server_ids = []
+        for guild in bot.guilds:
+            server_ids.append(guild.id)
+
+        configuration_cog = bot.get_cog('Configuration') #get the configuration cog
+        current_time = datetime.datetime.utcnow()
+      
+        # Get all cooldown entries from the database
+        cooldown_data_list = bump_db.cooldowns.find()
+
+        if cooldown_data_list:
+            for cooldown_data in cooldown_data_list:
+                start_time = cooldown_data['start_time']
+                elapsed_time = current_time - start_time
+                cooldown_time = float(cooldown_data['cooldown'])
+                remaining_time = max(0, cooldown_time - float(elapsed_time.total_seconds()))
+        
+                if remaining_time <= 0:
+                    # Delete the cooldown time from MongoDB if the cooldown time is found and over
+                    bump_db.cooldowns.delete_one({"_id": config["_id"]})
+                else:
+                    # Save the remaining time to the database
+                    bump_db.cooldowns.update_one({"_id": config["_id"]}, {"$set": {"cooldown": remaining_time}})
+
+
+
+        #### Autopurge
+        server_ids = []
+        for guild in self.bot.guilds:
+            server_ids.append(guild.id)
+      
+        #start the autopurge task
+        configuration_cog = self.bot.get_cog('Configuration') #get the configuration cog
+        current_time = datetime.datetime.utcnow()
+        for server_id in server_ids:
+            # Retrieve autopurge configurations from database
+            autopurge_config = autopurge_db[f"autopurge_config_{server_id}"].find()
+            if autopurge_config:
+                for config in autopurge_config:
+                    time_remaining = config['time_remaining']
+                    if time_remaining:
+                        start_time = config['start_time']
+                        elapsed_time = current_time - start_time
+                        time_left = float(time_remaining) #convert to float type
+                        remaining_time = max(0, time_left - float(elapsed_time.total_seconds()))
+    
+    
+                        if remaining_time <= 0:
+                            # Delete the cooldown time from MongoDB if the cooldown time is found and over
+                            autopurge_db[f"autopurge_config_{server_id}"].delete_one({"_id": config["_id"]})
+                        else:
+                            # Save the remaining time to the database
+                            autopurge_db[f"autopurge_config_{server_id}"].update_one({"_id": config["_id"]}, {"$set": {"time_remaining": remaining_time}})
+
+  
 
 ############################# PROMOTE #########################
 
