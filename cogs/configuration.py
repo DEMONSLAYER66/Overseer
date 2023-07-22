@@ -565,7 +565,10 @@ class Configuration(commands.Cog):
                 # Count the number of autopurge configurations already created
                 autopurge_count = autopurge_db[f"autopurge_config_{ctx.guild.id}"].count_documents({})
                 if autopurge_count >= 5:
-                    await ctx.respond(f"Apologies good sir,\nYou have reached the maximum limit of **5** autopurge configurations for ***{ctx.guild.name}***.\n\nYou may view a list of the current autopurge channel(s) using my `/autopurgelist` directive.\nUse `/help autopurge` for more information on how to manage this issue, good sir.\n\nYou may also use my `/patron` directive to upgrade your patron status for this guild to receive *unlimited* configurations for this directive, if you wish.", ephemeral=True)
+                    autopurgelist_command = self.bot.get_application_command("autopurgelist")
+                    patron_command = self.bot.get_application_command("patron")
+                    help_command = self.bot.get_application_command("help")
+                    await ctx.respond(f"Apologies good sir,\nYou have reached the maximum limit of **5** autopurge configurations for ***{ctx.guild.name}***.\n\nYou may view a list of the current autopurge channel(s) using my </{autopurgelist_command.name}:{autopurgelist_command.id}> directive.\nUse my </{help_command.name}:{help_command.id}> directive and search for `autopurge` for more information on how to manage this issue, good sir.\n\nYou may also use my </{patron_command.name}:{patron_command.id}> directive to upgrade your patron status for this guild to receive *unlimited* configurations for this directive, if you wish.", ephemeral=True)
                     return
 
           
@@ -631,6 +634,8 @@ class Configuration(commands.Cog):
         #get current time (for saving amount of time remaining)
         start_time = datetime.utcnow()
 
+        autopurgelist_command = self.bot.get_application_command("autopurgelist")
+
         if not autopurge_db[f"autopurge_config_{ctx.guild.id}"].find_one(purge_key):
             await ctx.respond(f"Good sir, there are currently no autopurge configurations for {channel.mention}\n*Now creating this configuration...*", ephemeral=True)
             await asyncio.sleep(5)
@@ -649,7 +654,7 @@ class Configuration(commands.Cog):
               }
             )
 
-            await ctx.respond(f"{ctx.author.mention}\nI have set up your autopurge configurations.\nMessages in {channel.mention} will be deleted after `{frequency_purge_time}` and `{messagecount}` messages.", ephemeral=True)
+            await ctx.respond(f"{ctx.author.mention}\nI have begun the purging process and set up your autopurge configuration.\n{channel.mention} will be purged every `{frequency_purge_time}` and will have a maximum message count of `{messagecount if messagecount else 0}` messages.\n\n*Please ensure that any messages you would like to keep in the future have been **pinned** to the channel.*\n\nYou may view your currently autopurged channels using my </{autopurgelist_command.name}:{autopurgelist_command.id}> directive, if you desire.", ephemeral=True)
 
 
             #create a loop that begins using the information given here
@@ -672,7 +677,7 @@ class Configuration(commands.Cog):
               }
             )
 
-            await ctx.respond(f"{ctx.author.mention}\nI have updated your autopurge configurations.\nMessages in {channel.mention} will now be deleted after `{frequency_purge_time}` and `{messagecount}` messages.", ephemeral=True)
+            await ctx.respond(f"{ctx.author.mention}\nI have begun the purging process and updated your autopurge configuration.\n{channel.mention} will now be purged every `{frequency_purge_time}` and will have a maximum message count of `{messagecount if messagecount else 0}` messages.\n\n*Please ensure that any messages you would like to keep in the future have been **pinned** to the channel.*\n\nYou may view your currently autopurged channels using my </{autopurgelist_command.name}:{autopurgelist_command.id}> directive, if you desire.", ephemeral=True)
 
             #create a loop that begins using the information given here
             self.bot.loop.create_task(self.autopurge_task(ctx.guild.id, channel.id))
