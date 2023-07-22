@@ -390,8 +390,8 @@ class Utility(commands.Cog):
             for cooldown_data in cooldown_data_list:
                 start_time = cooldown_data['start_time']
                 elapsed_time = current_time - start_time
-                cooldown_time = cooldown_data['cooldown']
-                remaining_time = max(0, cooldown_time - elapsed_time.total_seconds())
+                cooldown_time = float(cooldown_data['cooldown'])
+                remaining_time = max(0, cooldown_time - float(elapsed_time.total_seconds()))
         
                 if remaining_time <= 0:
                     # Delete the cooldown time from MongoDB if the cooldown time is found and over
