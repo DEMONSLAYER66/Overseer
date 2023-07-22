@@ -81,6 +81,10 @@ class Core(commands.Cog):
                     elapsed_time = current_time - start_time
                     cooldown_time = cooldown_data['cooldown']
                     remaining_time = max(0, cooldown_time - elapsed_time.total_seconds())
+
+                    print(elapsed_time)
+                    print(cooldown_time)
+                    primt(remaining_time)
             
                     if remaining_time <= 0:
                         # Delete the cooldown time from MongoDB if the cooldown time is found and over
