@@ -589,9 +589,12 @@ class Configuration(commands.Cog):
                     if frequency_seconds < 60:
                         await ctx.respond(f"Apologies {ctx.author.mention},\nAutopurged channels must have a *frequency* of at least `60s`.\n*Please try again.*", ephemeral=True)
                         return
-            elif not match and frequency != 0:
-                await ctx.respond(f"Apologies {ctx.author.mention},\nThe *frequency* parameter must be in the form `01d:01h:01m:01s` or a combination of this.\n*Please try again.*", ephemeral=True)
-                return
+            else:
+                if frequency == 0:
+                    pass
+                else:
+                    await ctx.respond(f"Apologies {ctx.author.mention},\nThe *frequency* parameter must be in the form `01d:01h:01m:01s` or a combination of this.\n*Please try again.*", ephemeral=True)
+                    return
     
           
             # Calculate the total frequency time in days, hours, minutes, and seconds
