@@ -75,7 +75,6 @@ class Core(commands.Cog):
     
             # if cooldown_data_list:
             #     for cooldown_data in cooldown_data_list:
-            #         print("loop")
             #         current_time = datetime.datetime.utcnow()
             #         start_time = cooldown_data['start_time']
             #         elapsed_time = current_time - start_time
