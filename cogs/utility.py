@@ -449,14 +449,9 @@ class Utility(commands.Cog):
                         elapsed_time = current_time - start_time
                         time_left = float(time_remaining) #convert to float type
                         remaining_time = max(0, time_left - float(elapsed_time.total_seconds()))
-    
-    
-                        if remaining_time <= 0:
-                            # Delete the cooldown time from MongoDB if the cooldown time is found and over
-                            autopurge_db[f"autopurge_config_{server_id}"].delete_one({"_id": config["_id"]})
-                        else:
-                            # Save the remaining time to the database
-                            autopurge_db[f"autopurge_config_{server_id}"].update_one({"_id": config["_id"]}, {"$set": {"time_remaining": remaining_time}})
+
+                        #save time_remaining to database even if 0 time left
+                        autopurge_db[f"autopurge_config_{server_id}"].update_one({"_id": config["_id"]}, {"$set": {"time_remaining": remaining_time}})
 
   
 
