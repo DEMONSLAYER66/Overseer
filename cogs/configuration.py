@@ -235,6 +235,14 @@ class Configuration(commands.Cog):
                 invite_link = await invite_channel.create_invite(max_age=0, max_uses=0, unique=True)
             else:
                 invite_link = server_data['invite_link']
+                
+                # check if invite is valid or not
+                try:
+                    await self.bot.fetch_invite(invite_link)
+                except:
+                    #if invalid link, create a new one
+                    invite_link = await invite_channel.create_invite(max_age=0, max_uses=0, unique=True)
+
         else:
             bumps = 0 #no bumps yet
             invite_link = await invite_channel.create_invite(max_age=0, max_uses=0, unique=True)
