@@ -303,7 +303,10 @@ class Utility(commands.Cog):
             info_view.add_item(JoinSupportGuild)
 
             #delete the initial embed telling the user that their bot is queued
-            await initial_message.delete()
+            try:
+                await initial_message.delete()
+            except:
+                pass
             
             await ctx.send(embed=info_embed, view=info_view)
 
