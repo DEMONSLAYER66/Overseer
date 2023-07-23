@@ -675,7 +675,7 @@ class Configuration(commands.Cog):
 
 
             #create a loop that begins using the information given here
-            self.bot.loop.create_task(self.autopurge_task(ctx.guild.id, channel.id))
+            await self.autopurge_task(ctx.guild.id, channel.id)
 
         else:
             autopurge_db[f"autopurge_config_{ctx.guild.id}"].update_one(
@@ -697,7 +697,7 @@ class Configuration(commands.Cog):
             await ctx.respond(f"{ctx.author.mention}\n\nI have begun the purging process and updated your autopurge configuration.\n{channel.mention} will now be purged every `{frequency_purge_time}` and will have a maximum message count of `{messagecount if messagecount else 0}` messages.\n\n*Please ensure that any messages you would like to keep in the future have been **pinned** to the channel.*\nYou may view your currently autopurged channels using my </{autopurgelist_command.name}:{autopurgelist_command.id}> directive, if you desire.", ephemeral=True)
 
             #create a loop that begins using the information given here
-            self.bot.loop.create_task(self.autopurge_task(ctx.guild.id, channel.id))
+            await self.autopurge_task(ctx.guild.id, channel.id)
 
 
 
@@ -822,7 +822,7 @@ class Configuration(commands.Cog):
     
         #Autopurge task event only runs if event status using /eventhandler is set to enabled OR if the user has not set the status using /eventhandler
         if autopurge_status == "Disabled":
-            return
+            await self.autopurge_task(guild_id, purge_channel_id)
         elif autopurge_status == "Enabled":
             # Retrieve autopurge configuration from database
             autopurge_key = {
@@ -885,7 +885,7 @@ class Configuration(commands.Cog):
             # Print number of messages deleted
             # print(f"Deleted {len(deleted_messages)} messages in {channel.name}")
     
-            self.bot.loop.create_task(self.autopurge_task(guild_id, channel_id))
+            await self.autopurge_task(guild_id, channel_id)
 
 
 ##############################AUTOPURGE#################################
