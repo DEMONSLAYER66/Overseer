@@ -131,7 +131,7 @@ class Fun(commands.Cog):
           score = random_sub.score #the number of upvotes
       
     
-          meme_embed = discord.Embed(title="Satirical Image", description=f"{ctx.author.mention}\nHere is a satirical image for your enjoyment, good sir.", color=discord.Color.from_rgb(0, 0, 255))
+          meme_embed = discord.Embed(title="Satirical Image", description=f"{ctx.author.mention}\nHere is a satirical image for your enjoyment, good sir.", color=discord.Color.from_rgb(130, 130, 130))
           meme_embed.add_field(name="Satirical Image Name", value=f"`{name}`", inline=False)
           meme_embed.add_field(name="Author", value=f"`{author}`", inline=False)
           meme_embed.add_field(name="Subreddit", value=f"`{subreddit}`")
@@ -235,7 +235,7 @@ class Fun(commands.Cog):
       if link == "":
           link = None
     
-      bored_embed = discord.Embed(title="Alleviate Boredom", description=f"{ctx.author.mention}\nPlease try the following suggestion to help alleviate your boredom, good sir.", color=discord.Color.from_rgb(0, 0, 255))
+      bored_embed = discord.Embed(title="Alleviate Boredom", description=f"{ctx.author.mention}\nPlease try the following suggestion to help alleviate your boredom, good sir.", color=discord.Color.from_rgb(130, 130, 130))
 
       bored_embed.add_field(name="Activity", value=f"`{activity}`")
       bored_embed.add_field(name="Activity Type", value=f"`{type}`", inline=False)
@@ -332,7 +332,7 @@ class Fun(commands.Cog):
 
 
 
-      minecraft_embed = discord.Embed(title="Minotar", description=f"{ctx.author.mention}\nHere is your desired Minecraft user's esteemed visage, good sir.", color=discord.Color.from_rgb(0, 0, 255))
+      minecraft_embed = discord.Embed(title="Minotar", description=f"{ctx.author.mention}\nHere is your desired Minecraft user's esteemed visage, good sir.", color=discord.Color.from_rgb(130, 130, 130))
 
       minecraft_embed.add_field(name="User", value=f"*{user if not style == '🌐 Default Skin' else 'Steve'}*", inline=False)
       minecraft_embed.add_field(name="Style", value=f"`{style}`")
@@ -419,7 +419,7 @@ class Fun(commands.Cog):
                         }
                       )
                        
-                      patron_embed = discord.Embed(title="Patron Feature Directive", description=f"Apologies {ctx.author.mention},\nYou have no free tries remaining for `/converse`.\nThis is an exclusive directive available solely to `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling or upgrading patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(0, 0, 255))
+                      patron_embed = discord.Embed(title="Patron Feature Directive", description=f"Apologies {ctx.author.mention},\nYou have no free tries remaining for `/converse`.\nThis is an exclusive directive available solely to `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling or upgrading patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(130, 130, 130))
             
                       patron_embed.set_thumbnail(url=self.bot.user.avatar.url)
             
@@ -500,7 +500,7 @@ class Fun(commands.Cog):
       # Message received from OpenAI
       message = response["choices"][0]["text"]
       
-      chat_embed = discord.Embed(title=f"Converse With {character}", color=discord.Color.from_rgb(0, 0, 255))
+      chat_embed = discord.Embed(title=f"Converse With {character}", color=discord.Color.from_rgb(130, 130, 130))
       
       chat_embed.add_field(name=f"{ctx.author.display_name} Prompt", value=f"```{prompt}```")
       
@@ -594,7 +594,7 @@ class Fun(commands.Cog):
                         }
                       )
                        
-                      patron_embed = discord.Embed(title="Patron Feature Directive", description=f"Apologies {ctx.author.mention},\nYou have no free tries remaining for `/imagine`.\nThis is an exclusive directive available solely to `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling or upgrading patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(0, 0, 255))
+                      patron_embed = discord.Embed(title="Patron Feature Directive", description=f"Apologies {ctx.author.mention},\nYou have no free tries remaining for `/imagine`.\nThis is an exclusive directive available solely to `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling or upgrading patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(130, 130, 130))
             
                       patron_embed.set_thumbnail(url=self.bot.user.avatar.url)
             
@@ -625,7 +625,7 @@ class Fun(commands.Cog):
 
       
       # Create an embed with the image
-      image_embed = discord.Embed(title=f"{byname}\nImage Generation", description=f"{ctx.author.mention}\nPlease use the following interface to generate your desired imagery, good sir.", color=discord.Color.from_rgb(0, 0, 255))
+      image_embed = discord.Embed(title=f"{byname}\nImage Generation", description=f"{ctx.author.mention}\nPlease use the following interface to generate your desired imagery, good sir.", color=discord.Color.from_rgb(130, 130, 130))
   
       image_embed.set_thumbnail(url=self.bot.user.avatar.url)
 
@@ -707,7 +707,7 @@ class Fun(commands.Cog):
               self.image_url = message.attachments[0].url
             
               # Create an embed with the image
-              image_embed = discord.Embed(title=f"{self.byname}\nImage Generation", color=discord.Color.from_rgb(0, 0, 255))
+              image_embed = discord.Embed(title=f"{self.byname}\nImage Generation", color=discord.Color.from_rgb(130, 130, 130))
           
             
               image_embed.add_field(name=f"{self.ctx.author.display_name} Prompt", value=f"```{self.prompt}```")
@@ -728,7 +728,7 @@ class Fun(commands.Cog):
     
           #prompt is rejected by safety system because prompt might be inappropriate
           except openai.error.InvalidRequestError as e:
-              error_embed = discord.Embed(title=f"{self.byname}\nImage Generation", color=discord.Color.from_rgb(0, 0, 255))
+              error_embed = discord.Embed(title=f"{self.byname}\nImage Generation", color=discord.Color.from_rgb(130, 130, 130))
           
               error_embed.add_field(name=f"{self.ctx.author.display_name} Prompt", value=f"```{self.prompt}```")
 
@@ -746,7 +746,7 @@ class Fun(commands.Cog):
               self.stop()
     
           except openai.error.OpenAIError as e:
-              error_embed = discord.Embed(title=f"{self.byname}\nImage Generation", color=discord.Color.from_rgb(0, 0, 255))
+              error_embed = discord.Embed(title=f"{self.byname}\nImage Generation", color=discord.Color.from_rgb(130, 130, 130))
           
               error_embed.add_field(name=f"{self.ctx.author.display_name} Prompt", value=f"```{self.prompt}```")
 
@@ -773,7 +773,7 @@ class Fun(commands.Cog):
 
           await interaction.response.defer()
 
-          image_embed = discord.Embed(title=f"{self.byname}\nImage Generation", description=f"{self.ctx.author.mention}\nNow generating your imagery, good sir.\n*This may take a moment...*", color=discord.Color.from_rgb(0, 0, 255))
+          image_embed = discord.Embed(title=f"{self.byname}\nImage Generation", description=f"{self.ctx.author.mention}\nNow generating your imagery, good sir.\n*This may take a moment...*", color=discord.Color.from_rgb(130, 130, 130))
       
           image_embed.set_thumbnail(url=self.ctx.bot.user.avatar.url)
     
@@ -801,7 +801,7 @@ class Fun(commands.Cog):
         
           #this indicates that the user cannot use this feature (only available to patrons)
           if self.tries_left != "n/a":
-              patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {self.ctx.author.mention},\nImage variations for my `/imagine` directive are an exclusive directive available solely to `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{self.ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling or upgrading patron (premium) features for ***{self.ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(0, 0, 255))
+              patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {self.ctx.author.mention},\nImage variations for my `/imagine` directive are an exclusive directive available solely to `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{self.ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling or upgrading patron (premium) features for ***{self.ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(130, 130, 130))
     
               patron_embed.set_thumbnail(url=self.ctx.bot.user.avatar.url)
     
@@ -851,7 +851,7 @@ class Fun(commands.Cog):
               discord_variaton_url = message.attachments[0].url
             
               # Create an embed with the image
-              image_embed = discord.Embed(title=f"{self.byname}\nImage Generation", description=f"Variation #{self.variation_number}", color=discord.Color.from_rgb(0, 0, 255))
+              image_embed = discord.Embed(title=f"{self.byname}\nImage Generation", description=f"Variation #{self.variation_number}", color=discord.Color.from_rgb(130, 130, 130))
           
               image_embed.add_field(name="Original Image", value = f"[Click Here](<{self.image_url}>)")
         
@@ -1096,7 +1096,7 @@ class Fun(commands.Cog):
     
           if ctx.guild.id != support_guild_id:
               if not patrons_db.patrons.find_one({"server_id": ctx.guild.id}):
-                  patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {ctx.author.mention},\nCustom image files for my `/glyph` directive are an exclusive feature available solely to patrons and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(0, 0, 255))
+                  patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {ctx.author.mention},\nCustom image files for my `/glyph` directive are an exclusive feature available solely to patrons and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(130, 130, 130))
       
                   patron_embed.set_thumbnail(url=self.bot.user.avatar.url)
       
@@ -1323,7 +1323,7 @@ class Fun(commands.Cog):
 
           if ctx.guild.id != support_guild_id:
               if not patrons_db.patrons.find_one({"server_id": ctx.guild.id}):
-                  patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {ctx.author.mention},\nCustom image files for my `/pictorialize` directive are an exclusive feature available solely to patrons and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(0, 0, 255))
+                  patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {ctx.author.mention},\nCustom image files for my `/pictorialize` directive are an exclusive feature available solely to patrons and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(130, 130, 130))
         
                   patron_embed.set_thumbnail(url=self.bot.user.avatar.url)
         
@@ -1383,7 +1383,7 @@ class Fun(commands.Cog):
 
                       if ctx.guild.id != support_guild_id:
                           if not patrons_db.patrons.find_one({"server_id": ctx.guild.id}):
-                              patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {ctx.author.mention},\nCustom image links for my `/pictorialize` directive are an exclusive feature available solely to patrons and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(0, 0, 255))
+                              patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {ctx.author.mention},\nCustom image links for my `/pictorialize` directive are an exclusive feature available solely to patrons and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(130, 130, 130))
                   
                               patron_embed.set_thumbnail(url=self.bot.user.avatar.url)
                   
@@ -2059,7 +2059,7 @@ class Fun(commands.Cog):
               
               dadjoke = dadjoke_data["joke"]
     
-              dad_embed = discord.Embed(title=f"{self.byname} Thoughts", description=f"{interaction.user.mention}\nHere is a joke I have been wanting to tell you.", color=discord.Color.from_rgb(0, 0, 255))
+              dad_embed = discord.Embed(title=f"{self.byname} Thoughts", description=f"{interaction.user.mention}\nHere is a joke I have been wanting to tell you.", color=discord.Color.from_rgb(130, 130, 130))
   
               dad_embed.add_field(name=f"{emoji} {select.values[0]}", value=f"*{dadjoke}*")
     
@@ -2077,7 +2077,7 @@ class Fun(commands.Cog):
               # Select a random shower thought from the list
               deep_thought = random.choice(shower_thoughts_full)
   
-              deep_embed = discord.Embed(title=f"{self.byname} Thoughts", description=f"Ahem, {interaction.user.mention},\nIf I may be so bold as to offer a profound thought...", color=discord.Color.from_rgb(0, 0, 255))
+              deep_embed = discord.Embed(title=f"{self.byname} Thoughts", description=f"Ahem, {interaction.user.mention},\nIf I may be so bold as to offer a profound thought...", color=discord.Color.from_rgb(130, 130, 130))
   
               deep_embed.add_field(name=f"{emoji} {select.values[0]}", value=f"*{deep_thought}*")
     
@@ -2095,7 +2095,7 @@ class Fun(commands.Cog):
               source = fact_data["source"] #the source for the fact
               source_url = fact_data["source_url"] #the source url for the fact
   
-              fact_embed = discord.Embed(title=f"{self.byname} Thoughts", description=f"{interaction.user.mention}\nHere is a useless random fact for you, good sir.", color=discord.Color.from_rgb(0, 0, 255))
+              fact_embed = discord.Embed(title=f"{self.byname} Thoughts", description=f"{interaction.user.mention}\nHere is a useless random fact for you, good sir.", color=discord.Color.from_rgb(130, 130, 130))
   
               fact_embed.add_field(name=f"{emoji} {select.values[0]}", value=f"*{fact}*")
   
@@ -2115,7 +2115,7 @@ class Fun(commands.Cog):
   
               tech_phrase = tech_data["message"]
   
-              tech_embed = discord.Embed(title=f"{self.byname} Thoughts", description=f"{interaction.user.mention}\nIn order to sound more technologically savvy, simply say the following phrase, good sir.", color=discord.Color.from_rgb(0, 0, 255))
+              tech_embed = discord.Embed(title=f"{self.byname} Thoughts", description=f"{interaction.user.mention}\nIn order to sound more technologically savvy, simply say the following phrase, good sir.", color=discord.Color.from_rgb(130, 130, 130))
   
               tech_embed.add_field(name=f"{emoji} {select.values[0]}", value=f"*{tech_phrase}.*")
     
@@ -2136,7 +2136,7 @@ class Fun(commands.Cog):
   async def thought(self, ctx):
       byname = await self.get_byname(ctx.guild.id)
     
-      thought_embed = discord.Embed(title=f"{byname} Thoughts", description=f"{ctx.author.mention}\nKindly select a genre of thought, good sir.", color=discord.Color.from_rgb(0, 0, 255))
+      thought_embed = discord.Embed(title=f"{byname} Thoughts", description=f"{ctx.author.mention}\nKindly select a genre of thought, good sir.", color=discord.Color.from_rgb(130, 130, 130))
 
       thought_embed.set_thumbnail(url=self.bot.user.avatar.url)
     
