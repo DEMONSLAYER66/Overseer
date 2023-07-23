@@ -721,7 +721,7 @@ class Configuration(commands.Cog):
     #begin deleting messages in the channel
     async def autopurge_task(self, guild_id, purge_channel_id):
         while True:
-            print("autopurge started")
+            # print("autopurge started")
             #get the autopurge event status from mongoDB
             autopurge_status = await self.get_autopurge_event_status(guild_id)
         
@@ -806,10 +806,10 @@ class Configuration(commands.Cog):
                 # Wait for the next autopurge cycle
                 # if frequency is set, use that number, else use 60 seconds as time to check
                 if frequency_seconds:
-                    print(frequency_seconds)
+                    # print(frequency_seconds)
                     await asyncio.sleep(frequency_seconds)
                 else:
-                    print("no frequency set")
+                    # print("no frequency set")
                     await asyncio.sleep(60)
 
 
