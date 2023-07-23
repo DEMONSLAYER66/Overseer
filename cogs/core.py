@@ -186,6 +186,12 @@ class Core(commands.Cog):
         # bot invite link
         invite_link = "https://discord.com/api/oauth2/authorize?client_id=1092515783025889383&permissions=3557027031&scope=bot%20applications.commands"
 
+        #get the current bot version
+        with open("json_files/updates.json", "r") as f:
+            update = json.load(f)
+
+        bot_version = update.get("Update", {}).get("Bot Version") #get the current bot version
+        
         #get the servers the bot is in
         bot_servers = []
         for guild in self.bot.guilds:
@@ -198,7 +204,7 @@ class Core(commands.Cog):
         # Add fields to the embed with bot information
         embed.add_field(name="Original Automaton Name", value="*Lord Bottington*", inline=True)
         embed.add_field(name="Creation Date", value = "`April 3, 2023`", inline=True)
-        embed.add_field(name="Version", value="`1.0`", inline=True)  # bot's version
+        embed.add_field(name="Version", value=f"`{bot_version}`", inline=True)  # bot's version (from updates json file)
         embed.add_field(name="Uptime", value=f"`{uptime}`", inline=False)
         embed.add_field(name=f"{ctx.guild.name}\nAutomaton Name", value=f"*{byname}*", inline=True)
         embed.add_field(name=f"{ctx.guild.name}\nAutomaton ID", value=f"`{ctx.bot.user.id}`", inline=True)
