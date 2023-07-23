@@ -775,6 +775,7 @@ class Configuration(commands.Cog):
                         {"$set": {
                             "start_time": datetime.datetime.utcnow(),
                             "time_remaining": float(frequency_seconds) if frequency_seconds else None
+                            }
                         }
                     )
             
