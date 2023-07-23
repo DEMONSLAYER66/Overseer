@@ -387,7 +387,7 @@ class Utility(commands.Cog):
         reminder_embed.set_thumbnail(url=self.bot.user.avatar.url)
 
         try:
-            await channel.send(f"{author.mention}", embed=reminder_embed)
+            await channel.send(f"{author.mention} ***Promotion Reminder***", embed=reminder_embed)
         except:
             return
 
