@@ -721,6 +721,7 @@ class Configuration(commands.Cog):
     #begin deleting messages in the channel
     async def autopurge_task(self, guild_id, purge_channel_id):
         while True:
+            print("autopurge started")
             #get the autopurge event status from mongoDB
             autopurge_status = await self.get_autopurge_event_status(guild_id)
         
@@ -789,15 +790,16 @@ class Configuration(commands.Cog):
                     deleted_messages = await channel.purge(limit=None, check=lambda m: not m.pinned)
 
                 
-                #reset the time remaining to the original time and start_time to current time if time left is 0
-                autopurge_db[f"autopurge_config_{guild_id}"].update_one(
-                    autopurge_key,
-                    {"$set": {
-                        "start_time": datetime.datetime.utcnow(),
-                        "time_remaining": float(frequency_seconds) if frequency_seconds else None
+                if frequency_seconds and float(frequency_seconds) == float(0):
+                    #reset the time remaining to the original time and start_time to current time if time left is 0
+                    autopurge_db[f"autopurge_config_{guild_id}"].update_one(
+                        autopurge_key,
+                        {"$set": {
+                            "start_time": datetime.utcnow(),
+                            "time_remaining": float(frequency_seconds) if frequency_seconds else None
+                            }
                         }
-                    }
-                )
+                    )
             
                 # Print number of messages deleted
                 # print(f"Deleted {len(deleted_messages)} messages in {channel.name}")
