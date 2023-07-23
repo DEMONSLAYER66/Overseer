@@ -1003,7 +1003,7 @@ class Utility(commands.Cog):
 
             
             desc = f"Good fellows of {self.ctx.guild.name},\n\n***{self.ctx.author.display_name}*** is looking to play a game with some other individuals.\nCare to join in their endeavors, good sir?"
-            embed = discord.Embed(title="Join Together in Play", description=desc, color=discord.Color.from_rgb(0, 112, 209)) #color is the PlayStation RGB color
+            embed = discord.Embed(title="Join Together in Play", description=desc, color=discord.Color.from_rgb(130, 130, 130))
     
             if self.game['url']:
                 embed.set_image(url=self.game['url'])
@@ -1133,7 +1133,7 @@ class Utility(commands.Cog):
 
             
             desc = f"Good fellows of {ctx.guild.name},\n\n***{ctx.author.display_name}*** is looking to play a game with some other individuals.\nCare to join in their endeavors, good sir?"
-            embed = discord.Embed(title="Join Together in Play", description=desc, color=discord.Color.from_rgb(0, 112, 209)) #color is the PlayStation RGB color
+            embed = discord.Embed(title="Join Together in Play", description=desc, color=discord.Color.from_rgb(130, 130, 130))
     
             if self.games_list[game]['url']:
                 embed.set_image(url=self.games_list[game]['url'])
@@ -1353,7 +1353,7 @@ class Utility(commands.Cog):
             return
 
         else:
-            autopurge_embed = discord.Embed(title=f"{ctx.guild.name}\n__Autopurge List__", description = "The following is a list of the current channels being autopurged and their respective frequencies and message counts.", color = discord.Color.from_rgb(26, 92, 199))
+            autopurge_embed = discord.Embed(title=f"{ctx.guild.name}\n__Autopurge List__", description = "The following is a list of the current channels being autopurged and their respective frequencies and message counts.", color = discord.Color.from_rgb(130, 130, 130))
 
             i = 1
             for config in autopurge_db[f"autopurge_config_{ctx.guild.id}"].find():
@@ -3396,7 +3396,7 @@ class Utility(commands.Cog):
         timed_embeds_status = await self.get_timed_embeds_event_status(ctx.guild.id)
 
       
-        embed = discord.Embed(title=f"{ctx.guild.name}\n__Timed Embeds List__", description = f"The following is a list of timed embeds. It is advisable to *remove* or *edit* all timed embeds which are prior to the current time (`{datetime.datetime.now(tz).strftime('%B %d, %Y %I:%M %p %Z')}`)\n{f'Timed embeds are currently **disabled** for {ctx.guild.name}. However, you may update this using my `/eventhandler` directive, if you wish.' if timed_embeds_status == 'Disabled' else ''}", color=discord.Color.from_rgb(31, 92, 191))
+        embed = discord.Embed(title=f"{ctx.guild.name}\n__Timed Embeds List__", description = f"The following is a list of timed embeds. It is advisable to *remove* or *edit* all timed embeds which are prior to the current time (`{datetime.datetime.now(tz).strftime('%B %d, %Y %I:%M %p %Z')}`)\n{f'Timed embeds are currently **disabled** for {ctx.guild.name}. However, you may update this using my `/eventhandler` directive, if you wish.' if timed_embeds_status == 'Disabled' else ''}", color=discord.Color.from_rgb(130, 130, 130))
         for i, config_data in enumerate(embeds_data):
             channel = self.bot.get_channel(config_data['channel_id'])
           
