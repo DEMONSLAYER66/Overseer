@@ -411,33 +411,6 @@ class Utility(commands.Cog):
         server_ids = []
         for guild in self.bot.guilds:
             server_ids.append(guild.id)
-
-        configuration_cog = self.bot.get_cog('Configuration') #get the configuration cog
-        current_time = datetime.datetime.utcnow()
-      
-        # Get all cooldown entries from the database
-        cooldown_data_list = bump_db.cooldowns.find()
-
-        if cooldown_data_list:
-            for cooldown_data in cooldown_data_list:
-                start_time = cooldown_data['start_time']
-                elapsed_time = current_time - start_time
-                cooldown_time = float(cooldown_data['cooldown'])
-                remaining_time = max(0, cooldown_time - float(elapsed_time.total_seconds()))
-        
-                if remaining_time <= 0:
-                    # Delete the cooldown time from MongoDB if the cooldown time is found and over
-                    bump_db.cooldowns.delete_one({"_id": config["_id"]})
-                else:
-                    # Save the remaining time to the database
-                    bump_db.cooldowns.update_one({"_id": config["_id"]}, {"$set": {"cooldown": remaining_time}})
-
-
-
-        #### Autopurge
-        server_ids = []
-        for guild in self.bot.guilds:
-            server_ids.append(guild.id)
       
         #start the autopurge task
         configuration_cog = self.bot.get_cog('Configuration') #get the configuration cog
