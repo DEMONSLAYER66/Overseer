@@ -1411,10 +1411,10 @@ class Utility(commands.Cog):
                     else:
                         time_left = f"{seconds}s"
 
-                    time_rem_string = f"Time Remaining Until Next Autopurge: `{time_left}`"
+                    time_rem_string = f"> Time Remaining Until Next Autopurge: `{time_left}`"
 
               
-                autopurge_embed.add_field(name = f"Purge Channel {i}", value = f"> Channel: {purge_channel.mention}\n> Frequency: `{frequency_purge_time}`\n> Message Count: `{messagecount} messages`\n> {time_rem_string if time_remaining else ''}", inline = True)
+                autopurge_embed.add_field(name = f"Purge Channel {i}", value = f"> Channel: {purge_channel.mention}\n> Frequency: `{frequency_purge_time}`\n> Message Count: `{messagecount} messages`\n{time_rem_string if time_remaining else ''}", inline = True)
                 i = i + 1
 
 
