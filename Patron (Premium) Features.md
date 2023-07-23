@@ -38,7 +38,7 @@ These are the patron features offered to each tier for Lord Bottington. Below, y
     > - Priority assistance for your guild's needs.
 + `Refined Automaton Patron` (***$8/month***)
   - Access to more advanced exclusive services for your guild offered by 🎩Lord Bottington.
-    > - Extra customization capabilities and features for directives.
+    > - Extra customization capabilities for directives.
     > - Access to exclusive directives and features.
     > - Exclusive shop items for you and your guild members.
     > - Exclusive status in support guild.
@@ -47,7 +47,7 @@ These are the patron features offered to each tier for Lord Bottington. Below, y
   - Priority access to every exclusive service for your guild offered by 🎩Lord Bottington.
     > - Access to Lord Bottington's AI functionality (chatbot and image generation).
     > - Access to exclusive directives and features.
-    > - Extra customization capabilities and features for directives.
+    > - Extra customization capabilities for directives.
     > - Unlimited configurations for all directives in the *Configuration* category that are limited.
     > - Exclusive shop items for you and your guild members.
     > - Exclusive status in support guild.
@@ -66,7 +66,7 @@ These are the patron features offered to each tier for Lord Bottington. Below, y
       > + Starboard Messages (custom embed color, custom emoji)
       > + Streaming Notifications (custom embed colors)
       > + Birthday Messages (custom message)
-      > + Promotion Messages (custom color, custom banner, reduced cooldown time (2 hours -> 30 min))
+      > + Promotion Messages (custom color, custom banner)
 + Access to unlimited configurations for certain directives in the *Configuration* category that are limited. ***(Distinguished Patrons Only)***
   - Autopurging channel messages
   - Sending timed embeds
