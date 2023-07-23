@@ -277,7 +277,7 @@ class Configuration(commands.Cog):
               }
             )
             
-            embed_description = f"{ctx.author.mention}\n\n> I have successfully *created* the guild promotion configuration for ***{ctx.guild.name}***.\n> \n> You may now utilize my </{promote_app_command.name}:{promote_app_command.id}> directive every ***2*** hours to promote your guild!\n> You may also utilize </{testpromote_app_command.name}:{testpromote_app_command.id}> to see a preview of your promotion and </{event_handler_command.name}:{event_handler_command.id}> to turn reminders to promote this guild on or off, if you desire.\n> \n> *Best of luck to you in growing this esteemed community, good sir!*"
+            embed_description = f"{ctx.author.mention}\n\n> I have successfully *created* the guild promotion configuration for ***{ctx.guild.name}***.\n> \n> You may now utilize my </{promote_app_command.name}:{promote_app_command.id}> directive every `2 hours` to promote your guild!\n> You may also utilize </{testpromote_app_command.name}:{testpromote_app_command.id}> to see a preview of your promotion and </{event_handler_command.name}:{event_handler_command.id}> to turn reminders to promote this guild on or off, if you desire.\n> \n> *Best of luck to you in growing this esteemed community, good sir!*"
             
         else:
             bump_db.bump_configs.update_one(
@@ -301,7 +301,7 @@ class Configuration(commands.Cog):
             )
 
         
-            embed_description = f"{ctx.author.mention}\n\n> I have successfully *updated* the guild promotion configuration for ***{ctx.guild.name}***.\n> \n> You may now utilize my </{promote_app_command.name}:{promote_app_command.id}> directive every ***2*** hours to promote your guild!\n> You may also utilize </{testpromote_app_command.name}:{testpromote_app_command.id}> to see a preview of your promotion and </{event_handler_command.name}:{event_handler_command.id}> to turn reminders to promote this guild on or off, if you desire.\n> \n> *Best of luck to you in growing this esteemed community, good sir!*"
+            embed_description = f"{ctx.author.mention}\n\n> I have successfully *updated* the guild promotion configuration for ***{ctx.guild.name}***.\n> \n> You may now utilize my </{promote_app_command.name}:{promote_app_command.id}> directive every `2 hours` to promote your guild!\n> You may also utilize </{testpromote_app_command.name}:{testpromote_app_command.id}> to see a preview of your promotion and </{event_handler_command.name}:{event_handler_command.id}> to turn reminders to promote this guild on or off, if you desire.\n> \n> *Best of luck to you in growing this esteemed community, good sir!*"
 
         automaton_invite_link = "https://discord.com/api/oauth2/authorize?client_id=1092515783025889383&permissions=3557027031&scope=bot%20applications.commands"
         support_guild_invite = "https://discord.gg/4P6ApdPAF7"
