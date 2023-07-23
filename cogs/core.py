@@ -128,7 +128,7 @@ class Core(commands.Cog):
         github_updates_link = f"https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/Updates/Version%20{bot_version}.md"
       
       
-        update_embed = discord.Embed(title=f"{byname}\nUpdate Information", description=f"The following is to alert all members of {ctx.guild.name} of the updates and functionality pertaining to myself.\n\n> I have provided a link to my update information.You may visit this link by *clicking the title of this message or following the link below*.\n> Please visit this website posthaste to see vital information that may impact yourself or others.", color = discord.Color.from_rgb(0, 0, 255), url=github_updates_link)
+        update_embed = discord.Embed(title=f"{byname}\nUpdate Information", description=f"The following is to alert all members of {ctx.guild.name} of the updates and functionality pertaining to myself.\n\n> I have provided a link to my update information.You may visit this link by *clicking the title of this message or following the link below*.\n> Please visit this website posthaste to see vital information that may impact yourself or others.", color = discord.Color.from_rgb(130, 130, 130), url=github_updates_link)
 
         update_embed.add_field(name=update_name, value=update_description)
 
@@ -316,7 +316,7 @@ class Core(commands.Cog):
                         current_patron_tier = tier_dict[patron_tier]
 
                       
-                        patron_embed = discord.Embed(title="Patron Features", description=f"Congratulations {ctx.author.mention},\nYou have successfully enabled my patron (premium) features for ***{ctx.guild.name}***, good sir.\n\nYou also currently hold the `{patron_role}` status in {support_guild.name}.\nPlease visit the link below to learn how to maintain these patron features!", color=discord.Color.from_rgb(0, 0, 255))
+                        patron_embed = discord.Embed(title="Patron Features", description=f"Congratulations {ctx.author.mention},\nYou have successfully enabled my patron (premium) features for ***{ctx.guild.name}***, good sir.\n\nYou also currently hold the `{patron_role}` status in {support_guild.name}.\nPlease visit the link below to learn how to maintain these patron features!", color=discord.Color.from_rgb(130, 130, 130))
 
                         patron_embed.add_field(name="Patron Tier", value=f"`{current_patron_tier}`")
                       
@@ -335,7 +335,7 @@ class Core(commands.Cog):
 
                     # does not have the patron role in the support guild and has not created the data on mongoDB yet
                     else:
-                        patron_embed = discord.Embed(title="Patron Features", description=f"Greetings {ctx.author.mention},\nPlease visit the links below to find out more information on how to begin utilizing patron (premium) features for ***{ctx.guild.name}***, good sir.", color=discord.Color.from_rgb(0, 0, 255))
+                        patron_embed = discord.Embed(title="Patron Features", description=f"Greetings {ctx.author.mention},\nPlease visit the links below to find out more information on how to begin utilizing patron (premium) features for ***{ctx.guild.name}***, good sir.", color=discord.Color.from_rgb(130, 130, 130))
 
                         patron_embed.add_field(name="Patron Tier", value="`❌ No Tier Purchased`")
                         patron_embed.add_field(name="Patron Status", value="`❌ Not Active`")
@@ -459,7 +459,7 @@ class Core(commands.Cog):
 
 
             # Update the patron embed
-            patron_embed = discord.Embed(title="Patron Features", description=description, color=discord.Color.from_rgb(0, 0, 255))
+            patron_embed = discord.Embed(title="Patron Features", description=description, color=discord.Color.from_rgb(130, 130, 130))
 
             patron_embed.add_field(name="Patron Tier", value=f"`{current_patron_tier}`")
             patron_embed.add_field(name="Patron Status", value=f"`{current_patron_status}`")
@@ -526,7 +526,7 @@ class Core(commands.Cog):
                       }
                     )
 
-                    patron_embed = discord.Embed(title="Patron Features", description=f"Congratulations ***{member.display_name}***,\nYour status in {support_guild.name} has been updated to `{automaton_patron_role.name}`, good sir.\n\nReturn to your desired guild and use my `/patron` directive to enable `🎩 {automaton_patron_role.name}` patron features for your guild so that you may enjoy my exclusive services I have to offer!\n\n*Please visit the link below to learn how to maintain these patron features!*", color=discord.Color.from_rgb(0, 0, 255))
+                    patron_embed = discord.Embed(title="Patron Features", description=f"Congratulations ***{member.display_name}***,\nYour status in {support_guild.name} has been updated to `{automaton_patron_role.name}`, good sir.\n\nReturn to your desired guild and use my `/patron` directive to enable `🎩 {automaton_patron_role.name}` patron features for your guild so that you may enjoy my exclusive services I have to offer!\n\n*Please visit the link below to learn how to maintain these patron features!*", color=discord.Color.from_rgb(130, 130, 130))
     
                     PatronInfo = discord.ui.Button(emoji='❗', label="View Patron Info", url=patron_info_url, style=discord.ButtonStyle.link)
                   
@@ -550,7 +550,7 @@ class Core(commands.Cog):
                       }
                     )
 
-                    patron_embed = discord.Embed(title="Patron Features", description=f"Congratulations ***{member.display_name}***,\nYou have received the `{automaton_patron_role.name}` status in {support_guild.name} for becoming a patron of Lord Bottington, good sir.\n\nReturn to your desired guild and use my `/patron` directive to enable `🎩 {automaton_patron_role.name}` patron features for your guild so that you may enjoy my exclusive services I have to offer!\n\n*Please visit the link below to learn how to maintain these patron features!*", color=discord.Color.from_rgb(0, 0, 255))
+                    patron_embed = discord.Embed(title="Patron Features", description=f"Congratulations ***{member.display_name}***,\nYou have received the `{automaton_patron_role.name}` status in {support_guild.name} for becoming a patron of Lord Bottington, good sir.\n\nReturn to your desired guild and use my `/patron` directive to enable `🎩 {automaton_patron_role.name}` patron features for your guild so that you may enjoy my exclusive services I have to offer!\n\n*Please visit the link below to learn how to maintain these patron features!*", color=discord.Color.from_rgb(130, 130, 130))
     
                     PatronInfo = discord.ui.Button(emoji='❗', label="View Patron Info", url=patron_info_url, style=discord.ButtonStyle.link)
                   
@@ -575,7 +575,7 @@ class Core(commands.Cog):
                       }
                     )
                   
-                    patron_embed = discord.Embed(title="Patron Features", description=f"Congratulations ***{member.display_name}***,\nYour status in {support_guild.name} has been updated to `{refined_automaton_patron_role.name}`, good sir.\n\nReturn to your desired guild and use my `/patron` directive to enable `🎩🎩 {refined_automaton_patron_role.name}` patron features for your guild so that you may enjoy my exclusive services I have to offer!\n\n*Please visit the link below to learn how to maintain these patron features!*", color=discord.Color.from_rgb(0, 0, 255))
+                    patron_embed = discord.Embed(title="Patron Features", description=f"Congratulations ***{member.display_name}***,\nYour status in {support_guild.name} has been updated to `{refined_automaton_patron_role.name}`, good sir.\n\nReturn to your desired guild and use my `/patron` directive to enable `🎩🎩 {refined_automaton_patron_role.name}` patron features for your guild so that you may enjoy my exclusive services I have to offer!\n\n*Please visit the link below to learn how to maintain these patron features!*", color=discord.Color.from_rgb(130, 130, 130))
     
                     PatronInfo = discord.ui.Button(emoji='❗', label="View Patron Info", url=patron_info_url, style=discord.ButtonStyle.link)
                   
@@ -599,7 +599,7 @@ class Core(commands.Cog):
                       }
                     )
               
-                    patron_embed = discord.Embed(title="Patron Features", description=f"Congratulations ***{member.display_name}***,\nYou have received the `{refined_automaton_patron_role.name}` status in {support_guild.name} for becoming a patron of Lord Bottington, good sir.\n\nReturn to your desired guild and use my `/patron` directive to enable `🎩🎩 {refined_automaton_patron_role.name}` patron features for your guild so that you may enjoy my exclusive services I have to offer!\n\n*Please visit the link below to learn how to maintain these patron features!*", color=discord.Color.from_rgb(0, 0, 255))
+                    patron_embed = discord.Embed(title="Patron Features", description=f"Congratulations ***{member.display_name}***,\nYou have received the `{refined_automaton_patron_role.name}` status in {support_guild.name} for becoming a patron of Lord Bottington, good sir.\n\nReturn to your desired guild and use my `/patron` directive to enable `🎩🎩 {refined_automaton_patron_role.name}` patron features for your guild so that you may enjoy my exclusive services I have to offer!\n\n*Please visit the link below to learn how to maintain these patron features!*", color=discord.Color.from_rgb(130, 130, 130))
     
                     PatronInfo = discord.ui.Button(emoji='❗', label="View Patron Info", url=patron_info_url, style=discord.ButtonStyle.link)
                   
@@ -625,7 +625,7 @@ class Core(commands.Cog):
                       }
                     )
 
-                    patron_embed = discord.Embed(title="Patron Features", description=f"Congratulations ***{member.display_name}***,\nYour status in {support_guild.name} has been updated to `{distinguished_automaton_patron_role.name}`, good sir.\n\nReturn to your desired guild and use my `/patron` directive to enable `🎩🎩🎩 {distinguished_automaton_patron_role.name}` patron features for your guild so that you may enjoy my exclusive services I have to offer!\n\n*Please visit the link below to learn how to maintain these patron features!*", color=discord.Color.from_rgb(0, 0, 255))
+                    patron_embed = discord.Embed(title="Patron Features", description=f"Congratulations ***{member.display_name}***,\nYour status in {support_guild.name} has been updated to `{distinguished_automaton_patron_role.name}`, good sir.\n\nReturn to your desired guild and use my `/patron` directive to enable `🎩🎩🎩 {distinguished_automaton_patron_role.name}` patron features for your guild so that you may enjoy my exclusive services I have to offer!\n\n*Please visit the link below to learn how to maintain these patron features!*", color=discord.Color.from_rgb(130, 130, 130))
     
                     PatronInfo = discord.ui.Button(emoji='❗', label="View Patron Info", url=patron_info_url, style=discord.ButtonStyle.link)
                   
@@ -648,7 +648,7 @@ class Core(commands.Cog):
                       }
                     )
 
-                    patron_embed = discord.Embed(title="Patron Features", description=f"Congratulations ***{member.display_name}***,\nYou have received the `{distinguished_automaton_patron_role.name}` status in {support_guild.name} for becoming a patron of Lord Bottington, good sir.\n\nReturn to your desired guild and use my `/patron` directive to enable `🎩🎩🎩 {distinguished_automaton_patron_role.name}` patron features for your guild so that you may enjoy my exclusive services I have to offer!\n\n*Please visit the link below to learn how to maintain these patron features!*", color=discord.Color.from_rgb(0, 0, 255))
+                    patron_embed = discord.Embed(title="Patron Features", description=f"Congratulations ***{member.display_name}***,\nYou have received the `{distinguished_automaton_patron_role.name}` status in {support_guild.name} for becoming a patron of Lord Bottington, good sir.\n\nReturn to your desired guild and use my `/patron` directive to enable `🎩🎩🎩 {distinguished_automaton_patron_role.name}` patron features for your guild so that you may enjoy my exclusive services I have to offer!\n\n*Please visit the link below to learn how to maintain these patron features!*", color=discord.Color.from_rgb(130, 130, 130))
     
                     PatronInfo = discord.ui.Button(emoji='❗', label="View Patron Info", url=patron_info_url, style=discord.ButtonStyle.link)
                   
@@ -669,7 +669,7 @@ class Core(commands.Cog):
                 if patron_info:
                     patron_data.delete_one(patron_key)
 
-                    patron_embed = discord.Embed(title="Patron Features", description=f"Apologies ***{member.display_name}***,\nIt appears that your patron status in {support_guild.name} is no longer active.\nTherefore, you will no longer be able to take advantage of Lord Bottington's patron (premium) features for your guild.\n\n*Please visit the following links to discover how to reinstate these exclusive features for your guild, good sir.*", color=discord.Color.from_rgb(0, 0, 255))
+                    patron_embed = discord.Embed(title="Patron Features", description=f"Apologies ***{member.display_name}***,\nIt appears that your patron status in {support_guild.name} is no longer active.\nTherefore, you will no longer be able to take advantage of Lord Bottington's patron (premium) features for your guild.\n\n*Please visit the following links to discover how to reinstate these exclusive features for your guild, good sir.*", color=discord.Color.from_rgb(130, 130, 130))
     
                     PatronInfo = discord.ui.Button(emoji='❗', label="View Patron Info", url=patron_info_url, style=discord.ButtonStyle.link)
                     BecomePatron = discord.ui.Button(emoji='💰', label="Become a Patron", url=patron_url, style=discord.ButtonStyle.link)
@@ -704,7 +704,7 @@ class Core(commands.Cog):
         #link to README.md file on Github
         general_info_github = "https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/README.md"
 
-        first_embed = discord.Embed(title="Lord Bottington", description=f"Good day, dear members of ***{guild.name}***.\nI am **Lord Bottington**, at your service.\n\nPlease allow me to offer my assistance in any way I can.\nMay I suggest perusing my list of directives by utilizing my `/help` directive, good sir?\n\nYou may also visit the link below to view other general information related to myself...", color=discord.Color.from_rgb(0, 0, 255), url=general_info_github)
+        first_embed = discord.Embed(title="Lord Bottington", description=f"Good day, dear members of ***{guild.name}***.\nI am **Lord Bottington**, at your service.\n\nPlease allow me to offer my assistance in any way I can.\nMay I suggest perusing my list of directives by utilizing my `/help` directive, good sir?\n\nYou may also visit the link below to view other general information related to myself...", color=discord.Color.from_rgb(130, 130, 130), url=general_info_github)
 
         first_embed.set_thumbnail(url=self.bot.user.avatar.url)
 
@@ -1679,7 +1679,7 @@ class Core(commands.Cog):
         byname = await self.get_byname(ctx.guild.id)
       
         ping = round(self.bot.latency * 1000)
-        ping_embed = discord.Embed(title=f"{byname}\nLatency", description=f"Pardon me, {ctx.author.mention}, but my current latency is `{ping} milliseconds`.\n\n*I do hope that satisfies your query, good sir.*", color=discord.Color.from_rgb(0, 0, 255))
+        ping_embed = discord.Embed(title=f"{byname}\nLatency", description=f"Pardon me, {ctx.author.mention}, but my current latency is `{ping} milliseconds`.\n\n*I do hope that satisfies your query, good sir.*", color=discord.Color.from_rgb(130, 130, 130))
 
         ping_embed.set_thumbnail(url=self.bot.user.avatar.url)
       
@@ -1711,7 +1711,7 @@ class Core(commands.Cog):
 
         if ctx.guild.id != support_guild_id:
             if not patrons_db.patrons.find_one({"server_id": ctx.guild.id}):
-                patron_embed = discord.Embed(title="Patron Feature Directive", description=f"Apologies {ctx.author.mention},\n`/byname` is an exclusive feature available solely to patrons and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(0, 0, 255))
+                patron_embed = discord.Embed(title="Patron Feature Directive", description=f"Apologies {ctx.author.mention},\n`/byname` is an exclusive feature available solely to patrons and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(130, 130, 130))
     
                 patron_embed.set_thumbnail(url=self.bot.user.avatar.url)
     
