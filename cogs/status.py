@@ -37,6 +37,8 @@ class Status(commands.Cog):
         self.timezone = pytz.timezone('US/Central')
         self.bd_time = datetime.time(hour=0, minute=0, second=0, microsecond=0, tzinfo=self.timezone)
         self.daily_bd_time = self.bd_time.strftime("%I:%M") + " AM" #set the daily bd time to ##:## AM
+        self.remove_role_time = datetime.time(hour=23, minute=59, second=0, microsecond=0, tzinfo=self.timezone)
+        self.daily_remove_role_time = self.remove_role_time.strftime("%I:%M") + " PM" #set the daily remove role time to ##:## AM
         self.send_bd_message.start()
 
   
@@ -83,7 +85,55 @@ class Status(commands.Cog):
         if now_time == self.daily_bd_time:
             # Fetch the birthday message
             await self.get_bd_message()
+        elif now_time == self.daily_remove_role_time:
+            await self.remove_bd_role()
 
+
+    async def remove_bd_role(self):
+        # print("get bd message event started")
+        #get the full list of BD configs
+        bd_configs = BD_db.server_birthday_config_data.find()
+
+        for config in bd_configs:
+            bd_guild_id = config["server_id"]
+            bd_role_id = config["birthday_role_id"]
+          
+            bd_guild = self.bot.get_guild(bd_guild_id)
+              
+            if bd_role_id:
+                bd_role = bd_guild.get_role(bd_role_id)
+    
+            #find all of the collections that match today's date
+            now = datetime.datetime.now(pytz.timezone('US/Central'))
+          
+            birthday_list = BD_db[f"birthdays_{bd_guild_id}"].find({"month": now.month, "day": now.day})
+    
+            for member in birthday_list:
+                member_id = member['user_id']
+                # print(member_id)
+                try:
+                    member = bd_guild.get_member(member_id) #retrieve the member object
+        
+                    # Assign birthday role to user (if set)
+                    if bd_role:
+                        try:
+                            # print("assign birthday role started")
+                            BD_role = discord.utils.get(member.guild.roles, name=bd_role_name)
+        
+                            if BD_role in member.roles or member.id == self.bot.user.id: # member has the role already or the user is the bot
+                                await member.remove_roles(bd_role) #remove bd role
+                            else: #member does not have role yet
+                                pass
+        
+                        #unable to assign role
+                        except:
+                            # print("failed to remove role")
+                            pass
+
+                #unable to do something from above
+                except:
+                    pass
+        
   
     
     async def get_bd_message(self):
@@ -133,11 +183,8 @@ class Status(commands.Cog):
                             try:
                                 # print("assign birthday role started")
                                 BD_role = discord.utils.get(member.guild.roles, name=bd_role_name)
-    
-                                if BD_role in member.roles or member.id == self.bot.user.id: # member has the role already or the user is the bot
-                                    await member.remove_roles(bd_role) #remove bd role
-                                else: #member does not have role yet
-                                    await member.add_roles(bd_role) #assign bd role
+
+                                await member.add_roles(bd_role) #assign bd role
 
                             #unable to assign role
                             except:
