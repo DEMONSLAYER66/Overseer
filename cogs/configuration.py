@@ -1024,7 +1024,7 @@ class Configuration(commands.Cog):
             channel_mention = channel.mention if channel else "no channel"
             role_mention = role.mention if role else "no status"
         
-            await ctx.respond(f"{ctx.author.mention},\nI have created the birthday configuration for ***{ctx.guild.name}***.\nBirthday messages and statuses will now be issued as follows on users' birthdays:\n> Birthday messages channel: **{channel_mention}**\n> Birthday status assigned: **{role_mention}**", ephemeral=True)
+            await ctx.respond(f"{ctx.author.mention},\nI have created the birthday configuration for ***{ctx.guild.name}***.\nBirthday messages and statuses will now be issued as follows on users' birthdays:\n> Birthday messages channel: **{channel_mention}**\n> Birthday status assigned: **{role_mention}**\n\n*Please ensure that I have the proper access to the above channel (`Send Messages` permissions) and that I have a higher status (role) than the desired birthday status to ensure proper functionality.*", ephemeral=True)
                                 
 
         else:
@@ -1046,7 +1046,7 @@ class Configuration(commands.Cog):
             channel_mention = channel.mention if channel else "no channel"
             role_mention = role.mention if role else "no status"
         
-            await ctx.respond(f"{ctx.author.mention},\nI have updated the birthday configuration for ***{ctx.guild.name}***.\nBirthday messages and statuses will now be issued as follows on users' birthdays:\n> Birthday messages channel: **{channel_mention}**\n> Birthday status assigned: **{role_mention}**", ephemeral=True)
+            await ctx.respond(f"{ctx.author.mention},\nI have updated the birthday configuration for ***{ctx.guild.name}***.\nBirthday messages and statuses will now be issued as follows on users' birthdays:\n> Birthday messages channel: **{channel_mention}**\n> Birthday status assigned: **{role_mention}**\n\n*Please ensure that I have the proper access to the above channel (`Send Messages` permissions) and that I have a higher status (role) than the desired birthday status to ensure proper functionality.*", ephemeral=True)
 
 
     #message text field
