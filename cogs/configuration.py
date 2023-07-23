@@ -763,9 +763,20 @@ class Configuration(commands.Cog):
                 channel_id = autopurge_config['purge_channel_id']
                 message_count = autopurge_config['messagecount']
                 frequency_seconds = autopurge_config['frequency']
+                time_remaining = autopurge_config['time_remaining']
                 # print(channel_id)
                 # print(message_count)
                 # print(frequency_seconds)
+
+                #reset the time remaining to the original time and start_time to current time if time left is 0
+                if int(time_remaining) <= 0:
+                    autopurge_db[f"autopurge_config_{guild_id}"].update_one(
+                        autopurge_key,
+                        {"$set": {
+                            "start_time": datetime.datetime.utcnow(),
+                            "time_remaining": float(frequency_seconds) if frequency_seconds else None
+                        }
+                    )
             
             
                 # Retrieve messages to delete from channel
