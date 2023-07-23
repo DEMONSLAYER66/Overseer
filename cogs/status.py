@@ -195,6 +195,7 @@ class Status(commands.Cog):
                         try:
                             if bd_message: #pre-defined message
                                 birthday_message = bd_message
+                                print(birthday_message)
                                 
                                 support_guild_id = 1088118252200276071
                                 if bd_guild_id != support_guild_id:
@@ -251,14 +252,15 @@ class Status(commands.Cog):
                                     await bd_channel.send(embed=bd_embed)
                           
                             else: #birthday message not set
+                                print("bd_message not set")
                                 birthday_message = None
                           
                         except discord.Forbidden:
-                            # print("couldnt send message")
+                            print("couldnt send message")
                             pass
 
                     except:
-                        # print("member not found")
+                        print("member not found")
                         #member not found
                         pass
                     
