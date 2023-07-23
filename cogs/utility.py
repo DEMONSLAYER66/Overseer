@@ -342,7 +342,7 @@ class Utility(commands.Cog):
             if promotions_status == "Disabled":
                 pass
             elif promotions_status == "Enabled":
-                cooldown_time = 60 # 2 hours
+                cooldown_time = 7200 # 2 hours
 
                 bump_db.cooldowns.insert_one(
                   {
