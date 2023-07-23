@@ -109,7 +109,7 @@ class Utility(commands.Cog):
             else:
                 cooldown_time = f"{seconds}s"
 
-            cooldown_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion Cooldown", description=f"{ctx.author.mention}\n\n> It appears that my </{promote_app_command.name}:{promote_app_command.id}> directive is not ready to use at the moment...\n> Please try again in `{cooldown_time}`.\n> \n> *I apologize for the inconvenience, good sir.*", color=discord.Color.from_rgb(0, 0, 255))
+            cooldown_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion Cooldown", description=f"{ctx.author.mention}\n\n> It appears that my </{promote_app_command.name}:{promote_app_command.id}> directive is not ready to use at the moment...\n> Please try again in `{cooldown_time}`.\n> \n> *I apologize for the inconvenience, good sir.*", color=discord.Color.from_rgb(130, 130, 130))
 
             cooldown_embed.set_thumbnail(url=self.bot.user.avatar.url)
 
@@ -152,7 +152,7 @@ class Utility(commands.Cog):
             else:
                 cooldown_time = f"{seconds}s"
 
-            cooldown_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion Cooldown", description=f"{ctx.author.mention}\n\n> It appears that my </{promote_app_command.name}:{promote_app_command.id}> directive is not ready to use at the moment...\n> Please try again in `{cooldown_time}`.\n> \n> *I apologize for the inconvenience, good sir.*", color=discord.Color.from_rgb(0, 0, 255))
+            cooldown_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion Cooldown", description=f"{ctx.author.mention}\n\n> It appears that my </{promote_app_command.name}:{promote_app_command.id}> directive is not ready to use at the moment...\n> Please try again in `{cooldown_time}`.\n> \n> *I apologize for the inconvenience, good sir.*", color=discord.Color.from_rgb(130, 130, 130))
 
             cooldown_embed.set_thumbnail(url=self.bot.user.avatar.url)
 
@@ -171,7 +171,7 @@ class Utility(commands.Cog):
 
         if not server_data:
             no_data_description = f"Apologies {ctx.author.mention},\nIt appears that a guild promotion configuration has not been set up for ***{ctx.guild.name}***, good sir.\n\nYou may utilize my </{promotion_app_command.name}:{promotion_app_command.id}> directive to configure this for your guild, if you desire."
-            no_data_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion Error", description = no_data_description, color=discord.Color.from_rgb(0, 0, 255))
+            no_data_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion Error", description = no_data_description, color=discord.Color.from_rgb(130, 130, 130))
 
             no_data_embed.set_thumbnail(url=self.bot.user.avatar.url)
 
@@ -179,7 +179,7 @@ class Utility(commands.Cog):
             return
 
         else:
-            initial_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion", description = "Your guild has been added to the promotion roster and will be promoted momentarily, good sir.\nPlease be patient while I process this request for you...", color=discord.Color.from_rgb(0, 0, 255))
+            initial_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion", description = "Your guild has been added to the promotion roster and will be promoted momentarily, good sir.\nPlease be patient while I process this request for you...", color=discord.Color.from_rgb(130, 130, 130))
 
             initial_embed.set_thumbnail(url=self.bot.user.avatar.url)
 
@@ -381,8 +381,8 @@ class Utility(commands.Cog):
       
         reminder_embed = discord.Embed(
             title=f"{guild.name}\nPromotion Reminder",
-            description=f"> Attention members of {guild.name},\n> The promotion cooldown has **ended** for this guild...\n> \n> You may once again use the </{promote_app_command.name}:{promote_app_command.id}> directive!\n> \n> You may also utilize </{eventhandler_command.name}:{eventhandler_command.id}> in order to turn promotion reminders on or off.\n> \n> *Best of luck in promoting and growing this esteemed community, good fellows!*",
-            color=discord.Color.from_rgb(0, 0, 255)
+            description=f"Attention members of {guild.name},\nThe promotion cooldown has **ended** for this guild...\n\nYou may once again use the </{promote_app_command.name}:{promote_app_command.id}> directive!\n\nYou may also utilize </{eventhandler_command.name}:{eventhandler_command.id}> in order to turn promotion reminders on or off.\n\n*Best of luck in promoting and growing this esteemed community, good fellows!*",
+            color=discord.Color.from_rgb(130, 130, 130)
         )
         reminder_embed.set_thumbnail(url=self.bot.user.avatar.url)
 
@@ -481,7 +481,7 @@ class Utility(commands.Cog):
 
         if not server_data:
             no_data_description = f"Apologies {ctx.author.mention},\nIt appears that a guild promotion configuration has not been set up for ***{ctx.guild.name}***, good sir.\n\nYou may utilize my </{promotion_app_command.name}:{promotion_app_command.id}> directive to configure this for your guild, if you desire."
-            no_data_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion Configuration", description = no_data_description, color=discord.Color.from_rgb(0, 0, 255))
+            no_data_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion Configuration", description = no_data_description, color=discord.Color.from_rgb(130, 130, 130))
 
             no_data_embed.set_thumbnail(url=self.bot.user.avatar.url)
 
@@ -616,7 +616,7 @@ class Utility(commands.Cog):
           
                     # subreddit is private
                     except asyncprawcore.exceptions.Forbidden:
-                        error_embed = discord.Embed(title="Auto-Satire Error", description=f"Apologies members of ***{autosatire_guild.name}***,\nIt appears that `r/{community}` is currently a *private* community, so I am unable to retrieve a satirical image from there.\n\n*Please contact an administrator of your guild to use my `/autosatire` directive to update this.*", color=discord.Color.from_rgb(0, 0, 255))
+                        error_embed = discord.Embed(title="Auto-Satire Error", description=f"Apologies members of ***{autosatire_guild.name}***,\nIt appears that `r/{community}` is currently a *private* community, so I am unable to retrieve a satirical image from there.\n\n*Please contact an administrator of your guild to use my `/autosatire` directive to update this.*", color=discord.Color.from_rgb(130, 130, 130))
                       
                         error_embed.set_thumbnail(url=self.bot.user.avatar.url)
     
@@ -625,7 +625,7 @@ class Utility(commands.Cog):
           
           
                     if len(all_subs) == 0:
-                        error_embed = discord.Embed(title="Auto-Satire Error", description=f"Apologies members of ***{autosatire_guild.name}***,\nIt appears that I was unable to find an appropriate satirical image from `r/{community}`.\n\n*I will try again tomorrow...", color=discord.Color.from_rgb(0, 0, 255))
+                        error_embed = discord.Embed(title="Auto-Satire Error", description=f"Apologies members of ***{autosatire_guild.name}***,\nIt appears that I was unable to find an appropriate satirical image from `r/{community}`.\n\n*I will try again tomorrow...", color=discord.Color.from_rgb(130, 130, 130))
                       
                         error_embed.set_thumbnail(url=self.bot.user.avatar.url)
     
@@ -643,7 +643,7 @@ class Utility(commands.Cog):
                     score = random_sub.score #the number of upvotes
                 
               
-                    meme_embed = discord.Embed(title="Auto-Satirical Imagery", description=f"Attention members of ***{autosatire_guild.name}***.\nHere is a satirical image for your enjoyment.", color=discord.Color.from_rgb(0, 0, 255))
+                    meme_embed = discord.Embed(title="Auto-Satirical Imagery", description=f"Attention members of ***{autosatire_guild.name}***.\nHere is a satirical image for your enjoyment.", color=discord.Color.from_rgb(130, 130, 130))
                     meme_embed.add_field(name="Satirical Image Name", value=f"`{name}`", inline=False)
                     meme_embed.add_field(name="Author", value=f"`{author}`", inline=False)
                     meme_embed.add_field(name="Subreddit", value=f"`{subreddit}`")
@@ -685,7 +685,7 @@ class Utility(commands.Cog):
             meanings = entry.get("meanings")
             
             # Create an embed to display the information
-            embed = discord.Embed(title="Proper Definition", description=f"{ctx.author.mention}\nHere is the proper definition for the term you requested, good sir.", color=discord.Color.from_rgb(0, 0, 255))
+            embed = discord.Embed(title="Proper Definition", description=f"{ctx.author.mention}\nHere is the proper definition for the term you requested, good sir.", color=discord.Color.from_rgb(130, 130, 130))
     
             embed.add_field(name="Term", value=f"`{term}`", inline=False)
             
@@ -803,7 +803,7 @@ class Utility(commands.Cog):
             example += "..."
 
       
-        em = discord.Embed(title="Improper Definition", description=f"{ctx.author.mention}\nHere is the improper definition for the term you requested, good sir.", color=discord.Color.from_rgb(0, 0, 255))
+        em = discord.Embed(title="Improper Definition", description=f"{ctx.author.mention}\nHere is the improper definition for the term you requested, good sir.", color=discord.Color.from_rgb(130, 130, 130))
 
         em.add_field(name="Term", value=f"`{slang_term}`")
       
@@ -892,7 +892,7 @@ class Utility(commands.Cog):
       
         result = "https://lmgtfy.app/?q={}&s=g".format(formatted_text)
 
-        lmgtfy_embed = discord.Embed(title="Search Results", description=f"{ctx.author.mention}\nLet me demonstrate how to find such things on the internet for you, good sir.", color=discord.Color.from_rgb(0, 0, 255))
+        lmgtfy_embed = discord.Embed(title="Search Results", description=f"{ctx.author.mention}\nLet me demonstrate how to find such things on the internet for you, good sir.", color=discord.Color.from_rgb(130, 130, 130))
         lmgtfy_embed.add_field(name="Search Term", value=f"```{text}```")
         lmgtfy_embed.add_field(name="Demonstration", value=f"[Click Here]({result})", inline=False)
 
@@ -1628,7 +1628,7 @@ class Utility(commands.Cog):
 
                       
                         #remake the embed with the new updates
-                        icon_embed = discord.Embed(title=f"{self.ctx.guild.name}\nIconography", description=embed_description, color=discord.Color.from_rgb(0, 0, 255))
+                        icon_embed = discord.Embed(title=f"{self.ctx.guild.name}\nIconography", description=embed_description, color=discord.Color.from_rgb(130, 130, 130))
                         
                         # add each static icon list as a separate field in the embed
                         for i, icon_list in enumerate(static_icon_lists):
@@ -1816,7 +1816,7 @@ class Utility(commands.Cog):
 
                               
                                 #create the updated embed that reflects the removal
-                                icon_embed = discord.Embed(title=f"{self.ctx.guild.name}\nIconography", description=embed_description, color=discord.Color.from_rgb(0, 0, 255))
+                                icon_embed = discord.Embed(title=f"{self.ctx.guild.name}\nIconography", description=embed_description, color=discord.Color.from_rgb(130, 130, 130))
                                 
                                 # add each static icon list as a separate field in the embed
                                 for i, icon_list in enumerate(static_icon_lists):
@@ -1966,7 +1966,7 @@ class Utility(commands.Cog):
             static_icon_lists = [static_icons[i:i+25] for i in range(0, len(static_icons), 25)]
             animated_icon_lists = [animated_icons[i:i+25] for i in range(0, len(animated_icons), 25)]
             
-            icon_embed = discord.Embed(title=f"{ctx.guild.name}\nIconography", description=embed_description, color=discord.Color.from_rgb(0, 0, 255))
+            icon_embed = discord.Embed(title=f"{ctx.guild.name}\nIconography", description=embed_description, color=discord.Color.from_rgb(130, 130, 130))
             
             # add each static icon list as a separate field in the embed
             for i, icon_list in enumerate(static_icon_lists):
@@ -2363,7 +2363,7 @@ class Utility(commands.Cog):
 
         if ctx.guild.id != support_guild_id:
             if not patrons_db.patrons.find_one({"server_id": ctx.guild.id}):
-                patron_embed = discord.Embed(title="Patron Feature Directive", description=f"Apologies {ctx.author.mention},\n`/weather` is an exclusive feature available solely to patrons and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(0, 0, 255))
+                patron_embed = discord.Embed(title="Patron Feature Directive", description=f"Apologies {ctx.author.mention},\n`/weather` is an exclusive feature available solely to patrons and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(130, 130, 130))
     
                 patron_embed.set_thumbnail(url=self.bot.user.avatar.url)
     
