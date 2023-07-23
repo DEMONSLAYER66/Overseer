@@ -250,7 +250,21 @@ class Utility(commands.Cog):
                 if not refined_patron and not distinguished_patron:
                     banner_url = None # no banner
                     color = [0, 0, 255] # default color
-          
+                    cooldown_time = 7200 # 2 hours
+                    cooldown_time_str = "2 hours"
+                    patron = False
+
+                else:
+                    cooldown_time = 1800 # 30 min
+                    cooldown_time_str = "30 minutes"
+                    patron = True
+
+            #cooldown for support guild
+            else:
+                cooldown_time = 1800 # 30 min
+                cooldown_time_str = "30 minutes"
+                patron = None
+
 
             test_embed =  discord.Embed(title=f"{ctx.guild.name}", description = guild_description, color=discord.Color.from_rgb(color[0], color[1], color[2]))
 
@@ -260,7 +274,10 @@ class Utility(commands.Cog):
             test_embed.add_field(name="🚀Promotions", value=f"`{bumps:,}`", inline=True)
             test_embed.add_field(name="👨Member Count", value=f"`{ctx.guild.member_count:,}`", inline=True)
             test_embed.add_field(name="💎Boost Tier", value=f"`{ctx.guild.premium_subscription_count:,}`", inline=True)
-            test_embed.add_field(name="🤣 Iconography", value=f"`{len(ctx.guild.emojis):,}/{ctx.guild.emoji_limit:,}`", inline=True)
+            test_embed.add_field(name="🤣Iconography", value=f"`{len(ctx.guild.emojis):,}/{ctx.guild.emoji_limit:,}`", inline=True)
+
+            if patron and patron is True:
+                test_embed.add_field(name="🎩Patron Guild", value="", inline=True)
 
             try:
                 test_embed.set_thumbnail(url=ctx.guild.icon.url)
@@ -317,7 +334,7 @@ class Utility(commands.Cog):
 
             other_guilds = guild_count - 1 #do not count current guild
           
-            info_embed = discord.Embed(title=f"{ctx.guild.name}\nSuccessful Promotion", description=f"**🎩Congratulations!🎩**\nThis guild has been **successfully promoted** to `{other_guilds:,}` other guilds.\n\nYou may view the posting for your guild in {original_promotion_channel.mention} by [clicking here]({promotion_message.jump_url}).\n\nYou may *promote* this guild again in `2 hours`, if you so desire.\n\nI would also like to inform you that since my creation, I have received a grand total of 🚀`{total_bumps:,}` promotions.\nI do appreciate your support and look forward to serving you even more!\n\n*Best of luck in growing your esteemed community, good sir!*", color=discord.Color.from_rgb(color[0], color[1], color[2]))
+            info_embed = discord.Embed(title=f"{ctx.guild.name}\nSuccessful Promotion", description=f"**🎩Congratulations!🎩**\nThis guild has been **successfully promoted** to `{other_guilds:,}` other guilds.\n\nYou may view the posting for your guild in {original_promotion_channel.mention} by [clicking here]({promotion_message.jump_url}).\n\nYou may *promote* this guild again in `{cooldown_time_str}`, if you so desire.\n\nI would also like to inform you that since my creation, I have received a grand total of 🚀`{total_bumps:,}` promotions.\nI do appreciate your support and look forward to serving you even more!\n\n*Best of luck in growing your esteemed community, good sir!*", color=discord.Color.from_rgb(color[0], color[1], color[2]))
 
             info_embed.add_field(name=f"🚀Guild Promotions", value=f"`{bumps:,}`")
 
@@ -342,8 +359,6 @@ class Utility(commands.Cog):
             if promotions_status == "Disabled":
                 pass
             elif promotions_status == "Enabled":
-                cooldown_time = 7200 # 2 hours
-
                 bump_db.cooldowns.insert_one(
                   {
                     "server_id": ctx.guild.id,
@@ -508,7 +523,7 @@ class Utility(commands.Cog):
             test_embed.add_field(name="🚀Promotions", value=f"`{bumps:,}`", inline=True)
             test_embed.add_field(name="👨Member Count", value=f"`{ctx.guild.member_count:,}`", inline=True)
             test_embed.add_field(name="💎Boost Tier", value=f"`{ctx.guild.premium_subscription_count:,}`", inline=True)
-            test_embed.add_field(name="🤣 Iconography", value=f"`{len(ctx.guild.emojis):,}/{ctx.guild.emoji_limit:,}`", inline=True)
+            test_embed.add_field(name="🤣Iconography", value=f"`{len(ctx.guild.emojis):,}/{ctx.guild.emoji_limit:,}`", inline=True)
             test_embed.add_field(name="# Promotion Channel", value=promotion_channel.mention, inline=False)
 
             try:
