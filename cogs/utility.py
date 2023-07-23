@@ -227,6 +227,30 @@ class Utility(commands.Cog):
             bumps = server_data['bumps']
             guild_created_at = ctx.guild.created_at.strftime('%B %d, %Y')
             topic = server_data['topic']
+          
+
+            #PATRON FEATURE
+            # server ID for The Sweez Gang
+            support_guild_id = 1088118252200276071
+    
+            if ctx.guild.id != support_guild_id:
+                #search for a guild on mongoDB that has the Distinguished Automaton Patron tier
+                distinguished_patron_key = {
+                  "server_id": ctx.guild.id,
+                  "patron_tier": "Distinguished Automaton Patron"
+                }
+                refined_patron_key = {
+                  "server_id": ctx.guild.id,
+                  "patron_tier": "Refined Automaton Patron"
+                }
+                patron_data = patrons_db.patrons
+                refined_patron = patron_data.find_one(refined_patron_key)
+                distinguished_patron = patron_data.find_one(distinguished_patron_key)
+      
+                if not refined_patron and not distinguished_patron:
+                    banner_url = None # no banner
+                    color = [0, 0, 255] # default color
+          
 
             test_embed =  discord.Embed(title=f"{ctx.guild.name}", description = guild_description, color=discord.Color.from_rgb(color[0], color[1], color[2]))
 
