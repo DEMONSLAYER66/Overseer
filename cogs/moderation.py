@@ -64,7 +64,7 @@ class Moderation(commands.Cog):
                 if entry.target == member:
                     reason = entry.reason
     
-                    embed = discord.Embed(title="Member Status Update", description=f"Attention members of ***{member.guild.name}***,\n**{member.display_name}** has been `removed (kicked)` from this guild.", color = discord.Color.from_rgb(0, 0, 255))
+                    embed = discord.Embed(title="Member Status Update", description=f"Attention members of ***{member.guild.name}***,\n**{member.display_name}** has been `removed (kicked)` from this guild.", color = discord.Color.from_rgb(130, 130, 130))
             
                     embed.add_field(name="Reason", value=reason if reason else "Not provided.")
     
@@ -140,7 +140,7 @@ class Moderation(commands.Cog):
                 if entry.target == user:
                     reason = entry.reason
     
-                    embed = discord.Embed(title="Member Status Update", description=f"Attention members of ***{guild.name}***,\n**{user.display_name}** has been `banished (banned)` from this guild.", color = discord.Color.from_rgb(0, 0, 255))
+                    embed = discord.Embed(title="Member Status Update", description=f"Attention members of ***{guild.name}***,\n**{user.display_name}** has been `banished (banned)` from this guild.", color = discord.Color.from_rgb(130, 130, 130))
             
                     embed.add_field(name="Reason", value=reason if reason else "Not provided.")
     
@@ -228,7 +228,7 @@ class Moderation(commands.Cog):
                 if entry.target == user:
                     reason = entry.reason
     
-                    embed = discord.Embed(title="Member Status Update", description=f"Attention members of ***{guild.name}***,\n**{user.display_name}** has been `unbanished (unbanned)` from this guild.", color = discord.Color.from_rgb(0, 0, 255))
+                    embed = discord.Embed(title="Member Status Update", description=f"Attention members of ***{guild.name}***,\n**{user.display_name}** has been `unbanished (unbanned)` from this guild.", color = discord.Color.from_rgb(130, 130, 130))
             
                     embed.add_field(name="Reason", value=reason if reason else "Not provided.")
     
@@ -288,7 +288,7 @@ class Moderation(commands.Cog):
             await muted_role.edit(permissions=permissions, position=position)
         await member.add_roles(muted_role)
 
-        embed = discord.Embed(title="Member Status Update", description=f"Attention members of {ctx.guild.name},\n{member.display_name} has been `silenced (muted)` within this guild.", color = discord.Color.from_rgb(0, 0, 255))
+        embed = discord.Embed(title="Member Status Update", description=f"Attention members of {ctx.guild.name},\n{member.display_name} has been `silenced (muted)` within this guild.", color = discord.Color.from_rgb(130, 130, 130))
 
         embed.add_field(name="Reason", value=reason if reason else "Not provided.")
 
@@ -348,7 +348,7 @@ class Moderation(commands.Cog):
             return
 
       
-        embed = discord.Embed(title="Member Status Update", description=f"Attention members of ***{ctx.guild.name}***,\n**{member.display_name}** has been `unsilenced (unmuted)` within this guild.", color = discord.Color.from_rgb(0, 0, 255))
+        embed = discord.Embed(title="Member Status Update", description=f"Attention members of ***{ctx.guild.name}***,\n**{member.display_name}** has been `unsilenced (unmuted)` within this guild.", color = discord.Color.from_rgb(130, 130, 130))
 
         embed.add_field(name="Reason", value=reason if reason else "Not provided.")
 
@@ -426,7 +426,7 @@ class Moderation(commands.Cog):
             description = f"Attention members of {ctx.guild.name},\n{member.display_name} has been `warned` within this guild and has reached the maximum number of warnings ({self.warning_threshold}). They will be banished accordingly."
 
       
-        embed = discord.Embed(title="Member Status Update", description=description, color = discord.Color.from_rgb(0, 0, 255))
+        embed = discord.Embed(title="Member Status Update", description=description, color = discord.Color.from_rgb(130, 130, 130))
 
         embed.add_field(name="Warnings Remaining", value = f"{warnings_left} of {self.warning_threshold}", inline=False)
       
@@ -505,7 +505,7 @@ class Moderation(commands.Cog):
                 warnings_left = self.warning_threshold - num_warnings
               
 
-                embed = discord.Embed(title="Member Status Update", description=f"Attention members of {ctx.guild.name},\nA warning has been *removed* from {member.display_name} for this guild.", color = discord.Color.from_rgb(0, 0, 255))
+                embed = discord.Embed(title="Member Status Update", description=f"Attention members of {ctx.guild.name},\nA warning has been *removed* from {member.display_name} for this guild.", color = discord.Color.from_rgb(130, 130, 130))
         
                 embed.add_field(name="Warnings Remaining", value = f"{warnings_left} of {self.warning_threshold}", inline=False)
 
@@ -570,7 +570,7 @@ class Moderation(commands.Cog):
             warnings_left = self.warning_threshold - num_warnings
           
 
-            embed = discord.Embed(title=f"{ctx.guild.name}\nWarning List", description=f"The following is a list of warnings for {member.display_name} within this guild.", color = discord.Color.from_rgb(0, 0, 255))
+            embed = discord.Embed(title=f"{ctx.guild.name}\nWarning List", description=f"The following is a list of warnings for {member.display_name} within this guild.", color = discord.Color.from_rgb(130, 130, 130))
     
             embed.add_field(name="Warnings Remaining", value = f"{warnings_left} of {self.warning_threshold}", inline=False)
 
