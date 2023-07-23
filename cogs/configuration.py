@@ -164,6 +164,20 @@ class Configuration(commands.Cog):
             patron_data = patrons_db.patrons
             refined_patron = patron_data.find_one(refined_patron_key)
             distinguished_patron = patron_data.find_one(distinguished_patron_key)
+
+            if not refined_patron and not distinguished_patron:
+                cooldown_time = 7200 # 2 hours
+                cooldown_time_str = "2 hours"
+                            
+            else:
+                cooldown_time = 1800 # 30 min
+                cooldown_time_str = "30 minutes"
+
+        #cooldown for support guild
+        else:
+            cooldown_time = 1800 # 30 min
+            cooldown_time_str = "30 minutes"
+
   
 
         #check for a custom color (only avaliable to refined and distinguished patrons and support guild)
@@ -179,6 +193,7 @@ class Configuration(commands.Cog):
           
                     await ctx.respond(embed=patron_embed, ephemeral=True)
                     return
+                
                     
 
         if guild_banner:
@@ -309,7 +324,7 @@ class Configuration(commands.Cog):
             )
 
         
-            embed_description = f"{ctx.author.mention}\n\n> I have successfully *updated* the guild promotion configuration for ***{ctx.guild.name}***.\n> \n> You may now utilize my </{promote_app_command.name}:{promote_app_command.id}> directive every `2 hours` to promote your guild!\n> You may also utilize </{testpromote_app_command.name}:{testpromote_app_command.id}> to see a preview of your promotion and </{event_handler_command.name}:{event_handler_command.id}> to turn reminders to promote this guild on or off, if you desire.\n> \n> *Best of luck to you in growing this esteemed community, good sir!*"
+            embed_description = f"{ctx.author.mention}\n\n> I have successfully *updated* the guild promotion configuration for ***{ctx.guild.name}***.\n> \n> You may now utilize my </{promote_app_command.name}:{promote_app_command.id}> directive every `{cooldown_time_str}` to promote your guild!\n> You may also utilize </{testpromote_app_command.name}:{testpromote_app_command.id}> to see a preview of your promotion and </{event_handler_command.name}:{event_handler_command.id}> to turn reminders to promote this guild on or off, if you desire.\n> \n> *Best of luck to you in growing this esteemed community, good sir!*"
 
         automaton_invite_link = "https://discord.com/api/oauth2/authorize?client_id=1092515783025889383&permissions=3557027031&scope=bot%20applications.commands"
         support_guild_invite = "https://discord.gg/4P6ApdPAF7"
