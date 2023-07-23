@@ -790,7 +790,7 @@ class Configuration(commands.Cog):
                     deleted_messages = await channel.purge(limit=None, check=lambda m: not m.pinned)
 
 
-                #reset the time remaining to the original time and start_time to current time if time left is 0
+                #reset the time remaining to the original time and start_time to current time
                 autopurge_db[f"autopurge_config_{guild_id}"].update_one(
                     autopurge_key,
                     {"$set": {
@@ -806,8 +806,10 @@ class Configuration(commands.Cog):
                 # Wait for the next autopurge cycle
                 # if frequency is set, use that number, else use 60 seconds as time to check
                 if frequency_seconds:
+                    print(frequency_seconds)
                     await asyncio.sleep(frequency_seconds)
                 else:
+                    print("no frequency set")
                     await asyncio.sleep(60)
 
 
