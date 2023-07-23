@@ -35,7 +35,7 @@ class Status(commands.Cog):
 
         # birthday event (send at Midnight Central Time)
         self.timezone = pytz.timezone('US/Central')
-        self.bd_time = datetime.time(hour=9, minute=35, second=0, microsecond=0, tzinfo=self.timezone)
+        self.bd_time = datetime.time(hour=0, minute=0, second=0, microsecond=0, tzinfo=self.timezone)
         self.daily_bd_time = self.bd_time.strftime("%I:%M") + " AM" #set the daily bd time to ##:## AM
         self.remove_role_time = datetime.time(hour=23, minute=59, second=0, microsecond=0, tzinfo=self.timezone)
         self.daily_remove_role_time = self.remove_role_time.strftime("%I:%M") + " PM" #set the daily remove role time to ##:## AM
@@ -216,7 +216,7 @@ class Status(commands.Cog):
 
                               
                                 if bd_message == "automaton":
-                                    birthday_message = f"Dearest {member.mention},\nHappiest of birthdays! May you be blessed with many happy returns of the occasion.\nSincerely,\n***{byname}***".format(member=member)
+                                    birthday_message = f"Dearest {member.display_name},\nHappiest of birthdays! May you be blessed with many happy returns of the occasion.\nSincerely,\n***{byname}***".format(member=member)
                         
                                 else: #user defined message
                                     if bd_role:
@@ -241,15 +241,15 @@ class Status(commands.Cog):
                                     await bd_channel.send(f"{member.mention} ***Happiest of Birthdays!***", embed=bd_embed)
                           
                             else: #birthday message not set
-                                print("bd_message not set")
+                                # print("bd_message not set")
                                 birthday_message = None
                           
                         except discord.Forbidden:
-                            print("couldnt send message")
+                            # print("couldnt send message")
                             pass
 
-                    except Exception as e:
-                        raise e
+                    except:
+                        # raise e
                         # print(f"member not found\n\n{e}")
                         #member not found
                         pass
