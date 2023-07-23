@@ -132,13 +132,13 @@ class Utility(commands.Cog):
             current_time = datetime.datetime.utcnow()
             start_time = cooldown_data['start_time']
             elapsed_time = current_time - start_time
-            cooldown_time = cooldown_data['cooldown']
-            remaining_time = int(max(0, cooldown_time - elapsed_time.total_seconds()))
+            cooldown_time = float(cooldown_data['cooldown'])
+            remaining_time = max(0, cooldown_time - float(elapsed_time.total_seconds()))
 
             promote_app_command = self.bot.get_application_command("promote")
             
             # Calculate the total cooldown time in days, hours, minutes, and seconds
-            days, remainder = divmod(remaining_time, 86400)
+            days, remainder = divmod(int(remaining_time), 86400)
             hours, remainder = divmod(remainder, 3600)
             minutes, seconds = divmod(remainder, 60)
             
