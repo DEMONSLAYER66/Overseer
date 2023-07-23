@@ -404,7 +404,7 @@ class Utility(commands.Cog):
 
         #### Autopurge
         server_ids = []
-        for guild in bot.guilds:
+        for guild in self.bot.guilds:
             server_ids.append(guild.id)
 
         configuration_cog = bot.get_cog('Configuration') #get the configuration cog
