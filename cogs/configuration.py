@@ -789,17 +789,16 @@ class Configuration(commands.Cog):
                     # Delete all messages in the channel except for pinned messages
                     deleted_messages = await channel.purge(limit=None, check=lambda m: not m.pinned)
 
-                
-                if frequency_seconds and float(frequency_seconds) == float(0):
-                    #reset the time remaining to the original time and start_time to current time if time left is 0
-                    autopurge_db[f"autopurge_config_{guild_id}"].update_one(
-                        autopurge_key,
-                        {"$set": {
-                            "start_time": datetime.utcnow(),
-                            "time_remaining": float(frequency_seconds) if frequency_seconds else None
-                            }
+
+                #reset the time remaining to the original time and start_time to current time if time left is 0
+                autopurge_db[f"autopurge_config_{guild_id}"].update_one(
+                    autopurge_key,
+                    {"$set": {
+                        "start_time": datetime.utcnow(),
+                        "time_remaining": float(frequency_seconds) if frequency_seconds else None
                         }
-                    )
+                    }
+                )
             
                 # Print number of messages deleted
                 # print(f"Deleted {len(deleted_messages)} messages in {channel.name}")
