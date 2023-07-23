@@ -123,7 +123,7 @@ class Utility(commands.Cog):
         # guild_ids=SERVER_ID
         global_command = True
     )
-    @commands.cooldown(1, 7200, commands.BucketType.guild)
+    # @commands.cooldown(1, 7200, commands.BucketType.guild)
     async def promote(self, ctx):
         # check if a cooldown is active for the guild
         cooldown_data = bump_db.cooldowns.find_one({"server_id": ctx.guild.id})
