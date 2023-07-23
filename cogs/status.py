@@ -836,7 +836,7 @@ class Status(commands.Cog):
         #embed message
         if liststyle == "embed":
             # create the birthday embed object
-            BD_embed = discord.Embed(title=f"{ctx.guild.name}\n__Birthday List__", color=discord.Color.from_rgb(198, 46, 209))
+            BD_embed = discord.Embed(title=f"{ctx.guild.name}\n__Birthday List__", color=discord.Color.from_rgb(130, 130, 130))
         
             for member in BD_db[f"birthdays_{ctx.guild.id}"].find():
                 member_name = member['user_name']
