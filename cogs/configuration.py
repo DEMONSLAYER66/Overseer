@@ -173,7 +173,7 @@ class Configuration(commands.Cog):
                     patron_command = self.bot.get_application_command("patron")
                     promotion_command = self.bot.get_application_command("promotion")
                     
-                    patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {ctx.author.mention},\nCustom embed colors and guild banners for my </{promotion_command,name}:{promotion_command.id}> directive are exclusive features available solely to `🎩🎩 Refined Automaton Patrons` and `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my </{patron_command.name}:{patron_command.id}> directive to learn more information on enabling or upgrading patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(0, 0, 255))
+                    patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {ctx.author.mention},\nCustom embed colors and guild banners for my </{promotion_command,name}:{promotion_command.id}> directive are exclusive features available solely to `🎩🎩 Refined Automaton Patrons` and `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my </{patron_command.name}:{patron_command.id}> directive to learn more information on enabling or upgrading patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(130, 130, 130))
           
                     patron_embed.set_thumbnail(url=self.bot.user.avatar.url)
           
@@ -939,7 +939,7 @@ class Configuration(commands.Cog):
       
             if message == "🧒 User Defined":
                 if not refined_patron and not distinguished_patron:
-                    patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {ctx.author.mention},\n`🧒 User Defined` birthday messages for my `/birthday` directive are an exclusive feature available solely to `🎩🎩 Refined Automaton Patrons` and `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling or upgrading patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(0, 0, 255))
+                    patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {ctx.author.mention},\n`🧒 User Defined` birthday messages for my `/birthday` directive are an exclusive feature available solely to `🎩🎩 Refined Automaton Patrons` and `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling or upgrading patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(130, 130, 130))
           
                     patron_embed.set_thumbnail(url=self.bot.user.avatar.url)
           
@@ -1137,7 +1137,7 @@ class Configuration(commands.Cog):
         if custom_color:
             if ctx.guild.id != support_guild_id:
                 if not refined_patron and not distinguished_patron:
-                    patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {ctx.author.mention},\nCustom embed colors for my `/streaming` directive are an exclusive feature available solely to `🎩🎩 Refined Automaton Patrons` and `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling or upgrading patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(0, 0, 255))
+                    patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {ctx.author.mention},\nCustom embed colors for my `/streaming` directive are an exclusive feature available solely to `🎩🎩 Refined Automaton Patrons` and `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling or upgrading patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(130, 130, 130))
           
                     patron_embed.set_thumbnail(url=self.bot.user.avatar.url)
           
@@ -1449,7 +1449,7 @@ class Configuration(commands.Cog):
         if custom_color:
             if ctx.guild.id != support_guild_id:
                 if not refined_patron and not distinguished_patron:
-                    patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {ctx.author.mention},\nCustom embed colors for my `/starboard` directive are an exclusive feature available solely to `🎩🎩 Refined Automaton Patrons` and `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling or upgrading patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(0, 0, 255))
+                    patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {ctx.author.mention},\nCustom embed colors for my `/starboard` directive are an exclusive feature available solely to `🎩🎩 Refined Automaton Patrons` and `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling or upgrading patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(130, 130, 130))
           
                     patron_embed.set_thumbnail(url=self.bot.user.avatar.url)
           
@@ -1479,7 +1479,7 @@ class Configuration(commands.Cog):
         elif reaction and reaction != "⭐":
             if ctx.guild.id != support_guild_id:
                 if not refined_patron and not distinguished_patron:
-                    patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {ctx.author.mention},\nCustom reactions for my `/starboard` directive are an exclusive feature available solely to `🎩🎩 Refined Automaton Patrons` and `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling or upgrading patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(0, 0, 255))
+                    patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {ctx.author.mention},\nCustom reactions for my `/starboard` directive are an exclusive feature available solely to `🎩🎩 Refined Automaton Patrons` and `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling or upgrading patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(130, 130, 130))
           
                     patron_embed.set_thumbnail(url=self.bot.user.avatar.url)
           
@@ -1684,7 +1684,7 @@ class Configuration(commands.Cog):
         if background or avatar:
             if ctx.guild.id != support_guild_id:
                 if not refined_patron and not distinguished_patron:
-                    patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {ctx.author.mention},\nCustom background and avatar images for welcome messages using my `/welcome` directive are an exclusive feature available solely to `🎩🎩 Refined Automaton Patrons` and `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling or upgrading patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(0, 0, 255))
+                    patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {ctx.author.mention},\nCustom background and avatar images for welcome messages using my `/welcome` directive are an exclusive feature available solely to `🎩🎩 Refined Automaton Patrons` and `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling or upgrading patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(130, 130, 130))
           
                     patron_embed.set_thumbnail(url=self.bot.user.avatar.url)
           
@@ -1697,7 +1697,7 @@ class Configuration(commands.Cog):
         if image_text is True:
             if ctx.guild.id != support_guild_id:
                 if not refined_patron and not distinguished_patron:
-                    patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {ctx.author.mention},\nCustom image text for welcome messages using my `/welcome` directive is an exclusive feature available solely to `🎩🎩 Refined Automaton Patrons` and `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling or upgrading patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(0, 0, 255))
+                    patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {ctx.author.mention},\nCustom image text for welcome messages using my `/welcome` directive is an exclusive feature available solely to `🎩🎩 Refined Automaton Patrons` and `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling or upgrading patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(130, 130, 130))
           
                     patron_embed.set_thumbnail(url=self.bot.user.avatar.url)
           
@@ -1711,7 +1711,7 @@ class Configuration(commands.Cog):
         if custom_image_text_color or custom_avatar_outline_color:
             if ctx.guild.id != support_guild_id:
                 if not refined_patron and not distinguished_patron:
-                    patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {ctx.author.mention},\nCustom image text and avatar outline colors for welcome messages using my `/welcome` directive are an exclusive feature available solely to `🎩🎩 Refined Automaton Patrons` and `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling or upgrading patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(0, 0, 255))
+                    patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {ctx.author.mention},\nCustom image text and avatar outline colors for welcome messages using my `/welcome` directive are an exclusive feature available solely to `🎩🎩 Refined Automaton Patrons` and `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling or upgrading patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(130, 130, 130))
           
                     patron_embed.set_thumbnail(url=self.bot.user.avatar.url)
           
@@ -2147,7 +2147,7 @@ class Configuration(commands.Cog):
                 embeds_count = embeds_db[f"embeds_config_{ctx.guild.id}"].count_documents({})
               
                 if embeds_count >= 5:
-                    patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {ctx.author.mention},\nYou have reached the maximum limit of **5** timed embeds for ***{ctx.guild.name}***.\n\nYou currently are unable to create unlimited embeds in this guild. Therefore, consider removing a timed embed using my `/embedslist` directive.\n\nIf you would like to unlock unlimited configurations when using my `/timedembeds` directive, please use my `/patron` directive to learn more information on enabling or upgrading patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(0, 0, 255))
+                    patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {ctx.author.mention},\nYou have reached the maximum limit of **5** timed embeds for ***{ctx.guild.name}***.\n\nYou currently are unable to create unlimited embeds in this guild. Therefore, consider removing a timed embed using my `/embedslist` directive.\n\nIf you would like to unlock unlimited configurations when using my `/timedembeds` directive, please use my `/patron` directive to learn more information on enabling or upgrading patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(130, 130, 130))
           
                     patron_embed.set_thumbnail(url=self.bot.user.avatar.url)
           
@@ -2160,7 +2160,7 @@ class Configuration(commands.Cog):
         if custom_color:
             if ctx.guild.id != support_guild_id:
                 if not refined_patron and not distinguished_patron:
-                    patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {ctx.author.mention},\nCustom embed colors for my `/timedembeds` directive are an exclusive feature available solely to `🎩🎩 Refined Automaton Patrons` and `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling or upgrading patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(0, 0, 255))
+                    patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {ctx.author.mention},\nCustom embed colors for my `/timedembeds` directive are an exclusive feature available solely to `🎩🎩 Refined Automaton Patrons` and `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling or upgrading patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(130, 130, 130))
           
                     patron_embed.set_thumbnail(url=self.bot.user.avatar.url)
           
