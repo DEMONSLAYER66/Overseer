@@ -319,7 +319,30 @@ class Utility(commands.Cog):
             if promotions_status == "Disabled":
                 pass
             elif promotions_status == "Enabled":
-                cooldown_time = 7200 #max cooldown time (2 hours)
+                #PATRON FEATURE: Cooldown reduction
+                # server ID for The Sweez Gang
+                support_guild_id = 1088118252200276071
+        
+                if ctx.guild.id != support_guild_id:
+                    #search for a guild on mongoDB that has the Distinguished Automaton Patron tier
+                    distinguished_patron_key = {
+                      "server_id": ctx.guild.id,
+                      "patron_tier": "Distinguished Automaton Patron"
+                    }
+                    refined_patron_key = {
+                      "server_id": ctx.guild.id,
+                      "patron_tier": "Refined Automaton Patron"
+                    }
+                    patron_data = patrons_db.patrons
+                    refined_patron = patron_data.find_one(refined_patron_key)
+                    distinguished_patron = patron_data.find_one(distinguished_patron_key)
+
+                    if not refined_patron and not distinguished_patron:
+                        cooldown_time = 7200 # 2 hours
+                    else:
+                        cooldown_time = 1800 # 30 minutes
+                else:
+                    cooldown_time = 30 #cooldown time for support guild (30 minutes)
 
                 bump_db.cooldowns.insert_one(
                   {
