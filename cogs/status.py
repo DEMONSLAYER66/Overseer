@@ -35,7 +35,7 @@ class Status(commands.Cog):
 
         # birthday event (send at Midnight Central Time)
         self.timezone = pytz.timezone('US/Central')
-        self.bd_time = datetime.time(hour=9, minute=14, second=0, microsecond=0, tzinfo=self.timezone)
+        self.bd_time = datetime.time(hour=9, minute=28, second=0, microsecond=0, tzinfo=self.timezone)
         self.daily_bd_time = self.bd_time.strftime("%I:%M") + " AM" #set the daily bd time to ##:## AM
         self.remove_role_time = datetime.time(hour=23, minute=59, second=0, microsecond=0, tzinfo=self.timezone)
         self.daily_remove_role_time = self.remove_role_time.strftime("%I:%M") + " PM" #set the daily remove role time to ##:## AM
@@ -194,9 +194,6 @@ class Status(commands.Cog):
                         #send message event
                         try:
                             if bd_message: #pre-defined message
-                                birthday_message = bd_message
-                                print(birthday_message)
-                                
                                 support_guild_id = 1088118252200276071
                                 if bd_guild_id != support_guild_id:
                                     #check for the automaton patron tier and reset the birthday message to the default if the person does not have the correct tier
@@ -219,22 +216,14 @@ class Status(commands.Cog):
 
                               
                                 if bd_message == "automaton":
-                                    birthday_message = f"Dearest {member.mention},\nHappiest of birthdays! May you be blessed with many happy returns of the occasion.\nSincerely,\n***{byname}***"
+                                    birthday_message = f"Dearest {member.mention},\nHappiest of birthdays! May you be blessed with many happy returns of the occasion.\nSincerely,\n***{byname}***".format(member=member)
                         
                                 else: #user defined message
                                     if bd_role:
-                                        birthday_message = bd_message.replace("{birthday_role_name}", bd_role_name)
-                                      
-                                        birthday_message = bd_message.replace("{birthday_role_mention}", bd_role.mention)
-
-                                    else:
-                                        birthday_message = bd_message.replace("{birthday_role_name}", "")
-
-                                        birthday_message = bd_message.replace("{birthday_role_mention}", "")
+                                        birthday_message = bd_message.replace("{birthday_role_name}", bd_role_name).replace("{birthday_role_mention}", bd_role.mention).replace("{byname}", str(byname)).format(member=member)
                                     
-                                    birthday_message = bd_message.replace("{byname}", str(byname))
-                                  
-                                    birthday_message = bd_message.format(member=member)
+                                    else:
+                                        birthday_message = bd_message.replace("{birthday_role_name}", "").replace("{birthday_role_mention}", "").replace("{byname}", str(byname)).format(member=member)
 
 
                                 #send birthday message (send a different message if it is the bot's birthday)
