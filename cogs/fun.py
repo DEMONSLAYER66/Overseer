@@ -946,7 +946,7 @@ class Fun(commands.Cog):
       embed = discord.Embed(
           title="🎩 Magic 8 Ball 🎩",
           description=f"Dear {ctx.author.mention},\nI have pondered your inquiry...",
-          color=discord.Color.from_rgb(91, 38, 171) #deep purple (for magic 8 ball)
+          color=discord.Color.from_rgb(130, 130, 130)
       )
       embed.add_field(name="🔮 You asked:", value=inquiry, inline=False)
       embed.add_field(name="🎱 Upon careful contemplation, I say:", value=response, inline=False)
