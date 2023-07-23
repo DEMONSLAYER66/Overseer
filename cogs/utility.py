@@ -412,7 +412,7 @@ class Utility(commands.Cog):
         for guild in self.bot.guilds:
             server_ids.append(guild.id)
 
-        configuration_cog = bot.get_cog('Configuration') #get the configuration cog
+        configuration_cog = self.bot.get_cog('Configuration') #get the configuration cog
         current_time = datetime.datetime.utcnow()
       
         # Get all cooldown entries from the database
