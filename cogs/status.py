@@ -228,13 +228,13 @@ class Status(commands.Cog):
 
                                 #send birthday message (send a different message if it is the bot's birthday)
                                 if member.id == self.bot.user.id:
-                                    bd_embed = discord.Embed(title="Day of Birth Celebration", description=f"Greetings good fellows of ***{bd_guild.name}***,\nIt appears that it is the day of my birth.\nLet us all celebrate and enjoy in the merriment!", color=discord.Color.from_rgb(0, 0, 255))
+                                    bd_embed = discord.Embed(title="Day of Birth Celebration", description=f"Greetings good fellows of ***{bd_guild.name}***,\nIt appears that it is the day of my birth.\nLet us all celebrate and enjoy in the merriment!", color=discord.Color.from_rgb(130, 130, 130))
 
                                     bd_embed.set_thumbnail(url="https://i.imgur.com/tYenTsy.gif")
                                   
                                     await bd_channel.send(embed=bd_embed)
                                 else:
-                                    bd_embed = discord.Embed(title="Day of Birth Celebration", description=birthday_message, color=discord.Color.from_rgb(0, 0, 255))
+                                    bd_embed = discord.Embed(title="Day of Birth Celebration", description=birthday_message, color=discord.Color.from_rgb(130, 130, 130))
 
                                     bd_embed.set_thumbnail(url="https://i.imgur.com/tYenTsy.gif")
                                   
