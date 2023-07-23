@@ -1632,8 +1632,8 @@ class Utility(commands.Cog):
                       
                         
                         # split the icon lists into smaller lists of 25 elements or less (to save space and prevent character limit error from occurring)
-                        static_icon_lists = [static_icons[i:i+25] for i in range(0, len(static_icons), 25)]
-                        animated_icon_lists = [animated_icons[i:i+25] for i in range(0, len(animated_icons), 25)]
+                        static_icon_lists = [static_icons[i:i+15] for i in range(0, len(static_icons), 15)]
+                        animated_icon_lists = [animated_icons[i:i+15] for i in range(0, len(animated_icons), 15)]
 
 
                         if self.iconlinks:
