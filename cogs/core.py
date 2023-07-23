@@ -1325,7 +1325,7 @@ class Core(commands.Cog):
             if directive in command_names_list and directive in self.bot.commands:
                 command = self.bot.get_command(directive)
 
-                help_embed = discord.Embed(title=f"__**Directives for {byname}**__", color = discord.Color.from_rgb(47, 85, 222), url=github_full_directives_list)
+                help_embed = discord.Embed(title=f"__**Directives for {byname}**__", color = discord.Color.from_rgb(130, 130, 130), url=github_full_directives_list)
               
                 help_embed.add_field(name=command.name, value=command.help if command.help else "No description available.")
 
@@ -1340,7 +1340,7 @@ class Core(commands.Cog):
 
 
         #help embed
-        help_embed = discord.Embed(title=f"__**Directives for {byname}**__", description=f"{ctx.author.mention}\nSelect a category to view the directives for by utilizing the select menu below, good sir.", color = discord.Color.from_rgb(47, 85, 222), url=github_full_directives_list)
+        help_embed = discord.Embed(title=f"__**Directives for {byname}**__", description=f"{ctx.author.mention}\nSelect a category to view the directives for by utilizing the select menu below, good sir.", color = discord.Color.from_rgb(130, 130, 130), url=github_full_directives_list)
 
         # bot invite link
         invite_link = "https://discord.com/api/oauth2/authorize?client_id=1092515783025889383&permissions=3557027031&scope=bot%20applications.commands"
@@ -1376,7 +1376,7 @@ class Core(commands.Cog):
             hide_status=True #make message ephemeral (hidden)
             app_command = self.bot.get_application_command(directive)
 
-            help_embed = discord.Embed(title=f"__**Directives for {byname}**__", color = discord.Color.from_rgb(47, 85, 222), url=f"{full_directives_list}#{app_command.name.lower()}")
+            help_embed = discord.Embed(title=f"__**Directives for {byname}**__", color = discord.Color.from_rgb(130, 130, 130), url=f"{full_directives_list}#{app_command.name.lower()}")
 
           
             ##########add cool effects to the help commands###################
@@ -1566,7 +1566,7 @@ class Core(commands.Cog):
                 )
         
         elif directive in app_command_names_list and directive not in command_names_list:
-            help_embed = discord.Embed(title=f"__**Directives for {byname}**__", color = discord.Color.from_rgb(47, 85, 222), url=f"{full_directives_list}")
+            help_embed = discord.Embed(title=f"__**Directives for {byname}**__", color = discord.Color.from_rgb(130, 130, 130), url=f"{full_directives_list}")
 
             help_embed.set_thumbnail(url=self.bot.user.avatar.url)
           
@@ -1575,7 +1575,7 @@ class Core(commands.Cog):
                 value=f"Apologies good sir,\nIt appears that the **{directive}** directive is restricted for you.\n*Please try again or contact an administrator if more help is required.*")                
         
         else:
-            help_embed = discord.Embed(title=f"__**Directives for {byname}**__", color = discord.Color.from_rgb(47, 85, 222), url=f"{full_directives_list}")
+            help_embed = discord.Embed(title=f"__**Directives for {byname}**__", color = discord.Color.from_rgb(130, 130, 130), url=f"{full_directives_list}")
 
             help_embed.set_thumbnail(url=self.bot.user.avatar.url)
           
@@ -1641,7 +1641,7 @@ class Core(commands.Cog):
             category_description = self.category_description_dict[category]
 
             #help embed
-            help_embed = discord.Embed(title=f"__**Directives for {self.byname}**__", description=f"`{category}`\n{category_description}", color = discord.Color.from_rgb(47, 85, 222), url=f"{self.full_directives_list}#{category_name.lower()}")
+            help_embed = discord.Embed(title=f"__**Directives for {self.byname}**__", description=f"`{category}`\n{category_description}", color = discord.Color.from_rgb(130, 130, 130), url=f"{self.full_directives_list}#{category_name.lower()}")
     
             commands_list = self.cog_dict[category_name]['commands']
             app_commands_list = self.cog_dict[category_name]['app_commands']
