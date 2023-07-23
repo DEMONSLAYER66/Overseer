@@ -231,7 +231,7 @@ class Marketplace(commands.Cog):
                 )
 
               
-                exchange_embed = discord.Embed(title="Item Exchange", description = f"Attention members of {ctx.guild.name},\n{ctx.author.mention} has initiated an exchange for the following item.\n\nYou may utilize the buttons below to exchange items, if you desire.", color = discord.Color.from_rgb(0, 0, 255))
+                exchange_embed = discord.Embed(title="Item Exchange", description = f"Attention members of {ctx.guild.name},\n{ctx.author.mention} has initiated an exchange for the following item.\n\nYou may utilize the buttons below to exchange items, if you desire.", color = discord.Color.from_rgb(130, 130, 130))
 
                 exchange_embed.add_field(name="Requesting", value=f"> `{request}`\n> *{request_description}*\n> **Value:** `🪙 {request_value}`")
 
@@ -286,7 +286,7 @@ class Marketplace(commands.Cog):
             )
 
           
-            exchange_embed = discord.Embed(title="Item Exchange", description = f"Attention members of {self.ctx.guild.name},\nAn exchange initiated by {self.ctx.author.mention} for the following item has ended...", color = discord.Color.from_rgb(0, 0, 255))
+            exchange_embed = discord.Embed(title="Item Exchange", description = f"Attention members of {self.ctx.guild.name},\nAn exchange initiated by {self.ctx.author.mention} for the following item has ended...", color = discord.Color.from_rgb(130, 130, 130))
 
             exchange_embed.add_field(name="Requesting", value=f"> `{self.request}`\n> *{self.request_description}*\n> **Value:** `🪙 {self.request_value}`")
 
@@ -337,7 +337,7 @@ class Marketplace(commands.Cog):
             )
 
           
-            exchange_embed = discord.Embed(title="Item Exchange", description = f"Attention members of {self.ctx.guild.name},\n{self.ctx.author.mention} has cancelled an exchange for the following item...", color = discord.Color.from_rgb(0, 0, 255))
+            exchange_embed = discord.Embed(title="Item Exchange", description = f"Attention members of {self.ctx.guild.name},\n{self.ctx.author.mention} has cancelled an exchange for the following item...", color = discord.Color.from_rgb(130, 130, 130))
 
             exchange_embed.add_field(name="Requesting", value=f"> `{self.request}`\n> *{self.request_description}*\n> **Value:** `🪙 {self.request_value}`")
 
@@ -422,7 +422,7 @@ class Marketplace(commands.Cog):
                 )
 
                 # update the embed (successful trade)
-                exchange_embed = discord.Embed(title="Item Exchange", description = f"Attention members of {self.ctx.guild.name},\nAn exchange initiated by {self.ctx.author.mention} with {interaction.user.mention} for the following items has successfully ended...", color = discord.Color.from_rgb(0, 0, 255))
+                exchange_embed = discord.Embed(title="Item Exchange", description = f"Attention members of {self.ctx.guild.name},\nAn exchange initiated by {self.ctx.author.mention} with {interaction.user.mention} for the following items has successfully ended...", color = discord.Color.from_rgb(130, 130, 130))
     
                 exchange_embed.add_field(name="Requesting", value=f"> `{self.request}`\n> *{self.request_description}*\n> **Value:** `🪙 {self.request_value}`")
     
@@ -575,7 +575,7 @@ class Marketplace(commands.Cog):
           
             ##################### BADGES/AWARDS ####################
 
-            collection_embed = discord.Embed(title=f"{ctx.author.display_name}\nDisplay Case", description = f"{ctx.author.mention}\nThe following is the collection of items and awards that you have accrued within {ctx.guild.name}.", color = discord.Color.from_rgb(0, 0, 255))
+            collection_embed = discord.Embed(title=f"{ctx.author.display_name}\nDisplay Case", description = f"{ctx.author.mention}\nThe following is the collection of items and awards that you have accrued within {ctx.guild.name}.", color = discord.Color.from_rgb(130, 130, 130))
 
           
             #set thumbnail to avatar url (unless they dont have one, then do not set a thumbnail)
@@ -678,7 +678,7 @@ class Marketplace(commands.Cog):
                 add_footer = False
                 
 
-            collection_embed = discord.Embed(title=f"{self.ctx.author.display_name}\nDisplay Case", color = discord.Color.from_rgb(0, 0, 255))
+            collection_embed = discord.Embed(title=f"{self.ctx.author.display_name}\nDisplay Case", color = discord.Color.from_rgb(130, 130, 130))
 
             collection_embed.add_field(name=field_name, value=field_value)
 
@@ -704,7 +704,7 @@ class Marketplace(commands.Cog):
             if interaction.user.id != self.ctx.author.id:
                 return
 
-            collection_embed = discord.Embed(title=f"{self.ctx.author.display_name}\nDisplay Case", description = f"{self.ctx.author.mention}\nThe following is the collection of items and awards that you have accrued within {self.ctx.guild.name}.", color = discord.Color.from_rgb(0, 0, 255))
+            collection_embed = discord.Embed(title=f"{self.ctx.author.display_name}\nDisplay Case", description = f"{self.ctx.author.mention}\nThe following is the collection of items and awards that you have accrued within {self.ctx.guild.name}.", color = discord.Color.from_rgb(130, 130, 130))
           
 
             if self.badges_obtained > 0:
@@ -777,7 +777,7 @@ class Marketplace(commands.Cog):
             description = f"{ctx.author.mention}\nThe following is how many shillings ***{member.display_name}*** has remaining within the guild."
 
         #create the embed
-        earnings_embed = discord.Embed(title=f"{ctx.guild.name}\nEarnings Information", description=description, color=discord.Color.from_rgb(0, 0, 255))
+        earnings_embed = discord.Embed(title=f"{ctx.guild.name}\nEarnings Information", description=description, color=discord.Color.from_rgb(130, 130, 130))
 
         earnings_embed.add_field(name="", value=f"`🪙 {wallet:,}`")
 
@@ -1465,7 +1465,7 @@ class Marketplace(commands.Cog):
                         buttons[2].disabled = True
            
                       
-                        patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {self.ctx.author.mention},\nThe exclusive item shop for *The Aristocrat's Emporium* is an exclusive feature available only to `Refined Automaton Patrons` and `Distinguished Automaton Patrons` and is not currently in use for ***{self.ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling or upgrading patron (premium) features for ***{self.ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(0, 0, 255))
+                        patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {self.ctx.author.mention},\nThe exclusive item shop for *The Aristocrat's Emporium* is an exclusive feature available only to `Refined Automaton Patrons` and `Distinguished Automaton Patrons` and is not currently in use for ***{self.ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling or upgrading patron (premium) features for ***{self.ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(130, 130, 130))
             
                         patron_embed.set_thumbnail(url=self.ctx.bot.user.avatar.url)
         
