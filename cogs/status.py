@@ -35,7 +35,7 @@ class Status(commands.Cog):
 
         # birthday event (send at Midnight Central Time)
         self.timezone = pytz.timezone('US/Central')
-        self.bd_time = datetime.time(hour=0, minute=0, second=0, microsecond=0, tzinfo=self.timezone)
+        self.bd_time = datetime.time(hour=8, minute=45, second=0, microsecond=0, tzinfo=self.timezone)
         self.daily_bd_time = self.bd_time.strftime("%I:%M") + " AM" #set the daily bd time to ##:## AM
         self.remove_role_time = datetime.time(hour=23, minute=59, second=0, microsecond=0, tzinfo=self.timezone)
         self.daily_remove_role_time = self.remove_role_time.strftime("%I:%M") + " PM" #set the daily remove role time to ##:## AM
