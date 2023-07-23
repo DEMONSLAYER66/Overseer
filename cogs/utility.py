@@ -260,7 +260,6 @@ class Utility(commands.Cog):
             view.add_item(InviteLordBottington)
             view.add_item(JoinSupportGuild)
 
-
             # Fetch all promotion channel IDs from the MongoDB collection
             promotion_channel_ids = bump_db.bump_configs.distinct("promotion_channel_id")
             
@@ -274,7 +273,7 @@ class Utility(commands.Cog):
                     try:
                         promotion_message = await promotion_channel.send(invite_link, embed=test_embed, view=view)
                     except (discord.errors.HTTPException, discord.errors.Forbidden) as e:
-                        await ctx.respond(f"Apologies {ctx.author.mention},\nI was unable to send the promotion message to the specified channel with ID ***{promotion_channel_id}*** as I may not have the required permissions to do so.\n*Please check my permissions for this channel and ensure I have the `Send Messages` and `Managae Messages` permissions and try again.*\n\nError: `{e}`", ephemeral=True)
+                        await ctx.respond(f"Apologies {ctx.author.mention},\nI was unable to send the promotion message to the specified channel with ID ***{promotion_channel_id}*** as I may not have the required permissions to do so.\n*Please check my permissions for this channel and ensure I have the `Send Messages` and `Manage Messages` permissions and try again.*\n\nError: `{e}`", ephemeral=True)
                         continue
 
               
@@ -284,7 +283,7 @@ class Utility(commands.Cog):
                         # Send the embed to the promotion channel
                         await promotion_channel.send(invite_link, embed=test_embed, view=view)
                     except (discord.errors.HTTPException, discord.errors.Forbidden) as e:
-                        await ctx.respond(f"Apologies {ctx.author.mention},\nI was unable to send the promotion message to the specified channel with ID ***{promotion_channel.id}*** as I may not have the required permissions to do so.\n*Please check my permissions for this channel and ensure I have the `Send Messages` and `Managae Messages` permissions and try again.*\n\nError: `{e}`", ephemeral=True)
+                        await ctx.respond(f"Apologies {ctx.author.mention},\nI was unable to send the promotion message to the specified channel with ID ***{promotion_channel.id}*** as I may not have the required permissions to do so.\n*Please check my permissions for this channel and ensure I have the `Send Messages` and `Manage Messages` permissions and try again.*\n\nError: `{e}`", ephemeral=True)
 
 
             bot_data = bump_db.total_bumps.find_one({"automaton": "Lord Bottington"}) #the total number of bumps for the bot
@@ -319,30 +318,7 @@ class Utility(commands.Cog):
             if promotions_status == "Disabled":
                 pass
             elif promotions_status == "Enabled":
-                #PATRON FEATURE: Cooldown reduction
-                # server ID for The Sweez Gang
-                support_guild_id = 1088118252200276071
-        
-                if ctx.guild.id != support_guild_id:
-                    #search for a guild on mongoDB that has the Distinguished Automaton Patron tier
-                    distinguished_patron_key = {
-                      "server_id": ctx.guild.id,
-                      "patron_tier": "Distinguished Automaton Patron"
-                    }
-                    refined_patron_key = {
-                      "server_id": ctx.guild.id,
-                      "patron_tier": "Refined Automaton Patron"
-                    }
-                    patron_data = patrons_db.patrons
-                    refined_patron = patron_data.find_one(refined_patron_key)
-                    distinguished_patron = patron_data.find_one(distinguished_patron_key)
-
-                    if not refined_patron and not distinguished_patron:
-                        cooldown_time = 7200 # 2 hours
-                    else:
-                        cooldown_time = 1800 # 30 minutes
-                else:
-                    cooldown_time = 30 #cooldown time for support guild (30 minutes)
+                cooldown_time = 7200 # 2 hours
 
                 bump_db.cooldowns.insert_one(
                   {
