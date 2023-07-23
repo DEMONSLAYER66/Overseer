@@ -120,7 +120,7 @@ class Games(commands.Cog):
             description = f"{ctx.author.mention}\nThe following is information regarding game playing within the guild for ***{member.display_name}***."
 
         #create the embed
-        earnings_embed = discord.Embed(title=f"{ctx.guild.name}\nPlayer Information", description=description, color=discord.Color.from_rgb(0, 0, 255))
+        earnings_embed = discord.Embed(title=f"{ctx.guild.name}\nPlayer Information", description=description, color=discord.Color.from_rgb(130, 130, 130))
 
 
         #add favorite game field (if found)
@@ -247,7 +247,7 @@ class Games(commands.Cog):
 
       
       
-        leaderboard_embed = discord.Embed(title=f"{ctx.guild.name}\nTop Talent", description = f"`{game}`", color = discord.Color.from_rgb(0, 0, 255))
+        leaderboard_embed = discord.Embed(title=f"{ctx.guild.name}\nTop Talent", description = f"`{game}`", color = discord.Color.from_rgb(130, 130, 130))
 
               
         leaderboard_embed.add_field(name="🏆 Top Wins", value=top_winners)
@@ -359,7 +359,7 @@ class Games(commands.Cog):
             top_earners = '\n'.join(f"> {line}" for line in earn_leaders) + '\n'
             
           
-            leaderboard_embed = discord.Embed(title=f"{self.ctx.guild.name}\nTop Talent", description = f"`{game}`", color = discord.Color.from_rgb(0, 0, 255))
+            leaderboard_embed = discord.Embed(title=f"{self.ctx.guild.name}\nTop Talent", description = f"`{game}`", color = discord.Color.from_rgb(130, 130, 130))
     
                   
             leaderboard_embed.add_field(name="🏆 Top Wins", value=top_winners)
@@ -528,7 +528,7 @@ class Games(commands.Cog):
         blank_board1_str = '\n'.join([''.join(row) for row in blank_board1_modified])
         blank_board2_str = '\n'.join([''.join(row) for row in blank_board2_modified])
       
-        battleship_embed = discord.Embed(title="Battleship", description=f"Attention members of {ctx.guild.name}\nA game of Battleship has commenced.\nSelect the desired row and column using the position buttons below and then `💥Fire` upon your opponent's fleet.", color=discord.Color.from_rgb(0, 0, 255))
+        battleship_embed = discord.Embed(title="Battleship", description=f"Attention members of {ctx.guild.name}\nA game of Battleship has commenced.\nSelect the desired row and column using the position buttons below and then `💥Fire` upon your opponent's fleet.", color=discord.Color.from_rgb(130, 130, 130))
 
         battleship_embed.add_field(name="Player 1", value=ctx.author.mention)
         battleship_embed.add_field(name="Player 2", value=player2.mention)
@@ -588,7 +588,7 @@ class Games(commands.Cog):
             player1_board = '\n'.join([''.join(row) for row in self.player1_board])
             player2_board = '\n'.join([''.join(row) for row in self.player2_board])
           
-            battleship_embed = discord.Embed(title="Battleship", description=f"Attention members of {self.ctx.guild.name}\nA game of Battleship has ended...\nIt appears that {self.current_turn.mention} did not respond in time.", color=discord.Color.from_rgb(0, 0, 255))
+            battleship_embed = discord.Embed(title="Battleship", description=f"Attention members of {self.ctx.guild.name}\nA game of Battleship has ended...\nIt appears that {self.current_turn.mention} did not respond in time.", color=discord.Color.from_rgb(130, 130, 130))
     
             battleship_embed.add_field(name="Player 1", value=self.player1.mention)
             battleship_embed.add_field(name="Player 2", value=self.player2.mention)          
@@ -718,7 +718,7 @@ class Games(commands.Cog):
             player1_board = '\n'.join([''.join(row) for row in self.player1_board])
             player2_board = '\n'.join([''.join(row) for row in self.player2_board])
           
-            battleship_embed = discord.Embed(title="Battleship", description=f"Attention members of {self.ctx.guild.name}\nA game of Battleship has ended...\n:trophy:{winner.mention} has defeated {loser.mention} on the high seas!", color=discord.Color.from_rgb(0, 0, 255))
+            battleship_embed = discord.Embed(title="Battleship", description=f"Attention members of {self.ctx.guild.name}\nA game of Battleship has ended...\n:trophy:{winner.mention} has defeated {loser.mention} on the high seas!", color=discord.Color.from_rgb(130, 130, 130))
     
             battleship_embed.add_field(name="Player 1", value=self.player1.mention)
             battleship_embed.add_field(name="Player 2", value=self.player2.mention)          
@@ -848,7 +848,7 @@ class Games(commands.Cog):
               
             self.toggle_turn() #change the turn back to player
               
-            battleship_embed = discord.Embed(title="Battleship", description=f"Attention members of {self.ctx.guild.name}\nA game of Battleship has commenced.\nSelect the desired row and column using the position buttons below and then `💥Fire` upon your opponent's fleet.", color=discord.Color.from_rgb(0, 0, 255))
+            battleship_embed = discord.Embed(title="Battleship", description=f"Attention members of {self.ctx.guild.name}\nA game of Battleship has commenced.\nSelect the desired row and column using the position buttons below and then `💥Fire` upon your opponent's fleet.", color=discord.Color.from_rgb(130, 130, 130))
     
             battleship_embed.add_field(name="Player 1", value=self.player1.mention)
             battleship_embed.add_field(name="Player 2", value=self.player2.mention)          
@@ -970,7 +970,7 @@ class Games(commands.Cog):
 
             self.toggle_turn()
               
-            battleship_embed = discord.Embed(title="Battleship", description=f"Attention members of {self.ctx.guild.name}\nA game of Battleship has commenced.\nSelect the desired row and column using the position buttons below and then `💥Fire` upon your opponent's fleet.", color=discord.Color.from_rgb(0, 0, 255))
+            battleship_embed = discord.Embed(title="Battleship", description=f"Attention members of {self.ctx.guild.name}\nA game of Battleship has commenced.\nSelect the desired row and column using the position buttons below and then `💥Fire` upon your opponent's fleet.", color=discord.Color.from_rgb(130, 130, 130))
     
             battleship_embed.add_field(name="Player 1", value=self.player1.mention)
             battleship_embed.add_field(name="Player 2", value=self.player2.mention)          
@@ -1467,7 +1467,7 @@ class Games(commands.Cog):
             player1_board = '\n'.join([''.join(row) for row in self.player1_board])
             player2_board = '\n'.join([''.join(row) for row in self.player2_board])
           
-            battleship_embed = discord.Embed(title="Battleship", description=f"Attention members of {self.ctx.guild.name}\nA game of Battleship has ended...\n{loser.mention} has **🏳 Surrendered** to {winner.mention}.", color=discord.Color.from_rgb(0, 0, 255))
+            battleship_embed = discord.Embed(title="Battleship", description=f"Attention members of {self.ctx.guild.name}\nA game of Battleship has ended...\n{loser.mention} has **🏳 Surrendered** to {winner.mention}.", color=discord.Color.from_rgb(130, 130, 130))
     
             battleship_embed.add_field(name="Player 1", value=self.player1.mention)
             battleship_embed.add_field(name="Player 2", value=self.player2.mention)          
@@ -1597,7 +1597,7 @@ class Games(commands.Cog):
 
         attempts = 10 #the number of attempts the user gets
       
-        mm_embed = discord.Embed(title="Mastermind", description=f"Attention members of {ctx.guild.name}\nA game of Mastermind has commenced.\n{ctx.author.mention} must decipher my secret...", color = discord.Color.from_rgb(0, 0, 255))
+        mm_embed = discord.Embed(title="Mastermind", description=f"Attention members of {ctx.guild.name}\nA game of Mastermind has commenced.\n{ctx.author.mention} must decipher my secret...", color = discord.Color.from_rgb(130, 130, 130))
         mm_embed.add_field(name="Difficulty", value=difficulty, inline=True)
         mm_embed.add_field(name="Secret Code", value=f"```{answer_blank_string}```", inline=False)
         mm_embed.add_field(name="Guesses", value=f"```{guesses_string}```", inline=True)
@@ -1682,7 +1682,7 @@ class Games(commands.Cog):
           
 
           
-            mm_embed = discord.Embed(title="Mastermind", description=f"Attention members of {self.ctx.guild.name}\nA game of Mastermind has commenced.\n{self.ctx.author.mention} must decipher my secret...", color = discord.Color.from_rgb(0, 0, 255))
+            mm_embed = discord.Embed(title="Mastermind", description=f"Attention members of {self.ctx.guild.name}\nA game of Mastermind has commenced.\n{self.ctx.author.mention} must decipher my secret...", color = discord.Color.from_rgb(130, 130, 130))
             mm_embed.add_field(name="Difficulty", value=self.difficulty, inline=True)
             mm_embed.add_field(name="Secret Code", value=f"```{self.answer_blank_string}```", inline=False)
             mm_embed.add_field(name="Guesses", value=f"```{guesses}```", inline=True)
@@ -1833,7 +1833,7 @@ class Games(commands.Cog):
                 correct_guesses = '\n'.join([''.join(row) for row in self.correct_guesses])
                 
 
-            mm_embed = discord.Embed(title="Mastermind", description=description, color = discord.Color.from_rgb(0, 0, 255))
+            mm_embed = discord.Embed(title="Mastermind", description=description, color = discord.Color.from_rgb(130, 130, 130))
             mm_embed.add_field(name="Difficulty", value=self.difficulty, inline=True)
             mm_embed.add_field(name="Secret Code", value=f"```{answer}```", inline=False)
             mm_embed.add_field(name="Guesses", value=f"```{guesses}```", inline=True)
@@ -1853,7 +1853,7 @@ class Games(commands.Cog):
             correct_guesses = '\n'.join([''.join(row) for row in self.correct_guesses])
 
           
-            mm_embed = discord.Embed(title="Mastermind", description=description, color = discord.Color.from_rgb(0, 0, 255))
+            mm_embed = discord.Embed(title="Mastermind", description=description, color = discord.Color.from_rgb(130, 130, 130))
             mm_embed.add_field(name="Difficulty", value=self.difficulty, inline=True)
             mm_embed.add_field(name="Secret Code", value=f"```{answer}```", inline=False)
             mm_embed.add_field(name="Guesses", value=f"```{guesses}```", inline=True)
@@ -1984,7 +1984,7 @@ class Games(commands.Cog):
             correct_guesses = '\n'.join([''.join(row) for row in self.correct_guesses])
 
           
-            mm_embed = discord.Embed(title="Mastermind", description=description, color = discord.Color.from_rgb(0, 0, 255))
+            mm_embed = discord.Embed(title="Mastermind", description=description, color = discord.Color.from_rgb(130, 130, 130))
             mm_embed.add_field(name="Difficulty", value=self.difficulty, inline=True)
             mm_embed.add_field(name="Secret Code", value=f"```{answer}```", inline=False)
             mm_embed.add_field(name="Guesses", value=f"```{guesses}```", inline=True)
@@ -2137,7 +2137,7 @@ class Games(commands.Cog):
     
   
     
-        brdmsg_embed = discord.Embed(title="Hunt for the Wumpus", description=f"{ctx.author.mention} has begun searching for the Wumpus.\nGood luck...", color=discord.Color.from_rgb(0, 0, 255))
+        brdmsg_embed = discord.Embed(title="Hunt for the Wumpus", description=f"{ctx.author.mention} has begun searching for the Wumpus.\nGood luck...", color=discord.Color.from_rgb(130, 130, 130))
     
         brdmsg_embed.add_field(name="Status", value=":grinning: `Now Loading...`", inline=False)
         brdmsg_embed.add_field(name="Arrows Remaining", value=f":bow_and_arrow: `{arrows}`", inline=True)
@@ -2205,7 +2205,7 @@ class Games(commands.Cog):
 
         #loading status
         async def surroundings(self):
-            surroundings_embed = discord.Embed(title="Hunt for the Wumpus", description=f"{self.ctx.author.mention} has begun searching for the Wumpus.\nGood luck...", color=discord.Color.from_rgb(0, 0, 255))
+            surroundings_embed = discord.Embed(title="Hunt for the Wumpus", description=f"{self.ctx.author.mention} has begun searching for the Wumpus.\nGood luck...", color=discord.Color.from_rgb(130, 130, 130))
       
             surroundings_embed.add_field(name="Status", value=":grinning: `Checking Surroundings...`", inline=False)
             surroundings_embed.add_field(name="Arrows Remaining", value=f":bow_and_arrow: `{self.arrows}`", inline=True)
@@ -2284,7 +2284,7 @@ class Games(commands.Cog):
       
       
             #Update Status according to user position
-            status_embed = discord.Embed(title="Hunt for the Wumpus", description=description, color=discord.Color.from_rgb(0, 0, 255))
+            status_embed = discord.Embed(title="Hunt for the Wumpus", description=description, color=discord.Color.from_rgb(130, 130, 130))
             status_embed.add_field(name="Status", value=status, inline=False)
             status_embed.add_field(name="Arrows Remaining", value=f":bow_and_arrow: `{self.arrows}`", inline=True)
             status_embed.add_field(name="Danger Level", value=f"`{self.danger_level}`", inline=True)
@@ -2429,7 +2429,7 @@ class Games(commands.Cog):
 
 
               
-            arrowmsg_embed = discord.Embed(title="Hunt for the Wumpus", description=description, color=discord.Color.from_rgb(0, 0, 255))
+            arrowmsg_embed = discord.Embed(title="Hunt for the Wumpus", description=description, color=discord.Color.from_rgb(130, 130, 130))
   
             arrowmsg_embed.add_field(name="Status", value=status, inline=False)
             arrowmsg_embed.add_field(name="Arrows Remaining", value=f":bow_and_arrow: `{self.arrows}`", inline=True)
@@ -2466,7 +2466,7 @@ class Games(commands.Cog):
             for child in self.children: #disable all the buttons
                 child.disabled = True
 
-            endmsg_embed = discord.Embed(title="Hunt for the Wumpus", description=f"{self.ctx.author.mention} lost their way in the unending cave, never to be seen again...", color=discord.Color.from_rgb(0, 0, 255))
+            endmsg_embed = discord.Embed(title="Hunt for the Wumpus", description=f"{self.ctx.author.mention} lost their way in the unending cave, never to be seen again...", color=discord.Color.from_rgb(130, 130, 130))
   
             endmsg_embed.add_field(name="Status", value=":skull: `Lost`", inline=False)
             endmsg_embed.add_field(name="Arrows Remaining", value=f":bow_and_arrow: `{self.arrows}`", inline=True)
@@ -2718,7 +2718,7 @@ class Games(commands.Cog):
             button.disabled = True #disable the button (until one of the arrow buttons is used)
 
           
-            shootmsg_embed = discord.Embed(title="Hunt for the Wumpus", description=f"{self.ctx.author.mention} must decide where to shoot quickly...", color=discord.Color.from_rgb(0, 0, 255))
+            shootmsg_embed = discord.Embed(title="Hunt for the Wumpus", description=f"{self.ctx.author.mention} must decide where to shoot quickly...", color=discord.Color.from_rgb(130, 130, 130))
             shootmsg_embed.add_field(name="Status", value=":bow_and_arrow: `Shooting`", inline=False)
             shootmsg_embed.add_field(name="Arrows Remaining", value=f":bow_and_arrow: `{self.arrows}`", inline=True)
             shootmsg_embed.add_field(name="Danger Level", value=f"`{self.danger_level}`", inline=True)
@@ -2747,7 +2747,7 @@ class Games(commands.Cog):
             for child in self.children: #disable all the buttons
                 child.disabled = True
           
-            endmsg_embed = discord.Embed(title="Hunt for the Wumpus", description=f'{self.ctx.author.mention} stopped searching for the dreaded Wumpus...\nShall someone ever slay this dreaded beast? 👹', color=discord.Color.from_rgb(0, 0, 255))
+            endmsg_embed = discord.Embed(title="Hunt for the Wumpus", description=f'{self.ctx.author.mention} stopped searching for the dreaded Wumpus...\nShall someone ever slay this dreaded beast? 👹', color=discord.Color.from_rgb(130, 130, 130))
     
             endmsg_embed.add_field(name="Status", value=":dash: `Fled`", inline=False)
             endmsg_embed.add_field(name="Arrows Remaining", value=f":bow_and_arrow: `{self.arrows}`", inline=True)
@@ -2815,7 +2815,7 @@ class Games(commands.Cog):
             bot_difficulty = "medium"
     
       
-        c4_embed = discord.Embed(title="Connect Four", description=f"Attention members of {ctx.guild.name}\nA game of Connect Four has commenced.\nSelect the desired column using the corresponding button.", color = discord.Color.from_rgb(0, 0, 255))
+        c4_embed = discord.Embed(title="Connect Four", description=f"Attention members of {ctx.guild.name}\nA game of Connect Four has commenced.\nSelect the desired column using the corresponding button.", color = discord.Color.from_rgb(130, 130, 130))
     
         if player2_bot is True:
             c4_embed.add_field(name="Difficulty", value=difficulty, inline=False)
@@ -2875,7 +2875,7 @@ class Games(commands.Cog):
                 child.disabled = True
     
             # Update the embed
-            c4_embed = discord.Embed(title="Connect Four", description=f"Attention members of {self.ctx.guild.name}\nA game of Connect Four has ended...\nOne or more of the players did not interact in time.", color=discord.Color.from_rgb(0, 0, 255))
+            c4_embed = discord.Embed(title="Connect Four", description=f"Attention members of {self.ctx.guild.name}\nA game of Connect Four has ended...\nOne or more of the players did not interact in time.", color=discord.Color.from_rgb(130, 130, 130))
     
             if self.player2_bot is True:
                 c4_embed.add_field(name="Difficulty", value=self.difficulty, inline=False)
@@ -2996,7 +2996,7 @@ class Games(commands.Cog):
                     winner_message = f"{winning_symbol} {winner.mention} won this round.\nCongratulations, good sir!"
               
                 # Update the winner embed
-                c4_embed = discord.Embed(title="Connect Four", description=f"Attention members of {self.ctx.guild.name}\nA game of Connect Four has ended...\n\n{winner_message}", color=discord.Color.from_rgb(0, 0, 255))
+                c4_embed = discord.Embed(title="Connect Four", description=f"Attention members of {self.ctx.guild.name}\nA game of Connect Four has ended...\n\n{winner_message}", color=discord.Color.from_rgb(130, 130, 130))
     
                 if self.player2_bot is True:
                     c4_embed.add_field(name="Difficulty", value=self.difficulty, inline=False)
@@ -3015,7 +3015,7 @@ class Games(commands.Cog):
             self.toggle_turn() #toggle the turn
         
             # Update the embed
-            c4_embed = discord.Embed(title="Connect Four", description=f"Attention members of {self.ctx.guild.name}\nA game of Connect Four has commenced.\nSelect the desired column using the corresponding button.", color=discord.Color.from_rgb(0, 0, 255))
+            c4_embed = discord.Embed(title="Connect Four", description=f"Attention members of {self.ctx.guild.name}\nA game of Connect Four has commenced.\nSelect the desired column using the corresponding button.", color=discord.Color.from_rgb(130, 130, 130))
     
             if self.player2_bot is True:
                 c4_embed.add_field(name="Difficulty", value=self.difficulty, inline=False)
@@ -3267,7 +3267,7 @@ class Games(commands.Cog):
                     winner_message = f"{winning_symbol} {winner.mention} won this round.\nCongratulations, good sir!"
               
                 # Update the winner embed
-                c4_embed = discord.Embed(title="Connect Four", description=f"Attention members of {self.ctx.guild.name}\nA game of Connect Four has ended...\n\n{winner_message}", color=discord.Color.from_rgb(0, 0, 255))
+                c4_embed = discord.Embed(title="Connect Four", description=f"Attention members of {self.ctx.guild.name}\nA game of Connect Four has ended...\n\n{winner_message}", color=discord.Color.from_rgb(130, 130, 130))
     
                 if self.player2_bot is True:
                     c4_embed.add_field(name="Difficulty", value=self.difficulty, inline=False)
@@ -3287,7 +3287,7 @@ class Games(commands.Cog):
     
         
             # Update the embed
-            c4_embed = discord.Embed(title="Connect Four", description=f"Attention members of {self.ctx.guild.name}\nA game of Connect Four has commenced.\nSelect the desired column using the corresponding button.", color=discord.Color.from_rgb(0, 0, 255))
+            c4_embed = discord.Embed(title="Connect Four", description=f"Attention members of {self.ctx.guild.name}\nA game of Connect Four has commenced.\nSelect the desired column using the corresponding button.", color=discord.Color.from_rgb(130, 130, 130))
     
             if self.player2_bot is True:
                 c4_embed.add_field(name="Difficulty", value=self.difficulty, inline=False)
@@ -3361,7 +3361,7 @@ class Games(commands.Cog):
                     winner_message = f"{winning_symbol} {winner.mention} won this round.\nCongratulations, good sir!"
               
                 # Update the winner embed
-                c4_embed = discord.Embed(title="Connect Four", description=f"Attention members of {self.ctx.guild.name}\nA game of Connect Four has ended...\n\n{winner_message}", color=discord.Color.from_rgb(0, 0, 255))
+                c4_embed = discord.Embed(title="Connect Four", description=f"Attention members of {self.ctx.guild.name}\nA game of Connect Four has ended...\n\n{winner_message}", color=discord.Color.from_rgb(130, 130, 130))
     
                 if self.player2_bot is True:
                     c4_embed.add_field(name="Difficulty", value=self.difficulty, inline=False)
@@ -3381,7 +3381,7 @@ class Games(commands.Cog):
             self.toggle_turn() #toggle the turn
         
             # Update the embed
-            c4_embed = discord.Embed(title="Connect Four", description=f"Attention members of {self.ctx.guild.name}\nA game of Connect Four has commenced.\nSelect the desired column using the corresponding button.", color=discord.Color.from_rgb(0, 0, 255))
+            c4_embed = discord.Embed(title="Connect Four", description=f"Attention members of {self.ctx.guild.name}\nA game of Connect Four has commenced.\nSelect the desired column using the corresponding button.", color=discord.Color.from_rgb(130, 130, 130))
     
             if self.player2_bot is True:
                 c4_embed.add_field(name="Difficulty", value=self.difficulty, inline=False)
@@ -3454,7 +3454,7 @@ class Games(commands.Cog):
                     winner_message = f"{winning_symbol} {winner.mention} won this round.\nCongratulations, good sir!"
               
                 # Update the winner embed
-                c4_embed = discord.Embed(title="Connect Four", description=f"Attention members of {self.ctx.guild.name}\nA game of Connect Four has ended...\n\n{winner_message}", color=discord.Color.from_rgb(0, 0, 255))
+                c4_embed = discord.Embed(title="Connect Four", description=f"Attention members of {self.ctx.guild.name}\nA game of Connect Four has ended...\n\n{winner_message}", color=discord.Color.from_rgb(130, 130, 130))
     
                 if self.player2_bot is True:
                     c4_embed.add_field(name="Difficulty", value=self.difficulty, inline=False)
@@ -3474,7 +3474,7 @@ class Games(commands.Cog):
             self.toggle_turn() #toggle the turn
         
             # Update the embed
-            c4_embed = discord.Embed(title="Connect Four", description=f"Attention members of {self.ctx.guild.name}\nA game of Connect Four has commenced.\nSelect the desired column using the corresponding button.", color=discord.Color.from_rgb(0, 0, 255))
+            c4_embed = discord.Embed(title="Connect Four", description=f"Attention members of {self.ctx.guild.name}\nA game of Connect Four has commenced.\nSelect the desired column using the corresponding button.", color=discord.Color.from_rgb(130, 130, 130))
     
             if self.player2_bot is True:
                 c4_embed.add_field(name="Difficulty", value=self.difficulty, inline=False)
@@ -3548,7 +3548,7 @@ class Games(commands.Cog):
                     winner_message = f"{winning_symbol} {winner.mention} won this round.\nCongratulations, good sir!"
               
                 # Update the winner embed
-                c4_embed = discord.Embed(title="Connect Four", description=f"Attention members of {self.ctx.guild.name}\nA game of Connect Four has ended...\n\n{winner_message}", color=discord.Color.from_rgb(0, 0, 255))
+                c4_embed = discord.Embed(title="Connect Four", description=f"Attention members of {self.ctx.guild.name}\nA game of Connect Four has ended...\n\n{winner_message}", color=discord.Color.from_rgb(130, 130, 130))
     
                 if self.player2_bot is True:
                     c4_embed.add_field(name="Difficulty", value=self.difficulty, inline=False)
@@ -3568,7 +3568,7 @@ class Games(commands.Cog):
             self.toggle_turn() #toggle the turn
         
             # Update the embed
-            c4_embed = discord.Embed(title="Connect Four", description=f"Attention members of {self.ctx.guild.name}\nA game of Connect Four has commenced.\nSelect the desired column using the corresponding button.", color=discord.Color.from_rgb(0, 0, 255))
+            c4_embed = discord.Embed(title="Connect Four", description=f"Attention members of {self.ctx.guild.name}\nA game of Connect Four has commenced.\nSelect the desired column using the corresponding button.", color=discord.Color.from_rgb(130, 130, 130))
     
             if self.player2_bot is True:
                 c4_embed.add_field(name="Difficulty", value=self.difficulty, inline=False)
@@ -3644,7 +3644,7 @@ class Games(commands.Cog):
                     winner_message = f"{winning_symbol} {winner.mention} won this round.\nCongratulations, good sir!"
               
                 # Update the winner embed
-                c4_embed = discord.Embed(title="Connect Four", description=f"Attention members of {self.ctx.guild.name}\nA game of Connect Four has ended...\n\n{winner_message}", color=discord.Color.from_rgb(0, 0, 255))
+                c4_embed = discord.Embed(title="Connect Four", description=f"Attention members of {self.ctx.guild.name}\nA game of Connect Four has ended...\n\n{winner_message}", color=discord.Color.from_rgb(130, 130, 130))
     
                 if self.player2_bot is True:
                     c4_embed.add_field(name="Difficulty", value=self.difficulty, inline=False)
@@ -3664,7 +3664,7 @@ class Games(commands.Cog):
             self.toggle_turn() #toggle the turn
         
             # Update the embed
-            c4_embed = discord.Embed(title="Connect Four", description=f"Attention members of {self.ctx.guild.name}\nA game of Connect Four has commenced.\nSelect the desired column using the corresponding button.", color=discord.Color.from_rgb(0, 0, 255))
+            c4_embed = discord.Embed(title="Connect Four", description=f"Attention members of {self.ctx.guild.name}\nA game of Connect Four has commenced.\nSelect the desired column using the corresponding button.", color=discord.Color.from_rgb(130, 130, 130))
     
             if self.player2_bot is True:
                 c4_embed.add_field(name="Difficulty", value=self.difficulty, inline=False)
@@ -3739,7 +3739,7 @@ class Games(commands.Cog):
                     winner_message = f"{winning_symbol} {winner.mention} won this round.\nCongratulations, good sir!"
               
                 # Update the winner embed
-                c4_embed = discord.Embed(title="Connect Four", description=f"Attention members of {self.ctx.guild.name}\nA game of Connect Four has ended...\n\n{winner_message}", color=discord.Color.from_rgb(0, 0, 255))
+                c4_embed = discord.Embed(title="Connect Four", description=f"Attention members of {self.ctx.guild.name}\nA game of Connect Four has ended...\n\n{winner_message}", color=discord.Color.from_rgb(130, 130, 130))
     
                 if self.player2_bot is True:
                     c4_embed.add_field(name="Difficulty", value=self.difficulty, inline=False)
@@ -3759,7 +3759,7 @@ class Games(commands.Cog):
             self.toggle_turn() #toggle the turn
         
             # Update the embed
-            c4_embed = discord.Embed(title="Connect Four", description=f"Attention members of {self.ctx.guild.name}\nA game of Connect Four has commenced.\nSelect the desired column using the corresponding button.", color=discord.Color.from_rgb(0, 0, 255))
+            c4_embed = discord.Embed(title="Connect Four", description=f"Attention members of {self.ctx.guild.name}\nA game of Connect Four has commenced.\nSelect the desired column using the corresponding button.", color=discord.Color.from_rgb(130, 130, 130))
     
             if self.player2_bot is True:
                 c4_embed.add_field(name="Difficulty", value=self.difficulty, inline=False)
@@ -3834,7 +3834,7 @@ class Games(commands.Cog):
                     winner_message = f"{winning_symbol} {winner.mention} won this round.\nCongratulations, good sir!"
               
                 # Update the winner embed
-                c4_embed = discord.Embed(title="Connect Four", description=f"Attention members of {self.ctx.guild.name}\nA game of Connect Four has ended...\n\n{winner_message}", color=discord.Color.from_rgb(0, 0, 255))
+                c4_embed = discord.Embed(title="Connect Four", description=f"Attention members of {self.ctx.guild.name}\nA game of Connect Four has ended...\n\n{winner_message}", color=discord.Color.from_rgb(130, 130, 130))
     
                 if self.player2_bot is True:
                     c4_embed.add_field(name="Difficulty", value=self.difficulty, inline=False)
@@ -3854,7 +3854,7 @@ class Games(commands.Cog):
             self.toggle_turn() #toggle the turn
         
             # Update the embed
-            c4_embed = discord.Embed(title="Connect Four", description=f"Attention members of {self.ctx.guild.name}\nA game of Connect Four has commenced.\nSelect the desired column using the corresponding button.", color=discord.Color.from_rgb(0, 0, 255))
+            c4_embed = discord.Embed(title="Connect Four", description=f"Attention members of {self.ctx.guild.name}\nA game of Connect Four has commenced.\nSelect the desired column using the corresponding button.", color=discord.Color.from_rgb(130, 130, 130))
     
             if self.player2_bot is True:
                 c4_embed.add_field(name="Difficulty", value=self.difficulty, inline=False)
@@ -4728,7 +4728,7 @@ class Games(commands.Cog):
     
     
     
-        rps_embed = discord.Embed(title="Rock, Paper, Scissors", description=f"Attention members of {ctx.guild.name}\nA game of rock, paper, scissors has commenced.", color = discord.Color.from_rgb(0, 0, 255))
+        rps_embed = discord.Embed(title="Rock, Paper, Scissors", description=f"Attention members of {ctx.guild.name}\nA game of rock, paper, scissors has commenced.", color = discord.Color.from_rgb(130, 130, 130))
     
         rps_embed.add_field(name="Player 1", value=ctx.author.mention)
         rps_embed.add_field(name="Player 2", value=player2.mention)
@@ -4779,7 +4779,7 @@ class Games(commands.Cog):
             for child in self.children: #disable all the buttons
                 child.disabled = True
     
-            rps_embed = discord.Embed(title="Rock, Paper, Scissors", description=f"Attention members of {self.ctx.guild.name}\nA game of rock, paper, scissors has ended...\nOne or more of the players did not respond in time.", color = discord.Color.from_rgb(0, 0, 255))
+            rps_embed = discord.Embed(title="Rock, Paper, Scissors", description=f"Attention members of {self.ctx.guild.name}\nA game of rock, paper, scissors has ended...\nOne or more of the players did not respond in time.", color = discord.Color.from_rgb(130, 130, 130))
       
             rps_embed.add_field(name="Player 1", value=self.player1.mention)
             rps_embed.add_field(name="Player 2", value=self.player2.mention)
@@ -4936,7 +4936,7 @@ class Games(commands.Cog):
             # Example code to display the result in an embed
             rps_embed = discord.Embed(title="Rock, Paper, Scissors Result",
                                       description=description,
-                                      color=discord.Color.from_rgb(0, 0, 255))
+                                      color=discord.Color.from_rgb(130, 130, 130))
     
             rps_embed.add_field(name="Player 1", value=f"{self.player1.mention}\n{player1_choice_emoji}") #author choice
             rps_embed.add_field(name="Player 2", value=f"{self.player2.mention}\n{player2_choice_emoji}") #player 2 choice
