@@ -44,7 +44,7 @@ async def on_ready():
   formatted_time = current_time_us_central.strftime('%A %B %d, %Y %I:%M %p US/Central')
 
   #let user of bot know that bot is ready in Console
-  print(f"Greetings sir, {bot.user.name} at your service.\nMy current latency, as of {formatted_time} is {int(bot.latency*100)} ms, good sirs.")
+  print(f"Greetings sir, {bot.user.name} at your service.\nMy current latency, as of {formatted_time} is {int(bot.latency*100)} ms.")
   print("--------------------")
 
 
