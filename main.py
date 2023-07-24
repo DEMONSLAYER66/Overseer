@@ -59,7 +59,7 @@ async def on_ready():
           for config in autopurge_config:
               time_remaining = config['time_remaining']
               if time_remaining:
-                  time_remaining = float(time_remaining) #convert to float type
+                  time_remaining = int(time_remaining) #convert to float type
                   purge_channel_id = config["purge_channel_id"]
         
                   # Update the 'start_time' field in the MongoDB collection
@@ -79,7 +79,7 @@ async def on_ready():
 
   if cooldown_data_list:
       for cooldown_data in cooldown_data_list:
-          cooldown_time = float(cooldown_data['cooldown']) #convert to integer
+          cooldown_time = int(cooldown_data['cooldown']) #convert to integer
           guild_id = cooldown_data['server_id']
 
           # Update the 'start_time' field in the MongoDB collection
