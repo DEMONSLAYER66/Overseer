@@ -328,8 +328,8 @@ class Utility(commands.Cog):
                         continue
 
 
-            # bot_data = bump_db.total_bumps.find_one({"automaton": "Lord Bottington"}) #the total number of bumps for the bot
-            # total_bumps = bot_data['total_bumps']
+            bot_data = bump_db.total_bumps.find_one({"automaton": "Lord Bottington"}) #the total number of bumps for the bot
+            total_bumps = bot_data['total_bumps']
 
             # guild_count = bump_db.bump_configs.count_documents({}) #the amount of servers that have configured their promo channel
 
