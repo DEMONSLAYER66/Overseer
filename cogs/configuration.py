@@ -725,7 +725,7 @@ class Configuration(commands.Cog):
         client = pymongo.MongoClient(mongoDBpass)
         event_handler_db = client.event_handler_db
 
-        event_doc = event_handler_db[f"events_{guild_id}"].find_one({"server_id": guild_id})
+        event_doc = event_handler_db.events.find_one({"server_id": guild_id})
         if event_doc:
             return event_doc["autopurge"]
         else:
