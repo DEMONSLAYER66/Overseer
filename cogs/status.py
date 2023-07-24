@@ -37,7 +37,7 @@ class Status(commands.Cog):
         self.timezone = pytz.timezone('US/Central')
         self.bd_time = datetime.time(hour=16, minute=35, second=0, microsecond=0, tzinfo=self.timezone)
         self.daily_bd_time = self.bd_time.strftime("%I:%M") + " PM" #set the daily bd time to ##:## AM
-        self.remove_role_time = datetime.time(hour=16, minute=40, second=0, microsecond=0, tzinfo=self.timezone)
+        self.remove_role_time = datetime.time(hour=16, minute=53, second=0, microsecond=0, tzinfo=self.timezone)
         self.daily_remove_role_time = self.remove_role_time.strftime("%I:%M") + " PM" #set the daily remove role time to ##:## AM
         self.send_bd_message.start()
 
@@ -117,12 +117,10 @@ class Status(commands.Cog):
                     # Assign birthday role to user (if set)
                     if bd_role:
                         try:
-                            # print("assign birthday role started")
-                            BD_role = discord.utils.get(member.guild.roles, name=bd_role_name)
-        
-                            if BD_role in member.roles or member.id == self.bot.user.id: # member has the role already or the user is the bot
+                            if bd_role in member.roles: # member has the role already or the user is the bot
                                 await member.remove_roles(bd_role) #remove bd role
-                            else: #member does not have role yet
+                            else:
+                                # print("member does not have role yet")
                                 pass
         
                         #unable to assign role
