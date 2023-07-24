@@ -132,8 +132,8 @@ class Utility(commands.Cog):
             current_time = datetime.datetime.utcnow()
             start_time = cooldown_data['start_time']
             elapsed_time = current_time - start_time
-            cooldown_time = float(cooldown_data['cooldown'])
-            remaining_time = max(0, cooldown_time - float(elapsed_time.total_seconds()))
+            cooldown_time = int(cooldown_data['cooldown'])
+            remaining_time = max(0, cooldown_time - int(elapsed_time.total_seconds()))
 
             promote_app_command = self.bot.get_application_command("promote")
             
@@ -250,7 +250,7 @@ class Utility(commands.Cog):
                 if not refined_patron and not distinguished_patron:
                     banner_url = None # no banner
                     color = [0, 0, 255] # default color
-                    cooldown_time = 7200 # 2 hours
+                    cooldown_time = 120 # 2 hours
                     cooldown_time_str = "2 hours"
                     patron = False
 
@@ -261,7 +261,7 @@ class Utility(commands.Cog):
 
             #cooldown for support guild
             else:
-                cooldown_time = 1800 # 30 min
+                cooldown_time = 60 # 30 min
                 cooldown_time_str = "30 minutes"
                 patron = None
 
@@ -364,7 +364,7 @@ class Utility(commands.Cog):
                     "server_id": ctx.guild.id,
                     "promoter_id": ctx.author.id,
                     "promotion_channel_id": ctx.channel.id,
-                    "cooldown": float(cooldown_time), #convert to float type to ensure accuracy
+                    "cooldown": int(cooldown_time), #convert to int type to ensure accuracy
                     "start_time": datetime.datetime.utcnow()
                   }
                 )
@@ -374,7 +374,7 @@ class Utility(commands.Cog):
 
 
     async def send_reminder(self, cooldown, guild_id):
-        await asyncio.sleep(cooldown)
+        await asyncio.sleep(int(cooldown))
 
         cooldown_key = {"server_id": guild_id}
         cooldown_data = bump_db.cooldowns.find_one(cooldown_key)
@@ -391,20 +391,20 @@ class Utility(commands.Cog):
             bump_db.cooldowns.delete_one(cooldown_key)
 
       
-        promote_app_command = self.bot.get_application_command("promote")
-        eventhandler_command = self.bot.get_application_command("eventhandler")
-      
-        reminder_embed = discord.Embed(
-            title=f"{guild.name}\nPromotion Reminder",
-            description=f"Attention members of {guild.name},\nThe promotion cooldown has **ended** for this guild...\n\nYou may once again use the </{promote_app_command.name}:{promote_app_command.id}> directive!\n\nYou may also utilize </{eventhandler_command.name}:{eventhandler_command.id}> in order to turn promotion reminders on or off.\n\n*Best of luck in promoting and growing this esteemed community, good fellows!*",
-            color=discord.Color.from_rgb(130, 130, 130)
-        )
-        reminder_embed.set_thumbnail(url=self.bot.user.avatar.url)
-
-        try:
-            await channel.send(f"{author.mention} ***Promotion Reminder***", embed=reminder_embed)
-        except:
-            return
+            promote_app_command = self.bot.get_application_command("promote")
+            eventhandler_command = self.bot.get_application_command("eventhandler")
+          
+            reminder_embed = discord.Embed(
+                title=f"{guild.name}\nPromotion Reminder",
+                description=f"Attention members of {guild.name},\nThe promotion cooldown has **ended** for this guild...\n\nYou may once again use the </{promote_app_command.name}:{promote_app_command.id}> directive!\n\nYou may also utilize </{eventhandler_command.name}:{eventhandler_command.id}> in order to turn promotion reminders on or off.\n\n*Best of luck in promoting and growing this esteemed community, good fellows!*",
+                color=discord.Color.from_rgb(130, 130, 130)
+            )
+            reminder_embed.set_thumbnail(url=self.bot.user.avatar.url)
+    
+            try:
+                await channel.send(f"{author.mention} ***Promotion Reminder***", embed=reminder_embed)
+            except:
+                return
 
 
     #This retrieves the current server's event status from the mongoDB database
@@ -434,8 +434,8 @@ class Utility(commands.Cog):
             for cooldown_data in cooldown_data_list:
                 start_time = cooldown_data['start_time']
                 elapsed_time = current_time - start_time
-                cooldown_time = float(cooldown_data['cooldown'])
-                remaining_time = max(0, cooldown_time - float(elapsed_time.total_seconds()))
+                cooldown_time = int(cooldown_data['cooldown'])
+                remaining_time = max(0, cooldown_time - int(elapsed_time.total_seconds()))
         
                 if remaining_time <= 0:
                     # Delete the cooldown time from MongoDB if the cooldown time is found and over
@@ -462,8 +462,8 @@ class Utility(commands.Cog):
                     if time_remaining:
                         start_time = config['start_time']
                         elapsed_time = current_time - start_time
-                        time_left = float(time_remaining) #convert to float type
-                        remaining_time = max(0, time_left - float(elapsed_time.total_seconds()))
+                        time_left = int(time_remaining) #convert to int type
+                        remaining_time = max(0, time_left - int(elapsed_time.total_seconds()))
 
                         #save time_remaining to database even if 0 time left
                         autopurge_db[f"autopurge_config_{server_id}"].update_one({"_id": config["_id"]}, {"$set": {"time_remaining": remaining_time}})
