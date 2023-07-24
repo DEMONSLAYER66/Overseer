@@ -750,12 +750,12 @@ class Core(commands.Cog):
         async def begin_button_callback(self, button, interaction):
             self.clear_items()
 
-            event_doc = self.event_handler_db[f"events_{self.ctx.guild.id}"].find_one({"server_id": self.ctx.guild.id})
+            event_doc = self.event_handler_db.events.find_one({"server_id": self.ctx.guild.id})
 
             if event_doc is None:
                 await self.ctx.respond(f"Good sir, it appears that all events are enabled and no event configurations have been set for **{self.ctx.guild.name}**.\n*I have created and updated your configuration accordingly...*", ephemeral=True)
               
-                self.event_handler_db[f"events_{self.ctx.guild.id}"].insert_one(
+                self.event_handler_db.events.insert_one(
                   {
                     "server_id": self.ctx.guild.id,
                     "server_name": self.ctx.guild.name,
@@ -769,7 +769,7 @@ class Core(commands.Cog):
                     "promotions_reminders": "Enabled"
                   }
                 )
-                event_doc = self.event_handler_db[f"events_{self.ctx.guild.id}"].find_one({"server_id": self.ctx.guild.id})
+                event_doc = self.event_handler_db.events.find_one({"server_id": self.ctx.guild.id})
 
 
             # retrieve the values from the document
@@ -883,7 +883,7 @@ class Core(commands.Cog):
       
 
         async def event_button_click(self, interaction):
-            event_doc = self.event_handler_db[f"events_{self.ctx.guild.id}"].find_one({"server_id": self.ctx.guild.id})
+            event_doc = self.event_handler_db.events.find_one({"server_id": self.ctx.guild.id})
 
             # retrieve the values from the document
             welcome_messages = event_doc["welcome_messages"]
@@ -914,7 +914,7 @@ class Core(commands.Cog):
             if event_name in event_dict:
                 event_dict[event_name] = "Enabled" if event_status == "Disabled" else "Disabled"
             
-            self.event_handler_db[f"events_{self.ctx.guild.id}"].update_one(
+            self.event_handler_db.events.update_one(
                 {
                     "server_id": self.ctx.guild.id,
                     "server_name": self.ctx.guild.name,
@@ -1043,7 +1043,7 @@ class Core(commands.Cog):
 
       
         async def event_button_second_click(self, interaction):
-            event_doc = self.event_handler_db[f"events_{self.ctx.guild.id}"].find_one({"server_id": self.ctx.guild.id})
+            event_doc = self.event_handler_db.events.find_one({"server_id": self.ctx.guild.id})
 
             # retrieve the values from the document
             welcome_messages = event_doc["welcome_messages"]
@@ -1074,7 +1074,7 @@ class Core(commands.Cog):
             if event_name in event_dict:
                 event_dict[event_name] = "Enabled" if event_status == "Disabled" else "Disabled"
             
-            self.event_handler_db[f"events_{self.ctx.guild.id}"].update_one(
+            self.event_handler_db.events.update_one(
                 {
                     "server_id": self.ctx.guild.id,
                     "server_name": self.ctx.guild.name,
