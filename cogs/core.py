@@ -844,7 +844,7 @@ class Core(commands.Cog):
               emoji="🚀",
               label=f"Promotion Reminders ({promotions_reminders})",
               style=discord.ButtonStyle.success if promotions_reminders == "Enabled" else discord.ButtonStyle.danger,
-              custom_id=f"WelcomeMessages_{promotions_reminders}"
+              custom_id=f"PromotionReminders_{promotions_reminders}"
             )
           
 
@@ -1005,7 +1005,7 @@ class Core(commands.Cog):
               emoji="🚀",
               label=f"Promotion Reminders ({promotions_reminders})",
               style=discord.ButtonStyle.success if promotions_reminders == "Enabled" else discord.ButtonStyle.danger,
-              custom_id=f"WelcomeMessages_{promotions_reminders}"
+              custom_id=f"PromotionReminders_{promotions_reminders}"
             )
           
          
@@ -1164,7 +1164,7 @@ class Core(commands.Cog):
               emoji="🚀",
               label=f"Promotion Reminders ({promotions_reminders})",
               style=discord.ButtonStyle.success if promotions_reminders == "Enabled" else discord.ButtonStyle.danger,
-              custom_id=f"WelcomeMessages_{promotions_reminders}"
+              custom_id=f"PromotionReminders_{promotions_reminders}"
             )
           
             # Exit button
