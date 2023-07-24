@@ -179,10 +179,11 @@ class Status(commands.Cog):
                         # Assign birthday role to user (if set)
                         if bd_role:
                             try:
-                                # print("assign birthday role started")
-                                BD_role = discord.utils.get(member.guild.roles, name=bd_role_name)
-
-                                await member.add_roles(bd_role) #assign bd role
+                                #dont assign role to bot
+                                if member.bot:
+                                    pass
+                                else:
+                                    await member.add_roles(bd_role) #assign bd role
 
                             #unable to assign role
                             except:
