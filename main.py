@@ -6,6 +6,7 @@ from discord.ext import commands #used for slash commands
 import pymongo #used for database management
 from dotenv import load_dotenv
 import datetime
+import pytz
 
 
 #This checks if the person running the code has a token for discord API or not
@@ -32,9 +33,18 @@ async def on_ready():
   if not change_activity.is_running():
       change_activity.start()
 
+  # Set the timezone to US/Central
+  us_central_tz = pytz.timezone('US/Central')
+  current_time_utc = datetime.datetime.utcnow()
+
+  # Convert the UTC time to US/Central timezone
+  current_time_us_central = current_time_utc.astimezone(us_central_tz)
+
+  # Format the datetime
+  formatted_time = current_time_us_central.strftime('%A %B %d, %Y %I:%M %p US/Central')
+
   #let user of bot know that bot is ready in Console
-  print(f"Be advised, {bot.user.name} hath loaded with a ping of {int(bot.latency*100)}, good sirs.")
-  print(f"{bot.user.name} is ready to do thy bidding...")
+  print(f"Greetings sir, {bot.user.name} at your service.\nMy current latency, as of {formatted_time} is {int(bot.latency*100)} ms, good sirs.")
   print("--------------------")
 
 
