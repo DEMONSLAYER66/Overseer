@@ -248,7 +248,7 @@ class Utility(commands.Cog):
                 if not refined_patron and not distinguished_patron:
                     banner_url = None # no banner
                     color = [0, 0, 255] # default color
-                    cooldown_time = 120 # 2 hours
+                    cooldown_time = 7200 # 2 hours
                     cooldown_time_str = "2 hours"
                     patron = False
 
@@ -259,7 +259,7 @@ class Utility(commands.Cog):
 
             #cooldown for support guild
             else:
-                cooldown_time = 60 # 30 min
+                cooldown_time = 1800 # 30 min
                 cooldown_time_str = "30 minutes"
                 patron = None
 
