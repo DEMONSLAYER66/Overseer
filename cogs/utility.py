@@ -68,8 +68,6 @@ class Utility(commands.Cog):
       self.meme_time = datetime.time(hour=9, minute=0, second=0, microsecond=0, tzinfo=self.timezone)
       self.daily_meme_time = self.meme_time.strftime("%I:%M") + " AM" #set the daily meme time to ##:## AM
       self.send_meme.start()
-
-      self.send_reminder_task = None
   
 
     #This retrieves the current server's bot nickname from the mongoDB database
@@ -305,6 +303,7 @@ class Utility(commands.Cog):
             promotion_channel_ids = bump_db.bump_configs.distinct("promotion_channel_id")
             
             # Iterate through each promotion channel ID
+            message_sent_to = 0
             for promotion_channel_id in promotion_channel_ids:
                 # Fetch the promotion channel from the ID
                 promotion_channel = await self.bot.fetch_channel(promotion_channel_id)
@@ -314,7 +313,7 @@ class Utility(commands.Cog):
                     try:
                         promotion_message = await promotion_channel.send(invite_link, embed=test_embed, view=view)
                     except (discord.errors.HTTPException, discord.errors.Forbidden) as e:
-                        await ctx.respond(f"Apologies {ctx.author.mention},\nI was unable to send the promotion message to the specified channel with ID ***{promotion_channel_id}*** as I may not have the required permissions to do so.\n*Please check my permissions for this channel and ensure I have the `Send Messages` and `Manage Messages` permissions and try again.*\n\nError: `{e}`", ephemeral=True)
+                        await ctx.respond(f"Apologies {ctx.author.mention},\nI was unable to send the promotion message to your specified promotion channel with ID ***{promotion_channel_id}*** as I may not have the required permissions to do so...\n*For future reference, please ensure my permissions for this channel are set to `Send Messages` and `Manage Messages` permissions to be able to send the promotion there, sir.*\n\nError: `{e}`", ephemeral=True)
                         continue
 
               
@@ -323,18 +322,20 @@ class Utility(commands.Cog):
                     try:
                         # Send the embed to the promotion channel
                         await promotion_channel.send(invite_link, embed=test_embed, view=view)
+                        message_sent_to += 1 #add one to the sent invites list
                     except (discord.errors.HTTPException, discord.errors.Forbidden) as e:
-                        await ctx.respond(f"Apologies {ctx.author.mention},\nI was unable to send the promotion message to the specified channel with ID ***{promotion_channel.id}*** as I may not have the required permissions to do so.\n*Please check my permissions for this channel and ensure I have the `Send Messages` and `Manage Messages` permissions and try again.*\n\nError: `{e}`", ephemeral=True)
+                        # await ctx.respond(f"Apologies {ctx.author.mention},\nI was unable to send the promotion message to the specified channel with ID ***{promotion_channel.id}*** as I may not have the required permissions to do so.\n*Please check my permissions for this channel and ensure I have the `Send Messages` and `Manage Messages` permissions and try again.*\n\nError: `{e}`", ephemeral=True)
+                        continue
 
 
-            bot_data = bump_db.total_bumps.find_one({"automaton": "Lord Bottington"}) #the total number of bumps for the bot
-            total_bumps = bot_data['total_bumps']
+            # bot_data = bump_db.total_bumps.find_one({"automaton": "Lord Bottington"}) #the total number of bumps for the bot
+            # total_bumps = bot_data['total_bumps']
 
-            guild_count = bump_db.bump_configs.count_documents({}) #the amount of servers that have configured their promo channel
+            # guild_count = bump_db.bump_configs.count_documents({}) #the amount of servers that have configured their promo channel
 
-            other_guilds = guild_count - 1 #do not count current guild
+            # other_guilds = guild_count - 1 #do not count current guild
           
-            info_embed = discord.Embed(title=f"{ctx.guild.name}\nSuccessful Promotion", description=f"**🎩Congratulations!🎩**\nThis guild has been **successfully promoted** to `{other_guilds:,}` other guilds.\n\nYou may view the posting for your guild in {original_promotion_channel.mention} by [clicking here]({promotion_message.jump_url}).\n\nYou may *promote* this guild again in `{cooldown_time_str}`, if you so desire.\n\nI would also like to inform you that since my creation, I have received a grand total of 🚀`{total_bumps:,}` promotions.\nI do appreciate your support and look forward to serving you even more!\n\n*Best of luck in growing your esteemed community, good sir!*", color=discord.Color.from_rgb(color[0], color[1], color[2]))
+            info_embed = discord.Embed(title=f"{ctx.guild.name}\nSuccessful Promotion", description=f"**🎩Congratulations!🎩**\nThis guild has been **successfully promoted** to `{message_sent_to:,}` other guilds.\n\nYou may view the posting for your guild in {original_promotion_channel.mention} by [clicking here]({promotion_message.jump_url}).\n\nYou may *promote* this guild again in `{cooldown_time_str}`, if you so desire.\n\nI would also like to inform you that since my creation, I have received a grand total of 🚀`{total_bumps:,}` promotions.\nI do appreciate your support and look forward to serving you even more!\n\n*Best of luck in growing your esteemed community, good sir!*", color=discord.Color.from_rgb(color[0], color[1], color[2]))
 
             info_embed.add_field(name=f"🚀Guild Promotions", value=f"`{bumps:,}`")
 
@@ -352,44 +353,46 @@ class Utility(commands.Cog):
             
             await ctx.send(embed=info_embed, view=info_view)
 
-            #get the promotion event status from mongoDB
-            promotions_status = await self.get_promotions_event_status(ctx.guild.id)
-
-            #Promotion Reminders event only runs if event status using /eventhandler is set to enabled OR if the user has not set the status using /eventhandler
-            if promotions_status == "Disabled":
-                pass
-            elif promotions_status == "Enabled":
-                bump_db.cooldowns.insert_one(
-                  {
-                    "server_id": ctx.guild.id,
-                    "promoter_id": ctx.author.id,
-                    "promotion_channel_id": ctx.channel.id,
-                    "cooldown": int(cooldown_time), #convert to int type to ensure accuracy
-                    "start_time": datetime.datetime.utcnow()
-                  }
-                )
+            #add the cooldown data to mongodb
+            bump_db.cooldowns.insert_one(
+              {
+                "server_id": ctx.guild.id,
+                "promoter_id": ctx.author.id,
+                "promotion_channel_id": ctx.channel.id,
+                "cooldown": int(cooldown_time), #convert to int type to ensure accuracy
+                "start_time": datetime.datetime.utcnow()
+              }
+            )
               
-                await self.send_reminder(cooldown_time, ctx.guild.id)
+            await self.send_reminder(cooldown_time, ctx.guild.id)
 
 
 
     async def send_reminder(self, cooldown, guild_id):
         await asyncio.sleep(int(cooldown))
 
+        #delete the cooldown data from mongodb
         cooldown_key = {"server_id": guild_id}
         cooldown_data = bump_db.cooldowns.find_one(cooldown_key)
 
         if cooldown_data:
+            #delete the cooldown time on mongodb if the cooldown time is is found
+            bump_db.cooldowns.delete_one(cooldown_key)
+
+
+        #get the promotion event status from mongoDB
+        promotions_status = await self.get_promotions_event_status(guild_id)
+
+        #Promotion Reminders event only runs if event status using /eventhandler is set to enabled OR if the user has not set the status using /eventhandler
+        if promotions_status == "Disabled":
+            pass
+        elif promotions_status == "Enabled":
             try:
                 author = self.bot.get_user(cooldown_data['promoter_id'])
                 guild = self.bot.get_guild(cooldown_data['server_id'])
                 channel = self.bot.get_channel(cooldown_data['promotion_channel_id'])
             except:
                 return
-          
-            #delete the cooldown time on mongodb if the cooldown time is is found and over
-            bump_db.cooldowns.delete_one(cooldown_key)
-
       
             promote_app_command = self.bot.get_application_command("promote")
             eventhandler_command = self.bot.get_application_command("eventhandler")
