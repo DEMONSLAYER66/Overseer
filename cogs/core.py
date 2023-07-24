@@ -704,7 +704,9 @@ class Core(commands.Cog):
         #link to README.md file on Github
         general_info_github = "https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/README.md"
 
-        first_embed = discord.Embed(title="Lord Bottington", description=f"Good day, dear members of ***{guild.name}***.\nI am **Lord Bottington**, at your service.\n\nPlease allow me to offer my assistance in any way I can.\nMay I suggest perusing my list of directives by utilizing my `/help` directive, good sir?\n\nYou may also visit the link below to view other general information related to myself...", color=discord.Color.from_rgb(130, 130, 130), url=general_info_github)
+        help_command = self.bot.get_application_command("help")
+
+        first_embed = discord.Embed(title="Lord Bottington", description=f"Good day, dear members of ***{guild.name}***.\nI am **Lord Bottington**, at your service.\n\nPlease allow me to offer my assistance in any way I can.\nMay I suggest perusing my list of directives by utilizing my </{help_command.name}:{help_command.id}> directive, good sir?\n\nYou may also visit the link below to view other general information related to myself...", color=discord.Color.from_rgb(130, 130, 130), url=general_info_github)
 
         first_embed.set_thumbnail(url=self.bot.user.avatar.url)
 
