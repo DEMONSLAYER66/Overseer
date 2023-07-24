@@ -682,7 +682,7 @@ class Configuration(commands.Cog):
                 "frequency": frequency_seconds,
                 "messagecount": messagecount,
                 "start_time": start_time,
-                "time_remaining": float(frequency_seconds) if frequency_seconds else None
+                "time_remaining": int(frequency_seconds) if frequency_seconds else None
               }
             )
 
@@ -704,7 +704,7 @@ class Configuration(commands.Cog):
                 "frequency": frequency_seconds,
                 "messagecount": messagecount,
                 "start_time": start_time,
-                "time_remaining": float(frequency_seconds) if frequency_seconds else None
+                "time_remaining": int(frequency_seconds) if frequency_seconds else None
                 }
               }
             )
@@ -810,7 +810,7 @@ class Configuration(commands.Cog):
                     autopurge_key,
                     {"$set": {
                         "start_time": datetime.utcnow(),
-                        "time_remaining": float(frequency_seconds) if frequency_seconds else None
+                        "time_remaining": int(frequency_seconds) if frequency_seconds else None
                         }
                     }
                 )
@@ -822,7 +822,7 @@ class Configuration(commands.Cog):
                 # if frequency is set, use that number, else use 60 seconds as time to check
                 if frequency_seconds:
                     # print(frequency_seconds)
-                    await asyncio.sleep(frequency_seconds)
+                    await asyncio.sleep(int(frequency_seconds))
                 else:
                     # print("no frequency set")
                     await asyncio.sleep(60)
@@ -832,7 +832,7 @@ class Configuration(commands.Cog):
 
     #this is for when the bot starts up and some time is remaining on the task
     async def autopurge_startup(self, guild_id, purge_channel_id, time_remaining):
-        await asyncio.sleep(time_remaining)
+        await asyncio.sleep(int(time_remaining))
         
         #get the autopurge event status from mongoDB
         autopurge_status = await self.get_autopurge_event_status(guild_id)
