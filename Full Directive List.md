@@ -2,7 +2,7 @@
 
 The following is a full register of directives (commands) for Lord Bottington. Directives are separated by functionality and usage.
 
-As more directives are added or updated, changes will be reflected here or in the latest version of [Lord Bottington's Updates](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/Updates/Version%201.0.md). You may access this information by using my <a href=#updates>/updates</a> directive within your guild on Discord, if you desire.
+As more directives are added or updated, changes will be reflected here or in the latest version of [Lord Bottington's Updates](https://github.com/xxjsweezeyxx/Lord-Bottington/tree/main/Updates). You may access this information by using my <a href=#updates>/updates</a> directive within your guild on Discord, if you desire.
 
 [Invite Lord Bottington](https://discord.com/api/oauth2/authorize?client_id=1092515783025889383&permissions=3557027031&scope=bot%20applications.commands) to your guild and allow him to begin serving you today!
 
@@ -81,7 +81,7 @@ This category is for directives related to general information for *Lord Botting
   - Inquire of the latency of the automaton.
 ### `/updates`
   - Retrieve the latest important update information regarding the automaton.
-  - This directive will return a link to the latest [Updates File](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/Updates/Version%201.0.md) contained here on Github to inform users of any important information or updates.
+  - This directive will return a link to the latest [Updates File](https://github.com/xxjsweezeyxx/Lord-Bottington/tree/main/Updates) contained here on Github to inform users of any important information or updates.
 
 <p align="center">
   <a href=#--directive-categories>⬆ Back to Directive Categories</a>
