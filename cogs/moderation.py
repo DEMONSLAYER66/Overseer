@@ -185,7 +185,7 @@ class Moderation(commands.Cog):
         global_command = True
     )
     # @commands.has_permissions(administrator=True)
-    async def unbanish(self, ctx, member_id: Option(str, name="member_id", description="ID of the member to unbanish from the guild."), reason: Option(str, name="reason", description="Reason for unbanning member from the guild.", required=False, default=None)):
+    async def unbanish(self, ctx, member_id: Option(str, name="member_id", description="ID of the member to unbanish from the guild. (Will remove all user's previous warnings)"), reason: Option(str, name="reason", description="Reason for unbanning member from the guild.", required=False, default=None)):
         if not ctx.author.guild_permissions.administrator:
             await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
             return
@@ -214,6 +214,16 @@ class Moderation(commands.Cog):
 
                   
                     await ctx.guild.unban(ban_entry.user)
+
+
+                    # Find all entries in the database that match the user.id
+                    warning_entries = moderation_db[f"warnings_{ctx.guild.id}"].find({"member_id": user.id})
+            
+                    # Delete the matching entries from the database
+                    for warning in warning_entries:
+                        moderation_db[f"warnings_{ctx.guild.id}"].delete_one({"_id": warning["_id"]})
+
+        
 
         except:
             await ctx.respond(f"{ctx.author.mention}\nIt appears that **{user.display_name} (ID: {member_id})** is not currently banned from ***{ctx.guild.name}***, good sir.\n*Please try again.*", ephemeral=True)
@@ -423,7 +433,7 @@ class Moderation(commands.Cog):
         if warnings_left > 0:
             description = f"Attention members of ***{ctx.guild.name}***,\n**{member.display_name}** has been `warned` within this guild."
         else:
-            description = f"Attention members of {ctx.guild.name},\n{member.display_name} has been `warned` within this guild and has reached the maximum number of warnings ({self.warning_threshold}). They will be banished accordingly."
+            description = f"Attention members of {ctx.guild.name},\n{member.display_name} has been `warned` within this guild and has reached the maximum number of warnings ({self.warning_threshold}).\n\nTheir banishment shall be swift."
 
       
         embed = discord.Embed(title="Member Status Update", description=description, color = discord.Color.from_rgb(130, 130, 130))
@@ -448,7 +458,29 @@ class Moderation(commands.Cog):
             try:
                 await channel.send(embed=embed)
             except: #if the bot does not have access or any other errors occur
-                await ctx.respond(f"Apologies {ctx.author.mention},\nI was unable to send the moderation message to {channel.mention}, good sir.\n*Please update my access to this channel, if necessary, and try again.*", ephemeral=True)
+                banish_embed = discord.Embed(title="Banishment Error", description=f"Apologies {ctx.author.mention},\nI was unable to send the moderation message to {channel.mention}, good sir.\n*For future reference, please update my access to this channel by permitting me the `Send Messages` permission in order to view moderation notifications in this channel.*", color=discord.Color.from_rgb(130, 130, 130))
+
+                banish_embed.set_thumbnail(url=self.bot.user.avatar.url)
+                
+                await ctx.author.send(embed=banish_embed)
+
+            autobanish = moderation_config["autobanish"]
+            if autobanish is True:
+                try:
+                    await member.ban(reason=reason if reason else "Not provided.")
+                except:
+                    banish_embed = discord.Embed(title="Banishment Error", description=f"Apologies {ctx.author.mention},\nI was unable to automatically banish **{member.display_name}**, good sir.\n*For future reference, please permit me the `Ban Members` permission in order to automatically ban members from this guild.*", color=discord.Color.from_rgb(130, 130, 130))
+    
+                    banish_embed.set_thumbnail(url=self.bot.user.avatar.url)
+                    
+                    await ctx.author.send(embed=banish_embed)
+            else:
+                banish_embed = discord.Embed(title="Banishment Reminder", description=f"{ctx.author.mention}\n{member.display_name} has reached the maximum number of warnings for ***{ctx.guild.name}***, good sir.\n\nIt is advisable to utilize my `/banish` directive to permanently banish them from this guild.\n\nYou may also utilize my `warnremove` directive to remove a warning from this user or you may utilize my `unbanish` directive to unbanish them in the future, if you so desire.\n*Please note that using my `/unbanish` directive will remove all pervious warnings from the user for your guild.", color=discord.Color.from_rgb(130, 130, 130))
+
+                banish_embed.set_thumbnail(url=self.bot.user.avatar.url)
+                
+                await ctx.author.send(embed=banish_embed)
+        
         else:
             await ctx.respond(embed=embed)
 
