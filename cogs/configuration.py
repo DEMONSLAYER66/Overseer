@@ -389,9 +389,9 @@ class Configuration(commands.Cog):
       
         satire_key = {"server_id": ctx.guild.id}
 
-        #remove moderation config
+        #remove autosatire config
         if remove is True:
-            if not moderation_db.moderation_configs.find_one(satire_key):
+            if not autosatire_db.autosatire_configs.find_one(satire_key):
                 await ctx.respond(f"Apologies {ctx.author.mention},\nI was unable to locate any autosatire configurations for ***{ctx.guild.name}***.", ephemeral=True)
                 return
             else:
@@ -485,6 +485,7 @@ class Configuration(commands.Cog):
         self,
         ctx,
         channel: Option(discord.TextChannel, name="channel", description="Channel where moderation messages will be sent for the guild."),
+        autobanish: Option(bool, name="autobanish", description="Automatically banish members from your guild when they reach the maximum warning threshold (3) (Default: False)", required=False, default=False),
         remove: Option(bool, name="remove", description="Remove the moderation configuration for the guild. (Default: False)", required=False, default=False)
     ):
         if not ctx.author.guild_permissions.administrator:
@@ -519,7 +520,8 @@ class Configuration(commands.Cog):
                 "server_id": ctx.guild.id,
                 "server_name": ctx.guild.name,
                 "channel_id": channel.id,
-                "channel_name": channel.name
+                "channel_name": channel.name,
+                "autobanish": autobanish
               }
             )
 
@@ -533,7 +535,8 @@ class Configuration(commands.Cog):
               },
               {"$set": {
                 "channel_id": channel.id,
-                "channel_name": channel.name
+                "channel_name": channel.name,
+                "autobanish": autobanish
                 }
               }
             )
