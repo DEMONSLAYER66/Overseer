@@ -485,7 +485,7 @@ class Configuration(commands.Cog):
         self,
         ctx,
         channel: Option(discord.TextChannel, name="channel", description="Channel where moderation messages will be sent for the guild."),
-        autobanish: Option(bool, name="autobanish", description="Automatically banish members from your guild when they reach the maximum warning threshold (3) (Default: False)", required=False, default=False),
+        autobanish: Option(bool, name="autobanish", description="Automatically banish members upon reaching the maximum warning threshold (3) (Default: False)", required=False, default=False),
         remove: Option(bool, name="remove", description="Remove the moderation configuration for the guild. (Default: False)", required=False, default=False)
     ):
         if not ctx.author.guild_permissions.administrator:
