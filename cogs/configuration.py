@@ -2042,11 +2042,11 @@ class Configuration(commands.Cog):
 
             if self.image_text and self.message:
                 self.add_item(discord.ui.InputText(label="Welcome Message", style=discord.InputTextStyle.long, placeholder="Enter message that will appear above the welcome image. (Use `/help welcome` for syntax info)"))
-                self.add_item(discord.ui.InputText(label="Image Text", style=discord.InputTextStyle.long, placeholder="Enter message that will appear on the welcome image. (Use `/help welcome` for syntax info)"))
+                self.add_item(discord.ui.InputText(label="Image Text", style=discord.InputTextStyle.long, placeholder="Enter message that will appear on the welcome image. (Use `/help welcome` for syntax info)", max_length=100))
             elif self.message:
                 self.add_item(discord.ui.InputText(label="Welcome Message", style=discord.InputTextStyle.long, placeholder="Enter message that will appear above the welcome image. (Use `/help welcome` for syntax info)"))
             else:
-                self.add_item(discord.ui.InputText(label="Image Text", style=discord.InputTextStyle.long, placeholder="Enter message that will appear on the welcome image. (Use `/help welcome` for syntax info)"))
+                self.add_item(discord.ui.InputText(label="Image Text", style=discord.InputTextStyle.long, placeholder="Enter message that will appear on the welcome image. (Use `/help welcome` for syntax info)", max_length=100))
 
 
   
@@ -2079,10 +2079,10 @@ class Configuration(commands.Cog):
             super().__init__(*args, **kwargs)
     
             # if self.title or self.body or self.field_name or self.field_value:
-            self.add_item(discord.ui.InputText(label="Embed Title", placeholder="Enter embed title.", required=False))
+            self.add_item(discord.ui.InputText(label="Embed Title", placeholder="Enter embed title.", required=False, max_length=256))
             self.add_item(discord.ui.InputText(label="Embed Body Text", style=discord.InputTextStyle.long, placeholder="Enter message that will appear in the embed body. (Use `/help embedconfig` for syntax info)", required=False))
-            self.add_item(discord.ui.InputText(label="Field Title", placeholder="Enter field title.", required=False))
-            self.add_item(discord.ui.InputText(label="Field Text", style=discord.InputTextStyle.long, placeholder="Enter text that will appear in the field of the embed. (Use `/help embedconfig` for syntax info)", required=False))
+            self.add_item(discord.ui.InputText(label="Field Title", placeholder="Enter field title.", required=False, max_length=256))
+            self.add_item(discord.ui.InputText(label="Field Text", style=discord.InputTextStyle.long, placeholder="Enter text that will appear in the field of the embed. (Use `/help embedconfig` for syntax info)", required=False, max_length=1000))
     
     
         async def callback(self, interaction: discord.Interaction):
