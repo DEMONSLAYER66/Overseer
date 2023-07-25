@@ -2204,6 +2204,7 @@ class Configuration(commands.Cog):
             config_delete = int(send_time)
             print("config delete")
         except:
+            config_delete = 1
             print("couldnt convert send_time")
             pass
         
