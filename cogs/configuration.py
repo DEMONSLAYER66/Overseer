@@ -2137,8 +2137,6 @@ class Configuration(commands.Cog):
         if not ctx.author.guild_permissions.administrator:
             await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
             return
-
-        print("start")
       
       
         #bot owner and those with the distinguished automaton patron (top tier) can create unlimited configurations (everyone else can make a max of 5)
@@ -2175,7 +2173,7 @@ class Configuration(commands.Cog):
 
         #check for a custom color (only avaliable to refined and distinguished patrons and support guild)
         if custom_color:
-            print("custom color")
+            # print("custom color")
             if ctx.guild.id != support_guild_id:
                 if not refined_patron and not distinguished_patron:
                     patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {ctx.author.mention},\nCustom embed colors for my `/timedembeds` directive are an exclusive feature available solely to `🎩🎩 Refined Automaton Patrons` and `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling or upgrading patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(130, 130, 130))
@@ -2202,10 +2200,10 @@ class Configuration(commands.Cog):
         #delete config if send_time is set to 0 or None (will always need to be 0 since this is a required option at the moment)
         try:
             config_delete = int(send_time)
-            print("config delete")
+            # print("config delete")
         except:
-            config_delete = 1
-            print("couldnt convert send_time")
+            config_delete = None
+            # print("couldnt convert send_time")
             pass
         
         if config_delete == 0:
@@ -2230,14 +2228,14 @@ class Configuration(commands.Cog):
         if intervaltype in intervaltype_dict:
             intervaltype = intervaltype_dict[intervaltype]
         else:
-            print("not valid interval type")
+            # print("not valid interval type")
             await ctx.respond(f"Apologies {ctx.author.mention},\n{intervaltype} is not a valid option for the interval type.\n*Please try again.*", ephemeral=True)
             return
 
 
         #must have an interval set for repeating messages
         if intervaltype == "repeating" and interval == None:
-            print("need interval for repeating")
+            # print("need interval for repeating")
             await ctx.respond(f"Apologies {ctx.author.mention},\nAn interval is required for a repeating message, good sir.\n*Please try again.*", ephemeral=True)
             return
 
@@ -2255,7 +2253,7 @@ class Configuration(commands.Cog):
 
         if color is not None:
             if color in color_codes:
-                print(color)
+                # print(color)
                 r = color_codes[color][0]
                 g = color_codes[color][1]
                 b = color_codes[color][2]
@@ -2264,7 +2262,7 @@ class Configuration(commands.Cog):
                 return
         
         else: #default blue color
-            print("default color")
+            # print("default color")
             r = 0
             g = 0
             b = 255
@@ -2330,7 +2328,7 @@ class Configuration(commands.Cog):
 
         #no configurations set
         if embeds_db[f"embeds_config_{ctx.guild.id}"].count_documents({}) == 0:
-            print("no docs yet")
+            # print("no docs yet")
             await ctx.respond("I am afraid that no embeds have been set as of yet.\nI am now working to create a new one for you...", ephemeral=True)
             await asyncio.sleep(5)
       
@@ -2342,29 +2340,27 @@ class Configuration(commands.Cog):
           
 
         if send_time is not None:
-            print(send_time)
+            # print(send_time)
             try:
                 tz = pytz.timezone('US/Central') # Set timezone to US/Central
             except:
-                print("Could not get server timezone.")
+                # print("Could not get server timezone.")
                 await ctx.respond("**Error:**\nCould not get server timezone.", ephemeral=True)
                 return
             try:
                 dt = datetime.strptime(send_time, '%Y-%m-%d %H:%M')
                 dt = tz.localize(dt) # Localize dt to US/Central timezone
-
-                print(dt)
                 
                 # Compare send_time with current time
                 if dt <= datetime.now(tz):
-                    print("less than current time")
+                    # print("less than current time")
                     await ctx.respond("**Error**\nsend_time must be greater than current time.", ephemeral=True)
                     return
 
                 send_time = dt.strftime('%Y-%m-%d %H:%M') # Convert back to string in the same format
           
             except:
-                print("invalid format")
+                # print("invalid format")
                 await ctx.respond("**Error:**\nInvalid send_time format. Please use the format 'YYYY-MM-DD HH:MM'.", ephemeral=True)
                 return
                 
