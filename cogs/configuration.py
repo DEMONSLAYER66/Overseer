@@ -2239,6 +2239,33 @@ class Configuration(commands.Cog):
             await ctx.respond(f"Apologies {ctx.author.mention},\nAn interval is required for a repeating message, good sir.\n*Please try again.*", ephemeral=True)
             return
 
+                if send_time is not None:
+            # print(send_time)
+            try:
+                tz = pytz.timezone('US/Central') # Set timezone to US/Central
+            except:
+                # print("Could not get server timezone.")
+                await ctx.respond("**Error:**\nCould not get server timezone.", ephemeral=True)
+                return
+            try:
+                dt = datetime.strptime(send_time, '%Y-%m-%d %H:%M')
+                dt = tz.localize(dt) # Localize dt to US/Central timezone
+                
+                # Compare send_time with current time
+                if dt <= datetime.now(tz):
+                    # print("less than current time")
+                    await ctx.respond("**Error**\nsend_time must be greater than current time.", ephemeral=True)
+                    return
+
+                send_time = dt.strftime('%Y-%m-%d %H:%M') # Convert back to string in the same format
+          
+            except:
+                # print("invalid format")
+                await ctx.respond("**Error:**\nInvalid send_time format. Please use the format 'YYYY-MM-DD HH:MM'.", ephemeral=True)
+                return
+                
+            send_time = send_time
+
 
         #define RGB color codes
         color_codes = {
@@ -2275,24 +2302,6 @@ class Configuration(commands.Cog):
             b = custom_b
 
 
-        #send the embed modal to get the text configurations
-        modal = self.EmbedModal(title="Embed Text Configuration")
-        await ctx.send_modal(modal)
-      
-        try:
-            await asyncio.wait_for(modal.wait(), timeout=600.0)
-
-            title = modal.title
-            body = modal.body
-            field_name = modal.field_name
-            field_value = modal.field_value
-
-      
-        except asyncio.TimeoutError:
-            print("timed out")
-            await ctx.respond("Good sir, it appears you have taken too long to enter your embed text configuration.\n*Please try again.*", ephemeral=True)
-            return        
-
         #check to see if the user defined urls are a .jpg, .jpeg, .png, .gif
         if thumbnail:
             # print("thumbnail start")
@@ -2326,6 +2335,25 @@ class Configuration(commands.Cog):
                 return
 
 
+        #send the embed modal to get the text configurations
+        modal = self.EmbedModal(title="Embed Text Configuration")
+        await ctx.send_modal(modal)
+      
+        try:
+            await asyncio.wait_for(modal.wait(), timeout=600.0)
+
+            title = modal.title
+            body = modal.body
+            field_name = modal.field_name
+            field_value = modal.field_value
+
+      
+        except asyncio.TimeoutError:
+            print("timed out")
+            await ctx.respond("Good sir, it appears you have taken too long to enter your embed text configuration.\n*Please try again.*", ephemeral=True)
+            return
+
+
         #no configurations set
         if embeds_db[f"embeds_config_{ctx.guild.id}"].count_documents({}) == 0:
             # print("no docs yet")
@@ -2337,34 +2365,6 @@ class Configuration(commands.Cog):
         if not embeds_db[f"embeds_config_{ctx.guild.id}"].find_one(key):
             await ctx.respond(f"Good sir, there is no embed with the title:\n**{config_name}**\n*Now creating this configuration...*", ephemeral=True)
             await asyncio.sleep(5)
-          
-
-        if send_time is not None:
-            # print(send_time)
-            try:
-                tz = pytz.timezone('US/Central') # Set timezone to US/Central
-            except:
-                # print("Could not get server timezone.")
-                await ctx.respond("**Error:**\nCould not get server timezone.", ephemeral=True)
-                return
-            try:
-                dt = datetime.strptime(send_time, '%Y-%m-%d %H:%M')
-                dt = tz.localize(dt) # Localize dt to US/Central timezone
-                
-                # Compare send_time with current time
-                if dt <= datetime.now(tz):
-                    # print("less than current time")
-                    await ctx.respond("**Error**\nsend_time must be greater than current time.", ephemeral=True)
-                    return
-
-                send_time = dt.strftime('%Y-%m-%d %H:%M') # Convert back to string in the same format
-          
-            except:
-                # print("invalid format")
-                await ctx.respond("**Error:**\nInvalid send_time format. Please use the format 'YYYY-MM-DD HH:MM'.", ephemeral=True)
-                return
-                
-            send_time = send_time
           
 
         #move data to mongoDB
