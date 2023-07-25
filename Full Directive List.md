@@ -4,6 +4,8 @@ The following is a full register of directives (commands) for Lord Bottington. D
 
 As more directives are added or updated, changes will be reflected here or in the latest version of [Lord Bottington's Updates](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/Updates/Version%201.0.md). You may access this information by using my <a href=#updates>/updates</a> directive within your guild on Discord, if you desire.
 
+[Invite Lord Bottington](https://discord.com/api/oauth2/authorize?client_id=1092515783025889383&permissions=3557027031&scope=bot%20applications.commands) to your guild and allow him to begin serving you today!
+
 ***Last Updated:*** `July 25, 2023`
 
 ## General Information
