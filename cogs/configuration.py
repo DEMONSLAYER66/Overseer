@@ -2079,9 +2079,9 @@ class Configuration(commands.Cog):
             super().__init__(*args, **kwargs)
     
             # if self.title or self.body or self.field_name or self.field_value:
-            self.add_item(discord.ui.InputText(label="Embed Title", placeholder="Enter embed title.", required=False))
+            self.add_item(discord.ui.InputText(label="Embed Title", placeholder="Enter embed title.", style=discord.InputTextStyle.long, required=False, max_length=45))
             self.add_item(discord.ui.InputText(label="Embed Body Text", style=discord.InputTextStyle.long, placeholder="Enter message that will appear in the embed body. (Use `/help embedconfig` for syntax info)", required=False))
-            self.add_item(discord.ui.InputText(label="Field Title", placeholder="Enter field title.", required=False))
+            self.add_item(discord.ui.InputText(label="Field Title", placeholder="Enter field title.", style=discord.InputTextStyle.long, required=False, max_length=45))
             self.add_item(discord.ui.InputText(label="Field Text", style=discord.InputTextStyle.long, placeholder="Enter text that will appear in the field of the embed. (Use `/help embedconfig` for syntax info)", required=False, max_length=1000))
     
     
