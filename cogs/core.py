@@ -1610,6 +1610,8 @@ class Core(commands.Cog):
             except discord.errors.NotFound: #if message is deleted before the timeout
                 pass
 
+            self.stop()
+
 
         #select menu options and callback
         @discord.ui.select(
