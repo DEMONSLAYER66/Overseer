@@ -2239,7 +2239,7 @@ class Configuration(commands.Cog):
             await ctx.respond(f"Apologies {ctx.author.mention},\nAn interval is required for a repeating message, good sir.\n*Please try again.*", ephemeral=True)
             return
 
-                if send_time is not None:
+        if send_time:
             # print(send_time)
             try:
                 tz = pytz.timezone('US/Central') # Set timezone to US/Central
