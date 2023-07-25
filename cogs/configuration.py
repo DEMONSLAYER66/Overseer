@@ -2127,7 +2127,7 @@ class Configuration(commands.Cog):
             channel: Option(discord.TextChannel, name="channel", description="Select a channel to send the timed embed message.", required=True),
             send_time: Option(str, name="send_time", description="Time to send the embed. Use the format 'YYYY-MM-DD HH:MM'.", required=True),
             intervaltype: Option(str, name="intervaltype", description = "Interval type to send the embed to the specified channel.", choices=["🔄 Repeating", "☝ One Time"]),
-            interval: Option(int, name="interval", description="Interval time (in minutes) to send the message.", required=False, default = None, min_value=0),
+            interval: Option(int, name="interval", description="Interval time (in minutes) to send the message. (Minimum: 60 minutes/1 hour)", required=False, default = None, min_value=60),
             color: Option(str, name="color", description="Select a color for the timed embed. (Default: 🔵 Blue)", required=False, choices=["🔴 Red", "🟢 Green", "🔵 Blue", "🟡 Yellow", "🟣 Purple", "⚫ Black", "⚪ White"], default=None),
             custom_color: Option(str, name="custom_color", description="Custom RGB color tuple (0, 0, 0) for the embed message. (Patron Only)", required=False, default=None),
             thumbnail: Option(str, name="thumbnail", description="Image URL for the thumbnail.", required=False, default=None),
