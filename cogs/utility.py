@@ -482,7 +482,7 @@ class Utility(commands.Cog):
 ############################# TEST PROMOTION #########################
     @discord.slash_command(
         name="testpromote",
-        description="Test the guild promotion for the guild. (Admin Only)",
+        description="Test the promotion for this guild. (Admin Only)",
         # guild_ids=SERVER_ID
         global_command = True
     )
