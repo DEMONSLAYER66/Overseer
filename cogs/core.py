@@ -1476,8 +1476,13 @@ class Core(commands.Cog):
             elif app_command.name.lower() == "minotar":
                 help_embed.set_thumbnail(url="https://i.imgur.com/x21wIDt.png")
 
+            # set thumbnail to laughing emoji gif
             elif app_command.name.lower() == "autosatire" or app_command.name.lower() == "satireimage":
                 help_embed.set_thumbnail(url="https://i.imgur.com/UMsxnFb.gif")
+
+            # set thumbnail to rocketship gif
+            elif app_command.name.lower() == "promote" or app_command.name.lower() == "testpromote" or app_command.name.lower() == "promotion":
+                help_embed.set_thumbnail(url="https://i.imgur.com/14Ahdgd.gif")
 
             #set the thumbnail to the bot's avatar
             else:
