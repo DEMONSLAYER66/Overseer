@@ -454,6 +454,7 @@ class Moderation(commands.Cog):
             channel = await self.bot.fetch_channel(moderation_config["channel_id"])
           
             await ctx.respond(f"{ctx.author.mention}\nI have dispatched the moderation information to {channel.mention}.", ephemeral=True)
+            await asyncio.sleep(1)
           
             try:
                 await channel.send(embed=embed)
@@ -462,7 +463,7 @@ class Moderation(commands.Cog):
 
                 banish_embed.set_thumbnail(url=self.bot.user.avatar.url)
                 
-                await ctx.author.send(embed=banish_embed)
+                await ctx.respond(embed=banish_embed)
 
             autobanish = moderation_config["autobanish"]
             if autobanish is True:
@@ -473,13 +474,13 @@ class Moderation(commands.Cog):
     
                     banish_embed.set_thumbnail(url=self.bot.user.avatar.url)
                     
-                    await ctx.author.send(embed=banish_embed)
+                    await ctx.respond(embed=banish_embed)
             else:
                 banish_embed = discord.Embed(title="Banishment Reminder", description=f"{ctx.author.mention}\n{member.display_name} has reached the maximum number of warnings for ***{ctx.guild.name}***, good sir.\n\nIt is advisable to utilize my `/banish` directive to permanently banish them from this guild.\n\nYou may also utilize my `warnremove` directive to remove a warning from this user or you may utilize my `unbanish` directive to unbanish them in the future, if you so desire.\n*Please note that using my `/unbanish` directive will remove all pervious warnings from the user for your guild.", color=discord.Color.from_rgb(130, 130, 130))
 
                 banish_embed.set_thumbnail(url=self.bot.user.avatar.url)
                 
-                await ctx.author.send(embed=banish_embed)
+                await ctx.respond(embed=banish_embed)
         
         else:
             await ctx.respond(embed=embed)
