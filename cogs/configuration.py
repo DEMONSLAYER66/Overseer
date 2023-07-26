@@ -1689,6 +1689,9 @@ class Configuration(commands.Cog):
         support_guild_id = 1088118252200276071
 
         if ctx.guild.id != support_guild_id:
+            welcome_command = self.bot.get_application_command("welcome")
+            patron_command = self.bot.get_application_command("patron")
+            
             #search for a guild on mongoDB that has the Distinguished Automaton Patron tier
             distinguished_patron_key = {
               "server_id": ctx.guild.id,
@@ -1706,7 +1709,7 @@ class Configuration(commands.Cog):
         if background or avatar:
             if ctx.guild.id != support_guild_id:
                 if not refined_patron and not distinguished_patron:
-                    patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {ctx.author.mention},\nCustom background and avatar images for welcome messages using my `/welcome` directive are an exclusive feature available solely to `🎩🎩 Refined Automaton Patrons` and `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling or upgrading patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(130, 130, 130))
+                    patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {ctx.author.mention},\nCustom background and avatar images for welcome messages using my </{welcome_command.name}:{welcome_command.id}> directive are an exclusive feature available solely to `🎩🎩 Refined Automaton Patrons` and `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my </{patron_command.name}:{patron_command.id}> directive to learn more information on enabling or upgrading patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(130, 130, 130))
           
                     patron_embed.set_thumbnail(url=self.bot.user.avatar.url)
           
@@ -1719,7 +1722,8 @@ class Configuration(commands.Cog):
         if image_text is True:
             if ctx.guild.id != support_guild_id:
                 if not refined_patron and not distinguished_patron:
-                    patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {ctx.author.mention},\nCustom image text for welcome messages using my `/welcome` directive is an exclusive feature available solely to `🎩🎩 Refined Automaton Patrons` and `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling or upgrading patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(130, 130, 130))
+                    
+                    patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {ctx.author.mention},\nCustom image text for welcome messages using my </{welcome_command.name}:{welcome_command.id}> directive is an exclusive feature available solely to `🎩🎩 Refined Automaton Patrons` and `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my </{patron_command.name}:{patron_command.id}> directive to learn more information on enabling or upgrading patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(130, 130, 130))
           
                     patron_embed.set_thumbnail(url=self.bot.user.avatar.url)
           
@@ -1733,7 +1737,7 @@ class Configuration(commands.Cog):
         if custom_image_text_color or custom_avatar_outline_color:
             if ctx.guild.id != support_guild_id:
                 if not refined_patron and not distinguished_patron:
-                    patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {ctx.author.mention},\nCustom image text and avatar outline colors for welcome messages using my `/welcome` directive are an exclusive feature available solely to `🎩🎩 Refined Automaton Patrons` and `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling or upgrading patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(130, 130, 130))
+                    patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {ctx.author.mention},\nCustom image text and avatar outline colors for welcome messages using my </{welcome_command.name}:{welcome_command.id}> directive are an exclusive feature available solely to `🎩🎩 Refined Automaton Patrons` and `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my </{patron_command.name}:{patron_command.id}> directive to learn more information on enabling or upgrading patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(130, 130, 130))
           
                     patron_embed.set_thumbnail(url=self.bot.user.avatar.url)
           
@@ -1779,35 +1783,6 @@ class Configuration(commands.Cog):
                     f"Regretfully, {ctx.author.mention}, I am incapable of assigning roles that hold a higher position in the hierarchy than my highest role.\nKindly proceed to the role settings for the server and place me *above* your highest role.", ephemeral=True
                 )
                 return
-
-
-
-        #Check which text options are set to True and send the appropriate modal
-        if message or image_text: #image_text or message are set to True, send the text modal
-            modal = self.WelcomeModal(message = message, image_text = image_text, title="Welcome Text Configuration")
-            await ctx.send_modal(modal)
-        
-            try:
-                await asyncio.wait_for(modal.wait(), timeout=600.0)
-              
-                image_text = modal.image_text
-                message = modal.message
-            except asyncio.TimeoutError:
-                await ctx.respond("Good sir, it appears you have taken too long to enter your welcome text configuration.\n*Please try again.*", ephemeral=True)
-                return
-          
-        # set message to None if no message desired
-        elif not message and not image_text:
-            message = None
-            image_text = None
-
-
-        if not image_text:
-            # change image text to a default if not the support guild and not a patron
-            if ctx.guild.id != support_guild_id:
-                if not refined_patron and not distinguished_patron:
-                    image_text = "Welcome {member.display_name}"
-
 
 
         #define RGB image text color tuples
@@ -1980,12 +1955,47 @@ class Configuration(commands.Cog):
             on_join_status_id = None
             on_join_status_name = None
 
-
-
+        
         welcome_key = {"server_id": ctx.guild.id}
+        welcome_data = welcome_db.welcomeconfig.find_one(welcome_key)
+        
+        #Check which text options are set to True and send the appropriate modal
+        if message or image_text: #image_text or message are set to True, send the text modal
+            if welcome_data:
+                prev_message = welcome_data['message']
+                prev_image_text = welcome_data['image_text']
+            else:
+                prev_message = None
+                prev_image_text = None
+            
+            modal = self.WelcomeModal(message = prev_message, image_text = prev_image_text, title="Welcome Text Configuration")
+            await ctx.send_modal(modal)
+        
+            try:
+                await asyncio.wait_for(modal.wait(), timeout=600.0)
+              
+                image_text = modal.image_text
+                message = modal.message
+            except asyncio.TimeoutError:
+                await ctx.respond("Good sir, it appears you have taken too long to enter your welcome text configuration.\n*Please try again.*", ephemeral=True)
+                return
+          
+        # set message to None if no message desired
+        elif not message and not image_text:
+            message = None
+            image_text = None
+
+
+        if not image_text:
+            # change image text to a default if not the support guild and not a patron
+            if ctx.guild.id != support_guild_id:
+                if not refined_patron and not distinguished_patron:
+                    image_text = "Greetings {member.display_name}"
+
+        
 
         #create new config if none set for server
-        if not welcome_db.welcomeconfig.find_one(welcome_key):
+        if not welcome_data:
             await ctx.respond(f"Good sir, I am unaware of any welcome configurations for ***{ctx.guild.name}***.\n*Now creating this configuration...*", ephemeral=True)
             await asyncio.sleep(5)
   
@@ -2041,19 +2051,19 @@ class Configuration(commands.Cog):
 
     #both image_text and message text fields
     class WelcomeModal(discord.ui.Modal):
-        def __init__(self, message, image_text, *args, **kwargs):
+        def __init__(self, *args, message, image_text, **kwargs):
             super().__init__(*args, **kwargs)
 
             self.message = message
             self.image_text = image_text
 
             if self.image_text and self.message:
-                self.add_item(discord.ui.InputText(label="Welcome Message", style=discord.InputTextStyle.long, placeholder="Enter message that will appear above the welcome image. (Use `/help welcome` for syntax info)"))
-                self.add_item(discord.ui.InputText(label="Image Text", style=discord.InputTextStyle.long, placeholder="Enter message that will appear on the welcome image. (Use `/help welcome` for syntax info)", max_length=100))
+                self.add_item(discord.ui.InputText(label="Welcome Message", style=discord.InputTextStyle.long, placeholder="Enter message that will appear above the welcome image. (Use `/help welcome` for syntax info)", value=self.message))
+                self.add_item(discord.ui.InputText(label="Image Text", style=discord.InputTextStyle.long, placeholder="Enter message that will appear on the welcome image. (Use `/help welcome` for syntax info)", max_length=100, value=self.image_text))
             elif self.message:
-                self.add_item(discord.ui.InputText(label="Welcome Message", style=discord.InputTextStyle.long, placeholder="Enter message that will appear above the welcome image. (Use `/help welcome` for syntax info)"))
+                self.add_item(discord.ui.InputText(label="Welcome Message", style=discord.InputTextStyle.long, placeholder="Enter message that will appear above the welcome image. (Use `/help welcome` for syntax info)", value=self.message))
             else:
-                self.add_item(discord.ui.InputText(label="Image Text", style=discord.InputTextStyle.long, placeholder="Enter message that will appear on the welcome image. (Use `/help welcome` for syntax info)", max_length=100))
+                self.add_item(discord.ui.InputText(label="Image Text", style=discord.InputTextStyle.long, placeholder="Enter message that will appear on the welcome image. (Use `/help welcome` for syntax info)", max_length=100, value=self.image_text))
 
 
   
