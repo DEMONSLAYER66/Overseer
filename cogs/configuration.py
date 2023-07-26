@@ -2078,14 +2078,14 @@ class Configuration(commands.Cog):
 
     #modal that is returned for the body and message streamer notifications
     class EmbedModal(discord.ui.Modal):
-        def __init__(self, *args, **kwargs):
+        def __init__(self, *args, prev_title, prev_body, prev_field_name, prev_field_value, **kwargs):
             super().__init__(*args, **kwargs)
     
             # if self.title or self.body or self.field_name or self.field_value:
-            self.add_item(discord.ui.InputText(label="Embed Title", placeholder="Enter embed title.", style=discord.InputTextStyle.long, required=False, max_length=45))
-            self.add_item(discord.ui.InputText(label="Embed Body Text", style=discord.InputTextStyle.long, placeholder="Enter message that will appear in the embed body. (Use `/help embedconfig` for syntax info)", required=False))
-            self.add_item(discord.ui.InputText(label="Field Title", placeholder="Enter field title.", style=discord.InputTextStyle.long, required=False, max_length=45))
-            self.add_item(discord.ui.InputText(label="Field Text", style=discord.InputTextStyle.long, placeholder="Enter text that will appear in the field of the embed. (Use `/help embedconfig` for syntax info)", required=False, max_length=1000))
+            self.add_item(discord.ui.InputText(label="Embed Title", placeholder="Enter embed title.", style=discord.InputTextStyle.long, required=False, max_length=45, value=prev_title))
+            self.add_item(discord.ui.InputText(label="Embed Body Text", style=discord.InputTextStyle.long, placeholder="Enter message that will appear in the embed body. (Use `/help embedconfig` for syntax info)", required=False, value=prev_body))
+            self.add_item(discord.ui.InputText(label="Field Title", placeholder="Enter field title.", style=discord.InputTextStyle.long, required=False, max_length=45, value=prev_field_name))
+            self.add_item(discord.ui.InputText(label="Field Text", style=discord.InputTextStyle.long, placeholder="Enter text that will appear in the field of the embed. (Use `/help embedconfig` for syntax info)", required=False, max_length=1000, value=prev_field_value))
     
     
         async def callback(self, interaction: discord.Interaction):
@@ -2338,8 +2338,22 @@ class Configuration(commands.Cog):
                 return
 
 
+        embed_config = embeds_db[f"embeds_config_{ctx.guild.id}"].find_one(key)
+
+        if embed_config:
+            prev_title = embed_config['title']
+            prev_body = embed_config['body']
+            prev_field_name = embed_config['field_name']
+            prev_field_value = embed_config['field_value']
+        else:
+            prev_title = None
+            prev_body = None
+            prev_field_name = None
+            prev_field_value = None
+            
+        
         #send the embed modal to get the text configurations
-        modal = self.EmbedModal(title="Embed Text Configuration")
+        modal = self.EmbedModal(title="Embed Text Configuration", prev_title = prev_title, prev_body = prev_body, prev_field_name = prev_field_name, prev_field_value = prev_field_value)
         await ctx.send_modal(modal)
       
         try:
@@ -2352,7 +2366,7 @@ class Configuration(commands.Cog):
 
       
         except asyncio.TimeoutError:
-            print("timed out")
+            # print("timed out")
             await ctx.respond("Good sir, it appears you have taken too long to enter your embed text configuration.\n*Please try again.*", ephemeral=True)
             return
 
@@ -2362,21 +2376,10 @@ class Configuration(commands.Cog):
             # print("no docs yet")
             await ctx.respond("I am afraid that no embeds have been set as of yet.\nI am now working to create a new one for you...", ephemeral=True)
             await asyncio.sleep(5)
-      
+            
 
-        #new configuration
-        if not embeds_db[f"embeds_config_{ctx.guild.id}"].find_one(key):
-            await ctx.respond(f"Good sir, there is no embed with the title:\n**{config_name}**\n*Now creating this configuration...*", ephemeral=True)
-            await asyncio.sleep(5)
-          
-
-        #move data to mongoDB
-        embed_key = {"config_name": config_name}
-
-        embedlist_current = embeds_db[f"embeds_config_{ctx.guild.id}"].find_one(embed_key)
-
-        if embedlist_current is None:
-            await ctx.respond("Now creating this configuration for you, good sir...", ephemeral=True)
+        if not embed_config:
+            await ctx.respond(f"Good sir, there is no embed configuration with the title:\n**{config_name}**\n*Now creating this configuration...*", ephemeral=True)
             await asyncio.sleep(5)
             
             embeds_db[f"embeds_config_{ctx.guild.id}"].insert_one(
@@ -2402,14 +2405,12 @@ class Configuration(commands.Cog):
 
             send_time = datetime.strptime(send_time, '%Y-%m-%d %H:%M')
             send_time = send_time.strftime('%B %d, %Y %I:%M %p')
-          
-            await ctx.respond(f"Dearest {ctx.author.mention}\nI have configured **{config_name}** for you.\nI will now send this to {channel.mention} on `{send_time}` and repeat myself every **{interval}** minutes.\n\nYou may use `/embedslist` to view and expunge of your currently configured embeds, if you wish.", ephemeral = True)
-        
-        else:
-            await ctx.respond("Now updating this configuration for you, good sir...", ephemeral=True)
-            await asyncio.sleep(5)
 
-          
+            embedslist_command = self.bot.get_application_command("embedslist")
+            
+            await ctx.respond(f"Dearest {ctx.author.mention}\nI have configured **{config_name}** for you.\nI will now send this to {channel.mention} on `{send_time}` and repeat myself every `{interval} minutes`.\n\nYou may use </{embedslist_command.name}:{embedslist_command.id}> to view your currently configured embeds, if you wish.", ephemeral = True)
+        
+        else:          
             embeds_db[f"embeds_config_{ctx.guild.id}"].update_one(
                 {"config_name": config_name},
                 {"$set": {
@@ -2434,8 +2435,10 @@ class Configuration(commands.Cog):
           
             send_time = datetime.strptime(send_time, '%Y-%m-%d %H:%M')
             send_time = send_time.strftime('%B %d, %Y %I:%M %p')
-          
-            await ctx.respond(f"Dearest {ctx.author.mention}\nI have updated **{config_name}** for you.\nI will now send this to {channel.mention} on `{send_time}` and repeat myself every **{interval}** minutes.\n\nYou may use `/embedslist` to view and expunge of your currently configured embeds, if you wish.", ephemeral = True)
+
+            embedslist_command = self.bot.get_application_command("embedslist")
+            
+            await ctx.respond(f"Dearest {ctx.author.mention}\nI have updated **{config_name}** for you.\nI will now send this to {channel.mention} on `{send_time}` and repeat myself every **{interval}** minutes.\n\nYou may use </{embedslist_command.name}:{embedslist_command.id}> to view your currently configured embeds, if you wish.", ephemeral = True)
 
 #############################TIMED EMBEDS###################################
 
