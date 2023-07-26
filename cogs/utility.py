@@ -1001,12 +1001,12 @@ class Utility(commands.Cog):
             self.disable_all_items()
             embed = self.create_embed(self.ctx)
 
+            self.stop()
+          
             try:
                 await self.message.edit(embed=embed, view=None)
             except discord.errors.NotFound: #if message deleted before timeout
                 pass
-
-            self.stop()
       
 
     
