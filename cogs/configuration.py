@@ -1008,9 +1008,17 @@ class Configuration(commands.Cog):
         else:
             message = "automaton"
 
-      
+
+        birthday_key = {"server_id": ctx.guild.id}
+        bd_data = BD_db.server_birthday_config_data.find_one(birthday_key)
+        
         if message == "🧒 User Defined":
-            modal = self.BirthdayModal(title="Birthday Message Configuration")
+            if bd_data:
+                prev_bd_message = bd_data['message']
+            else:
+                prev_bd_message = None
+            
+            modal = self.BirthdayModal(title="Birthday Message Configuration", prev_bd_message = prev_bd_message)
             await ctx.send_modal(modal)
         
             try:
@@ -1022,11 +1030,9 @@ class Configuration(commands.Cog):
                 return
                                
         
-                                
-        birthday_key = {"server_id": ctx.guild.id}
                                                              
         # Check if there's an existing document for this server
-        if not BD_db.server_birthday_config_data.find_one(birthday_key):
+        if not bd_data:
             await ctx.respond(f"Good sir, birthday messages have not been configured for ***{ctx.guild.name}***\n*Now creating this configuration...*", ephemeral=True)
             await asyncio.sleep(5)
 
@@ -1072,12 +1078,10 @@ class Configuration(commands.Cog):
 
     #message text field
     class BirthdayModal(discord.ui.Modal):
-        def __init__(self, *args, **kwargs):
+        def __init__(self, *args, prev_bd_message, **kwargs):
             super().__init__(*args, **kwargs)
 
-            self.message = None
-
-            self.add_item(discord.ui.InputText(label="Birthday Message", style=discord.InputTextStyle.long, placeholder="Enter message that will be sent on users' birthdays. (Use `/help birthday` for syntax info)"))
+            self.add_item(discord.ui.InputText(label="Birthday Message", style=discord.InputTextStyle.long, placeholder="Enter message that will be sent on users' birthdays. (Use `/help birthday` for syntax info)", value=prev_bd_message))
   
 
         async def callback(self, interaction: discord.Interaction):
@@ -2198,7 +2202,7 @@ class Configuration(commands.Cog):
                 await ctx.respond(f"Apologies {ctx.author.mention},\nThe custom color must be a comma-separated RGB color tuple.\n\n**For example:**\n*Black - (0, 0, 0)*\n*White: (255, 255, 255)*\n\n*Please input a valid RGB color tuple and try again.*", ephemeral=True)
                 return
       
-        key = {'config_name': config_name}
+        key = {'config_name': config_name.lower()} #match the lowercase of the configuration name to prevent confusion
 
         #delete config if send_time is set to 0 or None (will always need to be 0 since this is a required option at the moment)
         try:
