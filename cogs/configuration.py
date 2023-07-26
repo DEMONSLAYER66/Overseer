@@ -1968,7 +1968,7 @@ class Configuration(commands.Cog):
                 prev_message = None
                 prev_image_text = None
             
-            modal = self.WelcomeModal(message = prev_message, image_text = prev_image_text, title="Welcome Text Configuration")
+            modal = self.WelcomeModal(title="Welcome Text Configuration", message = message, image_text = image_text, prev_message = prev_message, prev_image_text = prev_image_text)
             await ctx.send_modal(modal)
         
             try:
@@ -2051,19 +2051,19 @@ class Configuration(commands.Cog):
 
     #both image_text and message text fields
     class WelcomeModal(discord.ui.Modal):
-        def __init__(self, *args, message, image_text, **kwargs):
+        def __init__(self, *args, message, image_text, prev_message, prev_image_text, **kwargs):
             super().__init__(*args, **kwargs)
 
             self.message = message
             self.image_text = image_text
 
             if self.image_text and self.message:
-                self.add_item(discord.ui.InputText(label="Welcome Message", style=discord.InputTextStyle.long, placeholder="Enter message that will appear above the welcome image. (Use `/help welcome` for syntax info)", value=self.message))
-                self.add_item(discord.ui.InputText(label="Image Text", style=discord.InputTextStyle.long, placeholder="Enter message that will appear on the welcome image. (Use `/help welcome` for syntax info)", max_length=100, value=self.image_text))
+                self.add_item(discord.ui.InputText(label="Welcome Message", style=discord.InputTextStyle.long, placeholder="Enter message that will appear above the welcome image. (Use `/help welcome` for syntax info)", value=prev_message))
+                self.add_item(discord.ui.InputText(label="Image Text", style=discord.InputTextStyle.long, placeholder="Enter message that will appear on the welcome image. (Use `/help welcome` for syntax info)", max_length=100, value=prev_image_text))
             elif self.message:
-                self.add_item(discord.ui.InputText(label="Welcome Message", style=discord.InputTextStyle.long, placeholder="Enter message that will appear above the welcome image. (Use `/help welcome` for syntax info)", value=self.message))
+                self.add_item(discord.ui.InputText(label="Welcome Message", style=discord.InputTextStyle.long, placeholder="Enter message that will appear above the welcome image. (Use `/help welcome` for syntax info)", value=prev_message))
             else:
-                self.add_item(discord.ui.InputText(label="Image Text", style=discord.InputTextStyle.long, placeholder="Enter message that will appear on the welcome image. (Use `/help welcome` for syntax info)", max_length=100, value=self.image_text))
+                self.add_item(discord.ui.InputText(label="Image Text", style=discord.InputTextStyle.long, placeholder="Enter message that will appear on the welcome image. (Use `/help welcome` for syntax info)", max_length=100, value=prev_image_text))
 
 
   
