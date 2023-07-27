@@ -983,7 +983,7 @@ class Utility(commands.Cog):
     
     class ReadyOrNotView(discord.ui.View):
         def __init__(self, ctx, bot, players, platform, game, other_game):
-            super().__init__(timeout=10) #used to initialize the timeout (if needed)
+            super().__init__(timeout=3600) #used to initialize the timeout (if needed)
             self.ctx = ctx #initialize the context
             self.bot = bot #intialize bot
             self.game = Utility.games_list[game]
@@ -1000,13 +1000,13 @@ class Utility(commands.Cog):
         async def on_timeout(self):
             self.disable_all_items()
             embed = self.create_embed(self.ctx)
-
-            self.stop()
           
             try:
                 await self.message.edit(embed=embed, view=None)
             except discord.errors.NotFound: #if message deleted before timeout
                 pass
+
+            self.stop()
       
 
     
