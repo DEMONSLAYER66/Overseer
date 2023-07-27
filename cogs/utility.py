@@ -983,7 +983,7 @@ class Utility(commands.Cog):
     
     class ReadyOrNotView(discord.ui.View):
         def __init__(self, ctx, bot, players, platform, game, other_game):
-            super().__init__(timeout=3600) #used to initialize the timeout (if needed)
+            super().__init__(timeout=10) #used to initialize the timeout (if needed)
             self.ctx = ctx #initialize the context
             self.bot = bot #intialize bot
             self.game = Utility.games_list[game]
