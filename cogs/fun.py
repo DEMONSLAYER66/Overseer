@@ -544,8 +544,7 @@ class Fun(commands.Cog):
   async def imagine(
       self,
       ctx,
-      prompt: Option(str, name="prompt", description="Describe your desired image.", min_length=1, max_length=1000),
-      base_image: Option(discord.Attachment, name="base_image", description="The base image that will give the automaton inspiration for your prompt.", required=False, default=None)
+      prompt: Option(str, name="prompt", description="Describe your desired image.", min_length=1, max_length=1000)
   ):
 
       ### PATRON FEATURE
