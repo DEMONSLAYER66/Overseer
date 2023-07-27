@@ -544,7 +544,8 @@ class Fun(commands.Cog):
   async def imagine(
       self,
       ctx,
-      prompt: Option(str, name="prompt", description="Describe your desired image.", min_length=1, max_length=1000)
+      prompt: Option(str, name="prompt", description="Describe your desired image.", min_length=1, max_length=1000),
+      base_image: Option(discord.Attachment, name="base_image", description="The base image that will give the automaton inspiration for your prompt.", required=False, default=None)
   ):
 
       ### PATRON FEATURE
@@ -563,6 +564,7 @@ class Fun(commands.Cog):
         
           if not distinguished_patron:
               #eveyrone gets 5 free tries for the command
+              patron_command = self.bot.get_application_command("patron")
               free_try_data = patrons_db.imagine_free_tries
               free_try_key = {"user_id": ctx.author.id}
               free_tries_info = free_try_data.find_one(free_try_key)
@@ -594,7 +596,7 @@ class Fun(commands.Cog):
                         }
                       )
                        
-                      patron_embed = discord.Embed(title="Patron Feature Directive", description=f"Apologies {ctx.author.mention},\nYou have no free tries remaining for `/imagine`.\nThis is an exclusive directive available solely to `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling or upgrading patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(130, 130, 130))
+                      patron_embed = discord.Embed(title="Patron Feature Directive", description=f"Apologies {ctx.author.mention},\nYou have no free tries remaining for `/imagine`.\nThis is an exclusive directive available solely to `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{ctx.guild.name}***, good sir.\n\nPlease use my </{patron_command.name}:{patron_command.id}> directive to learn more information on enabling or upgrading patron (premium) features for ***{ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(130, 130, 130))
             
                       patron_embed.set_thumbnail(url=self.bot.user.avatar.url)
             
@@ -801,7 +803,8 @@ class Fun(commands.Cog):
         
           #this indicates that the user cannot use this feature (only available to patrons)
           if self.tries_left != "n/a":
-              patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {self.ctx.author.mention},\nImage variations for my `/imagine` directive are an exclusive directive available solely to `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{self.ctx.guild.name}***, good sir.\n\nPlease use my `/patron` directive to learn more information on enabling or upgrading patron (premium) features for ***{self.ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(130, 130, 130))
+              patron_command = self.ctx.bot.get_application_command("patron")
+              patron_embed = discord.Embed(title="Patron Feature", description=f"Apologies {self.ctx.author.mention},\nImage variations for my `/imagine` directive are an exclusive directive available solely to `🎩🎩🎩 Distinguished Automaton Patrons` and is not currently in use for ***{self.ctx.guild.name}***, good sir.\n\nPlease use my </{patron_command.name}:{patron_command.id}> directive to learn more information on enabling or upgrading patron (premium) features for ***{self.ctx.guild.name}***, if you would like to take advantage of this exclusive service!", color = discord.Color.from_rgb(130, 130, 130))
     
               patron_embed.set_thumbnail(url=self.ctx.bot.user.avatar.url)
     
