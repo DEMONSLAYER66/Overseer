@@ -431,8 +431,10 @@ class Moderation(commands.Cog):
         warnings_left = self.warning_threshold - num_warnings
 
         if warnings_left > 0:
+            threshold_reached = False
             description = f"Attention members of ***{ctx.guild.name}***,\n**{member.display_name}** has been `warned` within this guild."
         else:
+            threshold_reached = True
             description = f"Attention members of {ctx.guild.name},\n{member.display_name} has been `warned` within this guild and has reached the maximum number of warnings ({self.warning_threshold}).\n\nTheir banishment shall be swift."
 
       
@@ -466,25 +468,44 @@ class Moderation(commands.Cog):
                 await ctx.respond(embed=banish_embed)
 
             autobanish = moderation_config["autobanish"]
-            if autobanish is True:
-                try:
-                    await member.ban(reason=reason if reason else "Not provided.")
-                except:
-                    banish_embed = discord.Embed(title="Banishment Error", description=f"Apologies {ctx.author.mention},\nI was unable to automatically banish **{member.display_name}**, good sir.\n*For future reference, please permit me the `Ban Members` permission in order to automatically ban members from this guild.*", color=discord.Color.from_rgb(130, 130, 130))
+            if threshold_reached is True:
+                if autobanish is True:
+                    
+                    try:
+                        await member.ban(reason=reason if reason else "Not provided.")
+                    except:
+                        banish_embed = discord.Embed(title="Banishment Error", description=f"Apologies {ctx.author.mention},\nI was unable to automatically banish **{member.display_name}**, good sir.\n*For future reference, please permit me the `Ban Members` permission in order to automatically ban members from this guild.*", color=discord.Color.from_rgb(130, 130, 130))
+        
+                        banish_embed.set_thumbnail(url=self.bot.user.avatar.url)
+                        
+                        await ctx.respond(embed=banish_embed)
+                else:
+                    banish_command = self.bot.get_application_command("banish")
+                    unbanish_command = self.bot.get_application_command("unbanish")
+                    warnremove_command = self.bot.get_application_command("warnremove")
+                    
+                    banish_embed = discord.Embed(title="Banishment Reminder", description=f"{ctx.author.mention}\n{member.display_name} has reached the maximum number of warnings for ***{ctx.guild.name}***, good sir.\n\nIt is advisable to utilize my </{banish_command.name}:{banish_command.id}> directive to permanently banish them from this guild.\n\nYou may also utilize my </{warnremove_command.name}:{warnremove_command.id}> directive to remove a warning from this user or you may utilize my `unbanish` directive to unbanish them in the future, if you so desire.\n*Please note that using my </{unbanish_command.name}:{unbanish_command.id}> directive will remove all pervious warnings from the user for your guild.", color=discord.Color.from_rgb(130, 130, 130))
     
                     banish_embed.set_thumbnail(url=self.bot.user.avatar.url)
                     
                     await ctx.respond(embed=banish_embed)
             else:
-                banish_embed = discord.Embed(title="Banishment Reminder", description=f"{ctx.author.mention}\n{member.display_name} has reached the maximum number of warnings for ***{ctx.guild.name}***, good sir.\n\nIt is advisable to utilize my `/banish` directive to permanently banish them from this guild.\n\nYou may also utilize my `warnremove` directive to remove a warning from this user or you may utilize my `unbanish` directive to unbanish them in the future, if you so desire.\n*Please note that using my `/unbanish` directive will remove all pervious warnings from the user for your guild.", color=discord.Color.from_rgb(130, 130, 130))
-
-                banish_embed.set_thumbnail(url=self.bot.user.avatar.url)
-                
-                await ctx.respond(embed=banish_embed)
+                pass
         
         else:
             await ctx.respond(embed=embed)
 
+            await asyncio.sleep(1)
+
+            banish_command = self.bot.get_application_command("banish")
+            unbanish_command = self.bot.get_application_command("unbanish")
+            warnremove_command = self.bot.get_application_command("warnremove")
+            
+            banish_embed = discord.Embed(title="Banishment Reminder", description=f"{ctx.author.mention}\n{member.display_name} has reached the maximum number of warnings for ***{ctx.guild.name}***, good sir.\n\nIt is advisable to utilize my </{banish_command.name}:{banish_command.id}> directive to permanently banish them from this guild.\n\nYou may also utilize my </{warnremove_command.name}:{warnremove_command.id}> directive to remove a warning from this user or you may utilize my `unbanish` directive to unbanish them in the future, if you so desire.\n*Please note that using my </{unbanish_command.name}:{unbanish_command.id}> directive will remove all pervious warnings from the user for your guild.", color=discord.Color.from_rgb(130, 130, 130))
+    
+            banish_embed.set_thumbnail(url=self.bot.user.avatar.url)
+            
+            await ctx.respond(embed=banish_embed, ephemeral=True)
 
  ################################WARN##################################
 
