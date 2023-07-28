@@ -436,8 +436,26 @@ class Games(commands.Cog):
 
         # Blank board
         blank_board = [['🟦' for _ in range(10)] for _ in range(10)]
+
+        #add custom letter emojis for board
+        letter_emoji_ids = {
+          'a': 1134590803386302556,
+          'b': 1134590821614764123,
+          'c': 1134590850698063954,
+          'd': 1134590851994099812,
+          'e': 1134590853806051489,
+          'f': 1134590855026577520,
+          'g': 1134590894021017821,
+          'h': 1134590895774253254,
+          'i': 1134590896659243117,
+          'j': 1134590897946906745
+        }
+
+        letters = []
+        for letter, id in letter_emoji_ids:
+            letters.append(f'<:fancy{letter}:{id}>')
         
-        letters = [':regional_indicator_a:', ':regional_indicator_b:', ':regional_indicator_c:', ':regional_indicator_d:', ':regional_indicator_e:', ':regional_indicator_f:', ':regional_indicator_g:', ':regional_indicator_h:', ':regional_indicator_i:', ':regional_indicator_j:']
+        # letters = [':regional_indicator_a:', ':regional_indicator_b:', ':regional_indicator_c:', ':regional_indicator_d:', ':regional_indicator_e:', ':regional_indicator_f:', ':regional_indicator_g:', ':regional_indicator_h:', ':regional_indicator_i:', ':regional_indicator_j:']
         numbers = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟']
 
         #ships: Destroyer (🟨🟨), Submarine (🟩🟩🟩), Cruiser (🟪🟪🟪), Battleship (🟧🟧🟧🟧), Carrier (⬛⬛⬛⬛⬛)
