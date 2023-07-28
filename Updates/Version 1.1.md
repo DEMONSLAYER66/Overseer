@@ -2,7 +2,7 @@
 
 ## --- Version 1.1 ---
 
-Release Date: `July 25, 2023`
+Release Date: `July 28, 2023`
 
 ### Updates/Fixes
 
@@ -21,5 +21,10 @@ Release Date: `July 25, 2023`
 > - Including customization and promotion reminders!
 > - Worked out bugs and added other fixes for reminders.
 
-#### `July 25, 2023`
+#### `July 28, 2023`
+- Switched from regional_indicator emojis for letter-style emojis to custom caligraphy style emojis.
+  > - Added to `/pictorialize` command to accomodate mobile users seeing random flag emojis when trying to convert a string to emojis.
+  > - Added these custom emojis to the `/battleship` minigame board to prevent mobile users from having the same problem as above.
+
+#### `July 28, 2023`
 - Version 1.1 -- Released!
