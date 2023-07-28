@@ -452,7 +452,7 @@ class Games(commands.Cog):
         }
 
         letters = []
-        for letter, id in letter_emoji_ids:
+        for letter, id in letter_emoji_ids.items():
             letters.append(f'<:fancy{letter}:{id}>')
         
         # letters = [':regional_indicator_a:', ':regional_indicator_b:', ':regional_indicator_c:', ':regional_indicator_d:', ':regional_indicator_e:', ':regional_indicator_f:', ':regional_indicator_g:', ':regional_indicator_h:', ':regional_indicator_i:', ':regional_indicator_j:']
