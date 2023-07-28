@@ -1838,8 +1838,40 @@ class Fun(commands.Cog):
                       '9': 'nine'
                   }
                   emojis.append(f':{num2emo.get(s)}:')
-              elif s.isalpha():
-                  emojis.append(f':regional_indicator_{s}:')
+              elif s.lower().isalpha():
+                  #these are the emoji IDs for the custom fancy alphabet
+                  letter_emoji_ids = {
+                      'a': 1134590803386302556,
+                      'b': 1134590821614764123,
+                      'c': 1134590850698063954,
+                      'd': 1134590851994099812,
+                      'e': 1134590853806051489,
+                      'f': 1134590855026577520,
+                      'g': 1134590894021017821,
+                      'h': 1134590895774253254,
+                      'i': 1134590896659243117,
+                      'j': 1134590897946906745,
+                      'k': 1134590900216025148,
+                      'l': 1134590901608530041,
+                      'm': 1134590998371119114,
+                      'n': 1134590999713300500,
+                      'o': 1134591001567166534,
+                      'p': 1134591002708037884,
+                      'q': 1134591003739832430,
+                      'r': 1134591005648228412,
+                      's': 1134591082638889111,
+                      't': 1134591083943305327,
+                      'u': 1134591085532942406,
+                      'v': 1134591086573146143,
+                      'w': 1134591087760125992,
+                      'x': 1134591089068744737,
+                      'y': 1134591115807445003,
+                      'z': 1134591117535498300
+                  }
+                
+                  emoji_id = letter_emoji_ids.get(s)
+                  emojis.append(f'<:fancy{s.lower()}:{emoji_id}>')
+                  # emojis.append(f':regional_indicator_{s}:')
               elif s in punctuations:
                   emojis.append(punctuations[s])
               else:
