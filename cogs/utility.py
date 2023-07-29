@@ -2621,7 +2621,7 @@ class Utility(commands.Cog):
         message_server = message.guild.id
         # print(message_server)
 
-        await self.autopurge_task(message_server, message.channel.id)
+        await self.autopurge_task(message_server, message)
 
 
         #get the starboard event status from mongoDB
@@ -2692,7 +2692,7 @@ class Utility(commands.Cog):
 
 
 
-    async def autopurge_task(self, guild_id, channel_id):
+    async def autopurge_task(self, guild_id, message):
         #get the autopurge event status from mongoDB
         autopurge_status = await self.get_autopurge_event_status(guild_id)
         # print(guild_id)
@@ -2705,7 +2705,7 @@ class Utility(commands.Cog):
             # Retrieve autopurge configuration from database
             autopurge_key = {
               "server_id": guild_id,
-              "purge_channel_id": channel_id
+              "purge_channel_id": message.channel.id
             }
             autopurge_config = autopurge_db[f"autopurge_config_{guild_id}"].find_one(autopurge_key)
             if not autopurge_config:
@@ -2759,7 +2759,10 @@ class Utility(commands.Cog):
                   
                 # print("all messages deleted")
                 # Delete all messages in the channel except for pinned messages
-                deleted_messages = await channel.purge(limit=None, check=lambda m: not m.pinned)
+                # deleted_messages = await channel.purge(limit=None, check=lambda m: not m.pinned)
+                #only delete message if not pinned
+                if not message.pinned:
+                    await message.delete()
 
 
   
