@@ -1380,7 +1380,7 @@ class Utility(commands.Cog):
                 purge_channel = self.bot.get_channel(purge_channel_id)
                 frequency = config['frequency']
                 messagecount = config['messagecount']
-                time_remaining = config['time_remaining']
+                # time_remaining = config['time_remaining']
 
 
                 if frequency:
