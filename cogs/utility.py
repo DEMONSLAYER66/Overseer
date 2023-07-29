@@ -449,28 +449,28 @@ class Utility(commands.Cog):
                     bump_db.cooldowns.update_one({"_id": cooldown_data["_id"]}, {"$set": {"cooldown": remaining_time}})
 
 
-        #### Autopurge
-        server_ids = []
-        for guild in self.bot.guilds:
-            server_ids.append(guild.id)
+        # #### Autopurge
+        # server_ids = []
+        # for guild in self.bot.guilds:
+        #     server_ids.append(guild.id)
       
-        #start the autopurge task
-        configuration_cog = self.bot.get_cog('Configuration') #get the configuration cog
-        current_time = datetime.datetime.utcnow()
-        for server_id in server_ids:
-            # Retrieve autopurge configurations from database
-            autopurge_config = autopurge_db[f"autopurge_config_{server_id}"].find()
-            if autopurge_config:
-                for config in autopurge_config:
-                    time_remaining = config['time_remaining']
-                    if time_remaining:
-                        start_time = config['start_time']
-                        elapsed_time = current_time - start_time
-                        time_left = int(time_remaining) #convert to int type
-                        remaining_time = max(0, time_left - int(elapsed_time.total_seconds()))
+        # #start the autopurge task
+        # configuration_cog = self.bot.get_cog('Configuration') #get the configuration cog
+        # current_time = datetime.datetime.utcnow()
+        # for server_id in server_ids:
+        #     # Retrieve autopurge configurations from database
+        #     autopurge_config = autopurge_db[f"autopurge_config_{server_id}"].find()
+        #     if autopurge_config:
+        #         for config in autopurge_config:
+        #             time_remaining = config['time_remaining']
+        #             if time_remaining:
+        #                 start_time = config['start_time']
+        #                 elapsed_time = current_time - start_time
+        #                 time_left = int(time_remaining) #convert to int type
+        #                 remaining_time = max(0, time_left - int(elapsed_time.total_seconds()))
 
-                        #save time_remaining to database even if 0 time left
-                        autopurge_db[f"autopurge_config_{server_id}"].update_one({"_id": config["_id"]}, {"$set": {"time_remaining": remaining_time}})
+        #                 #save time_remaining to database even if 0 time left
+        #                 autopurge_db[f"autopurge_config_{server_id}"].update_one({"_id": config["_id"]}, {"$set": {"time_remaining": remaining_time}})
 
   
 
@@ -1408,32 +1408,32 @@ class Utility(commands.Cog):
                     messagecount = "No"
 
               
-                if time_remaining:
-                    current_time = datetime.datetime.utcnow()
-                    start_time = config['start_time']
-                    elapsed_time = current_time - start_time
-                    time_left = float(time_remaining) #convert to float type
-                    remaining_time = max(0, time_left - float(elapsed_time.total_seconds()))
+                # if time_remaining:
+                #     current_time = datetime.datetime.utcnow()
+                #     start_time = config['start_time']
+                #     elapsed_time = current_time - start_time
+                #     time_left = float(time_remaining) #convert to float type
+                #     remaining_time = max(0, time_left - float(elapsed_time.total_seconds()))
                   
-                    # Calculate the total time remaining in days, hours, minutes, and seconds
-                    days, remainder = divmod(int(remaining_time), 86400)
-                    hours, remainder = divmod(remainder, 3600)
-                    minutes, seconds = divmod(remainder, 60)
+                #     # Calculate the total time remaining in days, hours, minutes, and seconds
+                #     days, remainder = divmod(int(remaining_time), 86400)
+                #     hours, remainder = divmod(remainder, 3600)
+                #     minutes, seconds = divmod(remainder, 60)
                     
-                    # Format the frequency string
-                    if days > 0:
-                        time_left = f"{days:02d}d:{hours:02d}h:{minutes:02d}m:{seconds:02d}s"
-                    elif hours > 0:
-                        time_left = f"{hours:02d}h:{minutes:02d}m:{seconds:02d}s"
-                    elif minutes > 0:
-                        time_left = f"{minutes:02d}m:{seconds:02d}s"
-                    else:
-                        time_left = f"{seconds}s"
+                #     # Format the frequency string
+                #     if days > 0:
+                #         time_left = f"{days:02d}d:{hours:02d}h:{minutes:02d}m:{seconds:02d}s"
+                #     elif hours > 0:
+                #         time_left = f"{hours:02d}h:{minutes:02d}m:{seconds:02d}s"
+                #     elif minutes > 0:
+                #         time_left = f"{minutes:02d}m:{seconds:02d}s"
+                #     else:
+                #         time_left = f"{seconds}s"
 
-                    time_rem_string = f"> Time Remaining Until Next Autopurge: `{time_left}`"
+                #     time_rem_string = f"> Time Remaining Until Next Autopurge: `{time_left}`"
 
               
-                autopurge_embed.add_field(name = f"Purge Channel {i}", value = f"> Channel: {purge_channel.mention}\n> Frequency: `{frequency_purge_time}`\n> Message Count: `{messagecount} messages`\n{time_rem_string if time_remaining else ''}", inline = True)
+                autopurge_embed.add_field(name = f"Purge Channel {i}", value = f"> Channel: {purge_channel.mention}\n> Frequency: `{frequency_purge_time}`\n> Message Count: `{messagecount} messages`", inline = True)
                 i = i + 1
 
 
