@@ -1481,8 +1481,9 @@ class Utility(commands.Cog):
         else:
             await ctx.respond(f"Attempting to delete *{messagecount}* message{'s' if messagecount > 1 else ''} from {ctx.channel.mention}...", ephemeral=True)
             await asyncio.sleep(5)
-    
-            deleted = await ctx.channel.purge(limit=messagecount)
+
+            # dont delete pinned messages
+            deleted = await ctx.channel.purge(limit=messagecount, check=lambda m: not m.pinned)
             deleted_count = len(deleted)
     
             #if there were no messages in the channel
