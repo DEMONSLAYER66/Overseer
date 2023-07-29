@@ -2774,7 +2774,12 @@ class Utility(commands.Cog):
                 # Delete all messages in the channel except for pinned messages
                 # deleted_messages = await channel.purge(limit=None, check=lambda m: not m.pinned)
                 #only delete message if not pinned
-                if not message.pinned:
+                try:
+                    pinned_message = message.pinned
+                except discord.errors.NotFound: #if message is already deleted
+                    pass
+                
+                if not pinned_message:
                     try:
                         await message.delete()
                     except discord.errors.NotFound: #if message is already deleted
