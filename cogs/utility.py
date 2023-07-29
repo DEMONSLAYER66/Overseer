@@ -2751,8 +2751,6 @@ class Utility(commands.Cog):
             else:
                 if frequency_seconds:
                     await asyncio.sleep(int(frequency_seconds))
-                else:
-                    await asyncio.sleep(60)
                   
                 # print("all messages deleted")
                 # Delete all messages in the channel except for pinned messages
