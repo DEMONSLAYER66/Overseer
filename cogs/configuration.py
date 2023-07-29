@@ -667,13 +667,13 @@ class Configuration(commands.Cog):
             return
 
         #get current time (for saving amount of time remaining)
-        start_time = datetime.utcnow()
+        # start_time = datetime.utcnow()
 
         autopurgelist_command = self.bot.get_application_command("autopurgelist")
 
         if not autopurge_db[f"autopurge_config_{ctx.guild.id}"].find_one(purge_key):
             await ctx.respond(f"Good sir, there are currently no autopurge configurations for {channel.mention}\n*Now creating this configuration...*", ephemeral=True)
-            await asyncio.sleep(5)
+            await asyncio.sleep(3)
 
           
             autopurge_db[f"autopurge_config_{ctx.guild.id}"].insert_one(
@@ -683,9 +683,9 @@ class Configuration(commands.Cog):
                 "purge_channel_id": channel.id,
                 "purge_channel_name": channel.name,
                 "frequency": frequency_seconds,
-                "messagecount": messagecount,
-                "start_time": start_time,
-                "time_remaining": int(frequency_seconds) if frequency_seconds else None
+                "messagecount": messagecount
+                # "start_time": start_time
+                # "time_remaining": int(frequency_seconds) if frequency_seconds else None
               }
             )
 
@@ -705,9 +705,9 @@ class Configuration(commands.Cog):
                 "purge_channel_id": channel.id,
                 "purge_channel_name": channel.name,
                 "frequency": frequency_seconds,
-                "messagecount": messagecount,
-                "start_time": start_time,
-                "time_remaining": int(frequency_seconds) if frequency_seconds else None
+                "messagecount": messagecount
+                # "start_time": start_time
+                # "time_remaining": int(frequency_seconds) if frequency_seconds else None
                 }
               }
             )
@@ -721,18 +721,18 @@ class Configuration(commands.Cog):
 
 
 
-    #This retrieves the current server's event status from the mongoDB database
-    async def get_autopurge_event_status(self, guild_id):
-        # mongoDBpass = os.environ['mongoDBpass']
-        mongoDBpass = os.getenv('mongoDBpass')
-        client = pymongo.MongoClient(mongoDBpass)
-        event_handler_db = client.event_handler_db
+    # #This retrieves the current server's event status from the mongoDB database
+    # async def get_autopurge_event_status(self, guild_id):
+    #     # mongoDBpass = os.environ['mongoDBpass']
+    #     mongoDBpass = os.getenv('mongoDBpass')
+    #     client = pymongo.MongoClient(mongoDBpass)
+    #     event_handler_db = client.event_handler_db
 
-        event_doc = event_handler_db.events.find_one({"server_id": guild_id})
-        if event_doc:
-            return event_doc["autopurge"]
-        else:
-            return "Enabled"
+    #     event_doc = event_handler_db.events.find_one({"server_id": guild_id})
+    #     if event_doc:
+    #         return event_doc["autopurge"]
+    #     else:
+    #         return "Enabled"
 
   
 
@@ -833,81 +833,81 @@ class Configuration(commands.Cog):
 
 
 
-    #this is for when the bot starts up and some time is remaining on the task
-    async def autopurge_startup(self, guild_id, purge_channel_id, time_remaining):
-        await asyncio.sleep(int(time_remaining))
+    # #this is for when the bot starts up and some time is remaining on the task
+    # async def autopurge_startup(self, guild_id, purge_channel_id, time_remaining):
+    #     await asyncio.sleep(int(time_remaining))
         
-        #get the autopurge event status from mongoDB
-        autopurge_status = await self.get_autopurge_event_status(guild_id)
+    #     #get the autopurge event status from mongoDB
+    #     autopurge_status = await self.get_autopurge_event_status(guild_id)
     
     
-        #Autopurge task event only runs if event status using /eventhandler is set to enabled OR if the user has not set the status using /eventhandler
-        if autopurge_status == "Disabled":
-            # await self.autopurge_task(guild_id, purge_channel_id)
-            pass
-        elif autopurge_status == "Enabled":
-            # Retrieve autopurge configuration from database
-            autopurge_key = {
-              "server_id": guild_id,
-              "purge_channel_id": purge_channel_id
-            }
-            autopurge_config = autopurge_db[f"autopurge_config_{guild_id}"].find_one(autopurge_key)
-            if not autopurge_config:
-                # No autopurge configuration found for guild
-                return
+    #     #Autopurge task event only runs if event status using /eventhandler is set to enabled OR if the user has not set the status using /eventhandler
+    #     if autopurge_status == "Disabled":
+    #         # await self.autopurge_task(guild_id, purge_channel_id)
+    #         pass
+    #     elif autopurge_status == "Enabled":
+    #         # Retrieve autopurge configuration from database
+    #         autopurge_key = {
+    #           "server_id": guild_id,
+    #           "purge_channel_id": purge_channel_id
+    #         }
+    #         autopurge_config = autopurge_db[f"autopurge_config_{guild_id}"].find_one(autopurge_key)
+    #         if not autopurge_config:
+    #             # No autopurge configuration found for guild
+    #             return
                 
     
-            ##### PATRON FEATURE (always available in support guild)
-            # server ID for The Sweez Gang
-            support_guild_id = 1088118252200276071
+    #         ##### PATRON FEATURE (always available in support guild)
+    #         # server ID for The Sweez Gang
+    #         support_guild_id = 1088118252200276071
     
-            if guild_id != support_guild_id:
-                #check for the automaton patron tier
-                patron_data = patrons_db.patrons
-                patron_key = {
-                  "server_id": guild_id,
-                  "patron_tier": "Distinguished Automaton Patron"
-                }
-                autopurge_config_count = autopurge_db[f"autopurge_config_{guild_id}"].count_documents({})
-                distinguished_patron = patron_data.find_one(patron_key)
+    #         if guild_id != support_guild_id:
+    #             #check for the automaton patron tier
+    #             patron_data = patrons_db.patrons
+    #             patron_key = {
+    #               "server_id": guild_id,
+    #               "patron_tier": "Distinguished Automaton Patron"
+    #             }
+    #             autopurge_config_count = autopurge_db[f"autopurge_config_{guild_id}"].count_documents({})
+    #             distinguished_patron = patron_data.find_one(patron_key)
     
-                if not distinguished_patron and autopurge_config_count > 5:
-                    delete_key = {"server_id": guild_id}
-                    excess_count = autopurge_config_count - 5  # Adjust the desired count accordingly
-                    autopurge_db[f"autopurge_config_{guild_id}"].delete_many(delete_key, limit=excess_count) #remove all configurations
+    #             if not distinguished_patron and autopurge_config_count > 5:
+    #                 delete_key = {"server_id": guild_id}
+    #                 excess_count = autopurge_config_count - 5  # Adjust the desired count accordingly
+    #                 autopurge_db[f"autopurge_config_{guild_id}"].delete_many(delete_key, limit=excess_count) #remove all configurations
     
             
-            channel_id = autopurge_config['purge_channel_id']
-            message_count = autopurge_config['messagecount']
-            frequency_seconds = autopurge_config['frequency']
-            # print(channel_id)
-            # print(message_count)
-            # print(frequency_seconds)
+    #         channel_id = autopurge_config['purge_channel_id']
+    #         message_count = autopurge_config['messagecount']
+    #         frequency_seconds = autopurge_config['frequency']
+    #         # print(channel_id)
+    #         # print(message_count)
+    #         # print(frequency_seconds)
         
         
-            # Retrieve messages to delete from channel
-            channel = self.bot.get_channel(channel_id)
-            # print(channel)
+    #         # Retrieve messages to delete from channel
+    #         channel = self.bot.get_channel(channel_id)
+    #         # print(channel)
         
-            # Delete messages
-            if message_count:
-                # print("message_count used")
-                messages = await channel.history(limit=None).flatten()
+    #         # Delete messages
+    #         if message_count:
+    #             # print("message_count used")
+    #             messages = await channel.history(limit=None).flatten()
     
-                if len(messages) > message_count:
-                    # retain only specified number of messages and pinned messages (from the message_count numbered message to the oldest message)
-                    messages_to_delete = messages[message_count:len(messages)]
-                    # print(messages_to_delete)
-                    deleted_messages = await channel.purge(limit=None, check=lambda m: m in messages_to_delete and not m.pinned)
-            else:
-                # print("all messages deleted")
-                # Delete all messages in the channel except for pinned messages
-                deleted_messages = await channel.purge(limit=None, check=lambda m: not m.pinned)
+    #             if len(messages) > message_count:
+    #                 # retain only specified number of messages and pinned messages (from the message_count numbered message to the oldest message)
+    #                 messages_to_delete = messages[message_count:len(messages)]
+    #                 # print(messages_to_delete)
+    #                 deleted_messages = await channel.purge(limit=None, check=lambda m: m in messages_to_delete and not m.pinned)
+    #         else:
+    #             # print("all messages deleted")
+    #             # Delete all messages in the channel except for pinned messages
+    #             deleted_messages = await channel.purge(limit=None, check=lambda m: not m.pinned)
         
-            # Print number of messages deleted
-            # print(f"Deleted {len(deleted_messages)} messages in {channel.name}")
+    #         # Print number of messages deleted
+    #         # print(f"Deleted {len(deleted_messages)} messages in {channel.name}")
     
-            # await self.autopurge_task(guild_id, channel_id)
+    #         # await self.autopurge_task(guild_id, channel_id)
 
 
 ##############################AUTOPURGE#################################
