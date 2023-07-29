@@ -2743,9 +2743,21 @@ class Utility(commands.Cog):
             # Retrieve messages to delete from channel
             channel = self.bot.get_channel(channel_id)
             # print(channel)
-        
+
+            if message_count and frequency_seconds:
+                await asyncio.sleep(int(frequency_seconds))
+              
+                messages = await channel.history(limit=None).flatten()
+    
+                if len(messages) > message_count:
+                    # retain only specified number of messages and pinned messages (from the message_count numbered message to the oldest message)
+                    messages_to_delete = messages[message_count:len(messages)]
+                    # print(messages_to_delete)
+                    deleted_messages = await channel.purge(limit=None, check=lambda m: m in messages_to_delete and not m.pinned)
+          
+          
             # Delete messages
-            if message_count:
+            elif message_count:
                 # print("message_count used")
                 messages = await channel.history(limit=None).flatten()
     
