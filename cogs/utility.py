@@ -69,6 +69,9 @@ class Utility(commands.Cog):
       self.meme_time = datetime.time(hour=9, minute=0, second=0, microsecond=0, tzinfo=self.timezone)
       self.daily_meme_time = self.meme_time.strftime("%I:%M") + " AM" #set the daily meme time to ##:## AM
       self.send_meme.start()
+
+      #for starting autopurge (set to true when initializing, then switch to false later)
+      self.starting_up = True
   
 
     #This retrieves the current server's bot nickname from the mongoDB database
@@ -2785,11 +2788,14 @@ class Utility(commands.Cog):
                     except discord.errors.NotFound: #if message is already deleted
                         pass
 
-                #delete extra messages (if any)
-                messages = await channel.history(limit=None).flatten()
-    
-                if len(messages) > 0:
-                    await channel.purge(limit=None, check=lambda m: not m.pinned)
+                #only purge entire channel at the beginning of startup
+                if self.starting_up is True:
+                    self.starting_up = False #change to false so it does not purge entire channel until bot restarts
+                    #delete extra messages (if any)
+                    messages = await channel.history(limit=None).flatten()
+        
+                    if len(messages) > 0:
+                        await channel.purge(limit=None, check=lambda m: not m.pinned)
 
   
 
