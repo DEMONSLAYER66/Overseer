@@ -2,7 +2,7 @@
 
 ## --- Version 1.1 ---
 
-Release Date: `July 28, 2023`
+Release Date: `July 29, 2023`
 
 ### Updates/Fixes
 
@@ -26,5 +26,9 @@ Release Date: `July 28, 2023`
   > - Added to `/pictorialize` command to accomodate mobile users seeing random flag emojis when trying to convert a string to emojis.
   > - Added these custom emojis to the `/battleship` minigame board to prevent mobile users from having the same problem as above.
 
-#### `July 28, 2023`
+#### `July 29, 2023`
+- Fixed autopurge task to be on a per-message basis rather than simply autopurged at a certain interval to enhance purging efficiency.
+- The `/purge` directive no longer deletes **pinned** messages upon use.
+
+#### `July 29, 2023`
 - Version 1.1 -- Released!
