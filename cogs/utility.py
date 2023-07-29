@@ -2736,7 +2736,7 @@ class Utility(commands.Cog):
             channel_id = autopurge_config['purge_channel_id']
             message_count = autopurge_config['messagecount']
             frequency_seconds = autopurge_config['frequency']
-            time_remaining = autopurge_config['time_remaining']
+            # time_remaining = autopurge_config['time_remaining']
     
     
             # Retrieve messages to delete from channel
