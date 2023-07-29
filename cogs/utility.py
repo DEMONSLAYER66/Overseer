@@ -2777,6 +2777,11 @@ class Utility(commands.Cog):
                 if not message.pinned:
                     await message.delete()
 
+                #delete extra messages (if any)
+                messages = await channel.history(limit=None).flatten()
+    
+                if len(messages) > 0:
+                    await channel.purge(limit=None, check=lambda m: not m.pinned)
 
   
 
