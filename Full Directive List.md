@@ -102,10 +102,12 @@ You may toggle the use of each of the events within this category by utilizing m
   - Allow the automaton to automatically purge messages from a desired channel. (Admin Only)
   - You are limited to ***5*** configurations, otherwise unlimited configurations are a [`🎩 Patron Feature`](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/Patron%20(Premium)%20Features.md).
   - When employed, this directive will delete messages in the specified channel(s) according to the input *frequency* and *messagecount*.
-  - *Frequency:* This parameter controls the frequency at which the messages in the channel will be deleted and must be input as a string followed by the date character that represents the time interval, separated by spaces. If only frequency is set, *ALL* messages in the channel will be deleted at the time interval specified.
+  - If you wish to retain any messages in a channel, please ensure that they are **pinned** to the channel, as these will not be purged by Lord Bottington.
+  - *Frequency:* This parameter controls the frequency at which the messages in the channel will be deleted and must be input as a string followed by the date character that represents the time interval, separated by spaces. (i.e. upon sending in the specified channel, messages will be deleted after this amount of time)
     > *Examples:* *1d 1h 1m 1s* would set the autopurge frequency to *1 day*, *1 hour*, *1 minute*, and *1 second*.\n*120m* would set the duration to *2 hours*.
-  - *Message Count:* This number represents the maximum number of messages in the channel before the oldest is deleted.\n> If only messagecount is set, the oldest messages will be deleted and checked for every 60 seconds.
+  - *Message Count:* This number represents the maximum number of messages in the channel before the oldest is deleted. If only *messagecount* is set, the oldest messages will be deleted and the messages *up to* the message count will be retained.
   - *If both frequency and messagecount are set, the frequency at which the oldest messages will be retained for will be set by the frequency parameter.*
+    > - i.e. if *messagecount* is set to `1` message and *frequency* is set to `1h`, after 1 hour, all messages, except for the most recent message, will be purged/deleted.
   - *Configuration Deletion:* In order to delete a configuration, simply input the desired channel into the *channel* parameter and set both the *frequency* and *messagecount* parameters to either ***0*** or leave them both blank. This will indicate that the configuration is *no longer needed* and remove it from use within your guild.
 ### `/autosatire`
 
@@ -295,6 +297,7 @@ This category is for directives related to performing various utility actions fo
 
   - Receive a list of currently autopurged channels for the guild. (Admin Only)
   - If you have administrative privileges within your guild, you may retrieve this list in order to help you determine the channel(s) that I am automatically purging for your guild.
+  - This will indicate the currently autopurged channels and the frequency and maximum message count, if set.
 ### `/conceal`
   - Conceal a message to allow others a chance to avoid content spoilers. (Attachments optional)
   - Will conceal the content of a regular message or a link with its preview (i.e. YouTube link, etc...), including any attachments added.
@@ -386,6 +389,7 @@ This category is for directives related to performing various utility actions fo
 
   - Purge messages from a desired channel. (Manage Messages Privileges)
   - This directive allows users to remove a certain number of messages from a specified channel.
+  - If you wish to retain any messages in a channel, please ensure that they are **pinned** to the channel, as these will not be purged by Lord Bottington.
   - Users can only remove up to ***100*** messages at a time to avoid rate-limiting.
   - This directive will remove the *most recent* messages up to the value specified.
   - *Please note that this directive requires that the user AND automaton have the **manage messages** permissions for the guild (administrators have this permission).*
