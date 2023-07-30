@@ -2059,47 +2059,25 @@ class Utility(commands.Cog):
         #create the giveaway button
         @discord.ui.button(label="Join prize drawing", style=discord.ButtonStyle.primary, emoji="🎁")
         async def giveawaybutton_callback(self, button, interaction): #when the button is clicked
-            #perform a check on the interaction (returns true if all checks are passed)
-            interaction_message = await self.join_giveaway_check(interaction)
+            await interaction.response.defer()
 
-            if interaction_message is True:
+            if interaction.user.display_name in self.participants:
+                return
+          
+            if interaction.user != self.ctx.author:
                 #add user to the list
                 self.participants.append(interaction.user.display_name)
-                await interaction.followup.send(f"Congratulations {interaction.user.mention}!\nYou have been entered into the prize drawing for *{self.prize}*.", ephemeral=True)
-            else:
-                pass
 
 
         #create the END giveaway button
         @discord.ui.button(label="End Prize Drawing", style=discord.ButtonStyle.secondary, emoji="🛑")
         async def end_giveawaybutton_callback(self, button, interaction):
+            await interaction.response.defer()
+          
             # Check if the user who clicked the button is the author of the original message or an administrator
             if interaction.user == self.ctx.author or interaction.user.guild_permissions.administrator:
                 self.duration = 0
                 await self.giveaway_end()
-            else:
-                await interaction.followup.send(f"Apologies {interaction.user.mention},\nOnly the individual who initiated the prize drawing or an administrator may end the prize drawing, good sir.", ephemeral=True)
-
-
-
-
-      
-        #check if the following are true for the giveaway
-        async def join_giveaway_check(self, interaction):
-            #author and bots cannot enter the giveaway
-            if interaction.user == self.ctx.author or interaction.user.bot:
-                await interaction.followup.send(f"Apologies {interaction.user.mention},\nYou initiated this prize drawing.\nOnly participants may join the prize drawing for *{self.prize}*.", ephemeral=True)
-                return False
-
-            #cannot enter giveaway more than once
-            elif interaction.user.display_name in self.participants:
-                await interaction.followup.send(f"Apologies {interaction.user.mention},\nYou have already joined the prize drawing for *{self.prize}*.", ephemeral=True)
-                return False
-
-            #user pass all checks, enter giveaway
-            return True
-
-
 
 
       
