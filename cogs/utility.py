@@ -984,7 +984,7 @@ class Utility(commands.Cog):
     
     class ReadyOrNotView(discord.ui.View):
         def __init__(self, ctx, bot, players, platform, game, other_game):
-            super().__init__(timeout=3600) #used to initialize the timeout (if needed)
+            super().__init__(timeout=10) #used to initialize the timeout (if needed)
             self.ctx = ctx #initialize the context
             self.bot = bot #intialize bot
             self.game = Utility.games_list[game]
@@ -1020,7 +1020,6 @@ class Utility(commands.Cog):
         def create_embed(self, ctx):
             remaining_users = self.players - len(self.joined_users)
 
-            
             desc = f"Good fellows of {self.ctx.guild.name},\n\n***{self.ctx.author.display_name}*** is looking to play a game with some other individuals.\nCare to join in their endeavors, good sir?"
             embed = discord.Embed(title="Join Together in Play", description=desc, color=discord.Color.from_rgb(130, 130, 130))
     
@@ -1067,9 +1066,9 @@ class Utility(commands.Cog):
       
         @discord.ui.button(label="Join", style=discord.ButtonStyle.green, emoji="👍")
         async def join_button(self, button: discord.ui.Button, interaction: discord.Interaction):
-            if interaction.user == self.ctx.author: #author cannot use the buttons
-                await interaction.response.defer()
-                return
+            # if interaction.user == self.ctx.author: #author cannot use the buttons
+            #     await interaction.response.defer()
+            #     return
           
             await interaction.response.defer()
             
@@ -1085,9 +1084,9 @@ class Utility(commands.Cog):
         
         @discord.ui.button(label="Decline", style=discord.ButtonStyle.red, emoji="👎")
         async def decline_button(self, button: discord.ui.Button, interaction: discord.Interaction):
-            if interaction.user == self.ctx.author: #author cannot use the buttons
-                await interaction.response.defer()
-                return
+            # if interaction.user == self.ctx.author: #author cannot use the buttons
+            #     await interaction.response.defer()
+            #     return
 
           
             await interaction.response.defer()
@@ -1104,9 +1103,9 @@ class Utility(commands.Cog):
         
         @discord.ui.button(label="Maybe", style=discord.ButtonStyle.blurple, emoji="🤔")
         async def tentative_button(self, button: discord.ui.Button, interaction: discord.Interaction):
-            if interaction.user == self.ctx.author: #author cannot use the buttons
-                await interaction.response.defer()
-                return
+            # if interaction.user == self.ctx.author: #author cannot use the buttons
+            #     await interaction.response.defer()
+            #     return
 
           
             await interaction.response.defer()
@@ -1172,7 +1171,8 @@ class Utility(commands.Cog):
             embed.add_field(inline=True, name="❌ Declined", value="*None*")
             embed.add_field(inline=True, name="🤔 Tentative", value="*None*")
 
-            await ctx.respond(embed=embed, view=view)
+            await ctx.respond(f"{ctx.author.mention}\nNow awaiting other players, good sir.", ephemeral=True)
+            await ctx.send(embed=embed, view=view)
   
             
 #######################################PLAY########################################
