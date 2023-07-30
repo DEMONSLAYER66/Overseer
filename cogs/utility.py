@@ -308,43 +308,79 @@ class Utility(commands.Cog):
                 promotion_channel_ids.append(channel_id)
 
             print(promotion_channel_ids)
-            
+
+
             # Iterate through each promotion channel ID
             message_sent_to = 0
+            tasks = []
             for promotion_channel_id in promotion_channel_ids:
                 print(promotion_channel_id)
                 # Fetch the promotion channel from the ID
                 try:
                     promotion_channel = self.bot.get_channel(promotion_channel_id)
                     print("promotion channel found")
-                    channel_found = True
                 except:
                     print("promotion channel not found")
-                    channel_found = False
                     continue
-
-
-                if channel_found is True and original_promotion_channel.id == promotion_channel.id:
+            
+                if original_promotion_channel.id == promotion_channel.id:
                     try:
-                        promotion_message = await promotion_channel.send(invite_link, embed=test_embed, view=view)
+                        task = promotion_channel.send(invite_link, embed=test_embed, view=view)
+                        tasks.append(task)
                         print("og promotion passed")
                     except Exception as e:
                         await ctx.send(f"Apologies {ctx.author.mention},\nI was unable to send the promotion message to your specified promotion channel with ID ***{promotion_channel_id}*** as I may not have the required permissions to do so...\n*For future reference, please ensure my permissions for this channel are set to `Send Messages` and `Manage Messages` permissions to be able to send the promotion there, sir.*\n\nError: `{e}`")
                         print("og promotion failed")
-
-              
-               # Check if the promotion channel exists and is a TextChannel
-                elif channel_found is True:
+                else:
                     try:
-                        # Send the embed to the promotion channel
-                        await promotion_channel.send(invite_link, embed=test_embed, view=view)
-                        message_sent_to += 1 #add one to the sent invites list
+                        task = promotion_channel.send(invite_link, embed=test_embed, view=view)
+                        tasks.append(task)
+                        message_sent_to += 1  # add one to the sent invites list
                         print("promotion passed")
                     except:
                         print("promotion failed")
-                        # await ctx.respond(f"Apologies {ctx.author.mention},\nI was unable to send the promotion message to the specified channel with ID ***{promotion_channel.id}*** as I may not have the required permissions to do so.\n*Please check my permissions for this channel and ensure I have the `Send Messages` and `Manage Messages` permissions and try again.*\n\nError: `{e}`", ephemeral=True)
+            
+            # Send messages to all channels concurrently
+            await asyncio.gather(*tasks)
 
-                await asyncio.sleep(2)
+
+          
+            # # Iterate through each promotion channel ID
+            # message_sent_to = 0
+            # for promotion_channel_id in promotion_channel_ids:
+            #     print(promotion_channel_id)
+            #     # Fetch the promotion channel from the ID
+            #     try:
+            #         promotion_channel = self.bot.get_channel(promotion_channel_id)
+            #         print("promotion channel found")
+            #         channel_found = True
+            #     except:
+            #         print("promotion channel not found")
+            #         channel_found = False
+            #         continue
+
+
+            #     if channel_found is True and original_promotion_channel.id == promotion_channel.id:
+            #         try:
+            #             promotion_message = await promotion_channel.send(invite_link, embed=test_embed, view=view)
+            #             print("og promotion passed")
+            #         except Exception as e:
+            #             await ctx.send(f"Apologies {ctx.author.mention},\nI was unable to send the promotion message to your specified promotion channel with ID ***{promotion_channel_id}*** as I may not have the required permissions to do so...\n*For future reference, please ensure my permissions for this channel are set to `Send Messages` and `Manage Messages` permissions to be able to send the promotion there, sir.*\n\nError: `{e}`")
+            #             print("og promotion failed")
+
+              
+            #    # Check if the promotion channel exists and is a TextChannel
+            #     elif channel_found is True:
+            #         try:
+            #             # Send the embed to the promotion channel
+            #             await promotion_channel.send(invite_link, embed=test_embed, view=view)
+            #             message_sent_to += 1 #add one to the sent invites list
+            #             print("promotion passed")
+            #         except:
+            #             print("promotion failed")
+            #             # await ctx.respond(f"Apologies {ctx.author.mention},\nI was unable to send the promotion message to the specified channel with ID ***{promotion_channel.id}*** as I may not have the required permissions to do so.\n*Please check my permissions for this channel and ensure I have the `Send Messages` and `Manage Messages` permissions and try again.*\n\nError: `{e}`", ephemeral=True)
+
+            #     await asyncio.sleep(2)
 
 
             print("loop ended")
