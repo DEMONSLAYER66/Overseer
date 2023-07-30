@@ -300,8 +300,12 @@ class Utility(commands.Cog):
             view.add_item(InviteLordBottington)
             view.add_item(JoinSupportGuild)
 
+            
             # Fetch all promotion channel IDs from the MongoDB collection
-            promotion_channel_ids = bump_db.bump_configs.distinct("promotion_channel_id")
+            promotion_channel_ids = []
+            for config in bump_db.bump_configs.find():
+                channel_id = config['promotion_channel_id']
+                promotion_channel_ids.append(channel_id)
             
             # Iterate through each promotion channel ID
             message_sent_to = 0
