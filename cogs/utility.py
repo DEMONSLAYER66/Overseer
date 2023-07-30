@@ -220,7 +220,7 @@ class Utility(commands.Cog):
             support_guild_invite = "https://discord.gg/4P6ApdPAF7"
             invite_link = server_data['invite_link']
             guild_description = server_data['guild_description']
-            original_promotion_channel = await self.bot.get_channel(server_data['promotion_channel_id'])
+            original_promotion_channel = self.bot.get_channel(server_data['promotion_channel_id'])
             color = server_data['color'] #array of (r, g, b)
             banner_url = server_data['banner_url']
             bumps = server_data['bumps']
@@ -307,7 +307,7 @@ class Utility(commands.Cog):
             message_sent_to = 0
             for promotion_channel_id in promotion_channel_ids:
                 # Fetch the promotion channel from the ID
-                promotion_channel = await self.bot.get_channel(promotion_channel_id)
+                promotion_channel = self.bot.get_channel(promotion_channel_id)
 
 
                 if original_promotion_channel.id == promotion_channel.id:
@@ -512,7 +512,7 @@ class Utility(commands.Cog):
             support_guild_invite = "https://discord.gg/4P6ApdPAF7"
             invite_link = server_data['invite_link']
             guild_description = server_data['guild_description']
-            promotion_channel = await self.bot.get_channel(server_data['promotion_channel_id'])
+            promotion_channel = self.bot.get_channel(server_data['promotion_channel_id'])
             color = server_data['color'] #array of (r, g, b)
             banner_url = server_data['banner_url']
             bumps = server_data['bumps']
@@ -2910,7 +2910,7 @@ class Utility(commands.Cog):
             reaction = server_config["reaction"]
             threshold = server_config["threshold"]
             # print(f"threshold passed: threshold = {threshold}, reactions = {reactions}")
-            starboard_channel = await self.bot.get_channel(server_config["star_channel_id"])
+            starboard_channel = self.bot.get_channel(server_config["star_channel_id"])
             # print(f"starboard_channel: {starboard_channel}")
             async for starboard_message in starboard_channel.history(limit=200):
                 if starboard_message.embeds and starboard_message.embeds[0].url == message.jump_url:
