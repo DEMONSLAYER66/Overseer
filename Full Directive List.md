@@ -152,6 +152,7 @@ You may toggle the use of each of the events within this category by utilizing m
 
   - Configure the promotion settings for your guild. (Admin Only)
   - If you have administrative privileges within your guild, you may configure how your promotions will be sent to other guilds.
+  - *It is important to note that your server will only be promoted to the other servers that have also set this feature up!*
   - There are several configurations to allow you to fully describe and show others what your guild (server) is about and help grow your esteemed community.
   - *Description*
     > - This option is not shown initially. A text box will appear after all other configurations are set to allow you to set this parameter to your desired status.
@@ -374,6 +375,7 @@ This category is for directives related to performing various utility actions fo
   <img src="https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/0ce9733e-4e06-419c-95af-ea5e76dd29ab" height="200" alt="promote">
 
   - Promote your guild (server).
+  - *It is important to note that your server will only be promoted to the other servers that have also set this feature up!*
   - Set a description for your guild (150 - 1000 characters) using my [`/promotion`](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/Full%20Directive%20List.md#promotion) directive and allow the automaton to promote your guild everywhere he can reach (i.e. to every guild that has also configured promotions).
   - *Cooldown*
     > - There is a cooldown for this directive of `2 hours` for your entire server upon use.
@@ -405,6 +407,7 @@ This category is for directives related to performing various utility actions fo
 
   - Test the promotion for your guild. (Admin Only)
   - If you have administrative privileges, you will be able to view how your guild will be promoted to other guilds.
+  - *It is important to note that your server will only be promoted to the other servers that have also set this feature up!*
   - This will also provide information regarding the channel that promotions will be sent to for your guild.
   - *Best of luck in growing your esteemed community, good sir!*
 ### `/testwelcome`
