@@ -2078,6 +2078,8 @@ class Utility(commands.Cog):
             if interaction.user == self.ctx.author or interaction.user.guild_permissions.administrator:
                 self.duration = 0
                 await self.giveaway_end()
+            else:
+                return
 
 
       
