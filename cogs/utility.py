@@ -1048,8 +1048,8 @@ class Utility(commands.Cog):
                 pass #if no avatar set, skip the thumbnail
 
             embed.add_field(inline=False, name="Game", value=f"*{self.game['title'] if self.game['title'] else self.other_game}*")
-            embed.add_field(inline=False, name="Desired Game Platform", value=self.platform)
-            embed.add_field(inline=False, name="Number of Players Needed", value=f"*{remaining_users}*")
+            embed.add_field(inline=False, name="Desired Game Platform", value=f"`{self.platform}`")
+            embed.add_field(inline=False, name="Number of Players Needed", value=f"`{remaining_users}`")
           
             embed.add_field(inline=True, name="✅ Joined", value=f"*{self.convert_user_list_to_str(self.joined_users)}*")
             embed.add_field(inline=True, name="❌ Declined", value=f"*{self.convert_user_list_to_str(self.declined_users)}*")
@@ -1061,11 +1061,6 @@ class Utility(commands.Cog):
             if len(self.joined_users) >= self.players:
                 return True
             return False
-    
-    
-        # def disable_all_buttons(self):
-        #     for child in self.children:
-        #         child.disabled = True
               
       
         async def update_message(self, ctx):
@@ -1184,8 +1179,8 @@ class Utility(commands.Cog):
 
 
             embed.add_field(inline=False, name="Game", value=f"*{self.games_list[game]['title'] if self.games_list[game]['title'] else other_game}*")
-            embed.add_field(inline=False, name="Desired Game Platform", value=platform)
-            embed.add_field(inline=False, name="Number of Players Needed", value=f"*{players}*")
+            embed.add_field(inline=False, name="Desired Game Platform", value=f"`{platform}`")
+            embed.add_field(inline=False, name="Number of Players Needed", value=f"`{players}`")
           
             embed.add_field(inline=True, name="✅ Joined", value="*None*")
             embed.add_field(inline=True, name="❌ Declined", value="*None*")
@@ -1743,7 +1738,7 @@ class Utility(commands.Cog):
           
       
             else: #user did not have necessary permissions to use button
-                await interaction.response.send_message(content=f"Apologies {interaction.user.mention},\nOnly the person who initiated this directive or an administrator is permitted add an icon.", ephemeral=True)
+                await interaction.followup.send(content=f"Apologies {interaction.user.mention},\nOnly the person who initiated this directive or an administrator is permitted add an icon.", ephemeral=True)
 
 
 
@@ -1940,7 +1935,7 @@ class Utility(commands.Cog):
 
           
             else: #user did not have permissions to use the button
-                await interaction.response.send_message(content=f"Apologies {interaction.user.mention},\nOnly the person who initiated this directive or an administrator is permitted add an icon.", ephemeral=True)
+                await interaction.followup.send(content=f"Apologies {interaction.user.mention},\nOnly the person who initiated this directive or an administrator is permitted add an icon.", ephemeral=True)
 
 
 
@@ -1957,7 +1952,7 @@ class Utility(commands.Cog):
                 self.stop() #disable the buttons
                 await self.message.delete() #delete the message
             else: #user did not have permissions to use the button
-                await interaction.response.send_message(content=f"Apologies {interaction.user.mention},\nOnly the person who initiated this directive or an administrator is permitted to close this interaction.", ephemeral=True)
+                await interaction.followup.send(content=f"Apologies {interaction.user.mention},\nOnly the person who initiated this directive or an administrator is permitted to close this interaction.", ephemeral=True)
 
 
 
@@ -2070,7 +2065,7 @@ class Utility(commands.Cog):
             if interaction_message is True:
                 #add user to the list
                 self.participants.append(interaction.user.display_name)
-                await interaction.response.send_message(f"Congratulations {interaction.user.mention}!\nYou have been entered into the prize drawing for *{self.prize}*.", ephemeral=True)
+                await interaction.followup.send(f"Congratulations {interaction.user.mention}!\nYou have been entered into the prize drawing for *{self.prize}*.", ephemeral=True)
             else:
                 pass
 
@@ -2083,7 +2078,7 @@ class Utility(commands.Cog):
                 self.duration = 0
                 await self.giveaway_end()
             else:
-                await interaction.response.send_message(f"Apologies {interaction.user.mention},\nOnly the individual who initiated the prize drawing or an administrator may end the prize drawing, good sir.", ephemeral=True)
+                await interaction.followup.send(f"Apologies {interaction.user.mention},\nOnly the individual who initiated the prize drawing or an administrator may end the prize drawing, good sir.", ephemeral=True)
 
 
 
@@ -2093,12 +2088,12 @@ class Utility(commands.Cog):
         async def join_giveaway_check(self, interaction):
             #author and bots cannot enter the giveaway
             if interaction.user == self.ctx.author or interaction.user.bot:
-                await interaction.response.send_message(f"Apologies {interaction.user.mention},\nYou initiated this prize drawing.\nOnly participants may join the prize drawing for *{self.prize}*.", ephemeral=True)
+                await interaction.followup.send(f"Apologies {interaction.user.mention},\nYou initiated this prize drawing.\nOnly participants may join the prize drawing for *{self.prize}*.", ephemeral=True)
                 return False
 
             #cannot enter giveaway more than once
             elif interaction.user.display_name in self.participants:
-                await interaction.response.send_message(f"Apologies {interaction.user.mention},\nYou have already joined the prize drawing for *{self.prize}*.", ephemeral=True)
+                await interaction.followup.send(f"Apologies {interaction.user.mention},\nYou have already joined the prize drawing for *{self.prize}*.", ephemeral=True)
                 return False
 
             #user pass all checks, enter giveaway
@@ -2138,7 +2133,7 @@ class Utility(commands.Cog):
                 # Modify the embed with the remaining time
                 giveaway_embed = discord.Embed(title="__Prize Drawing__", description=participation_message, color=discord.Color.from_rgb(self.color_r, self.color_g, self.color_b))
                 giveaway_embed.add_field(name="Ending In", value=f"`{countdown}`", inline = False)
-                giveaway_embed.add_field(name="Number of Winners", value=self.winners, inline=False)
+                giveaway_embed.add_field(name="Number of Winners", value=f"`{self.winners}`", inline=False)
                 giveaway_embed.add_field(name="Prize", value=self.prize, inline=False)
                 giveaway_embed.set_footer(text=f"Initiated by: {self.ctx.author.display_name}")
               
@@ -2203,7 +2198,7 @@ class Utility(commands.Cog):
             #send the winner list and embed
             giveaway_embed = discord.Embed(title="__Prize Drawing__", description="A prize drawing has ended!\nNow selecting the winner(s)...", color=discord.Color.from_rgb(self.color_r, self.color_g, self.color_b))
             giveaway_embed.add_field(name="Ending In", value="`COMPLETE`", inline = False)
-            giveaway_embed.add_field(name="Number of Winners", value=self.winners, inline=False)
+            giveaway_embed.add_field(name="Number of Winners", value=f"`{self.winners}`", inline=False)
             giveaway_embed.add_field(name="Prize", value=self.prize, inline=False)
             giveaway_embed.set_footer(text=f"Initiated by: {self.ctx.author.display_name}")
           
@@ -2224,7 +2219,7 @@ class Utility(commands.Cog):
             #set the winner embed with information
             winner_embed = discord.Embed(title="__Prize Drawing Winner(s)__", description = "Thank you all for participating in this prize drawing. The winner(s) are listed above and the award information may be found below.\n*Enjoy!*", color=discord.Color.from_rgb(self.color_r, self.color_g, self.color_b))
             winner_embed.add_field(name = "Ended", value=f"`{end_time}`", inline=False)
-            winner_embed.add_field(name="Number of Winners", value=len(winner_list) if len(winner_list)>0 else "None", inline = False)
+            winner_embed.add_field(name="Number of Winners", value=f"`{len(winner_list)}`" if len(winner_list)>0 else "`None`", inline = False)
             winner_embed.add_field(name="Prize", value=f"{self.prize}", inline = False)
             winner_embed.set_footer(text=f"Initiated by: {self.ctx.author.display_name}")
 
@@ -2315,9 +2310,15 @@ class Utility(commands.Cog):
 
         #if the duration is not input correctly or the duration is input as 0s
         if duration_seconds == 0:
-            await ctx.respond(f"Apologies {ctx.author.mention},\nThe prize drawing duration must be greater than 0 seconds.\n\n__Note:__ You must insert a time string after the time integer (i.e. 1d = 1 day, 1h = 1 minute, 1m = 1 minute, 1s = 1 second).\n*Please try again.*", ephemeral=True)
+            await ctx.respond(f"Apologies {ctx.author.mention},\nThe prize drawing duration must be greater than `0 seconds`.\n\n__Note:__ You must insert a time string after the time integer (i.e. `1d` = `1 day`, `1h` = `1 minute`, `1m` = `1 minute`, `1s` = `1 second`).\n*Please try again.*", ephemeral=True)
             return
-      
+
+        elif duration_seconds > 864000: #cannot be longer than 10 days (messages cannot be edited past 14 days bc they expire, so setting to 10 to be safe)
+            await ctx.respond(f"Apologies {ctx.author.mention},\nThe prize drawing duration may **not** be more than `10 days` due to Discord limitations.\n*Please try again.*", ephemeral=True)
+            return
+
+
+          
         # Calculate the remaining time in days, hours, minutes, and seconds
         days, remainder = divmod(duration_seconds, 86400)
         hours, remainder = divmod(remainder, 3600)
@@ -2336,15 +2337,15 @@ class Utility(commands.Cog):
 
         #update the description of the embed depending on if winner count needs to be reached or not
         if participation is False:
-            participation_message = f"A prize drawing has begun!\nPlease find the details attached below and utilize the join button to participate, if you desire...\n\nIf the number of participants *does not exceed* the winner count ({winners}), the prize will be awarded to all participants."
+            participation_message = f"A prize drawing has begun!\nPlease find the details attached below and utilize the join button to participate, if you desire...\n\nIf the number of participants *does not exceed* the winner count (`{winners}`), the prize will be awarded to all participants."
         else:
-            participation_message = f"A prize drawing has begun!\nPlease find the details attached below and utilize the join button to participate, if you desire...\n\nThe number of participants must reach the winner count ({winners}) for the prize to be awarded."
+            participation_message = f"A prize drawing has begun!\nPlease find the details attached below and utilize the join button to participate, if you desire...\n\nThe number of participants must reach the winner count (`{winners}`) for the prize to be awarded."
 
       
 
         giveaway_embed = discord.Embed(title="__Prize Drawing__", description = participation_message, color=discord.Color.from_rgb(color_r, color_g, color_b))
         giveaway_embed.add_field(name="Ending In", value=f"`{countdown}`", inline = False)
-        giveaway_embed.add_field(name="Number of Winners", value=winners, inline = False)
+        giveaway_embed.add_field(name="Number of Winners", value=f"`{winners}`", inline = False)
         giveaway_embed.add_field(name="Prize", value=prize, inline = False)
         giveaway_embed.set_footer(text=f"Initiated by: {ctx.author.display_name}")
 
@@ -2367,7 +2368,9 @@ class Utility(commands.Cog):
 
         #define the view of the embed message (to add buttons)
         view = self.GiveawayView(ctx, self.bot, prize, duration_seconds, winners, color_r, color_g, color_b, participation, image)
-        await ctx.respond(embed=giveaway_embed, view = view) #send embed with button view
+
+        await ctx.respond(f"{ctx.author.mention}\nNow beginning your prize giveaway, good sir.", ephemeral=True)
+        await ctx.send(embed=giveaway_embed, view = view) #send embed with button view
         await view.start_timer() #start the countdown timer (defined in the GiveawayView Class)
 
 ##################################GIVEAWAYS###################################
@@ -2804,15 +2807,6 @@ class Utility(commands.Cog):
                         await message.delete()
                     except discord.errors.NotFound: #if message is already deleted
                         pass
-
-                # #only purge entire channel at the beginning of startup
-                # if starting_up is True:
-                #     starting_up = False #change to false so it does not purge entire channel until bot restarts
-                #     #delete extra messages (if any)
-                #     messages = await channel.history(limit=None).flatten()
-        
-                #     if len(messages) > 0:
-                #         await channel.purge(limit=None, check=lambda m: not m.pinned)
 
   
 
