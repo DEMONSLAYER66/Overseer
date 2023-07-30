@@ -326,6 +326,7 @@ class Utility(commands.Cog):
 
 
                 if channel_found is True and original_promotion_channel.id == promotion_channel.id:
+                    print("og")
                     try:
                         promotion_message = await promotion_channel.send(invite_link, embed=test_embed, view=view)
                         print("og promotion passed")
@@ -336,16 +337,15 @@ class Utility(commands.Cog):
               
                # Check if the promotion channel exists and is a TextChannel
                 elif channel_found is True:
+                    print("not og")
                     try:
+                        print("begin sending")
                         # Send the embed to the promotion channel
                         await promotion_channel.send(invite_link, embed=test_embed, view=view)
                         message_sent_to += 1 #add one to the sent invites list
                         print("promotion passed")
                     except:
                         print("promotion failed")
-
-                else:
-                    print("else succeded")
 
                 await asyncio.sleep(2)
 
