@@ -1004,14 +1004,11 @@ class Utility(commands.Cog):
             self.timed_out = True
             embed = self.create_embed(self.ctx)
 
-            if len(self.joined_users) > 0:
-                for player in self.joined_users:
-                    player_mentions = " ".join(player.mention)
-            else:
-                player_mentions = None
+            player_mentions = "\n".join(player.mention for player in self.joined_users)
+            message_content = f"{player_mentions}\n" if player_mentions else ""
           
             try:
-                await self.message.edit(player_mentions if player_mentions else "", embed=embed, view=None)
+                await self.message.edit(content=message_content, embed=embed, view=None)
             except discord.errors.NotFound: #if message deleted before timeout
                 pass
 
@@ -1050,7 +1047,6 @@ class Utility(commands.Cog):
             except:
                 pass #if no avatar set, skip the thumbnail
 
-
             embed.add_field(inline=False, name="Game", value=f"*{self.game['title'] if self.game['title'] else self.other_game}*")
             embed.add_field(inline=False, name="Desired Game Platform", value=self.platform)
             embed.add_field(inline=False, name="Number of Players Needed", value=f"*{remaining_users}*")
@@ -1076,8 +1072,13 @@ class Utility(commands.Cog):
             embed = self.create_embed(self.ctx)
             
             if self.check_players_full():
+                self.timed_out = True
+
+                player_mentions = "\n".join(player.mention for player in self.joined_users)
+                message_content = f"{player_mentions}\n" if player_mentions else ""
+              
                 self.stop()
-                await self.message.edit(view=None, embed=embed)
+                await self.message.edit(content=message_content, view=None, embed=embed)
             else:
                 await self.message.edit(view=self, embed=embed)
 
