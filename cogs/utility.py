@@ -1021,12 +1021,12 @@ class Utility(commands.Cog):
     
     
         def convert_user_list_to_str(self, user_list, default_str="None"):
-            user_list = []
+            player_list = []
             for player in user_list:
-                user_list.append(player.display_name)
+                player_list.append(player.display_name)
           
-            if len(user_list):
-                return "\n".join(user_list)
+            if len(player_list):
+                return "\n".join(player_list)
             return default_str
 
 
