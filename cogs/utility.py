@@ -306,6 +306,7 @@ class Utility(commands.Cog):
             # Iterate through each promotion channel ID
             message_sent_to = 0
             for promotion_channel_id in promotion_channel_ids:
+                print("sent")
                 # Fetch the promotion channel from the ID
                 promotion_channel = self.bot.get_channel(promotion_channel_id)
 
@@ -349,10 +350,13 @@ class Utility(commands.Cog):
             #delete the initial embed telling the user that their bot is queued
             try:
                 await initial_message.delete()
+                print("delete passed")
             except:
+                print("delete failed")
                 pass
             
             await ctx.send(embed=info_embed, view=info_view)
+            print("sent to ctx channel")
 
             #add the cooldown data to mongodb
             bump_db.cooldowns.insert_one(
