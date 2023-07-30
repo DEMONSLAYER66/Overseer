@@ -1032,9 +1032,9 @@ class Utility(commands.Cog):
             remaining_users = self.players - len(self.joined_users)
 
             if self.timed_out is True: #if timed out, change description
-                desc = f"Good fellows of {self.ctx.guild.name},\n\n***{self.ctx.author.display_name}*** is no longer looking to play a game with other individuals."
+                desc = f"Good fellows of ***{self.ctx.guild.name}***,\n{self.ctx.author.mention} is no longer looking to play a game with other individuals."
             else:
-                desc = f"Good fellows of {self.ctx.guild.name},\n***{self.ctx.author.mention}*** is looking to play a game with some other individuals.\n\n*Care to join in their endeavors, good sir?*"
+                desc = f"Good fellows of ***{self.ctx.guild.name}***,\n{self.ctx.author.mention} is looking to play a game with some other individuals.\n\n*Care to join in their endeavors, good sir?*"
               
             embed = discord.Embed(title="Join Together in Play", description=desc, color=discord.Color.from_rgb(130, 130, 130))
     
@@ -1170,7 +1170,7 @@ class Utility(commands.Cog):
 
 
             
-            desc = f"Good fellows of {ctx.guild.name},\n***{ctx.author.mention}*** is looking to play a game with some other individuals.\n\n*Care to join in their endeavors, good sir?*"
+            desc = f"Good fellows of ***{ctx.guild.name}***,\n{ctx.author.mention} is looking to play a game with some other individuals.\n\n*Care to join in their endeavors, good sir?*"
             embed = discord.Embed(title="Join Together in Play", description=desc, color=discord.Color.from_rgb(130, 130, 130))
     
             if self.games_list[game]['url']:
