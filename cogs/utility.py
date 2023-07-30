@@ -346,7 +346,7 @@ class Utility(commands.Cog):
                         message_sent_to += 1 #add one to the sent invites list
                         # print("promotion passed")
                     except:
-                        pass
+                        continue
                         # print("promotion failed")
 
 
