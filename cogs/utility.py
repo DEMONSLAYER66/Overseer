@@ -317,15 +317,15 @@ class Utility(commands.Cog):
                 # Fetch the promotion channel from the ID
                 try:
                     promotion_channel = self.bot.get_channel(promotion_channel_id)
+                    print(promotion_channel.id)
+                    print(promotion_channel.name)
                     print("promotion channel found")
-                    channel_found = True
                 except:
                     print("promotion channel not found")
-                    channel_found = False
                     continue
 
 
-                if channel_found is True and original_promotion_channel.id == promotion_channel.id:
+                if original_promotion_channel.id == promotion_channel.id:
                     print("og")
                     try:
                         promotion_message = await promotion_channel.send(invite_link, embed=test_embed, view=view)
@@ -336,7 +336,7 @@ class Utility(commands.Cog):
 
               
                # Check if the promotion channel exists and is a TextChannel
-                elif channel_found is True:
+                else:
                     print("not og")
                     try:
                         print("begin sending")
@@ -347,7 +347,7 @@ class Utility(commands.Cog):
                     except:
                         print("promotion failed")
 
-                await asyncio.sleep(2)
+                await asyncio.sleep(1)
 
 
             print("loop ended")
