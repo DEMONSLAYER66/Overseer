@@ -994,16 +994,24 @@ class Utility(commands.Cog):
             self.joined_users = []
             self.tentative_users = []
             self.declined_users = []
+            self.timed_out = False
 
 
 
         #timeout function
         async def on_timeout(self):
             self.disable_all_items()
+            self.timed_out = True
             embed = self.create_embed(self.ctx)
+
+            if len(self.joined_users) > 0:
+                for player in self.joined_users:
+                    player_mentions = " ".join(player.mention)
+            else:
+                player_mentions = None
           
             try:
-                await self.message.edit(embed=embed, view=None)
+                await self.message.edit(player_mentions if player_mentions else "", embed=embed, view=None)
             except discord.errors.NotFound: #if message deleted before timeout
                 pass
 
@@ -1013,14 +1021,24 @@ class Utility(commands.Cog):
     
     
         def convert_user_list_to_str(self, user_list, default_str="None"):
+            user_list = []
+            for player in user_list:
+                user_list.append(player.display_name)
+          
             if len(user_list):
                 return "\n".join(user_list)
             return default_str
-    
+
+
+      
         def create_embed(self, ctx):
             remaining_users = self.players - len(self.joined_users)
 
-            desc = f"Good fellows of {self.ctx.guild.name},\n\n***{self.ctx.author.display_name}*** is looking to play a game with some other individuals.\nCare to join in their endeavors, good sir?"
+            if self.timed_out = True: #if timed out, change description
+                desc = f"Good fellows of {self.ctx.guild.name},\n\n***{self.ctx.author.display_name}*** is no longer looking to play a game with other individuals."
+            else:
+                desc = f"Good fellows of {self.ctx.guild.name},\n\n***{self.ctx.author.display_name}*** is looking to play a game with some other individuals.\nCare to join in their endeavors, good sir?"
+              
             embed = discord.Embed(title="Join Together in Play", description=desc, color=discord.Color.from_rgb(130, 130, 130))
     
             if self.game['url']:
@@ -1073,12 +1091,12 @@ class Utility(commands.Cog):
             await interaction.response.defer()
             
             if interaction.user.display_name not in self.joined_users:
-                self.joined_users.append(interaction.user.display_name)
+                self.joined_users.append(interaction.user)
             # remove from declined and from tentative if inside
             if interaction.user.display_name in self.tentative_users:
-                self.tentative_users.remove(interaction.user.display_name)
+                self.tentative_users.remove(interaction.user)
             if interaction.user.display_name in self.declined_users:
-                self.declined_users.remove(interaction.user.display_name)
+                self.declined_users.remove(interaction.user)
         
             await self.update_message(self.ctx)
         
@@ -1092,12 +1110,12 @@ class Utility(commands.Cog):
             await interaction.response.defer()
         
             if interaction.user.display_name not in self.declined_users:
-                self.declined_users.append(interaction.user.display_name)
+                self.declined_users.append(interaction.user)
             # remove from joined and from tentative if inside
             if interaction.user.display_name in self.tentative_users:
-                self.tentative_users.remove(interaction.user.display_name)
+                self.tentative_users.remove(interaction.user)
             if interaction.user.display_name in self.joined_users:
-                self.joined_users.remove(interaction.user.display_name)
+                self.joined_users.remove(interaction.user)
         
             await self.update_message(self.ctx)
         
@@ -1111,12 +1129,12 @@ class Utility(commands.Cog):
             await interaction.response.defer()
         
             if interaction.user.display_name not in self.tentative_users:
-                self.tentative_users.append(interaction.user.display_name)
+                self.tentative_users.append(interaction.user)
             # remove from declined and from joined if inside
             if interaction.user.display_name in self.joined_users:
-                self.joined_users.remove(interaction.user.display_name)
+                self.joined_users.remove(interaction.user)
             if interaction.user.display_name in self.declined_users:
-                self.declined_users.remove(interaction.user.display_name)
+                self.declined_users.remove(interaction.user)
         
             await self.update_message(self.ctx)
     
@@ -1132,7 +1150,7 @@ class Utility(commands.Cog):
           self,
           ctx,
           game: Option(str, name="game", description="Name of game you would like to play.", choices=["Apex Legends", "Overwatch 2", "Valorant", "CS:GO", "Rainbow Six Siege", "COD: MW2", "Fortnite", "Minecraft", "GTA Online", "Red Dead Online", "Dead by Daylight", "Among Us", "Other"]), 
-          players: Option(int, name="players", description="Number of players. (Default: 3; Min: 1, Max: 20)", required=False, default=3, min_value=1, max_value=20),
+          players: Option(int, name="players", description="Number of players. (Default: 3; Min: 1, Max: 10)", required=False, default=3, min_value=1, max_value=10),
           platform: Option(str, name="platform", description="Desired game platform.", required=False, default="Any", choices=["🎮 Console", "💻 PC", "📱 Mobile", "🕹 Any"]),
           other_game: Option(str, name="other_game", description="Name of game (if not listed in original choices. (Default: a game)", required=False, default=None)
           ):
