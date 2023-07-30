@@ -306,6 +306,8 @@ class Utility(commands.Cog):
             for config in bump_db.bump_configs.find():
                 channel_id = config['promotion_channel_id']
                 promotion_channel_ids.append(channel_id)
+
+            print(promotion_channel_ids)
             
             # Iterate through each promotion channel ID
             message_sent_to = 0
@@ -314,22 +316,22 @@ class Utility(commands.Cog):
                 # Fetch the promotion channel from the ID
                 try:
                     promotion_channel = self.bot.get_channel(promotion_channel_id)
+                    channel_found = True
                 except:
-                    continue
+                    channel_found = False
 
 
-                if original_promotion_channel.id == promotion_channel.id:
+                if channel_found is True and original_promotion_channel.id == promotion_channel.id:
                     try:
                         promotion_message = await promotion_channel.send(invite_link, embed=test_embed, view=view)
                         print("og promotion passed")
                     except Exception as e:
                         await ctx.send(f"Apologies {ctx.author.mention},\nI was unable to send the promotion message to your specified promotion channel with ID ***{promotion_channel_id}*** as I may not have the required permissions to do so...\n*For future reference, please ensure my permissions for this channel are set to `Send Messages` and `Manage Messages` permissions to be able to send the promotion there, sir.*\n\nError: `{e}`")
                         print("og promotion failed")
-                        pass
 
               
                # Check if the promotion channel exists and is a TextChannel
-                elif promotion_channel:
+                elif channel_found is True:
                     try:
                         # Send the embed to the promotion channel
                         await promotion_channel.send(invite_link, embed=test_embed, view=view)
@@ -338,9 +340,9 @@ class Utility(commands.Cog):
                     except:
                         print("promotion failed")
                         # await ctx.respond(f"Apologies {ctx.author.mention},\nI was unable to send the promotion message to the specified channel with ID ***{promotion_channel.id}*** as I may not have the required permissions to do so.\n*Please check my permissions for this channel and ensure I have the `Send Messages` and `Manage Messages` permissions and try again.*\n\nError: `{e}`", ephemeral=True)
-                        pass
 
 
+            print("loop ended")
             bot_data = bump_db.total_bumps.find_one({"automaton": "Lord Bottington"}) #the total number of bumps for the bot
             total_bumps = bot_data['total_bumps']
 
