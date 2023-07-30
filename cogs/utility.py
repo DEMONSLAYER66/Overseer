@@ -316,9 +316,12 @@ class Utility(commands.Cog):
                 # Fetch the promotion channel from the ID
                 try:
                     promotion_channel = self.bot.get_channel(promotion_channel_id)
+                    print("promotion channel found")
                     channel_found = True
                 except:
+                    print("promotion channel not found")
                     channel_found = False
+                    continue
 
 
                 if channel_found is True and original_promotion_channel.id == promotion_channel.id:
@@ -340,6 +343,8 @@ class Utility(commands.Cog):
                     except:
                         print("promotion failed")
                         # await ctx.respond(f"Apologies {ctx.author.mention},\nI was unable to send the promotion message to the specified channel with ID ***{promotion_channel.id}*** as I may not have the required permissions to do so.\n*Please check my permissions for this channel and ensure I have the `Send Messages` and `Manage Messages` permissions and try again.*\n\nError: `{e}`", ephemeral=True)
+
+                await asyncio.sleep(2)
 
 
             print("loop ended")
