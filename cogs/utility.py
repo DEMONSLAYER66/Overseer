@@ -2251,7 +2251,7 @@ class Utility(commands.Cog):
         winners: Option(int, name="winners", description="The amount of people who will be receiving the prize.", min_value=1, max_value=20),
         participation: Option(bool, name = "participation", description="Winner count (winners) must be reached to award prize to active participants. (Default: True)", required=False, default = True),
         color: Option(str, name="color", description="Select a color for the prize drawing embed. (Default: 🔵 Blue)", required=False, choices=["🔴 Red", "🟢 Green", "🔵 Blue", "🟡 Yellow", "🟣 Purple", "⚫ Black", "⚪ White"], default=None),
-        image: Option(discord.Attachment, name="image", dewscription="Image for the prize drawing. (Default: None)", required=False, default=None)
+        image: Option(discord.Attachment, name="image", description="Image for the prize drawing. (Default: None)", required=False, default=None)
     ):
 
         #only allow admins to initiate giveaways
