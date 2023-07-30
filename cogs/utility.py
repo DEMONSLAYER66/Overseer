@@ -307,50 +307,50 @@ class Utility(commands.Cog):
                 channel_id = config['promotion_channel_id']
                 promotion_channel_ids.append(channel_id)
 
-            print(promotion_channel_ids)
+            # print(promotion_channel_ids)
 
           
             # Iterate through each promotion channel ID
             message_sent_to = 0
             for promotion_channel_id in promotion_channel_ids:
-                print(promotion_channel_id)
+                # print(promotion_channel_id)
                 # Fetch the promotion channel from the ID
                 try:
                     promotion_channel = self.bot.get_channel(promotion_channel_id)
-                    print(promotion_channel.id)
-                    print(promotion_channel.name)
-                    print("promotion channel found")
+                    # print(promotion_channel.id)
+                    # print(promotion_channel.name)
+                    # print("promotion channel found")
                 except:
-                    print("promotion channel not found")
+                    # print("promotion channel not found")
                     continue
 
 
                 if original_promotion_channel.id == promotion_channel.id:
-                    print("og")
+                    # print("og")
                     try:
                         promotion_message = await promotion_channel.send(invite_link, embed=test_embed, view=view)
-                        print("og promotion passed")
+                        # print("og promotion passed")
                     except Exception as e:
                         await ctx.send(f"Apologies {ctx.author.mention},\nI was unable to send the promotion message to your specified promotion channel with ID ***{promotion_channel_id}*** as I may not have the required permissions to do so...\n*For future reference, please ensure my permissions for this channel are set to `Send Messages` and `Manage Messages` permissions to be able to send the promotion there, sir.*\n\nError: `{e}`")
-                        print("og promotion failed")
+                        # print("og promotion failed")
 
               
                # Check if the promotion channel exists and is a TextChannel
                 else:
-                    print("not og")
+                    # print("not og")
                     try:
-                        print("begin sending")
+                        # print("begin sending")
                         # Send the embed to the promotion channel
                         await promotion_channel.send(invite_link, embed=test_embed, view=view)
                         message_sent_to += 1 #add one to the sent invites list
-                        print("promotion passed")
+                        # print("promotion passed")
                     except:
-                        print("promotion failed")
+                        # print("promotion failed")
 
                 await asyncio.sleep(1)
 
 
-            print("loop ended")
+            # print("loop ended")
             bot_data = bump_db.total_bumps.find_one({"automaton": "Lord Bottington"}) #the total number of bumps for the bot
             total_bumps = bot_data['total_bumps']
 
@@ -371,13 +371,13 @@ class Utility(commands.Cog):
             #delete the initial embed telling the user that their bot is queued
             try:
                 await initial_message.delete()
-                print("delete passed")
+                # print("delete passed")
             except:
-                print("delete failed")
+                # print("delete failed")
                 pass
             
             await ctx.send(embed=info_embed, view=info_view)
-            print("sent to ctx channel")
+            # print("sent to ctx channel")
 
             #add the cooldown data to mongodb
             bump_db.cooldowns.insert_one(
