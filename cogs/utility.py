@@ -313,20 +313,20 @@ class Utility(commands.Cog):
                 if original_promotion_channel.id == promotion_channel.id:
                     try:
                         promotion_message = await promotion_channel.send(invite_link, embed=test_embed, view=view)
-                    except (discord.errors.HTTPException, discord.errors.Forbidden) as e:
+                    except Exception as e:
                         await ctx.respond(f"Apologies {ctx.author.mention},\nI was unable to send the promotion message to your specified promotion channel with ID ***{promotion_channel_id}*** as I may not have the required permissions to do so...\n*For future reference, please ensure my permissions for this channel are set to `Send Messages` and `Manage Messages` permissions to be able to send the promotion there, sir.*\n\nError: `{e}`", ephemeral=True)
-                        continue
+                        pass
 
               
                # Check if the promotion channel exists and is a TextChannel
-                elif promotion_channel and isinstance(promotion_channel, discord.TextChannel):
+                elif promotion_channel:
                     try:
                         # Send the embed to the promotion channel
                         await promotion_channel.send(invite_link, embed=test_embed, view=view)
                         message_sent_to += 1 #add one to the sent invites list
-                    except (discord.errors.HTTPException, discord.errors.Forbidden) as e:
+                    except:
                         # await ctx.respond(f"Apologies {ctx.author.mention},\nI was unable to send the promotion message to the specified channel with ID ***{promotion_channel.id}*** as I may not have the required permissions to do so.\n*Please check my permissions for this channel and ensure I have the `Send Messages` and `Manage Messages` permissions and try again.*\n\nError: `{e}`", ephemeral=True)
-                        continue
+                        pass
 
 
             bot_data = bump_db.total_bumps.find_one({"automaton": "Lord Bottington"}) #the total number of bumps for the bot
