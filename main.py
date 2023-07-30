@@ -52,34 +52,30 @@ async def on_ready():
   # mongoDBpass = os.environ['mongoDBpass'] #load the mongoDB url (retreived from mongoDB upon account creation)
   mongoDBpass = os.getenv('mongoDBpass')
   client = pymongo.MongoClient(mongoDBpass) # Create a new client and connect to the server
-  # autopurge_db = client.autopurge_db #create the autpourge database on mongoDB
+  autopurge_db = client.autopurge_db #create the autpourge database on mongoDB
   bump_db = client.bump_db #create the bump (promotion) database on MongoDB
 
-  # server_ids = []
-  # for guild in bot.guilds:
-  #     server_ids.append(guild.id)
+  server_ids = []
+  for guild in bot.guilds:
+      server_ids.append(guild.id)
 
-  # #start the autopurge task
-  # configuration_cog = bot.get_cog('Configuration') #get the configuration cog
-  # current_time = datetime.datetime.utcnow()
-  # for server_id in server_ids: #for every active server, create a loop task for autopurge
-  #     # Retrieve autopurge configurations from database
-  #     autopurge_config = autopurge_db[f"autopurge_config_{server_id}"].find()
-  #     if autopurge_config:
-  #         for config in autopurge_config:
-  #             time_remaining = config['time_remaining']
-  #             if time_remaining:
-  #                 time_remaining = int(time_remaining) #convert to float type
-  #                 purge_channel_id = config["purge_channel_id"]
-        
-  #                 # Update the 'start_time' field in the MongoDB collection
-  #                 autopurge_config = autopurge_db[f"autopurge_config_{server_id}"].update_one(
-  #                     {'_id': config['_id']},  # Use the _id field to identify the document
-  #                     {'$set': {'start_time': current_time}}
-  #                 )
-    
-  #                 #continue the autopurge task loop
-  #                 await configuration_cog.autopurge_startup(server_id, purge_channel_id, time_remaining)
+  #purge all channels that have a limit of 0 messages
+  for server_id in server_ids: #for every active server, create a loop task for autopurge
+      # Retrieve autopurge configurations from database
+      autopurge_config = autopurge_db[f"autopurge_config_{server_id}"].find()
+      if autopurge_config:
+          for config in autopurge_config:
+              messagecount = config['messagecount']
+              
+              if not messagecount or messagecount == 0:
+                  channel_id = config['purge_channel_id']
+                  channel = await bot.get_channel(channel_id)
+
+                  messages = await channel.history(limit=None).flatten()
+
+                  if len(messages) > 0:
+                      await channel.purge(limit=None, check=lambda m: not m.pinned)
+                  
 
     
   # Get all cooldown entries from the database (for cooldowns on promotions)
