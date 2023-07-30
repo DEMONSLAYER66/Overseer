@@ -565,7 +565,8 @@ class Games(commands.Cog):
         battleship_embed.set_footer(text=f"Current Turn: 1️⃣{ctx.author.display_name}")
         battleship_embed.set_thumbnail(url="https://i.imgur.com/WVTMctu.gif") #battleship GIF
 
-        await ctx.respond(embed=battleship_embed, view=self.PlacementView(ctx, difficulty, bot_difficulty, player1_board, player2_board, blank_board1_modified, blank_board2_modified, ctx.author, player2, player2_bot))
+        await ctx.respond(f"{ctx.author.mention}\nA proper game of battleship has commenced, good sir.", ephemeral=True)
+        await ctx.send(embed=battleship_embed, view=self.PlacementView(ctx, difficulty, bot_difficulty, player1_board, player2_board, blank_board1_modified, blank_board2_modified, ctx.author, player2, player2_bot))
 
 
 
