@@ -326,28 +326,29 @@ class Utility(commands.Cog):
                     continue
 
 
-                if original_promotion_channel.id == promotion_channel.id:
-                    # print("og")
-                    try:
-                        promotion_message = await promotion_channel.send(invite_link, embed=test_embed, view=view)
-                        # print("og promotion passed")
-                    except Exception as e:
-                        await ctx.send(f"Apologies {ctx.author.mention},\nI was unable to send the promotion message to your specified promotion channel with ID ***{promotion_channel_id}*** as I may not have the required permissions to do so...\n*For future reference, please ensure my permissions for this channel are set to `Send Messages` and `Manage Messages` permissions to be able to send the promotion there, sir.*\n\nError: `{e}`")
-                        # print("og promotion failed")
+                # print("og")
+                try:
+                    await promotion_channel.send(invite_link, embed=test_embed, view=view)
+                    # print("og promotion passed")
+                    if promotion_channel.id != original_promotion_channel.id:
+                        message_sent_to += 1
+                except:
+                    continue
+                    # print("og promotion failed")
 
               
-               # Check if the promotion channel exists and is a TextChannel
-                else:
-                    # print("not og")
-                    try:
-                        # print("begin sending")
-                        # Send the embed to the promotion channel
-                        await promotion_channel.send(invite_link, embed=test_embed, view=view)
-                        message_sent_to += 1 #add one to the sent invites list
-                        # print("promotion passed")
-                    except:
-                        continue
-                        # print("promotion failed")
+               # # Check if the promotion channel exists and is a TextChannel
+               #  else:
+               #      # print("not og")
+               #      try:
+               #          # print("begin sending")
+               #          # Send the embed to the promotion channel
+               #          await promotion_channel.send(invite_link, embed=test_embed, view=view)
+               #          message_sent_to += 1 #add one to the sent invites list
+               #          # print("promotion passed")
+               #      except:
+               #          continue
+               #          # print("promotion failed")
 
 
             # print("loop ended")
@@ -358,7 +359,7 @@ class Utility(commands.Cog):
 
             # other_guilds = guild_count - 1 #do not count current guild
           
-            info_embed = discord.Embed(title=f"{ctx.guild.name}\nSuccessful Promotion", description=f"**🎩Congratulations!🎩**\nThis guild has been **successfully promoted** to `{message_sent_to:,}` other guilds.\n\nYou may view the posting for your guild in {original_promotion_channel.mention} by [clicking here]({promotion_message.jump_url}).\n\nYou may *promote* this guild again in `{cooldown_time_str}`, if you so desire.\n\nI would also like to inform you that since my creation, I have received a grand total of 🚀`{total_bumps:,}` promotions.\nI do appreciate your support and look forward to serving you even more!\n\n*Best of luck in growing your esteemed community, good sir!*", color=discord.Color.from_rgb(color[0], color[1], color[2]))
+            info_embed = discord.Embed(title=f"{ctx.guild.name}\nSuccessful Promotion", description=f"**🎩Congratulations!🎩**\nThis guild has been **successfully promoted** to `{message_sent_to:,}` other guilds.\n\nYou may *promote* this guild again in `{cooldown_time_str}`, if you so desire.\n\nI would also like to inform you that since my creation, I have received a grand total of 🚀`{total_bumps:,}` promotions.\nI do appreciate your support and look forward to serving you even more!\n\n*Best of luck in growing your esteemed community, good sir!*", color=discord.Color.from_rgb(color[0], color[1], color[2]))
 
             info_embed.add_field(name=f"🚀Guild Promotions", value=f"`{bumps:,}`")
 
