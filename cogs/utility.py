@@ -312,7 +312,10 @@ class Utility(commands.Cog):
             for promotion_channel_id in promotion_channel_ids:
                 print(promotion_channel_id)
                 # Fetch the promotion channel from the ID
-                promotion_channel = self.bot.get_channel(promotion_channel_id)
+                try:
+                    promotion_channel = self.bot.get_channel(promotion_channel_id)
+                except:
+                    continue
 
 
                 if original_promotion_channel.id == promotion_channel.id:
