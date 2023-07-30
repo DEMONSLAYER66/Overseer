@@ -313,6 +313,7 @@ class Utility(commands.Cog):
             # Iterate through each promotion channel ID
             message_sent_to = 0
             for promotion_channel_id in promotion_channel_ids:
+                await asyncio.sleep(1)
                 # print(promotion_channel_id)
                 # Fetch the promotion channel from the ID
                 try:
@@ -347,8 +348,6 @@ class Utility(commands.Cog):
                     except:
                         pass
                         # print("promotion failed")
-
-                await asyncio.sleep(1)
 
 
             # print("loop ended")
