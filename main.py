@@ -69,7 +69,7 @@ async def on_ready():
               
               if not messagecount or messagecount == 0:
                   channel_id = config['purge_channel_id']
-                  channel = await bot.get_channel(channel_id)
+                  channel = bot.get_channel(channel_id)
 
                   messages = await channel.history(limit=None).flatten()
 
