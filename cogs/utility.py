@@ -984,7 +984,7 @@ class Utility(commands.Cog):
     
     class ReadyOrNotView(discord.ui.View):
         def __init__(self, ctx, bot, players, platform, game, other_game):
-            super().__init__(timeout=10) #used to initialize the timeout (if needed)
+            super().__init__(timeout=3600) #used to initialize the timeout (if needed)
             self.ctx = ctx #initialize the context
             self.bot = bot #intialize bot
             self.game = Utility.games_list[game]
@@ -1069,10 +1069,10 @@ class Utility(commands.Cog):
               
       
         async def update_message(self, ctx):
-            embed = self.create_embed(self.ctx)
-            
             if self.check_players_full():
                 self.timed_out = True
+              
+                embed = self.create_embed(self.ctx)
 
                 player_mentions = "\n".join(player.mention for player in self.joined_users)
                 message_content = f"{player_mentions}\n" if player_mentions else ""
@@ -1080,61 +1080,62 @@ class Utility(commands.Cog):
                 self.stop()
                 await self.message.edit(content=message_content, view=None, embed=embed)
             else:
+                embed = self.create_embed(self.ctx)
                 await self.message.edit(view=self, embed=embed)
 
       
         @discord.ui.button(label="Join", style=discord.ButtonStyle.green, emoji="👍")
         async def join_button(self, button: discord.ui.Button, interaction: discord.Interaction):
-            # if interaction.user == self.ctx.author: #author cannot use the buttons
-            #     await interaction.response.defer()
-            #     return
+            if interaction.user == self.ctx.author: #author cannot use the buttons
+                await interaction.response.defer()
+                return
           
             await interaction.response.defer()
             
-            if interaction.user.display_name not in self.joined_users:
+            if interaction.user not in self.joined_users:
                 self.joined_users.append(interaction.user)
             # remove from declined and from tentative if inside
-            if interaction.user.display_name in self.tentative_users:
+            if interaction.user in self.tentative_users:
                 self.tentative_users.remove(interaction.user)
-            if interaction.user.display_name in self.declined_users:
+            if interaction.user in self.declined_users:
                 self.declined_users.remove(interaction.user)
         
             await self.update_message(self.ctx)
         
         @discord.ui.button(label="Decline", style=discord.ButtonStyle.red, emoji="👎")
         async def decline_button(self, button: discord.ui.Button, interaction: discord.Interaction):
-            # if interaction.user == self.ctx.author: #author cannot use the buttons
-            #     await interaction.response.defer()
-            #     return
+            if interaction.user == self.ctx.author: #author cannot use the buttons
+                await interaction.response.defer()
+                return
 
           
             await interaction.response.defer()
         
-            if interaction.user.display_name not in self.declined_users:
+            if interaction.user not in self.declined_users:
                 self.declined_users.append(interaction.user)
             # remove from joined and from tentative if inside
-            if interaction.user.display_name in self.tentative_users:
+            if interaction.user in self.tentative_users:
                 self.tentative_users.remove(interaction.user)
-            if interaction.user.display_name in self.joined_users:
+            if interaction.user in self.joined_users:
                 self.joined_users.remove(interaction.user)
         
             await self.update_message(self.ctx)
         
         @discord.ui.button(label="Maybe", style=discord.ButtonStyle.blurple, emoji="🤔")
         async def tentative_button(self, button: discord.ui.Button, interaction: discord.Interaction):
-            # if interaction.user == self.ctx.author: #author cannot use the buttons
-            #     await interaction.response.defer()
-            #     return
+            if interaction.user == self.ctx.author: #author cannot use the buttons
+                await interaction.response.defer()
+                return
 
           
             await interaction.response.defer()
         
-            if interaction.user.display_name not in self.tentative_users:
+            if interaction.user not in self.tentative_users:
                 self.tentative_users.append(interaction.user)
             # remove from declined and from joined if inside
-            if interaction.user.display_name in self.joined_users:
+            if interaction.user in self.joined_users:
                 self.joined_users.remove(interaction.user)
-            if interaction.user.display_name in self.declined_users:
+            if interaction.user in self.declined_users:
                 self.declined_users.remove(interaction.user)
         
             await self.update_message(self.ctx)
