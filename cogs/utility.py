@@ -1034,7 +1034,7 @@ class Utility(commands.Cog):
         def create_embed(self, ctx):
             remaining_users = self.players - len(self.joined_users)
 
-            if self.timed_out = True: #if timed out, change description
+            if self.timed_out is True: #if timed out, change description
                 desc = f"Good fellows of {self.ctx.guild.name},\n\n***{self.ctx.author.display_name}*** is no longer looking to play a game with other individuals."
             else:
                 desc = f"Good fellows of {self.ctx.guild.name},\n\n***{self.ctx.author.display_name}*** is looking to play a game with some other individuals.\nCare to join in their endeavors, good sir?"
