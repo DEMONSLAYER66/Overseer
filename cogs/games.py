@@ -1623,7 +1623,8 @@ class Games(commands.Cog):
         mm_embed.add_field(name="Number Correct", value=f"```{correct_guesses_string}```", inline=True)
         mm_embed.set_thumbnail(url="https://i.imgur.com/Ce6Y2Ee.gif") #rainbow GIF
 
-        await ctx.respond(embed=mm_embed, view=self.MMView(ctx, difficulty, bot_difficulty, attempts, characters, guesses, guesses_string, correct_guesses, correct_guesses_string, answer_blank, answer_blank_string, answer, answer_string))
+        await ctx.respond(f"{ctx.author.mention}\nA proper game of mastermind has commenced, good sir.", ephemeral=True)
+        await ctx.send(embed=mm_embed, view=self.MMView(ctx, difficulty, bot_difficulty, attempts, characters, guesses, guesses_string, correct_guesses, correct_guesses_string, answer_blank, answer_blank_string, answer, answer_string))
     
 
 
@@ -2166,7 +2167,8 @@ class Games(commands.Cog):
         brdmsg_embed.set_thumbnail(url="https://i.imgur.com/0DdDso7.png") #wumpus PNG
       
         # brd_msg
-        await ctx.respond(embed=brdmsg_embed, view=self.WumpusView(ctx, arrows, alive, world, userRow, userCol, danger_level, danger)) #update the initial board and now loading... status
+        await ctx.respond(f"{ctx.author.mention}\nA proper game of Hunt the Wumpus has commenced, good sir.", ephemeral=True)
+        await ctx.send(embed=brdmsg_embed, view=self.WumpusView(ctx, arrows, alive, world, userRow, userCol, danger_level, danger)) #update the initial board and now loading... status
       
   
     #Wumpus Buttons
@@ -2847,8 +2849,9 @@ class Games(commands.Cog):
         c4_embed.set_thumbnail(url="https://i.imgur.com/qChYW1N.gif") #c4 GIF
     
         c4_embed.set_footer(text=f"Current Turn: {player1emoji} {ctx.author.display_name}")
-    
-        await ctx.respond(embed=c4_embed, view=self.C4View(ctx, player1emoji, player2emoji, ctx.author.id, player2.id, player2_bot, ctx.author, player2, difficulty, bot_difficulty))
+
+        await ctx.respond(f"{ctx.author.mention}\nA proper game of Connect Four has commenced, good sir.", ephemeral=True)
+        await ctx.send(embed=c4_embed, view=self.C4View(ctx, player1emoji, player2emoji, ctx.author.id, player2.id, player2_bot, ctx.author, player2, difficulty, bot_difficulty))
     
     
     
@@ -3957,7 +3960,8 @@ class Games(commands.Cog):
         player2emoji = next(emoji for emoji in symbols if emoji != symbol)
     
         #send the response with the buttons defined below
-        await ctx.respond(f"__***Tic Tac Toe***__\n{f'*Difficulty:* {difficulty}' if player2_bot is True else ''}\n*Player 1:*\n {player1emoji} {ctx.author.mention}\n *Player 2:*\n {player2emoji} {player2.mention}\n\nPress the button corresponding to your desired play position below.\nCurrent Turn: {player1emoji} {ctx.author.display_name}", view=self.TTTView(ctx, player1emoji, player2emoji, ctx.author.id, player2.id, player2_bot, difficulty, bot_difficulty, ctx.author, player2))
+        await ctx.respond(f"{ctx.author.mention}\nA proper game of tic-tac-toe has commenced, good sir.", ephemeral=True)
+        await ctx.send(f"__***Tic Tac Toe***__\n{f'*Difficulty:* {difficulty}' if player2_bot is True else ''}\n*Player 1:*\n {player1emoji} {ctx.author.mention}\n *Player 2:*\n {player2emoji} {player2.mention}\n\nPress the button corresponding to your desired play position below.\nCurrent Turn: {player1emoji} {ctx.author.display_name}", view=self.TTTView(ctx, player1emoji, player2emoji, ctx.author.id, player2.id, player2_bot, difficulty, bot_difficulty, ctx.author, player2))
     
     
     
@@ -4753,8 +4757,9 @@ class Games(commands.Cog):
         rps_embed.add_field(name="Player 2", value=player2.mention)
     
         rps_embed.set_thumbnail(url="https://i.imgur.com/ExzGCb4.gif") #rps GIF
-    
-        await ctx.respond(embed=rps_embed, view=self.RPSView(ctx, ctx.author.id, player2.id, player2_bot, ctx.author, player2))
+
+        await ctx.respond(f"{ctx.author.mention}\nA proper game of Rock, Paper, Scissors has commenced, good sir.", ephemeral=True)
+        await ctx.send(embed=rps_embed, view=self.RPSView(ctx, ctx.author.id, player2.id, player2_bot, ctx.author, player2))
     
     
     
