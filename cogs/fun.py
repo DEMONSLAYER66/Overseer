@@ -946,12 +946,12 @@ class Fun(commands.Cog):
       formatted_response = f"Dear {ctx.author.mention}, upon careful contemplation, I say:\n\n🎱 {response}"
   
       embed = discord.Embed(
-          title="🎩 Magic 8 Ball 🎩",
+          title="🎩 Crystal Ball 🎩",
           description=f"Dear {ctx.author.mention},\nI have pondered your inquiry...",
           color=discord.Color.from_rgb(130, 130, 130)
       )
-      embed.add_field(name="🔮 You asked:", value=inquiry, inline=False)
-      embed.add_field(name="🎱 Upon careful contemplation, I say:", value=response, inline=False)
+      embed.add_field(name="🔮 You asked:", value=f"*{inquiry}*", inline=False)
+      embed.add_field(name="🎱 Upon careful contemplation, I say:", value=f"*{response}*", inline=False)
       embed.set_thumbnail(url="https://i.imgur.com/oW25bhm.gif") #crystal ball GIF
       await ctx.respond(embed=embed)
 
