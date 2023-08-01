@@ -46,7 +46,7 @@ class Moderation(commands.Cog):
         moderation_key = {"server_id": member.guild.id}
         moderation_config = moderation_db.moderation_configs.find_one(moderation_key)
         if moderation_config:
-            channel = await self.bot.fetch_channel(moderation_config["channel_id"])
+            channel = self.bot.get_channel(moderation_config["channel_id"])
           
             await ctx.respond(f"{ctx.author.mention}\nI have dispatched the moderation information to {channel.mention}.\n\n*Please note that if no message is sent, you may need to update my access to {channel.mention} for future moderation messages, good sir.*", ephemeral=True)
         else:
@@ -79,7 +79,7 @@ class Moderation(commands.Cog):
                     moderation_key = {"server_id": member.guild.id}
                     moderation_config = moderation_db.moderation_configs.find_one(moderation_key)
                     if moderation_config:
-                        channel = await self.bot.fetch_channel(moderation_config["channel_id"])
+                        channel = self.bot.get_channel(moderation_config["channel_id"])
     
                         try:
                             await channel.send(embed=embed)
@@ -120,7 +120,7 @@ class Moderation(commands.Cog):
         moderation_key = {"server_id": member.guild.id}
         moderation_config = moderation_db.moderation_configs.find_one(moderation_key)
         if moderation_config:
-            channel = await self.bot.fetch_channel(moderation_config["channel_id"])
+            channel = self.bot.get_channel(moderation_config["channel_id"])
           
             await ctx.respond(f"{ctx.author.mention}\nI have dispatched the moderation information to {channel.mention}.\n\n*Please note that if no message is sent, you may need to update my access to {channel.mention} for future moderation messages, good sir.*", ephemeral=True)
         else:
@@ -155,7 +155,7 @@ class Moderation(commands.Cog):
             moderation_key = {"server_id": guild.id}
             moderation_config = moderation_db.moderation_configs.find_one(moderation_key)
             if moderation_config:
-                channel = await self.bot.fetch_channel(moderation_config["channel_id"])
+                channel = self.bot.get_channel(moderation_config["channel_id"])
               
                 try:
                     await channel.send(embed=embed)
@@ -206,7 +206,7 @@ class Moderation(commands.Cog):
                     moderation_key = {"server_id": ctx.guild.id}
                     moderation_config = moderation_db.moderation_configs.find_one(moderation_key)
                     if moderation_config:
-                        channel = await self.bot.fetch_channel(moderation_config["channel_id"])
+                        channel = self.bot.get_channel(moderation_config["channel_id"])
                       
                         await ctx.respond(f"{ctx.author.mention}\nI have dispatched the moderation information to {channel.mention}.\n\n*Please note that if no message is sent, you may need to update my access to {channel.mention} for future moderation messages, good sir.*", ephemeral=True)
                     else:
@@ -253,7 +253,7 @@ class Moderation(commands.Cog):
             moderation_key = {"server_id": guild.id}
             moderation_config = moderation_db.moderation_configs.find_one(moderation_key)
             if moderation_config:
-                channel = await self.bot.fetch_channel(moderation_config["channel_id"])
+                channel = self.bot.get_channel(moderation_config["channel_id"])
               
                 try:
                     await channel.send(embed=embed)
@@ -311,7 +311,7 @@ class Moderation(commands.Cog):
         moderation_key = {"server_id": ctx.guild.id}
         moderation_config = moderation_db.moderation_configs.find_one(moderation_key)
         if moderation_config:
-            channel = await self.bot.fetch_channel(moderation_config["channel_id"])
+            channel = self.bot.get_channel(moderation_config["channel_id"])
           
             await ctx.respond(f"{ctx.author.mention}\nI have dispatched the moderation information to {channel.mention}.", ephemeral=True)
           
@@ -371,7 +371,7 @@ class Moderation(commands.Cog):
         moderation_key = {"server_id": ctx.guild.id}
         moderation_config = moderation_db.moderation_configs.find_one(moderation_key)
         if moderation_config:
-            channel = await self.bot.fetch_channel(moderation_config["channel_id"])
+            channel = self.bot.get_channel(moderation_config["channel_id"])
           
             await ctx.respond(f"{ctx.author.mention}\nI have dispatched the moderation information to {channel.mention}.", ephemeral=True)
           
@@ -453,7 +453,7 @@ class Moderation(commands.Cog):
         moderation_key = {"server_id": ctx.guild.id}
         moderation_config = moderation_db.moderation_configs.find_one(moderation_key)
         if moderation_config:
-            channel = await self.bot.fetch_channel(moderation_config["channel_id"])
+            channel = self.bot.get_channel(moderation_config["channel_id"])
           
             await ctx.respond(f"{ctx.author.mention}\nI have dispatched the moderation information to {channel.mention}.", ephemeral=True)
             await asyncio.sleep(1)
@@ -465,7 +465,7 @@ class Moderation(commands.Cog):
 
                 banish_embed.set_thumbnail(url=self.bot.user.avatar.url)
                 
-                await ctx.respond(embed=banish_embed)
+                await ctx.author.send(embed=banish_embed)
 
             autobanish = moderation_config["autobanish"]
             if threshold_reached is True:
@@ -478,7 +478,7 @@ class Moderation(commands.Cog):
         
                         banish_embed.set_thumbnail(url=self.bot.user.avatar.url)
                         
-                        await ctx.respond(embed=banish_embed)
+                        await ctx.author.send(embed=banish_embed)
                 else:
                     banish_command = self.bot.get_application_command("banish")
                     unbanish_command = self.bot.get_application_command("unbanish")
@@ -488,7 +488,7 @@ class Moderation(commands.Cog):
     
                     banish_embed.set_thumbnail(url=self.bot.user.avatar.url)
                     
-                    await ctx.respond(embed=banish_embed)
+                    await ctx.author.send(embed=banish_embed)
             else:
                 pass
         
@@ -572,7 +572,7 @@ class Moderation(commands.Cog):
                 moderation_key = {"server_id": ctx.guild.id}
                 moderation_config = moderation_db.moderation_configs.find_one(moderation_key)
                 if moderation_config:
-                    channel = await self.bot.fetch_channel(moderation_config["channel_id"])
+                    channel = self.bot.get_channel(moderation_config["channel_id"])
                   
                     await ctx.respond(f"{ctx.author.mention}\nI have dispatched the moderation information to {channel.mention}.", ephemeral=True)
                   
@@ -602,7 +602,7 @@ class Moderation(commands.Cog):
         global_command = True
     )
     # @commands.has_permissions(administrator=True)
-    async def warninglist(self, ctx, member: Option(discord.Member, name="member", description="Member to warn within the guild.")):
+    async def warninglist(self, ctx, member: Option(discord.Member, name="member", description="Member to get warnings for within the guild.")):
         if not ctx.author.guild_permissions.administrator:
             await ctx.respond(f"{ctx.author.mention}, I must apologize for the inconvenience, but only those with administrative privileges may use this directive, good sir.", ephemeral=True)
             return   
@@ -641,7 +641,7 @@ class Moderation(commands.Cog):
             moderation_key = {"server_id": ctx.guild.id}
             moderation_config = moderation_db.moderation_configs.find_one(moderation_key)
             if moderation_config:
-                channel = await self.bot.fetch_channel(moderation_config["channel_id"])
+                channel = self.bot.get_channel(moderation_config["channel_id"])
               
                 await ctx.respond(f"{ctx.author.mention}\nI have dispatched the moderation information to {channel.mention}.", ephemeral=True)
               
