@@ -485,11 +485,11 @@ class Moderation(commands.Cog):
                     unbanish_command = self.bot.get_application_command("unbanish")
                     warnremove_command = self.bot.get_application_command("warnremove")
                     
-                    banish_embed = discord.Embed(title="Banishment Reminder", description=f"{ctx.author.mention}\n{member.display_name} has reached the maximum number of warnings for ***{ctx.guild.name}***, good sir.\n\nIt is advisable to utilize my </{banish_command.name}:{banish_command.id}> directive to permanently banish them from this guild.\n\nYou may also utilize my </{warnremove_command.name}:{warnremove_command.id}> directive to remove a warning from this user or you may utilize my `unbanish` directive to unbanish them in the future, if you so desire.\n*Please note that using my </{unbanish_command.name}:{unbanish_command.id}> directive will remove all pervious warnings from the user for your guild.", color=discord.Color.from_rgb(130, 130, 130))
+                    banish_embed = discord.Embed(title="Banishment Reminder", description=f"{ctx.author.mention}\n{member.display_name} has reached the maximum number of warnings for ***{ctx.guild.name}***, good sir.\n\nIt is advisable to utilize my </{banish_command.name}:{banish_command.id}> directive to permanently banish them from this guild.\n\nYou may also utilize my </{warnremove_command.name}:{warnremove_command.id}> directive to remove a warning from this user or you may utilize my </{unbanish_command.name}:{unbanish_command.id}> directive to unbanish them in the future, if you so desire.\n*Please note that using my </{unbanish_command.name}:{unbanish_command.id}> directive will remove all previous warnings from the user for your guild.", color=discord.Color.from_rgb(130, 130, 130))
     
                     banish_embed.set_thumbnail(url=self.bot.user.avatar.url)
                     
-                    await ctx.respond(embed=banish_embed, ephemeral=True)
+                    await channel.send(embed=banish_embed)
             else:
                 pass
         
@@ -503,11 +503,11 @@ class Moderation(commands.Cog):
                 unbanish_command = self.bot.get_application_command("unbanish")
                 warnremove_command = self.bot.get_application_command("warnremove")
                 
-                banish_embed = discord.Embed(title="Banishment Reminder", description=f"{ctx.author.mention}\n{member.display_name} has reached the maximum number of warnings for ***{ctx.guild.name}***, good sir.\n\nIt is advisable to utilize my </{banish_command.name}:{banish_command.id}> directive to permanently banish them from this guild.\n\nYou may also utilize my </{warnremove_command.name}:{warnremove_command.id}> directive to remove a warning from this user or you may utilize my `unbanish` directive to unbanish them in the future, if you so desire.\n*Please note that using my </{unbanish_command.name}:{unbanish_command.id}> directive will remove all pervious warnings from the user for your guild.", color=discord.Color.from_rgb(130, 130, 130))
+                banish_embed = discord.Embed(title="Banishment Reminder", description=f"{ctx.author.mention}\n{member.display_name} has reached the maximum number of warnings for ***{ctx.guild.name}***, good sir.\n\nIt is advisable to utilize my </{banish_command.name}:{banish_command.id}> directive to permanently banish them from this guild.\n\nYou may also utilize my </{warnremove_command.name}:{warnremove_command.id}> directive to remove a warning from this user or you may utilize my </{unbanish_command.name}:{unbanish_command.id}> directive to unbanish them in the future, if you so desire.\n*Please note that using my </{unbanish_command.name}:{unbanish_command.id}> directive will remove all previous warnings from the user for your guild.", color=discord.Color.from_rgb(130, 130, 130))
         
                 banish_embed.set_thumbnail(url=self.bot.user.avatar.url)
                 
-                await ctx.respond(embed=banish_embed, ephemeral=True)
+                await ctx.respond(embed=banish_embed)
 
  ################################WARN##################################
 
