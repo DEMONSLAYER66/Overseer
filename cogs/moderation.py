@@ -4,6 +4,7 @@ from discord.ext import commands #used for slash commands
 from discord.commands import Option  # add options to slash commands
 import pymongo #used for database management
 from dotenv import load_dotenv
+import asyncio
 
 # Load environment variables from .env
 load_dotenv()
@@ -469,7 +470,7 @@ class Moderation(commands.Cog):
 
                 banish_embed.set_thumbnail(url=self.bot.user.avatar.url)
                 
-                await ctx.author.send(embed=banish_embed)
+                await ctx.respond(embed=banish_embed, ephemeral=True)
                 print("warn success")
 
             autobanish = moderation_config["autobanish"]
@@ -484,7 +485,7 @@ class Moderation(commands.Cog):
         
                         banish_embed.set_thumbnail(url=self.bot.user.avatar.url)
                         
-                        await ctx.author.send(embed=banish_embed)
+                        await ctx.respond(embed=banish_embed, ephemeral=True)
                 else:
                     banish_command = self.bot.get_application_command("banish")
                     unbanish_command = self.bot.get_application_command("unbanish")
@@ -494,7 +495,7 @@ class Moderation(commands.Cog):
     
                     banish_embed.set_thumbnail(url=self.bot.user.avatar.url)
                     
-                    await ctx.author.send(embed=banish_embed)
+                    await ctx.respond(embed=banish_embed, ephemeral=True)
             else:
                 pass
         
@@ -513,7 +514,7 @@ class Moderation(commands.Cog):
         
                 banish_embed.set_thumbnail(url=self.bot.user.avatar.url)
                 
-                await ctx.author.send(embed=banish_embed, ephemeral=True)
+                await ctx.respond(embed=banish_embed, ephemeral=True)
 
  ################################WARN##################################
 
