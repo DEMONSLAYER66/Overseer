@@ -453,22 +453,28 @@ class Moderation(commands.Cog):
         moderation_key = {"server_id": ctx.guild.id}
         moderation_config = moderation_db.moderation_configs.find_one(moderation_key)
         if moderation_config:
+            print("moderation config fixed")
             channel = self.bot.get_channel(moderation_config["channel_id"])
           
             await ctx.respond(f"{ctx.author.mention}\nI have dispatched the moderation information to {channel.mention}.", ephemeral=True)
             await asyncio.sleep(1)
           
             try:
+                print("start sending")
                 await channel.send(embed=embed)
+                print("sent")
             except: #if the bot does not have access or any other errors occur
+                print("warn failed")
                 banish_embed = discord.Embed(title="Banishment Error", description=f"Apologies {ctx.author.mention},\nI was unable to send the moderation message to {channel.mention}, good sir.\n*For future reference, please update my access to this channel by permitting me the `Send Messages` permission in order to view moderation notifications in this channel.*", color=discord.Color.from_rgb(130, 130, 130))
 
                 banish_embed.set_thumbnail(url=self.bot.user.avatar.url)
                 
                 await ctx.author.send(embed=banish_embed)
+                print("warn success")
 
             autobanish = moderation_config["autobanish"]
             if threshold_reached is True:
+                print("threshold reached")
                 if autobanish is True:
                     
                     try:
@@ -493,19 +499,21 @@ class Moderation(commands.Cog):
                 pass
         
         else:
+            print("no mod config")
             await ctx.respond(embed=embed)
 
             await asyncio.sleep(1)
 
-            banish_command = self.bot.get_application_command("banish")
-            unbanish_command = self.bot.get_application_command("unbanish")
-            warnremove_command = self.bot.get_application_command("warnremove")
-            
-            banish_embed = discord.Embed(title="Banishment Reminder", description=f"{ctx.author.mention}\n{member.display_name} has reached the maximum number of warnings for ***{ctx.guild.name}***, good sir.\n\nIt is advisable to utilize my </{banish_command.name}:{banish_command.id}> directive to permanently banish them from this guild.\n\nYou may also utilize my </{warnremove_command.name}:{warnremove_command.id}> directive to remove a warning from this user or you may utilize my `unbanish` directive to unbanish them in the future, if you so desire.\n*Please note that using my </{unbanish_command.name}:{unbanish_command.id}> directive will remove all pervious warnings from the user for your guild.", color=discord.Color.from_rgb(130, 130, 130))
-    
-            banish_embed.set_thumbnail(url=self.bot.user.avatar.url)
-            
-            await ctx.respond(embed=banish_embed, ephemeral=True)
+            if threshold_reached is True:
+                banish_command = self.bot.get_application_command("banish")
+                unbanish_command = self.bot.get_application_command("unbanish")
+                warnremove_command = self.bot.get_application_command("warnremove")
+                
+                banish_embed = discord.Embed(title="Banishment Reminder", description=f"{ctx.author.mention}\n{member.display_name} has reached the maximum number of warnings for ***{ctx.guild.name}***, good sir.\n\nIt is advisable to utilize my </{banish_command.name}:{banish_command.id}> directive to permanently banish them from this guild.\n\nYou may also utilize my </{warnremove_command.name}:{warnremove_command.id}> directive to remove a warning from this user or you may utilize my `unbanish` directive to unbanish them in the future, if you so desire.\n*Please note that using my </{unbanish_command.name}:{unbanish_command.id}> directive will remove all pervious warnings from the user for your guild.", color=discord.Color.from_rgb(130, 130, 130))
+        
+                banish_embed.set_thumbnail(url=self.bot.user.avatar.url)
+                
+                await ctx.author.send(embed=banish_embed, ephemeral=True)
 
  ################################WARN##################################
 
