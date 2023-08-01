@@ -454,28 +454,22 @@ class Moderation(commands.Cog):
         moderation_key = {"server_id": ctx.guild.id}
         moderation_config = moderation_db.moderation_configs.find_one(moderation_key)
         if moderation_config:
-            print("moderation config fixed")
             channel = self.bot.get_channel(moderation_config["channel_id"])
           
             await ctx.respond(f"{ctx.author.mention}\nI have dispatched the moderation information to {channel.mention}.", ephemeral=True)
             await asyncio.sleep(1)
           
             try:
-                print("start sending")
                 await channel.send(embed=embed)
-                print("sent")
             except: #if the bot does not have access or any other errors occur
-                print("warn failed")
                 banish_embed = discord.Embed(title="Banishment Error", description=f"Apologies {ctx.author.mention},\nI was unable to send the moderation message to {channel.mention}, good sir.\n*For future reference, please update my access to this channel by permitting me the `Send Messages` permission in order to view moderation notifications in this channel.*", color=discord.Color.from_rgb(130, 130, 130))
 
                 banish_embed.set_thumbnail(url=self.bot.user.avatar.url)
                 
                 await ctx.respond(embed=banish_embed, ephemeral=True)
-                print("warn success")
 
             autobanish = moderation_config["autobanish"]
             if threshold_reached is True:
-                print("threshold reached")
                 if autobanish is True:
                     
                     try:
@@ -500,7 +494,6 @@ class Moderation(commands.Cog):
                 pass
         
         else:
-            print("no mod config")
             await ctx.respond(embed=embed)
 
             await asyncio.sleep(1)
