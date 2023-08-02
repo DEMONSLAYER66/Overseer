@@ -35,6 +35,9 @@ async def on_ready():
   if not change_activity.is_running():
       change_activity.start()
 
+  #post command list to discordbotlist
+  await post_command_list()
+
   # Set the timezone to US/Central
   us_central_tz = pytz.timezone('US/Central')
   current_time_utc = datetime.datetime.utcnow()
