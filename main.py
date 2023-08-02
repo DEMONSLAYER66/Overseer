@@ -139,8 +139,8 @@ async def post_command_list():
 
   bot_id = os.getenv('botID')
 
-  # Replace 'YOUR_BOT_TOKEN' with your actual bot token
-  bot_token = os.getenv('token')
+  # discordbotlist token
+  bot_token = os.getenv('discordbotlist_token')
 
   # URL for the API endpoint to post commands
   url = f'https://discordbotlist.com/api/v1/bots/:{bot_id}/commands'
