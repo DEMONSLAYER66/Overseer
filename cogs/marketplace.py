@@ -244,8 +244,9 @@ class Marketplace(commands.Cog):
                 except:
                     pass
 
-              
-                await ctx.respond(embed = exchange_embed, view = self.ExchangeView(ctx, item_descriptions, item_values, collected_items_initiator, offer_item_index, request_item_index, request, request_description, request_value, offer, offer_description, offer_value))
+
+                await ctx.respond(f"{ctx.author.mention}\nI have begun the exchange process for your desired item, good sir.", ephemeral=True)
+                await ctx.send(embed = exchange_embed, view = self.ExchangeView(ctx, item_descriptions, item_values, collected_items_initiator, offer_item_index, request_item_index, request, request_description, request_value, offer, offer_description, offer_value))
 
 
 
