@@ -169,7 +169,7 @@ async def post_command_list():
 
 
 ####################### POST BOT STATS ##########################
-async def posty_bot_stats(guild_count):
+async def post_bot_stats(guild_count):
   bot_id = os.getenv('botID')
 
   # discordbotlist token
