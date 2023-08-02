@@ -35,22 +35,15 @@ async def on_ready():
   if not change_activity.is_running():
       change_activity.start()
 
+  server_ids = []
+  for guild in bot.guilds:
+      server_ids.append(guild.id)
+    
   #post command list to discordbotlist
   await post_command_list()
 
-  # Set the timezone to US/Central
-  us_central_tz = pytz.timezone('US/Central')
-  current_time_utc = datetime.datetime.utcnow()
-
-  # Convert the UTC time to US/Central timezone
-  current_time_us_central = current_time_utc.astimezone(us_central_tz)
-
-  # Format the datetime
-  formatted_time = current_time_us_central.strftime('%A %B %d, %Y %I:%M %p US/Central')
-
-  #let user of bot know that bot is ready in Console
-  print(f"Greetings sir, {bot.user.name} at your service.\nMy current latency is {int(bot.latency*100)} ms, as of {formatted_time}.")
-  print("--------------------")
+  #post bot stats to discordbotlist
+  await post_bot_stats(len(server_ids))
 
 
   #initialize the mongoDB database and get the server IDs for the autopurge command to initiate
@@ -59,10 +52,6 @@ async def on_ready():
   client = pymongo.MongoClient(mongoDBpass) # Create a new client and connect to the server
   autopurge_db = client.autopurge_db #create the autpourge database on mongoDB
   bump_db = client.bump_db #create the bump (promotion) database on MongoDB
-
-  server_ids = []
-  for guild in bot.guilds:
-      server_ids.append(guild.id)
 
   #purge all channels that have a limit of 0 messages
   for server_id in server_ids: #for every active server, create a loop task for autopurge
@@ -101,6 +90,21 @@ async def on_ready():
           
           utility_cog = bot.get_cog('Utility') #get the utility cog
           await utility_cog.send_reminder(cooldown_time, guild_id)
+
+
+  # Set the timezone to US/Central
+  us_central_tz = pytz.timezone('US/Central')
+  current_time_utc = datetime.datetime.utcnow()
+
+  # Convert the UTC time to US/Central timezone
+  current_time_us_central = current_time_utc.astimezone(us_central_tz)
+
+  # Format the datetime
+  formatted_time = current_time_us_central.strftime('%A %B %d, %Y %I:%M %p US/Central')
+
+  #let user of bot know that bot is ready in Console
+  print(f"Greetings sir, {bot.user.name} at your service.\nMy current latency is {int(bot.latency*100)} ms, as of {formatted_time}.")
+  print("--------------------")
 
 
 
@@ -161,6 +165,35 @@ async def post_command_list():
       print(response.text)  # Print the response content for debugging if needed
 
 ####################### POST COMMAND LIST ##########################
+
+
+
+####################### POST BOT STATS ##########################
+async def posty_bot_stats(guild_count):
+  bot_id = os.getenv('botID')
+
+  # discordbotlist token
+  bot_token = os.getenv('discordbotlist_token')
+
+  # URL for the API endpoint to post commands
+  url = f'https://discordbotlist.com/api/v1/bots/{bot_id}/stats'
+
+  # Headers for the POST request (include your bot token for authorization)
+  headers = {
+      'Authorization': f'{bot_token}'
+  }
+
+  # Make the POST request to the API endpoint
+  response = requests.post(url, data={"guilds": guild_count}, headers=headers)
+
+  # Check the response status
+  if response.status_code == 200:
+      print('Commands posted automaton statistics to DiscordBotList.')
+  else:
+      print(f'Failed to post automaton statistics.\nStatus code: {response.status_code}')
+      print(response.text)  # Print the response content for debugging if needed
+
+####################### POST BOT STATS ##########################
 
 
 # run the bot using the discord API key
