@@ -159,7 +159,7 @@ async def post_command_list():
 
   # Check the response status
   if response.status_code == 200:
-      print('Commands posted successfully to DiscordBotList.')
+      print('Automaton commands successfully posted to DiscordBotList.')
   else:
       print(f'Failed to post commands.\nStatus code: {response.status_code}')
       print(response.text)  # Print the response content for debugging if needed
@@ -188,7 +188,7 @@ async def post_bot_stats(guild_count):
 
   # Check the response status
   if response.status_code == 200:
-      print('Commands posted automaton statistics to DiscordBotList.')
+      print('Automaton statistics successfully posted to DiscordBotList.')
   else:
       print(f'Failed to post automaton statistics.\nStatus code: {response.status_code}')
       print(response.text)  # Print the response content for debugging if needed
