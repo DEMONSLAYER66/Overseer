@@ -1,0 +1,157 @@
+[
+  {
+    "name": "automaton",
+    "description": "Retrieve information regarding the automaton's creation.",
+    "type": 1
+  },
+  {
+    "name": "byname",
+    "description": "Change the byname (nickname) of the automaton. (Admin only)",
+    "type": 1
+  },
+  {
+    "name": "eventhandler",
+    "description": "Configure the automaton's usage and directives. (Admin Only)",
+    "type": 1
+  },
+  {
+    "name": "help",
+    "description": "Receive a list of OR assistance with the automaton's directives -- organized by category.",
+    "type": 1
+  },
+  {
+    "name": "patron",
+    "description": "Enable patron (premium) features for your guild. (Admin Only)",
+    "type": 1
+  },
+  {
+    "name": "ping",
+    "description": "Inquire of the latency of the automaton.",
+    "type": 1
+  },
+  {
+    "name": "updates",
+    "description": "Retrieve the latest important update information regarding the automaton.",
+    "type": 1
+  },
+  {
+    "name": "autopurge",
+    "description": "Allow the automaton to automatically purge messages from a desired channel. (Admin Only)",
+    "type": 1
+  },
+  {
+    "name": "moderate",
+    "description": "Configure the moderation settings for the guild. (Admin Only)",
+    "type": 1
+  },
+  {
+    "name": "promotion",
+    "description": "Configure the promotion settings for your guild. (Admin Only)",
+    "type": 1
+  },
+  {
+    "name": "starboard",
+    "description": "Configure the settings for the starboard messages. (Admin Only)",
+    "type": 1
+  },
+  {
+    "name": "streaming",
+    "description": "Configure the settings for streaming statuses and notifications. (Admin Only)",
+    "type": 1
+  },
+  {
+    "name": "timedembeds",
+    "description": "Configure the settings for the timed embed messages. (Admin Only)",
+    "type": 1
+  },
+  {
+    "name": "welcome",
+    "description": "Configure the settings for the welcome messages. (Admin Only)",
+    "type": 1
+  },
+  {
+    "name": "birthdaylist",
+    "description": "Allow the automaton to provide you a list of all dates of birth for your guild. (Admin Only)",
+    "type": 1
+  },
+  {
+    "name": "getbirthday",
+    "description": "Allow the automaton to provide you with a user's date of birth.",
+    "type": 1
+  },
+  {
+    "name": "removebirthday",
+    "description": "Allow the automaton to remove a date of birth from the register.",
+    "type": 1
+  },
+  {
+    "name": "setbirthday",
+    "description": "Manually input thy date of birth for the automaton to commit to memory.",
+    "type": 1
+  },
+  {
+    "name": "defineimproper",
+    "description": "The automaton will define a term for you in its improper (slang/urban) form.",
+    "type": 1
+  },
+  {
+    "name": "defineproper",
+    "description": "The automaton will define a term for you in its proper form.",
+    "type": 1
+  },
+  {
+    "name": "embedder",
+    "description": "Send embedded messages to a channel. (Admin Only)",
+    "type": 1
+  },
+  {
+    "name": "embedslist",
+    "description": "List all the timed embeds created so far. (Admin Only)",
+    "type": 1
+  },
+  {
+    "name": "giftgiving",
+    "description": "Permit the automaton to arrange a prize drawing for an item of your preference. (Admin Only)",
+    "type": 1
+  },
+  {
+    "name": "iconography",
+    "description": "Receive a list of the guild's iconography.",
+    "type": 1
+  },
+  {
+    "name": "play",
+    "description": "The automaton will help you reach out to other like-minded players in search of game companions.",
+    "type": 1
+  },
+  {
+    "name": "promote",
+    "description": "Promote your guild (server).",
+    "type": 1
+  },
+  {
+    "name": "purge",
+    "description": "Purge messages from a desired channel. (Manage Messages Privileges)",
+    "type": 1
+  },
+  {
+    "name": "search",
+    "description": "The automaton will demonstrate how to find something on the internet.",
+    "type": 1
+  },
+  {
+    "name": "testpromote",
+    "description": "Test the promotion for your guild. (Admin Only)",
+    "type": 1
+  },
+  {
+    "name": "testwelcome",
+    "description": "Test how the automaton welcomes newcomers. (Admin Only)",
+    "type": 1
+  },
+  {
+    "name": "weather",
+    "description": "Allow the automaton to retrieve the weather data for your location of choice.",
+    "type": 1
+  }
+]
