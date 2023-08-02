@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <img src="https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/f934f0f7-2bdc-416a-b759-1b6eb2eeca5a"></a>
+  <img src="https://github.com/xxjsweezeyxx/Lord-Bottington/assets/133728652/f934f0f7-2bdc-416a-b759-1b6eb2eeca5a" height="300" alt="lord bottington"></a>
   <br>
   Lord Bottington
   <br>
@@ -30,6 +30,11 @@
   <a href="https://www.patreon.com/LordBottington">
     <img src="https://img.shields.io/badge/Support-Lord%20Bottington-red?style=flat-square&logo=patreon">
   </a>
+  <br>
+  <br>
+  <a href="https://discordbotlist.com/bots/lord-bottington"><img src="https://discordbotlist.com/api/v1/bots/1092515783025889383/widget"></a>
+  <br>
+  <a href="https://top.gg/bot/1092515783025889383"><img src="https://top.gg/api/widget/1092515783025889383.svg"></a>
 </p>
 
 ___
