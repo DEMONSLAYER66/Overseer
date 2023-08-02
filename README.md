@@ -8,7 +8,7 @@
 
 <p align="center">
   <strong>
-    Lord Bottington, a multifunctional Discord Bot designed by XxJSweezeyxX written in Python, using Pycord.
+    A multifunctional Discord Bot designed by XxJSweezeyxX written in Python, using Pycord.
   </strong>
 </p>
 
