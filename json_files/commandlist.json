@@ -1,22 +1,22 @@
 [
   {
     "name": "automaton",
-    "description": "Retrieve information regarding the automaton's creation.",
+    "description": "Retrieve information regarding Lord Bottington's creation.",
     "type": 1
   },
   {
     "name": "byname",
-    "description": "Change the byname (nickname) of the automaton. (Admin only)",
+    "description": "Change the byname (nickname) of Lord Bottington. (Admin only)",
     "type": 1
   },
   {
     "name": "eventhandler",
-    "description": "Configure the automaton's usage and directives. (Admin Only)",
+    "description": "Configure Lord Bottington's usage and directives. (Admin Only)",
     "type": 1
   },
   {
     "name": "help",
-    "description": "Receive a list of OR assistance with the automaton's directives -- organized by category.",
+    "description": "Receive a list of OR assistance with Lord Bottington's directives -- organized by category.",
     "type": 1
   },
   {
@@ -26,17 +26,17 @@
   },
   {
     "name": "ping",
-    "description": "Inquire of the latency of the automaton.",
+    "description": "Inquire of the latency of Lord Bottington.",
     "type": 1
   },
   {
     "name": "updates",
-    "description": "Retrieve the latest important update information regarding the automaton.",
+    "description": "Retrieve the latest important update information regarding Lord Bottington.",
     "type": 1
   },
   {
     "name": "autopurge",
-    "description": "Allow the automaton to automatically purge messages from a desired channel. (Admin Only)",
+    "description": "Allow Lord Bottington to automatically purge messages from a desired channel. (Admin Only)",
     "type": 1
   },
   {
@@ -71,32 +71,32 @@
   },
   {
     "name": "birthdaylist",
-    "description": "Allow the automaton to provide you a list of all dates of birth for your guild. (Admin Only)",
+    "description": "Allow Lord Bottington to provide you a list of all dates of birth for your guild. (Admin Only)",
     "type": 1
   },
   {
     "name": "getbirthday",
-    "description": "Allow the automaton to provide you with a user's date of birth.",
+    "description": "Allow Lord Bottington to provide you with a user's date of birth.",
     "type": 1
   },
   {
     "name": "removebirthday",
-    "description": "Allow the automaton to remove a date of birth from the register.",
+    "description": "Allow Lord Bottington to remove a date of birth from the register.",
     "type": 1
   },
   {
     "name": "setbirthday",
-    "description": "Manually input thy date of birth for the automaton to commit to memory.",
+    "description": "Manually input thy date of birth for Lord Bottington to commit to memory.",
     "type": 1
   },
   {
     "name": "defineimproper",
-    "description": "The automaton will define a term for you in its improper (slang/urban) form.",
+    "description": "Lord Bottington will define a term for you in its improper (slang/urban) form.",
     "type": 1
   },
   {
     "name": "defineproper",
-    "description": "The automaton will define a term for you in its proper form.",
+    "description": "Lord Bottington will define a term for you in its proper form.",
     "type": 1
   },
   {
@@ -111,7 +111,7 @@
   },
   {
     "name": "giftgiving",
-    "description": "Permit the automaton to arrange a prize drawing for an item of your preference. (Admin Only)",
+    "description": "Permit Lord Bottington to arrange a prize drawing for an item of your preference. (Admin Only)",
     "type": 1
   },
   {
@@ -121,7 +121,7 @@
   },
   {
     "name": "play",
-    "description": "The automaton will help you reach out to other like-minded players in search of game companions.",
+    "description": "Lord Bottington will help you reach out to other like-minded players in search of game companions.",
     "type": 1
   },
   {
@@ -136,7 +136,7 @@
   },
   {
     "name": "search",
-    "description": "The automaton will demonstrate how to find something on the internet.",
+    "description": "Lord Bottington will demonstrate how to find something on the internet.",
     "type": 1
   },
   {
@@ -146,12 +146,177 @@
   },
   {
     "name": "testwelcome",
-    "description": "Test how the automaton welcomes newcomers. (Admin Only)",
+    "description": "Test how Lord Bottington welcomes newcomers. (Admin Only)",
     "type": 1
   },
   {
     "name": "weather",
-    "description": "Allow the automaton to retrieve the weather data for your location of choice.",
+    "description": "Allow Lord Bottington to retrieve the weather data for your location of choice.",
+    "type": 1
+  },
+  {
+    "name": "banish",
+    "description": "Lord Bottington will banish (ban) a member from the guild. (Admin Only)",
+    "type": 1
+  },
+  {
+    "name": "remove",
+    "description": "Lord Bottington will remove (kick) a member from the guild. (Admin Only)",
+    "type": 1
+  },
+  {
+    "name": "silence",
+    "description": "Lord Bottington will silence (mute) a member within the guild. (Admin Only)",
+    "type": 1
+  },
+  {
+    "name": "unbanish",
+    "description": "Lord Bottington will unbanish (unban) a member from the guild. (Admin Only)",
+    "type": 1
+  },
+  {
+    "name": "unsilence",
+    "description": "Lord Bottington will unsilence (unmute) a member within the guild. (Admin Only)",
+    "type": 1
+  },
+  {
+    "name": "warn",
+    "description": "Lord Bottington will warn a member within the guild. (Admin Only)",
+    "type": 1
+  },
+  {
+    "name": "warninglist",
+    "description": "Lord Bottington will provide a list of warnings for a member within the guild. (Admin Only)",
+    "type": 1
+  },
+  {
+    "name": "warnremove",
+    "description": "Lord Bottington will remove a warning from a member within the guild. (Admin Only)",
+    "type": 1
+  },
+  {
+    "name": "boredom",
+    "description": "Lord Bottington will provide a suggestion to help you alleviate your boredom.",
+    "type": 1
+  },
+  {
+    "name": "compliment",
+    "description": "Allow Lord Bottington to extend a sincere compliment to you or a fellow member.",
+    "type": 1
+  },
+  {
+    "name": "converse",
+    "description": "Ask Lord Bottington anything you would like.",
+    "type": 1
+  },
+  {
+    "name": "crystalball",
+    "description": "Seek guidance from the crystall ball and unveil the mysteries of the universe.",
+    "type": 1
+  },
+  {
+    "name": "glyph",
+    "description": "Lord Bottington will return a glyph (ascii art) of the desired selection.",
+    "type": 1
+  },
+  {
+    "name": "greet",
+    "description": "Greet Lord Bottington.",
+    "type": 1
+  },
+  {
+    "name": "imagine",
+    "description": "Allow Lord Bottington to generate an image based on your prompt.",
+    "type": 1
+  },
+  {
+    "name": "minotar",
+    "description": "Lord Bottington shall procure a Minecraft user's esteemed visage for you.",
+    "type": 1
+  },
+  {
+    "name": "pictorialize",
+    "description": "Lord Bottington shall transform avatars, images, and text into iconography or apply image effects.",
+    "type": 1
+  },
+  {
+    "name": "roll",
+    "description": "Roll dice with a chosen number of sides.",
+    "type": 1
+  },
+  {
+    "name": "satireimage",
+    "description": "Lord Bottington will retrieve a random satirical image for you.",
+    "type": 1
+  },
+  {
+    "name": "teatime",
+    "description": "Request a virtual tea service from Lord Bottington.",
+    "type": 1
+  },
+  {
+    "name": "thought",
+    "description": "Allow Lord Bottington to enlighten you with its vast knowledge.",
+    "type": 1
+  },
+  {
+    "name": "battleship",
+    "description": "Challenge Lord Bottington or another member of the guild to a game of Battleship.",
+    "type": 1
+  },
+  {
+    "name": "connectfour",
+    "description": "Challenge Lord Bottington or another member of the guild to a game of Connect Four.",
+    "type": 1
+  },
+  {
+    "name": "mastermind",
+    "description": "Decipher the secret code of Lord Bottington.",
+    "type": 1
+  },
+  {
+    "name": "playerinfo",
+    "description": "Check game related information for a member within the guild.",
+    "type": 1
+  },
+  {
+    "name": "rps",
+    "description": "Challenge Lord Bottington or another member of the guild to a game of rock, paper, scissors.",
+    "type": 1
+  },
+  {
+    "name": "tictactoe",
+    "description": "Challenge Lord Bottington or another member of the guild to a game of tic-tac-toe.",
+    "type": 1
+  },
+  {
+    "name": "toptalent",
+    "description": "Receive information on the top talent for games played within the guild.",
+    "type": 1
+  },
+  {
+    "name": "wumpus",
+    "description": "Go on a hunt to find and conquer the dreaded Wumpus👹.",
+    "type": 1
+  },
+  {
+    "name": "displaycase",
+    "description": "Display your collected items for all to view.",
+    "type": 1
+  },
+  {
+    "name": "earnings",
+    "description": "Check remaining shillings and other game information for an individual within the guild.",
+    "type": 1
+  },
+  {
+    "name": "exchange",
+    "description": "Exchange collectible items with members of your guild.",
+    "type": 1
+  },
+  {
+    "name": "shop",
+    "description": "Purchase and sell items at the marketplace.",
     "type": 1
   }
 ]
