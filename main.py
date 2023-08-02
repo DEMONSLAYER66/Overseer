@@ -7,6 +7,8 @@ import pymongo #used for database management
 from dotenv import load_dotenv
 import datetime
 import pytz
+import json
+import requests
 
 
 #This checks if the person running the code has a token for discord API or not
@@ -124,6 +126,39 @@ async def change_activity():
                    name = activity)
   await bot.change_presence(activity=current_activity)
 ################## CHANGE BOT ACTIVITIES ON DISCORD ################
+
+
+
+####################### POST COMMAND LIST ##########################
+async def post_command_list():
+  with open("json_files/commandlist.json", "r") as f:
+      command_list = json.load(f)
+
+  bot_id = os.getenv('botID')
+
+  # Replace 'YOUR_BOT_TOKEN' with your actual bot token
+  bot_token = os.getenv('token')
+
+  # URL for the API endpoint to post commands
+  url = f'https://discordbotlist.com/api/v1/bots/{bot_id}/commands'
+
+  # Headers for the POST request (include your bot token for authorization)
+  headers = {
+      'Authorization': f'Bot {bot_token}',
+      'Content-Type': 'application/json'
+  }
+
+  # Make the POST request to the API endpoint
+  response = requests.post(url, json=command_list, headers=headers)
+
+  # Check the response status
+  if response.status_code == 200:
+      print('Commands posted successfully to DiscordBotList.')
+  else:
+      print(f'Failed to post commands.\nStatus code: {response.status_code}')
+      print(response.text)  # Print the response content for debugging if needed
+
+####################### POST COMMAND LIST ##########################
 
 
 # run the bot using the discord API key
