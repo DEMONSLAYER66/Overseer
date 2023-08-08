@@ -151,7 +151,7 @@ class Utility(commands.Cog):
             else:
                 cooldown_time = f"{seconds}s"
 
-            cooldown_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion Cooldown", description=f"> Apologies good sir, it appears that my </{promote_app_command.name}:{promote_app_command.id}> directive is not ready to use at the moment...\n> Please try again in `{cooldown_time}`.\n> \n> *I apologize for the inconvenience, good sir.*", color=discord.Color.from_rgb(130, 130, 130))
+            cooldown_embed = discord.Embed(title=f"{ctx.guild.name}\nPromotion Cooldown", description=f"> Apologies good sir, it appears that my </{promote_app_command.name}:{promote_app_command.id}> directive is not ready to use at the moment...\n> Please try again in `{cooldown_time}`.\n> \n> *I apologize for the inconvenience.*", color=discord.Color.from_rgb(130, 130, 130))
 
             cooldown_embed.set_thumbnail(url=self.bot.user.avatar.url)
 
