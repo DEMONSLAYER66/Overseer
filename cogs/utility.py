@@ -956,7 +956,7 @@ class Utility(commands.Cog):
     games_list = {
         "Apex Legends": {
             "title": "Apex Legends",
-            "url": "https://cdn.cloudflare.steamstatic.com/steam/apps/1172470/header.jpg?t=1684341161"
+            "url": "https://i.imgur.com/3fl3xlF.jpg"
         },
         "Overwatch 2": {
             "title": "Overwatch 2",
@@ -968,15 +968,15 @@ class Utility(commands.Cog):
         },
         "CS:GO": {
             "title": "Counter-Strike: Global Offensive",
-            "url": "https://cdn.cloudflare.steamstatic.com/steam/apps/730/header.jpg?t=1668125812"
+            "url": "https://i.imgur.com/ZePQUMM.jpg"
         },
         "Rainbow Six Siege": {
             "title": "Tom Clancy's Rainbow Six Siege",
-            "url": "https://cdn.cloudflare.steamstatic.com/steam/apps/359550/header.jpg?t=1683930161"
+            "url": "https://i.imgur.com/DXRYiRb.jpg"
         },
         "COD: MW2": {
             "title": "Call of Duty: Modern Warfare II",
-            "url": "https://cdn.cloudflare.steamstatic.com/steam/apps/1938090/header.jpg?t=1686759791"
+            "url": "https://i.imgur.com/pZQZnDH.jpg"
         },
         "Fortnite": {
             "title": "Fortnite",
