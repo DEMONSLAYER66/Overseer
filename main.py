@@ -70,7 +70,7 @@ async def on_ready():
                   if len(messages) > 0:
                       await channel.purge(limit=None, check=lambda m: not m.pinned)
                   
-
+  print("autopurge complete")
     
   # Get all cooldown entries from the database (for cooldowns on promotions)
   cooldown_data_list = bump_db.cooldowns.find()
@@ -91,7 +91,8 @@ async def on_ready():
           utility_cog = bot.get_cog('Utility') #get the utility cog
           await utility_cog.send_reminder(cooldown_time, guild_id)
 
-
+  print("cooldown complete")
+    
   # Set the timezone to US/Central
   us_central_tz = pytz.timezone('US/Central')
   current_time_utc = datetime.datetime.utcnow()
