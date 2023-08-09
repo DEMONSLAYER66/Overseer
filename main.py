@@ -9,6 +9,7 @@ import datetime
 import pytz
 import json
 import requests
+import asyncio
 
 
 #This checks if the person running the code has a token for discord API or not
@@ -91,7 +92,7 @@ async def on_ready():
           
           utility_cog = bot.get_cog('Utility') #get the utility cog
           try:
-              await utility_cog.send_reminder(cooldown_time, guild_id)
+              asyncio.create_task(utility_cog.send_reminder(cooldown_time, guild_id))
           except:
               continue
 
