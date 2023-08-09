@@ -90,7 +90,10 @@ async def on_ready():
           )
           
           utility_cog = bot.get_cog('Utility') #get the utility cog
-          await utility_cog.send_reminder(cooldown_time, guild_id)
+          try:
+              await utility_cog.send_reminder(cooldown_time, guild_id)
+          except:
+              continue
 
     
   # Set the timezone to US/Central
