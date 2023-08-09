@@ -45,6 +45,7 @@ async def on_ready():
   #post bot stats to discordbotlist
   await post_bot_stats(len(server_ids))
 
+  print("Now purging channels...")
 
   #initialize the mongoDB database and get the server IDs for the autopurge command to initiate
   # mongoDBpass = os.environ['mongoDBpass'] #load the mongoDB url (retreived from mongoDB upon account creation)
@@ -69,7 +70,8 @@ async def on_ready():
 
                   if len(messages) > 0:
                       await channel.purge(limit=None, check=lambda m: not m.pinned)
-                  
+
+  print("Now sending promotion reminders...")
     
   # Get all cooldown entries from the database (for cooldowns on promotions)
   cooldown_data_list = bump_db.cooldowns.find()
