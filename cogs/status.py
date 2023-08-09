@@ -836,28 +836,37 @@ class Status(commands.Cog):
         if liststyle == "embed":
             # create the birthday embed object
             BD_embed = discord.Embed(title=f"{ctx.guild.name}\n__Birthday List__", color=discord.Color.from_rgb(130, 130, 130))
-        
-            for member in BD_db[f"birthdays_{ctx.guild.id}"].find():
-                member_name = member['user_name']
-                # add a field for each member's birthday
-                BD_embed.add_field(name=member_name, value=f"*{member['month']}/{member['day']}*", inline=True)
+
+            fields_limit = 25  # Discord API's max fields limit
+            fields_added = 0
     
-          
-            #set thumbnail to birthday cake gif
+            for member in BD_db[f"birthdays_{ctx.guild.id}"].find():
+                if fields_added >= fields_limit:
+                    
+                    await ctx.respond(embed=BD_embed, ephemeral=True)
+                    BD_embed = discord.Embed(title="", color=discord.Color.from_rgb(130, 130, 130))
+                    fields_added = 0
+    
+                member_name = member['user_name']
+                BD_embed.add_field(name=member_name, value=f"*{member['month']}/{member['day']}*", inline=True)
+                fields_added += 1
+    
             BD_embed.set_thumbnail(url="https://i.imgur.com/tYenTsy.gif")
-              
             await ctx.respond(embed=BD_embed, ephemeral=True)
 
         #regular message
         elif liststyle == "regular":
             response = f"{ctx.guild.name}\n__Birthday List__\n\n"
-
+            message = response
+    
             for member in BD_db[f"birthdays_{ctx.guild.id}"].find():
                 member_name = member['user_name']
-                response += f"{member_name} - *{member['month']}/{member['day']}*\n"
-
-            # file is a birthday cake gif
-            await ctx.respond(f"{response}\n[Happy Birthday All](https://i.imgur.com/tYenTsy.gif)", ephemeral=True)
+                if len(message) + len(member_name) + 12 > 2000:  # Account for additional characters in formatting
+                    await ctx.respond(f"{message}\n[Happy Birthday All](https://i.imgur.com/tYenTsy.gif)", ephemeral=True)
+                    message = response
+                message += f"{member_name} - *{member['month']}/{member['day']}*\n"
+    
+            await ctx.respond(f"{message}\n[Happy Birthday All](https://i.imgur.com/tYenTsy.gif)", ephemeral=True)
           
 ########################BIRTHDAYLIST#####################################
     
