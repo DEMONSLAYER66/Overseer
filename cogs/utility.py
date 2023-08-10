@@ -86,6 +86,99 @@ class Utility(commands.Cog):
             return "Lord Bottington"
 
 
+  
+    ### on_message event (contains starboard, autopurge, voting
+    @commands.Cog.listener()
+    async def on_message(self, message):
+        if message.guild is None:
+            # Message is not associated with a guild (private message)
+            return
+      
+        if message.flags.ephemeral:
+            # print("message is ephemeral")
+            return
+          
+        message_server = message.guild.id
+        # print(message_server)
+
+        # if the message is a webhook and the message is in the correct channel on the support server (for voting)
+        if message.webhook_id and message.channel.id == 1139248385753350226:
+            print(message.webhook_id) #check the id of the webhook
+            data = message.content.split(" ") # Split the contents of the webhook message
+            user = re.sub("\D", "", data[0]) # Reducing a ping to just a user id
+            print(user)
+
+        await self.autopurge_task(message_server, message)
+
+
+        #get the starboard event status from mongoDB
+        starboard_status = await self.get_starboard_event_status(message_server)
+        # print(message_server)
+
+
+        #Starboard on_message event only runs if event status using /eventhandler is set to enabled OR if the user has not set the status using /eventhandler
+        if starboard_status == "Disabled":
+            return
+        elif starboard_status == "Enabled":
+            # Ignore bot messages
+            # if message.author.bot:
+            #     return
+            
+            # Get the starboard configuration for the current server
+            server_config = starboard_db.starboard_configs.find_one({"server_id": message_server})
+            if not server_config:
+                return
+        
+            # Ignore messages in channels that are not being listened to
+            if message.channel.id not in server_config["listen_channels_id"]:
+                return
+            
+            # Ignore messages that are already in the starboard
+            if server_config["starboard_messages"]:
+                if message.id in server_config["starboard_messages"]:
+                    return
+            
+            # Ignore messages where the author has an ignored status
+            if server_config["ignored_statuses_id"]:
+                for role in message.author.roles:
+                    if role.id in server_config["ignored_statuses_id"]:
+                        return
+    
+            
+            # Automaton reacts if setting is enabled
+            if server_config["automaton_reaction"]:
+                #check for the automaton patron tier and reset the configurations to the defaults
+                patron_data = patrons_db.patrons
+                refined_patron_key = {
+                  "server_id": message_server,
+                  "patron_tier": "Refined Automaton Patron"
+                }
+                distinguished_patron_key = {
+                  "server_id": message_server,
+                  "patron_tier": "Distinguished Automaton Patron"
+                }
+              
+                refined_patron = patron_data.find_one(refined_patron_key)
+                distinguished_patron = patron_data.find_one(distinguished_patron_key)
+                
+                if not refined_patron or not distinguished_patron:
+                    reaction = "⭐"
+                else:
+                    reaction = server_config["reaction"]
+
+
+                try:
+                    await message.add_reaction(reaction)
+                except Exception:
+                    pass
+    
+    
+          
+            await self.listen_for_reactions(message, server_config)
+
+
+
+  
 
 ############################ PROMOTE #########################
     @commands.Cog.listener()
@@ -2607,7 +2700,7 @@ class Utility(commands.Cog):
 
   
 
-# #################################STARBOARD################################
+#################################STARBOARD################################
 
     #This retrieves the current server's event status from the mongoDB database
     async def get_starboard_event_status(self, guild_id):
@@ -2635,89 +2728,6 @@ class Utility(commands.Cog):
             return event_doc["autopurge"]
         else:
             return "Enabled"
-          
-  
-
-    @commands.Cog.listener()
-    async def on_message(self, message):
-        if message.guild is None:
-            # Message is not associated with a guild (private message)
-            return
-      
-        if message.flags.ephemeral:
-            # print("message is ephemeral")
-            return
-          
-        message_server = message.guild.id
-        # print(message_server)
-
-        await self.autopurge_task(message_server, message)
-
-
-        #get the starboard event status from mongoDB
-        starboard_status = await self.get_starboard_event_status(message_server)
-        # print(message_server)
-
-
-        #Starboard on_message event only runs if event status using /eventhandler is set to enabled OR if the user has not set the status using /eventhandler
-        if starboard_status == "Disabled":
-            return
-        elif starboard_status == "Enabled":
-            # Ignore bot messages
-            # if message.author.bot:
-            #     return
-            
-            # Get the starboard configuration for the current server
-            server_config = starboard_db.starboard_configs.find_one({"server_id": message_server})
-            if not server_config:
-                return
-        
-            # Ignore messages in channels that are not being listened to
-            if message.channel.id not in server_config["listen_channels_id"]:
-                return
-            
-            # Ignore messages that are already in the starboard
-            if server_config["starboard_messages"]:
-                if message.id in server_config["starboard_messages"]:
-                    return
-            
-            # Ignore messages where the author has an ignored status
-            if server_config["ignored_statuses_id"]:
-                for role in message.author.roles:
-                    if role.id in server_config["ignored_statuses_id"]:
-                        return
-    
-            
-            # Automaton reacts if setting is enabled
-            if server_config["automaton_reaction"]:
-                #check for the automaton patron tier and reset the configurations to the defaults
-                patron_data = patrons_db.patrons
-                refined_patron_key = {
-                  "server_id": message_server,
-                  "patron_tier": "Refined Automaton Patron"
-                }
-                distinguished_patron_key = {
-                  "server_id": message_server,
-                  "patron_tier": "Distinguished Automaton Patron"
-                }
-              
-                refined_patron = patron_data.find_one(refined_patron_key)
-                distinguished_patron = patron_data.find_one(distinguished_patron_key)
-                
-                if not refined_patron or not distinguished_patron:
-                    reaction = "⭐"
-                else:
-                    reaction = server_config["reaction"]
-
-
-                try:
-                    await message.add_reaction(reaction)
-                except Exception:
-                    pass
-    
-    
-          
-            await self.listen_for_reactions(message, server_config)
 
 
 
