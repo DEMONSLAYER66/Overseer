@@ -13,4 +13,3 @@ pymongo
 python-dotenv
 pytz
 Requests
-topggpy
