@@ -35,6 +35,11 @@
     "type": 1
   },
   {
+    "name": "vote",
+    "description": "Vote for the automaton and receive a reward for your efforts.",
+    "type": 1
+  },
+  {
     "name": "autopurge",
     "description": "Allow Lord Bottington to automatically purge messages from a desired channel. (Admin Only)",
     "type": 1
