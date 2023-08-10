@@ -28,10 +28,6 @@ except:
 bot = commands.Bot(intents=discord.Intents.all())
 bot.remove_command('help')
 
-#token for bot on top.gg
-# dbl_token = os.getenv('topggToken')
-# bot.topggpy = topgg.DBLClient(bot, dbl_token)
-
 
 #ON READY EVENT LISTENER
 @bot.event
@@ -50,8 +46,6 @@ async def on_ready():
   #begin posting Lord Bottington stats to sites
   if not update_stats.is_running():
       update_stats.start()
-
-  print("Now purging channels...")
 
   #initialize the mongoDB database and get the server IDs for the autopurge command to initiate
   # mongoDBpass = os.environ['mongoDBpass'] #load the mongoDB url (retreived from mongoDB upon account creation)
@@ -76,8 +70,6 @@ async def on_ready():
 
                   if len(messages) > 0:
                       await channel.purge(limit=None, check=lambda m: not m.pinned)
-
-  print("Now sending promotion reminders...")
     
   # Get all cooldown entries from the database (for cooldowns on promotions)
   cooldown_data_list = bump_db.cooldowns.find()
@@ -135,14 +127,6 @@ for cogfile in cogfiles:
 ################ UPDATE SERVER COUNT ON SITES ###################
 @tasks.loop(minutes=60)
 async def update_stats():
-    # # top.gg stats
-    # try:
-    #     await bot.topggpy.post_guild_count()
-    #     print(f"Automaton server count ({bot.topggpy.guild_count}) successfully posted to top.gg.")
-    # except Exception as e:
-    #     print(f"Failed to post server count to top.gg.\n{e.__class__.__name__}: {e}")
-
-
     server_ids = []
     for guild in bot.guilds:
         server_ids.append(guild.id)
@@ -205,28 +189,49 @@ async def post_command_list():
 
 ####################### POST BOT STATS ##########################
 async def post_bot_stats(guild_count):
-  bot_id = os.getenv('botID')
+  bot_id = os.getenv('botID') #bot id from discord developer portal
 
-  # discordbotlist token
-  bot_token = os.getenv('discordbotlist_token')
+  # site tokens for bot
+  bot_token_DBL = os.getenv('discordbotlist_token') # discordbotlist token
+  bot_token_topgg = os.getenv('topggToken') # top.gg token
 
-  # URL for the API endpoint to post commands
-  url = f'https://discordbotlist.com/api/v1/bots/{bot_id}/stats'
+  # URLs for the API endpoint to post commands
+  url_DBL = f'https://discordbotlist.com/api/v1/bots/{bot_id}/stats'
+  url_topgg = f'https://top.gg/api/bots/{bot_id}/stats'
 
   # Headers for the POST request (include your bot token for authorization)
-  headers = {
-      'Authorization': f'{bot_token}'
+  #headers for discordbotlist
+  headers_DBL = {
+      'Authorization': f'{bot_token_DBL}'
   }
 
-  # Make the POST request to the API endpoint
-  response = requests.post(url, data={"guilds": guild_count}, headers=headers)
+  #headers for top.gg
+  headers_topgg = {
+      'Authorization': f'{bot_token_topgg}'
+  }
+
+  ### DISCORDBOTLIST
+  # Make the POST request to the discordbotlist API endpoint
+  response_DBL = requests.post(url_DBL, data={"guilds": guild_count}, headers=headers_DBL) #response from discordbotlist
 
   # Check the response status
-  if response.status_code == 200:
+  if response_DBL.status_code == 200:
       print('Automaton statistics successfully posted to DiscordBotList.')
   else:
-      print(f'Failed to post automaton statistics.\nStatus code: {response.status_code}')
-      print(response.text)  # Print the response content for debugging if needed
+      print(f'Failed to post automaton statistics to DiscordBotList.\nStatus code: {response_DBL.status_code}')
+      print(response_DBL.text)  # Print the response content for debugging if needed
+
+
+  ### TOP.GG
+  # Make the POST request to the discordbotlist API endpoint
+  response_topgg = requests.post(url_topgg, data={"server_count": guild_count}, headers=headers_topgg) #response from top.gg
+
+  # Check the response status
+  if response_topgg.status_code == 200:
+      print('Automaton statistics successfully posted to top.gg.')
+  else:
+      print(f'Failed to post automaton statistics to top.gg.\nStatus code: {response_topgg.status_code}')
+      print(response_topgg.text)  # Print the response content for debugging if needed
 
 ####################### POST BOT STATS ##########################
 
