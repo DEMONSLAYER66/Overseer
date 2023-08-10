@@ -25,7 +25,7 @@ except:
     
 
 #set up the bot's prefix command and intents
-bot = commands.Bot(intents=discord.Intents.all(), command_prefix="/")
+bot = commands.Bot(intents=discord.Intents.all())
 bot.remove_command('help')
 
 #token for bot on top.gg
