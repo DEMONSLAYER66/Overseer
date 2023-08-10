@@ -224,7 +224,7 @@ async def post_bot_stats(guild_count):
 
   ### TOP.GG
   # Make the POST request to the discordbotlist API endpoint
-  response_topgg = requests.post(url_topgg, data={"server_count": guild_count}, headers=headers_topgg) #response from top.gg
+  response_topgg = requests.post(url_topgg, json={"server_count": guild_count}, headers=headers_topgg) #response from top.gg
 
   # Check the response status
   if response_topgg.status_code == 200:
