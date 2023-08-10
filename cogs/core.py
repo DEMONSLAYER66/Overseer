@@ -59,6 +59,40 @@ class Core(commands.Cog):
 #############################GET BOT NICKNAME############################################
 
 
+############################# VOTE ####################################
+    @commands.slash_command(
+        name="vote",
+        description="Vote for the automaton and receive a reward for your efforts.",
+        # guild_ids=SERVER_ID #sync command to only specified guilds (for testing - much faster than global)
+        global_command=True #sync command to all guilds the bot is in
+    )
+    async def vote(self, ctx):
+        byname = await self.get_byname(ctx.guild.id)
+
+        shop_command=self.bot.get_application_command("shop")
+        converse_command=self.bot.get_application_command("converse")
+        imagine_command=self.bot.get_application_command("imagine")
+        
+        vote_embed = discord.Embed(title=f"Vote for {byname}", description=f"{ctx.author.mention}\nI humbly implore your gracious support in voting for me on [top.gg](https://top.gg/bot/1092515783025889383/vote) and [Discord Bot List](https://discordbotlist.com/bots/lord-bottington/upvote).\n\nYour votes will serve as a testament to my dedication to providing impeccable service and unwavering commitment to enhancing your guilds and communities and I shall reward you for your efforts!\n\n**You may do so every `12 hours`.**", color=discord.Color.from_rgb(130, 130, 130))
+
+        vote_embed.add_field(name="Rewards", value=f"- `🪙 50` to spend at ***The Aristocrat's Emporium*** using </{shop_command.name}:{shop_command.id}>\n- `1` extra *free* try for both </{converse_command.name}:{converse_command.id}> and </{imagine_command.name}:{imagine_command.id}>")
+
+        vote_embed.set_thumbnail(url=self.bot.user.avatar.url)
+
+        discordbotlist_link="https://discordbotlist.com/bots/lord-bottington/upvote"
+        topgg_link="https://top.gg/bot/1092515783025889383/vote"
+
+        discordbotlist_button = discord.ui.Button(label="Discord Bot List", url=discordbotlist_link, style=discord.ButtonStyle.link)
+        topgg_button = discord.ui.Button(label="top.gg", url=topgg_link, style=discord.ButtonStyle.link)
+      
+        view=View()
+        view.add_item(discordbotlist_button)
+        view.add_item(topgg_button)
+
+        await ctx.respond(embed=vote_embed, view=view)
+
+############################# VOTE ####################################
+
   
 ############################# REST (SHUTDOWN) ####################################
     @commands.slash_command(
@@ -212,7 +246,7 @@ class Core(commands.Cog):
         embed.add_field(name="❗Invite to Guild", value=f"[Click Here]({invite_link})", inline=True)
         embed.add_field(name="🎩Join Support Guild", value="[Click Here](https://discord.gg/4P6ApdPAF7)", inline=True)
         embed.add_field(name="❓General Information, Privacy Policy, and ToS", value="[Click Here](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/README.md)", inline=False)
-        embed.add_field(name="↑ Vote For Me", value="[top.gg](https://top.gg/bot/1092515783025889383/vote) | [discordbotlist](https://discordbotlist.com/bots/lord-bottington/upvote)", inline=False)
+        embed.add_field(name="↑ Vote For Me", value="[top.gg](https://top.gg/bot/1092515783025889383/vote) | [Discord Bot List](https://discordbotlist.com/bots/lord-bottington/upvote)", inline=False)
         
         embed.set_thumbnail(url=self.bot.user.avatar.url) #thumbnail as bot's avatar
     
@@ -1352,7 +1386,7 @@ class Core(commands.Cog):
         help_embed.add_field(name="❗Invite to Guild", value=f"[Click Here]({invite_link})", inline=True)
         help_embed.add_field(name="🎩Join Support Guild", value="[Click Here](https://discord.gg/4P6ApdPAF7)", inline=True)
         help_embed.add_field(name="❓General Information, Privacy Policy, and ToS", value="[Click Here](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/README.md)", inline=False)
-        help_embed.add_field(name="↑ Vote For Me", value="[top.gg](https://top.gg/bot/1092515783025889383/vote) | [discordbotlist](https://discordbotlist.com/bots/lord-bottington/upvote)", inline=False)
+        help_embed.add_field(name="↑ Vote For Me", value="[top.gg](https://top.gg/bot/1092515783025889383/vote) | [Discord Bot List](https://discordbotlist.com/bots/lord-bottington/upvote)", inline=False)
         
         help_embed.set_thumbnail(url=self.bot.user.avatar.url) #make the thumbnail the bot's avatar
 
