@@ -10,7 +10,6 @@ import pytz
 import json
 import requests
 import asyncio
-import topgg #used for making calls to the topgg API
 
 
 #This checks if the person running the code has a token for discord API or not
@@ -30,8 +29,8 @@ bot = commands.Bot(intents=discord.Intents.all())
 bot.remove_command('help')
 
 #token for bot on top.gg
-dbl_token = os.getenv('topggToken')
-bot.topggpy = topgg.DBLClient(bot, dbl_token)
+# dbl_token = os.getenv('topggToken')
+# bot.topggpy = topgg.DBLClient(bot, dbl_token)
 
 
 #ON READY EVENT LISTENER
@@ -134,14 +133,14 @@ for cogfile in cogfiles:
 
 
 ################ UPDATE SERVER COUNT ON SITES ###################
-@tasks.loop(minutes=30)
+@tasks.loop(minutes=60)
 async def update_stats():
-    # top.gg stats
-    try:
-        await bot.topggpy.post_guild_count()
-        print(f"Automaton server count ({bot.topggpy.guild_count}) successfully posted to top.gg.")
-    except Exception as e:
-        print(f"Failed to post server count to top.gg.\n{e.__class__.__name__}: {e}")
+    # # top.gg stats
+    # try:
+    #     await bot.topggpy.post_guild_count()
+    #     print(f"Automaton server count ({bot.topggpy.guild_count}) successfully posted to top.gg.")
+    # except Exception as e:
+    #     print(f"Failed to post server count to top.gg.\n{e.__class__.__name__}: {e}")
 
 
     server_ids = []
