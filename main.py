@@ -10,6 +10,7 @@ import pytz
 import json
 import requests
 import asyncio
+import topgg #used for making calls to the topgg API
 
 
 #This checks if the person running the code has a token for discord API or not
@@ -28,6 +29,10 @@ except:
 bot = commands.Bot(intents=discord.Intents.all())
 bot.remove_command('help')
 
+#token for bot on top.gg
+dbl_token = os.getenv('topggToken')
+bot.topggpy = topgg.DBLClient(bot, dbl_token)
+
 
 #ON READY EVENT LISTENER
 @bot.event
@@ -43,8 +48,9 @@ async def on_ready():
   #post command list to discordbotlist
   await post_command_list()
 
-  #post bot stats to discordbotlist
-  await post_bot_stats(len(server_ids))
+  #begin posting Lord Bottington stats to sites
+  if not update_stats.is_running():
+      update_stats.start()
 
   print("Now purging channels...")
 
@@ -126,6 +132,31 @@ for cogfile in cogfiles:
     print(err)
 
 
+
+################ UPDATE SERVER COUNT ON SITES ###################
+@tasks.loop(minutes=30)
+async def update_stats():
+    # top.gg stats
+    try:
+        await bot.topggpy.post_guild_count()
+        print(f"Automaton server count ({bot.topggpy.guild_count}) successfully posted to top.gg.")
+    except Exception as e:
+        print(f"Failed to post server count to top.gg.\n{e.__class__.__name__}: {e}")
+
+
+    server_ids = []
+    for guild in bot.guilds:
+        server_ids.append(guild.id)
+
+    #post bot stats to discordbotlist
+    await post_bot_stats(len(server_ids))
+
+
+################ UPDATE SERVER COUNT ON SITES ###################
+
+
+
+
 ################## CHANGE BOT ACTIVITIES ON DISCORD ################
 # Change bots custom status every 10 minutes
 @tasks.loop(minutes=10)
@@ -166,7 +197,7 @@ async def post_command_list():
   if response.status_code == 200:
       print('Automaton commands successfully posted to DiscordBotList.')
   else:
-      print(f'Failed to post commands.\nStatus code: {response.status_code}')
+      print(f'Failed to post commands to DiscordBotList.\nStatus code: {response.status_code}')
       print(response.text)  # Print the response content for debugging if needed
 
 ####################### POST COMMAND LIST ##########################
