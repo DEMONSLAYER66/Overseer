@@ -30,5 +30,8 @@ Release Date: `July 29, 2023`
 - Fixed autopurge task to be on a per-message basis rather than simply autopurged at a certain interval to enhance purging efficiency.
 - The `/purge` directive no longer deletes **pinned** messages upon use.
 
-#### `July 29, 2023`
+#### `August 1, 2023 - August 14, 2023`
+- Implemented voting on top.gg and DIscord Bot List via webhook integrations to reward players for voting for Lord Bottington!
+
+#### `August 14, 2023`
 - Version 1.1 -- Released!
