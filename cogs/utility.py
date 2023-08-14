@@ -186,7 +186,7 @@ class Utility(commands.Cog):
 
 
 ########################## VOTING ###########################
-    async def bot_votes(user_id, webhook_id, server_id):
+    async def bot_votes(self, user_id, webhook_id, server_id):
         vote_key = {"user_id": user_id}
         vote_data = vote_db.votes.find_one(vote_key)
 
