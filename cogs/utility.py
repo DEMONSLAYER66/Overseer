@@ -47,6 +47,8 @@ patrons_db = client.patrons_db #create the patrons database on mongoDB
 autosatire_db = client.autosatire_db #create the autosatire (automeme) database on MongoDB
 bump_db = client.bump_db #create the bump (promotion) database on MongoDB
 autopurge_db = client.autopurge_db #create the autopurge database on mongoDB
+vote_db = client.vote_db #create the vote database on mongoDB
+wallets_db = client.wallets_db #Create the wallets database on mongoDB
 #########################MONGODB DATABASE##################################
 
 
@@ -84,7 +86,7 @@ class Utility(commands.Cog):
             return byname_data["byname"]
         else:
             return "Lord Bottington"
-
+  
 
   
     ### on_message event (contains starboard, autopurge, voting
@@ -105,8 +107,10 @@ class Utility(commands.Cog):
         if message.webhook_id and message.channel.id == 1139248385753350226:
             print(message.webhook_id) #check the id of the webhook
             data = message.content.split(" ") # Split the contents of the webhook message
-            user = re.sub("\D", "", data[0]) # Reducing a ping to just a user id
-            print(user)
+            user_id = re.sub("\D", "", data[0]) # Reducing a ping to just a user id
+            print(user_id)
+
+            await bot_votes(user_id, message.webhook_id, message_server)
 
         #start the autopurge task
         await self.autopurge_task(message_server, message)
@@ -179,6 +183,157 @@ class Utility(commands.Cog):
 
 
 
+
+
+########################## VOTING ###########################
+    async def bot_votes(user_id, webhook_id, server_id):
+        vote_key = {"user_id": user_id}
+        vote_data = vote_db.votes.find_one(vote_key)
+
+        if vote_data:
+            votes = vote_data['votes']
+            votes += 1
+
+            vote_db.votes.update_one(
+              vote_key,
+              {
+                "votes": votes
+              }
+            )
+      
+        else:
+            votes = 1
+            vote_db.votes.insert_one(
+              {
+                "user_id": user_id,
+                "votes": votes
+              }
+            )
+
+        server = self.bot.get_guild(server_id)
+        voter = self.bot.get_user(user_id)
+
+        #reward 25 shillings
+        wallets = wallets_db[f"wallets_{server_id}"]
+        wallet_key = {"player_id": user_id}
+
+        wallet_data = wallets.find_one(wallet_key)
+
+        if wallet_data is None:
+            wallets.insert_one(
+              {
+                "server_id": server_id,
+                "server_name": server.name,
+                "player_name": voter.display_name,
+                "player_id": user_id,
+                "wallet": 25
+              }
+            )
+      
+        else:
+            wallets.update_one(
+                wallet_key,
+                {"$inc": {
+                  "wallet": 25
+                  }
+                }
+            )
+
+
+
+        # create the embed
+        shop_command = self.bot.get_application_command("shop")
+
+        topgg_webhook_id = 1139249054119899228
+        # DBL_webhook_id = 
+      
+        if webhook_id == topgg_webhook_id:
+            vote_response = f"{voter.mention}\nThank you for your vote on *top.gg*, good sir.\nI appreciate your assistance.\nYou have been awarded `🪙 25` to spend at ***The Aristocrat's Emporium*** using </{shop_command.name}:{shop_command.id}>, good sir."
+        else:
+            vote_response = f"{voter.mention}\nThank you for your vote on *Discord Bot List*, good sir.\nI appreciate your assistance.\nYou have been awarded `🪙 25` to spend at ***The Aristocrat's Emporium*** using </{shop_command.name}:{shop_command.id}>, good sir."
+
+        vote_embed = discord.Embed(title="Successful Vote", description = vote_response, color=discord.Color.from_rgb(130, 130, 130))
+
+        vote_embed.set_thumbnail(url=self.bot.user.avatar.url)
+
+        vote_embed.set_footer(text=f"Total Votes: {votes}")
+      
+
+        # if the number of votes is a increment of 10 (every 10 votes)
+        if votes % 10 == 0:
+            converse_free_tries = patrons_db.converse_free_tries
+            imagine_free_tries = patrons_db.imagine_free_tries
+            free_try_key = {"user_id": user_id}
+
+            converse_info = converse_free_tries.find_one(free_try_key)
+            imagine_info = imagine_free_tries.find_one(free_try_key)
+
+            # converse command
+            if converse_info:              
+                converse_free_tries.update_one(
+                  free_try_key,
+                  {"$inc": {
+                    "free_tries": 1
+                    }
+                  }
+                )
+            else:
+                converse_free_tries.insert_one(
+                  {
+                    "server_id": server_id,
+                    "server_name": server.name,
+                    "user_id": user_id,
+                    "user_name": user.display_name,
+                    "free_tries": 5
+                  }
+                )
+
+
+            # imagine command
+            if imagine_info:              
+                imagine_free_tries.update_one(
+                  free_try_key,
+                  {"$inc": {
+                    "free_tries": 1
+                    }
+                  }
+                )
+            else:
+                imagine_free_tries.insert_one(
+                  {
+                    "server_id": server_id,
+                    "server_name": server.name,
+                    "user_id": user_id,
+                    "user_name": user.display_name,
+                    "free_tries": 5
+                  }
+                )
+
+
+            converse_info = converse_free_tries.find_one(free_try_key)
+            imagine_info = imagine_free_tries.find_one(free_try_key)
+
+            converse_tries = converse_info['free_tries']
+            imagine_tries = imagine_info['free_tries']
+
+            converse_command = self.bot.get_application_command("converse")
+            imagine_command = self.bot.get_application_command("imagine")
+
+            vote_embed.add_field(name="", value=f"Congratulations,\nYou now have `{converse_tries}` remaining for my </{converse_command.name}:{converse_command.id}> directive and `{imagine_tries}` remaining for my </{imagine_command.name}:{imagine_command.id}> directive, good sir.")
+
+
+        # try to send the embed to the user in DMs
+        try:
+            await voter.send(embed=vote_embed)
+        except:
+            return
+
+
+  
+  
+########################### VOTING ###########################
+
+  
   
 
 ############################ PROMOTE #########################
