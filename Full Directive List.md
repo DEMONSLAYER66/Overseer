@@ -82,6 +82,12 @@ This category is for directives related to general information for *Lord Botting
 ### `/updates`
   - Retrieve the latest important update information regarding the automaton.
   - This directive will return a link to the latest [Updates File](https://github.com/xxjsweezeyxx/Lord-Bottington/tree/main/Updates) contained here on Github to inform users of any important information or updates.
+### `/vote`
+  - Vote for Lord Bottington and receive a reward for your efforts.
+  - This will provide you with information and a link to both [top.gg](https://top.gg/bot/1092515783025889383/vote) and [Discord Bot List](https://discordbotlist.com/bots/lord-bottington/upvote).
+  - Upon voting on either site, you will receive `🪙 25` shillings to spend in **The Aristocrat's Emporium** using my [`/shop`](https://github.com/xxjsweezeyxx/Lord-Bottington/edit/main/Full%20Directive%20List.md#shop) directive.
+  - A vote on [top.gg](https://top.gg/bot/1092515783025889383/vote) will grant you one extra free try for my [`/imagine`](https://github.com/xxjsweezeyxx/Lord-Bottington/edit/main/Full%20Directive%20List.md#imagine) directive.
+  - A vote on [Discord Bot List](https://discordbotlist.com/bots/lord-bottington/upvote) will grant you one extra free try for my [`/converse`](https://github.com/xxjsweezeyxx/Lord-Bottington/edit/main/Full%20Directive%20List.md#converse) directive.
 
 <p align="center">
   <a href=#--directive-categories>⬆ Back to Directive Categories</a>
