@@ -108,6 +108,7 @@ class Utility(commands.Cog):
             user = re.sub("\D", "", data[0]) # Reducing a ping to just a user id
             print(user)
 
+        #start the autopurge task
         await self.autopurge_task(message_server, message)
 
 
