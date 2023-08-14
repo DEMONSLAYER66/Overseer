@@ -90,7 +90,7 @@ class Core(commands.Cog):
 
         vote_embed.set_thumbnail(url=self.bot.user.avatar.url)
 
-        vote_embed.set_footer(text=f"{ctx.author.display_name} total votes: {votes}")
+        vote_embed.set_footer(text=f"{ctx.author.display_name} Total Votes: {votes}")
 
         discordbotlist_link="https://discordbotlist.com/bots/lord-bottington/upvote"
         topgg_link="https://top.gg/bot/1092515783025889383/vote"
