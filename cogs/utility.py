@@ -108,7 +108,7 @@ class Utility(commands.Cog):
             # print(message.webhook_id) #check the id of the webhook
             data = message.content.split(" ") # Split the contents of the webhook message
             user_id = re.sub("\D", "", data[0]) # Reducing a ping to just a user id
-            print(user_id)
+            # print(user_id)
 
             await self.bot_votes(user_id=user_id, webhook_id=message.webhook_id, server_id=message_server)
 
