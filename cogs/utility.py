@@ -196,8 +196,9 @@ class Utility(commands.Cog):
 
             vote_db.votes.update_one(
               vote_key,
-              {
+              {"$set": {
                 "votes": votes
+                }
               }
             )
       
