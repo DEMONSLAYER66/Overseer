@@ -187,12 +187,12 @@ class Utility(commands.Cog):
 
 ########################## VOTING ###########################
     async def bot_votes(self, user_id, webhook_id, server_id):
-        vote_key = {"user_id": user_id}
-        vote_data = vote_db.votes.find_one(vote_key)
-
         # convert the user_id and server_id to integers
         user_id = int(user_id)
         server_id = int(server_id)
+      
+        vote_key = {"user_id": user_id}
+        vote_data = vote_db.votes.find_one(vote_key)
 
         if vote_data:
             votes = vote_data['votes']
