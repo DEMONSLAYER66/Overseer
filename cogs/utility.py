@@ -190,6 +190,10 @@ class Utility(commands.Cog):
         vote_key = {"user_id": user_id}
         vote_data = vote_db.votes.find_one(vote_key)
 
+        # convert the user_id and server_id to integers
+        user_id = int(user_id)
+        server_id = int(server_id)
+
         if vote_data:
             votes = vote_data['votes']
             votes += 1
@@ -210,14 +214,9 @@ class Utility(commands.Cog):
                 "votes": votes
               }
             )
-
-        print(user_id)
-      
-        server = self.bot.get_guild(int(server_id))
-        voter = self.bot.get_user(int(user_id))
-
-        print(server)
-        print(voter)
+          
+        server = self.bot.get_guild(server_id)
+        voter = self.bot.get_user(user_id)
 
         #reward 25 shillings
         wallets = wallets_db[f"wallets_{server_id}"]
