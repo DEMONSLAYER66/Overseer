@@ -85,8 +85,8 @@ This category is for directives related to general information for *Lord Botting
 ### `/vote`
   - Vote for Lord Bottington and receive a reward for your efforts.
   - This will provide you with information and a link to both [top.gg](https://top.gg/bot/1092515783025889383/vote) and [Discord Bot List](https://discordbotlist.com/bots/lord-bottington/upvote).
-  - Upon every vote you shall receive `🪙 25` shillings to spend in **The Aristocrat's Emporium** using my [`/shop`](https://github.com/xxjsweezeyxx/Lord-Bottington/edit/main/Full%20Directive%20List.md#shop) directive.
-  - Every `10` votes, you shall receive `1` *free* try for both my [`/converse`](https://github.com/xxjsweezeyxx/Lord-Bottington/edit/main/Full%20Directive%20List.md#converse) and [`/imagine`](https://github.com/xxjsweezeyxx/Lord-Bottington/edit/main/Full%20Directive%20List.md#imagine) directives!
+  - Upon every vote you shall receive `🪙 25` shillings to spend in **The Aristocrat's Emporium** using my [`/shop`](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/Full%20Directive%20List.md#shop) directive.
+  - Every `10` votes, you shall receive `1` *free* try for both my [`/converse`](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/Full%20Directive%20List.md#converse) and [`/imagine`](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/Full%20Directive%20List.md#imagine) directives!
 
 <p align="center">
   <a href=#--directive-categories>⬆ Back to Directive Categories</a>
@@ -385,10 +385,10 @@ This category is for directives related to performing various utility actions fo
   - *Cooldown*
     > - There is a cooldown for this directive of `2 hours` for your entire server upon use.
     > - However, you may reduce this cooldown to `30 minutes` by becoming a patron!
-    > - *You may learn more about this by using my [`/patron`](https://github.com/xxjsweezeyxx/Lord-Bottington/edit/main/Full%20Directive%20List.md#patron) directive or visiting my [Patreon site](https://www.patreon.com/LordBottington).*
+    > - *You may learn more about this by using my [`/patron`](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/Full%20Directive%20List.md#patron) directive or visiting my [Patreon site](https://www.patreon.com/LordBottington).*
   - *Promotion Reminders*
     > - You may also choose to have reminders sent to a certain channel within your guild when your server is ready to be promoted again!
-    > - Simply use my [`/eventhandler`](https://github.com/xxjsweezeyxx/Lord-Bottington/edit/main/Full%20Directive%20List.md#eventhandler) directive and toggle the `Promotion Reminders` to `Enabled`.
+    > - Simply use my [`/eventhandler`](https://github.com/xxjsweezeyxx/Lord-Bottington/blob/main/Full%20Directive%20List.md#eventhandler) directive and toggle the `Promotion Reminders` to `Enabled`.
   - *Best of luck in growing your esteemed community, good sir!*
 ### `/purge`
 
