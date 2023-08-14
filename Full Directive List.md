@@ -6,7 +6,7 @@ As more directives are added or updated, changes will be reflected here or in th
 
 [Invite Lord Bottington](https://discord.com/api/oauth2/authorize?client_id=1092515783025889383&permissions=3557027031&scope=bot%20applications.commands) to your guild and allow him to begin serving you today!
 
-***Last Updated:*** `July 29, 2023`
+***Last Updated:*** `August 14, 2023`
 
 ## General Information
 Each directive must be in the form `/directive-name` for proper functionality within Discord.
