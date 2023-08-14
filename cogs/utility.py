@@ -210,8 +210,12 @@ class Utility(commands.Cog):
               }
             )
 
+        print(user_id)
+      
         server = self.bot.get_guild(server_id)
         voter = self.bot.get_user(user_id)
+
+        print(voter)
 
         #reward 25 shillings
         wallets = wallets_db[f"wallets_{server_id}"]
