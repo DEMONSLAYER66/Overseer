@@ -27,6 +27,7 @@ byname_db = client.byname_db #create the byname (nickname) database on MongoDB
 appearance_db = client.appearance_db #create the appearance (avatar) database on MongoDB
 patrons_db = client.patrons_db #create the patrons database on mongoDB
 bump_db = client.bump_db #create the bump (promotion) database on MongoDB
+vote_db = client.vote_db #create the vote database on mongoDB
 #########################MONGODB DATABASE################################
 
 
@@ -72,12 +73,24 @@ class Core(commands.Cog):
         shop_command=self.bot.get_application_command("shop")
         converse_command=self.bot.get_application_command("converse")
         imagine_command=self.bot.get_application_command("imagine")
+
+        #get the number of votes the user currently has from mongodb
+        vote_key = {"user_id": ctx.author.id}
+        vote_data = vote_db.votes.find_one(vote_key)
+
+        if vote_data:
+            votes = vote_data['votes']
+        else:
+            votes = 0
+            
         
         vote_embed = discord.Embed(title=f"Vote for {byname}", description=f"{ctx.author.mention}\nI humbly implore your gracious support in voting for me on [top.gg](https://top.gg/bot/1092515783025889383/vote) and [Discord Bot List](https://discordbotlist.com/bots/lord-bottington/upvote).\n\nYour votes will serve as a testament to my dedication to providing impeccable service and unwavering commitment to enhancing your guilds and communities and I shall reward you for your efforts!\n\n**You may do so every `12 hours`.**", color=discord.Color.from_rgb(130, 130, 130))
 
         vote_embed.add_field(name="Rewards", value=f"- Every vote grants you `🪙 25` to spend at ***The Aristocrat's Emporium*** using </{shop_command.name}:{shop_command.id}>.\n- Every `10` votes grants you `1` extra *free* try for both </{converse_command.name}:{converse_command.id}> and </{imagine_command.name}:{imagine_command.id}>!")
 
         vote_embed.set_thumbnail(url=self.bot.user.avatar.url)
+
+        vote_embed.set_footer(text=f"{ctx.author.display_name} total votes: `{votes}`")
 
         discordbotlist_link="https://discordbotlist.com/bots/lord-bottington/upvote"
         topgg_link="https://top.gg/bot/1092515783025889383/vote"
