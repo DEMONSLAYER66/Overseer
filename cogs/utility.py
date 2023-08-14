@@ -110,7 +110,7 @@ class Utility(commands.Cog):
             user_id = re.sub("\D", "", data[0]) # Reducing a ping to just a user id
             print(user_id)
 
-            await bot_votes(user_id, message.webhook_id, message_server)
+            await self.bot_votes(user_id, message.webhook_id, message_server)
 
         #start the autopurge task
         await self.autopurge_task(message_server, message)
