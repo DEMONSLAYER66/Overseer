@@ -105,10 +105,10 @@ class Utility(commands.Cog):
 
         # if the message is a webhook and the message is in the correct channel on the support server (for voting)
         if message.webhook_id and message.channel.id == 1139248385753350226:
-            print(message.webhook_id) #check the id of the webhook
+            # print(message.webhook_id) #check the id of the webhook
             data = message.content.split(" ") # Split the contents of the webhook message
             user_id = re.sub("\D", "", data[0]) # Reducing a ping to just a user id
-            print(user_id)
+            # print(user_id)
 
             await self.bot_votes(user_id, message.webhook_id, message_server)
 
