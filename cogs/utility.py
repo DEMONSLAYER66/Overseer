@@ -283,7 +283,7 @@ class Utility(commands.Cog):
                     "server_id": server_id,
                     "server_name": server.name,
                     "user_id": user_id,
-                    "user_name": user.display_name,
+                    "user_name": voter.display_name,
                     "free_tries": 5
                   }
                 )
@@ -304,7 +304,7 @@ class Utility(commands.Cog):
                     "server_id": server_id,
                     "server_name": server.name,
                     "user_id": user_id,
-                    "user_name": user.display_name,
+                    "user_name": voter.display_name,
                     "free_tries": 5
                   }
                 )
