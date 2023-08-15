@@ -219,8 +219,8 @@ class Utility(commands.Cog):
         #reward 25 shillings
         wallet_key = {"player_id": user_id}
       
-        for guild_id in self.bot.guilds:
-            wallets = wallets_db[f"wallets_{guild_id}"]
+        for guild in self.bot.guilds:
+            wallets = wallets_db[f"wallets_{guild.id}"]
 
             wallet_data = wallets.find_one(wallet_key)
 
@@ -313,7 +313,7 @@ class Utility(commands.Cog):
             converse_command = self.bot.get_application_command("converse")
             imagine_command = self.bot.get_application_command("imagine")
 
-            vote_embed.add_field(name="", value=f"Congratulations,\nYou now have `{converse_tries}` free tries remaining for my </{converse_command.name}:{converse_command.id}> directive and `{imagine_tries}` free try remaining for my </{imagine_command.name}:{imagine_command.id}> directive, good sir.")
+            vote_embed.add_field(name="", value=f"Congratulations,\nYou now have `{converse_tries}` free tries remaining for my </{converse_command.name}:{converse_command.id}> directive and `{imagine_tries}` free tries remaining for my </{imagine_command.name}:{imagine_command.id}> directive, good sir.")
 
 
         # try to send the embed to the user in DMs
