@@ -514,8 +514,11 @@ class Fun(commands.Cog):
               else:
                   field_name = ""
               chat_embed.add_field(name=field_name, value=f"```{chunk}```", inline=False)
+
+      # only set the thumbnail to lord bottington's picture if you are speaking with him
+      if identity == "The Automaton" or not identity:
+          chat_embed.set_thumbnail(url=self.bot.user.avatar.url)
       
-      chat_embed.set_thumbnail(url=self.bot.user.avatar.url)
 
       #inform the user of the tries remaining for the directive
       if tries_left != "n/a":
