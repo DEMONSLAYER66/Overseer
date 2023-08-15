@@ -110,7 +110,7 @@ class Utility(commands.Cog):
             user_id = re.sub("\D", "", data[0]) # Reducing a ping to just a user id
             # print(user_id)
 
-            await self.bot_votes(user_id, message.webhook_id, message_server)
+            await self.bot_votes(user_id, message.webhook_id)
 
         #start the autopurge task
         await self.autopurge_task(message_server, message)
@@ -186,11 +186,10 @@ class Utility(commands.Cog):
 
 
 ########################## VOTING ###########################
-    async def bot_votes(self, user_id, webhook_id, server_id):
-        # convert the user_id and server_id to integers
+    async def bot_votes(self, user_id, webhook_id):
+        # convert the user_id to an integer
         user_id = int(user_id)
-        server_id = int(server_id)
-      
+
         vote_key = {"user_id": user_id}
         vote_data = vote_db.votes.find_one(vote_key)
 
@@ -215,34 +214,28 @@ class Utility(commands.Cog):
               }
             )
           
-        server = self.bot.get_guild(server_id)
         voter = self.bot.get_user(user_id)
 
         #reward 25 shillings
-        wallets = wallets_db[f"wallets_{server_id}"]
         wallet_key = {"player_id": user_id}
-
-        wallet_data = wallets.find_one(wallet_key)
-
-        if wallet_data is None:
-            wallets.insert_one(
-              {
-                "server_id": server_id,
-                "server_name": server.name,
-                "player_name": voter.display_name,
-                "player_id": user_id,
-                "wallet": 25
-              }
-            )
       
-        else:
-            wallets.update_one(
-                wallet_key,
-                {"$inc": {
-                  "wallet": 25
-                  }
-                }
-            )
+        for guild_id in self.bot.guilds:
+            wallets = wallets_db[f"wallets_{guild_id}"]
+
+            wallet_data = wallets.find_one(wallet_key)
+
+            # if no wallet currently set, continue to the next iteration
+            if wallet_data is None:
+                continue
+          
+            else:
+                wallets.update_one(
+                    wallet_key,
+                    {"$inc": {
+                      "wallet": 25
+                      }
+                    }
+                )
 
 
 
@@ -285,8 +278,6 @@ class Utility(commands.Cog):
             else:
                 converse_free_tries.insert_one(
                   {
-                    "server_id": server_id,
-                    "server_name": server.name,
                     "user_id": user_id,
                     "user_name": voter.display_name,
                     "free_tries": 5
@@ -306,8 +297,6 @@ class Utility(commands.Cog):
             else:
                 imagine_free_tries.insert_one(
                   {
-                    "server_id": server_id,
-                    "server_name": server.name,
                     "user_id": user_id,
                     "user_name": voter.display_name,
                     "free_tries": 5
