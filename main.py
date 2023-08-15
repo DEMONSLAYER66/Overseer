@@ -125,7 +125,7 @@ for cogfile in cogfiles:
 
 
 ################ UPDATE SERVER COUNT ON SITES ###################
-@tasks.loop(minutes=60)
+@tasks.loop(minutes=180) #update every 3 hours
 async def update_stats():
     server_ids = []
     for guild in bot.guilds:
