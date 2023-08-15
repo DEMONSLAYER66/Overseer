@@ -428,8 +428,6 @@ class Fun(commands.Cog):
               else:
                   free_try_data.insert_one(
                     {
-                      "server_id": ctx.guild.id,
-                      "server_name": ctx.guild.name,
                       "user_id": ctx.author.id,
                       "user_name": ctx.author.display_name,
                       "free_tries": 4 #have 5 free tries but this counts as one
@@ -604,8 +602,6 @@ class Fun(commands.Cog):
               else:
                   free_try_data.insert_one(
                     {
-                      "server_id": ctx.guild.id,
-                      "server_name": ctx.guild.name,
                       "user_id": ctx.author.id,
                       "user_name": ctx.author.display_name,
                       "free_tries": 4 #have 5 free tries but this counts as one
