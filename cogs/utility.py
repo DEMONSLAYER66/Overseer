@@ -1178,10 +1178,10 @@ class Utility(commands.Cog):
         formatted_text = formatted_text.replace("@everyone", "everyone")
         formatted_text = formatted_text.replace("@here", "here")
       
-        result = "https://lmgtfy.app/?q={}&s=g".format(formatted_text)
+        result = "https://lmgt.org/?q={}".format(formatted_text)
 
         lmgtfy_embed = discord.Embed(title="Search Results", description=f"{ctx.author.mention}\nLet me demonstrate how to find such things on the internet for you, good sir.", color=discord.Color.from_rgb(130, 130, 130))
-        lmgtfy_embed.add_field(name="Search Term", value=f"```{text}```")
+        lmgtfy_embed.add_field(name="Search Term", value=f"{text}")
         lmgtfy_embed.add_field(name="Demonstration", value=f"[Click Here]({result})", inline=False)
 
         lmgtfy_embed.set_thumbnail(url=self.bot.user.avatar.url)
