@@ -296,341 +296,352 @@ class Status(commands.Cog):
       
         #check if the activity after changing status is streaming
         if isinstance(after.activity, Streaming):
-            # print("stream event started")
-            member_server_id = after.guild.id #get the server_id of the person who is streaming
-            # print(f"server id: {member_server_id}")
-
-            #get the livestreams event status from mongoDB
-            livestreams_status = await self.get_livestreams_event_status(member_server_id)            
-            #livestream AFTER event only runs if event status using /eventhandler is set to enabled OR if the user has not set the status using /eventhandler
-            if livestreams_status == "Disabled":
-                return
-            elif livestreams_status == "Enabled":
-                stream_key = {"server_id": member_server_id}
-                streamer_data = streaming_db.stream_configs.find_one(stream_key)
+            # Check if 'start' is present in the timestamps dictionary
+            start_timestamp = after.activity.timestamps.get('start')
+            
+            if start_timestamp is None:
+                pass
+            else:
+                # print("stream event started")
+                member_server_id = after.guild.id #get the server_id of the person who is streaming
+                # print(f"server id: {member_server_id}")
     
-                #retrieve the data from mongoDB, if set
-                if streamer_data:
-                    streamers = streamer_data["streamers"]
-                    streamer_name = streamer_data["streamer_name"]
-                    streamer_username = streamer_data["streamer_username"]
-                    streamer_id = streamer_data["streamer_id"]
-                    stream_status_id = streamer_data["stream_status_id"]
-                    stream_status_name = streamer_data["stream_status_name"]
-                    stream_channel_id = streamer_data["stream_channel_id"]
-                    stream_channel_name = streamer_data["stream_channel_name"]
-                    message = streamer_data["message"]
-                    streaming_service = streamer_data["streaming_service"]
-                    stream_title = streamer_data["stream_title"]
-                    body = streamer_data["body"]
-                    stream_preview = streamer_data["stream_preview"]
-                    streamer_photo = streamer_data["streamer_photo"]
-                    color = streamer_data["color"]
-                    whitelisted_status_id = streamer_data["whitelisted_status_id"]
-                    whitelisted_status_name = streamer_data["whitelisted_status_name"]
-                    blacklisted_status_id = streamer_data["blacklisted_status_id"]
-                    blacklisted_status_name = streamer_data["blacklisted_status_name"]
-                else: #if no streaming config, do nothing
+                #get the livestreams event status from mongoDB
+                livestreams_status = await self.get_livestreams_event_status(member_server_id)            
+                #livestream AFTER event only runs if event status using /eventhandler is set to enabled OR if the user has not set the status using /eventhandler
+                if livestreams_status == "Disabled":
                     return
-
-                #check for the automaton patron tier and reset the configurations to the defaults
-                patron_data = patrons_db.patrons
-                refined_patron_key = {
-                  "server_id": member_server_id,
-                  "patron_tier": "Refined Automaton Patron"
-                }
-                distinguished_patron_key = {
-                  "server_id": member_server_id,
-                  "patron_tier": "Distinguished Automaton Patron"
-                }
-              
-                refined_patron = patron_data.find_one(refined_patron_key)
-                distinguished_patron = patron_data.find_one(distinguished_patron_key)
-                
-                if not refined_patron or not distinguished_patron:
-                    color = [None, None, None] #reset color to None to match streaming service
-              
+                elif livestreams_status == "Enabled":
+                    stream_key = {"server_id": member_server_id}
+                    streamer_data = streaming_db.stream_configs.find_one(stream_key)
         
-        
-                # print(f"streaming channel id: {stream_channel_id}")
-                # print(f"streamer id: {streamer_id}")
+                    #retrieve the data from mongoDB, if set
+                    if streamer_data:
+                        streamers = streamer_data["streamers"]
+                        streamer_name = streamer_data["streamer_name"]
+                        streamer_username = streamer_data["streamer_username"]
+                        streamer_id = streamer_data["streamer_id"]
+                        stream_status_id = streamer_data["stream_status_id"]
+                        stream_status_name = streamer_data["stream_status_name"]
+                        stream_channel_id = streamer_data["stream_channel_id"]
+                        stream_channel_name = streamer_data["stream_channel_name"]
+                        message = streamer_data["message"]
+                        streaming_service = streamer_data["streaming_service"]
+                        stream_title = streamer_data["stream_title"]
+                        body = streamer_data["body"]
+                        stream_preview = streamer_data["stream_preview"]
+                        streamer_photo = streamer_data["streamer_photo"]
+                        color = streamer_data["color"]
+                        whitelisted_status_id = streamer_data["whitelisted_status_id"]
+                        whitelisted_status_name = streamer_data["whitelisted_status_name"]
+                        blacklisted_status_id = streamer_data["blacklisted_status_id"]
+                        blacklisted_status_name = streamer_data["blacklisted_status_name"]
+                    else: #if no streaming config, do nothing
+                        return
     
-                ####### Begin checking mongoDB data and giving and sending status and notifications if the user is streaming
+                    #check for the automaton patron tier and reset the configurations to the defaults
+                    patron_data = patrons_db.patrons
+                    refined_patron_key = {
+                      "server_id": member_server_id,
+                      "patron_tier": "Refined Automaton Patron"
+                    }
+                    distinguished_patron_key = {
+                      "server_id": member_server_id,
+                      "patron_tier": "Distinguished Automaton Patron"
+                    }
                   
-                #this checks if anything has been set for both the notifications and the role (if neither are set then do nothing)
-                if stream_channel_id is None and stream_status_id is None:
-                    # print("no channel or role set, exiting...")
-                    return
-    
-                #Only run if a streaming id is set on mongoDB
-                if stream_status_id:
-                    #get all the roles of the streamer
-                    statuses = [status.id for status in after.roles]
-    
-                    #define the streaming role
-                    stream_role = after.guild.get_role(stream_status_id)
-                    # print(f"stream role: {stream_role}")
-          
-                    # Check if the member has the blacklisted status (don't give the streaming status if so)
-                    if blacklisted_status_id in statuses:
-                        pass
+                    refined_patron = patron_data.find_one(refined_patron_key)
+                    distinguished_patron = patron_data.find_one(distinguished_patron_key)
                     
-                    # Check if the member has the whitelisted status and give the streaming role if so
-                    elif whitelisted_status_id in statuses:                 
-                        #check to see if the activity member is the one specified and give the role if it is (this is only if the config is set to ONE USER)
-                        if streamers == "one":
-                            streamer = after.guild.get_member(streamer_id) #get the member object of the defined user
-                            # print(f"streamer: {streamer}")
-                            await streamer.add_roles(stream_role)
-                            # print(f"status added: {stream_role}\nadded status id: {stream_role.id}")
-                        else: #add the role to everybody if streamers is set to "all"
-                            # print(f"after: {after}")
-                            await after.add_roles(stream_role)
-                    
-                    # If neither blacklisted nor whitelisted status, and whitelist and blacklist are empty, give the streaming role
-                    elif not blacklisted_status_id and not whitelisted_status_id:                 
-                        #check to see if the activity member is the one specified and give the role if it is (this is only if the config is set to ONE USER)
-                        if streamers == "one":
-                            streamer = after.guild.get_member(streamer_id) #get the member object of the defined user
-                            # print(f"streamer: {streamer}")
-                            await streamer.add_roles(stream_role)
-                            # print(f"status added: {stream_role}\nadded status id: {stream_role.id}")
-                        else: #add the role to everybody if streamers is set to "all"
-                            # print(f"after: {after}")
-                            await after.add_roles(stream_role)
-                            # print(f"all status added: {stream_role}\nall added status id: {stream_role.id}")
-    
-              
-                #initialize the linked account status
-                platform_status = False
-    
-                #loop through the streamer's activities
-                for activity in after.activities:
-                    if activity.type == discord.ActivityType.streaming: #only set the linked account status to true if the user is streaming
-                        if "twitch.tv" in activity.url:
-                            platform_status = True
-                            # The person is streaming on Twitch and has their Twitch account linked
-                            break
-                        elif "youtube.com" in activity.url:
-                            platform_status = True
-                            # The person is streaming on YouTube and has their YouTube account linked
-                            break
-                        elif "facebook.com" in activity.url:
-                            platform_status = True
-                            # The person is streaming on Facebook and has their Facebook account linked
-                            break
-                        elif "kick.com" in activity.url:
-                            platform_status = True
-                            # The person is streaming on Kick and has their Kick account linked
-                            break
-                          
-    
-                # print(f"account linked? {platform_status}")
-    
-                #define the streaming platform
-                platform = after.activity.platform
-    
-    
-                #get the rgb color data from mongoDB
-                color_data = streamer_data.get("color", None)
-                # print(f"color: {color_data}")
-                if color_data:
-                    r, g, b = color_data
-    
-                    if (r and g and b): #if the color is not "Match Streaming Service" (i.e. defined)
-                        color = discord.Color.from_rgb(r, g, b)
-                    else:
-                        if platform.lower() == "twitch": #set the embed color to match twitch (purple)
-                            r = 152
-                            g = 3
-                            b = 252
-                            color = discord.Color.from_rgb(r, g, b)
-                        elif platform.lower() == "youtube": #set the embed color to match youtube (red)
-                            r = 255
-                            g = 0
-                            b = 0
-                            color = discord.Color.from_rgb(r, g, b)
-                        elif platform.lower() == "kick": #set the embed color to match kick (lime green)
-                            r = 5
-                            g = 252
-                            b = 59
-                            color = discord.Color.from_rgb(r, g, b)
-                        elif platform.lower() == "facebook": #set the embed color to match facebook (blue)
-                            r = 0
-                            g = 0
-                            b = 255
-                            color = discord.Color.from_rgb(r, g, b)
-                        else:
-                            color = discord.Color.default()
-                else:
-                    color = discord.Color.default()
-    
-    
-                #display the stream title as the embed title
-                if stream_title and platform_status is True:
-                    if streamers == "one":
-                        streamer = after.guild.get_member(streamer_id) #get the member object of the defined user
-                        stream_url = streamer.activity.url
-                        stream_video_title = streamer.activity.name
-                    else:
-                        stream_url = after.activity.url
-                        stream_video_title = after.activity.name
-                                        
-
-                if body:
-                    if streamers == "one":
-                        body = body.format(member=streamer)
-                    else:
-                        body = body.format(member=after)
-                else:
-                    body = None
-              
-              
-                #only send the stream embed and message if a channel is defined
-                if stream_channel_id:
-                    #define the embed
-                    stream_embed = discord.Embed(
-                      title = stream_video_title,
-                      url = stream_url,
-                      description = body if body else "",
-                      color = color
-                    )
-    
-    
-                    if streamer_photo is True:
-                        if streamers == "one": #if streamers is "one" then define the avatar url as it's discord profile pic
-                            streamer = after.guild.get_member(streamer_id) #get the member object of the defined user
-                            streamer_avatar_url = streamer.avatar
-                        else:
-                            streamer_avatar_url = after.avatar 
-                        
-                        stream_embed.set_thumbnail(url = streamer_avatar_url) #set the embed thumbnail to the appropriate avatar             
-    
+                    if not refined_patron or not distinguished_patron:
+                        color = [None, None, None] #reset color to None to match streaming service
+                  
+            
+            
+                    # print(f"streaming channel id: {stream_channel_id}")
+                    # print(f"streamer id: {streamer_id}")
         
-                    #add a field that displays the streamer's username
-                    #use the defined streamer's username if streamers is "one" otherwise use the streamer's username
-                    if streamer_name is True:
-                        stream_embed.add_field(
-                            name = "Streamer",
-                            value = streamer_username if streamers == "one" else after.display_name,
-                            inline = True
-                        )
-    
-    
-                    #set a field that displays the streaming service (if associated account is linked)
-                    if streaming_service is True and platform_status is True:
-                        if streamers == "one":
-                            streamer = after.guild.get_member(streamer_id) #get the member object of the defined user
-                            streaming_service = streamer.activity.platform
-                            streaming_service = streaming_service.capitalize()
-                        else:
-                            streaming_service = after.activity.platform
-                            streaming_service = streaming_service.capitalize()
+                    ####### Begin checking mongoDB data and giving and sending status and notifications if the user is streaming
                       
-                        stream_embed.add_field(
-                            name = "Streaming On",
-                            value = streaming_service,
-                            inline = True
-                        )
-
-
-                    if message:
-                        if streamers == "one":
-                            message = message.format(member=streamer)
-                        else:
-                            message = message.format(member=after)
-                    else:
-                        message = None
-
-                    
+                    #this checks if anything has been set for both the notifications and the role (if neither are set then do nothing)
+                    if stream_channel_id is None and stream_status_id is None:
+                        # print("no channel or role set, exiting...")
+                        return
         
-                    # do not send the embed if it's empty (only send the message if defined)
-                    if not (stream_embed.title or stream_embed.fields or stream_embed.description or stream_embed.thumbnail):
-                        if message is not None:               
-                            if stream_preview is True and platform_status is True:
-                                # send the message
-                                channel = self.bot.get_channel(stream_channel_id)
-                                await channel.send(message)
-                                await channel.send(after.activity.url)
-                            elif platform_status is True:
-                                # send the message
-                                channel = self.bot.get_channel(stream_channel_id)
-                                await channel.send(message)
-                            else:
-                                # send the message
-                                channel = self.bot.get_channel(stream_channel_id)
-                                await channel.send(message)
+                    #Only run if a streaming id is set on mongoDB
+                    if stream_status_id:
+                        #get all the roles of the streamer
+                        statuses = [status.id for status in after.roles]
+        
+                        #define the streaming role
+                        stream_role = after.guild.get_role(stream_status_id)
+                        # print(f"stream role: {stream_role}")
+              
+                        # Check if the member has the blacklisted status (don't give the streaming status if so)
+                        if blacklisted_status_id in statuses:
+                            pass
+                        
+                        # Check if the member has the whitelisted status and give the streaming role if so
+                        elif whitelisted_status_id in statuses:                 
+                            #check to see if the activity member is the one specified and give the role if it is (this is only if the config is set to ONE USER)
+                            if streamers == "one":
+                                streamer = after.guild.get_member(streamer_id) #get the member object of the defined user
+                                # print(f"streamer: {streamer}")
+                                await streamer.add_roles(stream_role)
+                                # print(f"status added: {stream_role}\nadded status id: {stream_role.id}")
+                            else: #add the role to everybody if streamers is set to "all"
+                                # print(f"after: {after}")
+                                await after.add_roles(stream_role)
+                        
+                        # If neither blacklisted nor whitelisted status, and whitelist and blacklist are empty, give the streaming role
+                        elif not blacklisted_status_id and not whitelisted_status_id:                 
+                            #check to see if the activity member is the one specified and give the role if it is (this is only if the config is set to ONE USER)
+                            if streamers == "one":
+                                streamer = after.guild.get_member(streamer_id) #get the member object of the defined user
+                                # print(f"streamer: {streamer}")
+                                await streamer.add_roles(stream_role)
+                                # print(f"status added: {stream_role}\nadded status id: {stream_role.id}")
+                            else: #add the role to everybody if streamers is set to "all"
+                                # print(f"after: {after}")
+                                await after.add_roles(stream_role)
+                                # print(f"all status added: {stream_role}\nall added status id: {stream_role.id}")
+        
+                  
+                    #initialize the linked account status
+                    platform_status = False
+        
+                    #loop through the streamer's activities
+                    for activity in after.activities:
+                        if activity.type == discord.ActivityType.streaming: #only set the linked account status to true if the user is streaming
+                            if "twitch.tv" in activity.url:
+                                platform_status = True
+                                # The person is streaming on Twitch and has their Twitch account linked
+                                break
+                            elif "youtube.com" in activity.url:
+                                platform_status = True
+                                # The person is streaming on YouTube and has their YouTube account linked
+                                break
+                            elif "facebook.com" in activity.url:
+                                platform_status = True
+                                # The person is streaming on Facebook and has their Facebook account linked
+                                break
+                            elif "kick.com" in activity.url:
+                                platform_status = True
+                                # The person is streaming on Kick and has their Kick account linked
+                                break
+                              
+        
+                    # print(f"account linked? {platform_status}")
+        
+                    #define the streaming platform
+                    platform = after.activity.platform
+        
+        
+                    #get the rgb color data from mongoDB
+                    color_data = streamer_data.get("color", None)
+                    # print(f"color: {color_data}")
+                    if color_data:
+                        r, g, b = color_data
+        
+                        if (r and g and b): #if the color is not "Match Streaming Service" (i.e. defined)
+                            color = discord.Color.from_rgb(r, g, b)
                         else:
-                            if stream_preview is True and platform_status is True:
-                                channel = self.bot.get_channel(stream_channel_id)
-                                await channel.send(after.activity.url)
-                            elif platform_status is True:
-                                pass
+                            if platform.lower() == "twitch": #set the embed color to match twitch (purple)
+                                r = 152
+                                g = 3
+                                b = 252
+                                color = discord.Color.from_rgb(r, g, b)
+                            elif platform.lower() == "youtube": #set the embed color to match youtube (red)
+                                r = 255
+                                g = 0
+                                b = 0
+                                color = discord.Color.from_rgb(r, g, b)
+                            elif platform.lower() == "kick": #set the embed color to match kick (lime green)
+                                r = 5
+                                g = 252
+                                b = 59
+                                color = discord.Color.from_rgb(r, g, b)
+                            elif platform.lower() == "facebook": #set the embed color to match facebook (blue)
+                                r = 0
+                                g = 0
+                                b = 255
+                                color = discord.Color.from_rgb(r, g, b)
                             else:
-                                pass                          
-                    else:  # otherwise, send the embed
-                        if message:
-                            if stream_preview is True and platform_status is True:
-                                channel = self.bot.get_channel(stream_channel_id)
-                                await channel.send(content=message, embed=stream_embed)
-                                await channel.send(after.activity.url)
-                            elif platform_status is True:
-                                channel = self.bot.get_channel(stream_channel_id)
-                                await channel.send(content=message, embed=stream_embed)
-                            else:
-                                channel = self.bot.get_channel(stream_channel_id)
-                                await channel.send(content=message, embed=stream_embed)
+                                color = discord.Color.default()
+                    else:
+                        color = discord.Color.default()
+        
+        
+                    #display the stream title as the embed title
+                    if stream_title and platform_status is True:
+                        if streamers == "one":
+                            streamer = after.guild.get_member(streamer_id) #get the member object of the defined user
+                            stream_url = streamer.activity.url
+                            stream_video_title = streamer.activity.name
                         else:
-                            if stream_preview is True and platform_status is True:
-                                channel = self.bot.get_channel(stream_channel_id)
-                                await channel.send(embed=stream_embed)
-                                await channel.send(after.activity.url)
-                            elif platform_status:
-                                await channel.send(embed=stream_embed)
-                            else:
-                                await channel.send(embed=stream_embed)
+                            stream_url = after.activity.url
+                            stream_video_title = after.activity.name
+                                            
     
-                    # print("notification successfully sent\n---------------------------")
+                    if body:
+                        if streamers == "one":
+                            body = body.format(member=streamer)
+                        else:
+                            body = body.format(member=after)
+                    else:
+                        body = None
+                  
+                  
+                    #only send the stream embed and message if a channel is defined
+                    if stream_channel_id:
+                        #define the embed
+                        stream_embed = discord.Embed(
+                          title = stream_video_title,
+                          url = stream_url,
+                          description = body if body else "",
+                          color = color
+                        )
+        
+        
+                        if streamer_photo is True:
+                            if streamers == "one": #if streamers is "one" then define the avatar url as it's discord profile pic
+                                streamer = after.guild.get_member(streamer_id) #get the member object of the defined user
+                                streamer_avatar_url = streamer.avatar
+                            else:
+                                streamer_avatar_url = after.avatar 
+                            
+                            stream_embed.set_thumbnail(url = streamer_avatar_url) #set the embed thumbnail to the appropriate avatar             
+        
+            
+                        #add a field that displays the streamer's username
+                        #use the defined streamer's username if streamers is "one" otherwise use the streamer's username
+                        if streamer_name is True:
+                            stream_embed.add_field(
+                                name = "Streamer",
+                                value = streamer_username if streamers == "one" else after.display_name,
+                                inline = True
+                            )
+        
+        
+                        #set a field that displays the streaming service (if associated account is linked)
+                        if streaming_service is True and platform_status is True:
+                            if streamers == "one":
+                                streamer = after.guild.get_member(streamer_id) #get the member object of the defined user
+                                streaming_service = streamer.activity.platform
+                                streaming_service = streaming_service.capitalize()
+                            else:
+                                streaming_service = after.activity.platform
+                                streaming_service = streaming_service.capitalize()
+                          
+                            stream_embed.add_field(
+                                name = "Streaming On",
+                                value = streaming_service,
+                                inline = True
+                            )
+    
+    
+                        if message:
+                            if streamers == "one":
+                                message = message.format(member=streamer)
+                            else:
+                                message = message.format(member=after)
+                        else:
+                            message = None
+    
+                        
+            
+                        # do not send the embed if it's empty (only send the message if defined)
+                        if not (stream_embed.title or stream_embed.fields or stream_embed.description or stream_embed.thumbnail):
+                            if message is not None:               
+                                if stream_preview is True and platform_status is True:
+                                    # send the message
+                                    channel = self.bot.get_channel(stream_channel_id)
+                                    await channel.send(message)
+                                    await channel.send(after.activity.url)
+                                elif platform_status is True:
+                                    # send the message
+                                    channel = self.bot.get_channel(stream_channel_id)
+                                    await channel.send(message)
+                                else:
+                                    # send the message
+                                    channel = self.bot.get_channel(stream_channel_id)
+                                    await channel.send(message)
+                            else:
+                                if stream_preview is True and platform_status is True:
+                                    channel = self.bot.get_channel(stream_channel_id)
+                                    await channel.send(after.activity.url)
+                                elif platform_status is True:
+                                    pass
+                                else:
+                                    pass                          
+                        else:  # otherwise, send the embed
+                            if message:
+                                if stream_preview is True and platform_status is True:
+                                    channel = self.bot.get_channel(stream_channel_id)
+                                    await channel.send(content=message, embed=stream_embed)
+                                    await channel.send(after.activity.url)
+                                elif platform_status is True:
+                                    channel = self.bot.get_channel(stream_channel_id)
+                                    await channel.send(content=message, embed=stream_embed)
+                                else:
+                                    channel = self.bot.get_channel(stream_channel_id)
+                                    await channel.send(content=message, embed=stream_embed)
+                            else:
+                                if stream_preview is True and platform_status is True:
+                                    channel = self.bot.get_channel(stream_channel_id)
+                                    await channel.send(embed=stream_embed)
+                                    await channel.send(after.activity.url)
+                                elif platform_status:
+                                    await channel.send(embed=stream_embed)
+                                else:
+                                    await channel.send(embed=stream_embed)
+        
+                        # print("notification successfully sent\n---------------------------")
 
         #remove the role if the status changes from streaming to not streaming
         elif isinstance(before.activity, Streaming):
             # print("remove status started")
 
-            member_server_id = before.guild.id #get the server_id of the person who has stopped streaming
-            # print(f"server id: {member_server_id}")
+            start_timestamp = before.activity.timestamps.get('start')
 
-            #get the livestreams event status from mongoDB
-            livestreams_status = await self.get_livestreams_event_status(member_server_id)
-
-            #livestream BEFORE event only runs if event status using /eventhandler is set to enabled OR if the user has not set the status using /eventhandler
-            if livestreams_status == "Disabled":
-                return
-            elif livestreams_status == "Enabled":
-                stream_key = {"server_id": member_server_id}
-                streamer_data = streaming_db.stream_configs.find_one(stream_key)
+            if start_timestamp is None:
+                pass
+            else:
+                member_server_id = before.guild.id #get the server_id of the person who has stopped streaming
+                # print(f"server id: {member_server_id}")
     
-                #retrieve the data from mongoDB, if set
-                if streamer_data:
-                    streamers = streamer_data["streamers"]
-                    streamer_id = streamer_data["streamer_id"]
-                    stream_status_id = streamer_data["stream_status_id"]
-                else: #if no streaming config, do nothing
+                #get the livestreams event status from mongoDB
+                livestreams_status = await self.get_livestreams_event_status(member_server_id)
+    
+                #livestream BEFORE event only runs if event status using /eventhandler is set to enabled OR if the user has not set the status using /eventhandler
+                if livestreams_status == "Disabled":
                     return
-              
-                #define the streaming role
-                stream_role = before.guild.get_role(stream_status_id)
-                # print(f"stream role: {stream_role}")
-                
-                #check to see if the activity member is the one specified and remove the role if it is (this is only if the config is set to ONE USER)
-                if streamers == "one":
-                    streamer = before.guild.get_member(streamer_id) #get the member object of the defined user
-                    # print(f"streamer: {streamer}")
-                    await streamer.remove_roles(stream_role)
-                    # print(f"status removed: {stream_role}\nremoved status id: {stream_role.id}")
-                else: #remove the role from everybody if streamers is set to "all"
-                    # print(f"before: {before}")
-                    await before.remove_roles(stream_role)
-                    # print(f"all status removed: {stream_role}\nall removed status id: {stream_role.id}")
+                elif livestreams_status == "Enabled":
+                    stream_key = {"server_id": member_server_id}
+                    streamer_data = streaming_db.stream_configs.find_one(stream_key)
+        
+                    #retrieve the data from mongoDB, if set
+                    if streamer_data:
+                        streamers = streamer_data["streamers"]
+                        streamer_id = streamer_data["streamer_id"]
+                        stream_status_id = streamer_data["stream_status_id"]
+                    else: #if no streaming config, do nothing
+                        return
+                  
+                    #define the streaming role
+                    stream_role = before.guild.get_role(stream_status_id)
+                    # print(f"stream role: {stream_role}")
+                    
+                    #check to see if the activity member is the one specified and remove the role if it is (this is only if the config is set to ONE USER)
+                    if streamers == "one":
+                        streamer = before.guild.get_member(streamer_id) #get the member object of the defined user
+                        # print(f"streamer: {streamer}")
+                        await streamer.remove_roles(stream_role)
+                        # print(f"status removed: {stream_role}\nremoved status id: {stream_role.id}")
+                    else: #remove the role from everybody if streamers is set to "all"
+                        # print(f"before: {before}")
+                        await before.remove_roles(stream_role)
+                        # print(f"all status removed: {stream_role}\nall removed status id: {stream_role.id}")
 
 
 #############################STREAMING##################################
