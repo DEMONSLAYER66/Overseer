@@ -297,9 +297,7 @@ class Status(commands.Cog):
         #check if the activity after changing status is streaming
         if isinstance(after.activity, Streaming):
             # Check if 'start' is present in the timestamps dictionary
-            start_timestamp = after.activity.timestamps.get('start')
-            
-            if start_timestamp is None:
+            if "start" not in after.activity._timestamps:
                 pass
             else:
                 # print("stream event started")
@@ -601,10 +599,7 @@ class Status(commands.Cog):
         #remove the role if the status changes from streaming to not streaming
         elif isinstance(before.activity, Streaming):
             # print("remove status started")
-
-            start_timestamp = before.activity.timestamps.get('start')
-
-            if start_timestamp is None:
+            if "start" not in before.activity._timestamps:
                 pass
             else:
                 member_server_id = before.guild.id #get the server_id of the person who has stopped streaming
